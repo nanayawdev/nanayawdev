@@ -45,7 +45,7 @@ export function MainCTA() {
               viewport={{ once: true }}
             >
               <motion.button
-                className="inline-flex items-center gap-3 bg-background text-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-background/90 transition-colors duration-200"
+                className="inline-flex items-center gap-3 bg-background text-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-background/90 transition-colors duration-200 cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

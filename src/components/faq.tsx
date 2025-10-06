@@ -128,7 +128,7 @@ export function FAQ() {
           viewport={{ once: true }}
         >
           <motion.button
-            className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-full text-foreground hover:bg-muted transition-colors duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-full text-foreground hover:bg-muted transition-colors duration-200 cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
