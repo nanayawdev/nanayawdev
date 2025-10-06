@@ -16,28 +16,28 @@ export function Hero() {
         <LightRays
           raysOrigin="top-center"
           raysColor="#ffffff"
-          raysSpeed={1.2}
-          lightSpread={0.6}
-          rayLength={2.5}
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={1.2}
           followMouse={true}
-          mouseInfluence={0.15}
-          noiseAmount={0.05}
-          distortion={0.02}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
           pulsating={true}
-          fadeDistance={1.2}
-          saturation={1.2}
+          fadeDistance={1.0}
+          saturation={1.0}
         />
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
         <div className="flex flex-col">
           {/* Top Content - Centered */}
-          <div className="min-h-[50vh] sm:min-h-[60vh] flex items-end justify-center py-4 sm:py-8 lg:py-16">
+          <div className="min-h-[60vh] flex items-end justify-center py-8 lg:py-16">
             <div className="max-w-5xl text-foreground text-center">
               {/* YES! Badge */}
-              <div className="mb-4 sm:mb-6">
+              <div className="mb-6">
                 <motion.div 
-                  className="inline-flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-full"
+                  className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
@@ -57,8 +57,8 @@ export function Hero() {
               </div>
 
               {/* Main Title */}
-              <motion.h1
-                className="max-w-3xl mx-auto text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-[-2px] sm:tracking-[-3px] lg:tracking-[-3.5px] mb-4 sm:mb-6 leading-none"
+                     <motion.h1
+                       className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-6 leading-none"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
@@ -68,7 +68,7 @@ export function Hero() {
 
               {/* Subtitle */}
               <motion.p
-                className="text-sm sm:text-base lg:text-base font-light leading-relaxed mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto px-4 sm:px-0"
+                className="text-sm sm:text-base lg:text-base font-light leading-relaxed mb-8 opacity-90 max-w-2xl mx-auto"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -79,7 +79,7 @@ export function Hero() {
           </div>
 
           {/* Bottom - Hero Image */}
-          <div className="pb-8 sm:pb-12 lg:pb-16">
+          <div className="pb-12 lg:pb-16">
             <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
               <motion.div
                 className="relative rounded-none lg:rounded-lg overflow-hidden shadow-2xl"
@@ -92,7 +92,7 @@ export function Hero() {
                   alt="Devs & Creatives Digital Services"
                   width={1200}
                   height={600}
-                  className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover"
+                  className="w-full h-[500px] lg:h-[600px] object-cover"
                   priority
                 />
                 {/* Bottom gradient fade */}
