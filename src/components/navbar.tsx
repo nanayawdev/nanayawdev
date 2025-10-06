@@ -85,10 +85,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-3">
-            <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-2 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
-              <ThemeToggle />
-            </div>
+          <div className="lg:hidden flex items-center">
             <motion.button
               onClick={toggleMobileMenu}
               className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full p-2 shadow-lg shadow-black/5 dark:shadow-black/20"

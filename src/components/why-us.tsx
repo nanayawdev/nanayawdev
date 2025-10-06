@@ -13,33 +13,33 @@ import {
 const features = [
   {
     icon: Paintbrush,
-    title: "Design That Delivers",
-    description: "Smart, strategic visuals built to grow your brand and move the needle."
+    title: "African-First Design",
+    description: "We understand African markets and create designs that resonate locally while competing globally."
   },
   {
     icon: Sparkles,
-    title: "Creative Sparks",
-    description: "We craft ideas that break the mold and make your brand unforgettable."
+    title: "Innovation Meets Imagination",
+    description: "Where cutting-edge technology meets creative storytelling to bring your vision to life."
   },
   {
     icon: Layers,
-    title: "Adaptable & Flexible",
-    description: "Tailored solutions for evolving market needs."
+    title: "Full-Stack Solutions",
+    description: "From brand identity to web development, we're your one-stop creative and technical partner."
   },
   {
     icon: Users,
-    title: "Human-Centered Approach",
-    description: "We craft brands that connect emotionally and authentically."
+    title: "Startup-Focused",
+    description: "We specialize in helping African startups scale with digital experiences that drive growth."
   },
   {
     icon: Lightbulb,
-    title: "Ideas You Didn't See Coming",
-    description: "Bringing global trends with a local understanding."
+    title: "Global Ambition",
+    description: "We build digital experiences that help African brands compete on the world stage."
   },
   {
     icon: Search,
-    title: "Every Detail Matters",
-    description: "Every element we design is intentional—measured, refined, and built to perform."
+    title: "Results-Driven",
+    description: "Every project is crafted with purpose—to grow your brand, engage your audience, and drive business success."
   }
 ];
 
