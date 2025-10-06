@@ -35,7 +35,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2" onClick={closeMobileMenu}>
               <span className="text-lg sm:text-xl font-semibold text-foreground">
-                Devs & Creatives
+                Devs & Cre8vs
               </span>
             </Link>
           </div>
