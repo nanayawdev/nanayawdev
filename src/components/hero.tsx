@@ -29,13 +29,13 @@ export function Hero() {
         />
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 sm:pt-16 lg:pt-20">
         <div className="flex flex-col">
           {/* Top Content - Centered */}
-          <div className="min-h-[60vh] flex items-end justify-center py-8 lg:py-16">
+          <div className="min-h-[45vh] sm:min-h-[55vh] lg:min-h-[60vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">
             <div className="max-w-5xl text-foreground text-center">
               {/* YES! Badge */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <motion.div 
                   className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -58,7 +58,7 @@ export function Hero() {
 
               {/* Main Title */}
                      <motion.h1
-                       className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-6 leading-none"
+                       className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-4 sm:mb-6 leading-none"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
@@ -68,7 +68,7 @@ export function Hero() {
 
               {/* Subtitle */}
               <motion.p
-                className="text-sm sm:text-base lg:text-base font-light leading-relaxed mb-8 opacity-90 max-w-2xl mx-auto"
+                className="text-sm sm:text-base lg:text-base font-light leading-relaxed mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
