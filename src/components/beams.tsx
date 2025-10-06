@@ -22,11 +22,17 @@ interface MaterialConfig {
 function extendMaterial(BaseMaterial: typeof THREE.Material, cfg: MaterialConfig) {
   const physical = THREE.ShaderLib.physical;
   const { vertexShader: baseVert, fragmentShader: baseFrag, uniforms: baseUniforms } = physical;
-  const baseDefines = (physical as any).defines ?? {};
+  const baseDefines = (physical as THREE.ShaderLibShader & { defines?: Record<string, string> }).defines ?? {};
 
   const uniforms = THREE.UniformsUtils.clone(baseUniforms);
 
-  const defaults = new BaseMaterial() as any;
+  const defaults = new BaseMaterial() as THREE.Material & {
+    color?: THREE.Color;
+    roughness?: number;
+    metalness?: number;
+    envMap?: THREE.Texture;
+    envMapIntensity?: number;
+  };
   if (defaults.color) uniforms.diffuse.value = defaults.color;
   if ('roughness' in defaults) uniforms.roughness.value = defaults.roughness;
   if ('metalness' in defaults) uniforms.metalness.value = defaults.metalness;
@@ -318,7 +324,7 @@ const MergedPlanes = forwardRef<THREE.Mesh, MergedPlanesProps>(({ material, widt
   );
   useFrame((_, delta) => {
     if (mesh.current) {
-      (mesh.current.material as any).uniforms.time.value += 0.1 * delta;
+      (mesh.current.material as THREE.ShaderMaterial).uniforms.time.value += 0.1 * delta;
     }
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;

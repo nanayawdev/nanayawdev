@@ -12,7 +12,7 @@ All ESLint errors have been resolved in these files:
 6. **`/src/components/navbar.tsx`** - Line 17 (Next.js Link)
 7. **`/src/components/light-rays.tsx`** - Line 67 (TypeScript any)
 8. **`/src/components/logo-loop.tsx`** - Lines 12, 14, 39, 231 (TypeScript any + Next.js Image)
-9. **`/src/components/beams.tsx`** - Lines 1, 11, 11, 25, 284, 298, 307, 314, 315 (TypeScript any + unused ESLint directives)
+9. **`/src/components/beams.tsx`** - Lines 1, 11, 11, 25, 29, 284, 298, 307, 314, 315, 321 (TypeScript any + unused ESLint directives)
 
 ## Changes Made
 
@@ -92,6 +92,9 @@ Replaced complex `any` types with proper interfaces and type definitions:
 function extendMaterial(BaseMaterial: any, cfg: any) { ... }
 const MergedPlanes = forwardRef(({ material, width, count, height }: any, ref) => { ... })
 const cam = (dir.current as any).shadow.camera;
+const baseDefines = (physical as any).defines ?? {};
+const defaults = new BaseMaterial() as any;
+(mesh.current.material as any).uniforms.time.value += 0.1 * delta;
 
 // ✅ After
 interface MaterialConfig {
@@ -112,6 +115,15 @@ interface MergedPlanesProps {
 function extendMaterial(BaseMaterial: typeof THREE.Material, cfg: MaterialConfig) { ... }
 const MergedPlanes = forwardRef<THREE.Mesh, MergedPlanesProps>(({ material, width, count, height }, ref) => { ... })
 const cam = (dir.current as THREE.DirectionalLight).shadow.camera;
+const baseDefines = (physical as THREE.ShaderLibShader & { defines?: Record<string, string> }).defines ?? {};
+const defaults = new BaseMaterial() as THREE.Material & {
+  color?: THREE.Color;
+  roughness?: number;
+  metalness?: number;
+  envMap?: THREE.Texture;
+  envMapIntensity?: number;
+};
+(mesh.current.material as THREE.ShaderMaterial).uniforms.time.value += 0.1 * delta;
 ```
 
 ### 6. Unused ESLint Directives
