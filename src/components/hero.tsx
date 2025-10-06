@@ -60,9 +60,9 @@ export function Hero() {
 
           {/* Bottom - Hero Image */}
           <div className="pb-12 lg:pb-16">
-            <div className="w-full max-w-7xl mx-auto">
+            <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
               <motion.div
-                className="relative rounded-lg overflow-hidden shadow-2xl"
+                className="relative rounded-none lg:rounded-lg overflow-hidden shadow-2xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
@@ -72,9 +72,11 @@ export function Hero() {
                   alt="Devs & Creatives Digital Services"
                   width={1200}
                   height={600}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-[500px] lg:h-[600px] object-cover"
                   priority
                 />
+                {/* Bottom gradient fade */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background via-background/95 to-transparent pointer-events-none" />
               </motion.div>
             </div>
           </div>
