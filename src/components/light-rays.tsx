@@ -433,28 +433,36 @@ const LightRays = ({
       mouseRef.current = { x, y };
     };
 
-    const handleTouchStart = (e: TouchEvent) => {
-      e.preventDefault();
-      handlePointerMove(e);
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      handlePointerMove(e);
-    };
-
     if (followMouse) {
       // Mouse events for desktop
       window.addEventListener('mousemove', handlePointerMove);
       
-      // Touch events for mobile
-      window.addEventListener('touchstart', handleTouchStart, { passive: false });
-      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      // Touch events for mobile - only on the light rays container
+      if (containerRef.current) {
+        const container = containerRef.current;
+        
+        const handleTouchStart = (e: TouchEvent) => {
+          e.preventDefault();
+          handlePointerMove(e);
+        };
+
+        const handleTouchMove = (e: TouchEvent) => {
+          e.preventDefault();
+          handlePointerMove(e);
+        };
+
+        container.addEventListener('touchstart', handleTouchStart, { passive: false });
+        container.addEventListener('touchmove', handleTouchMove, { passive: false });
+        
+        return () => {
+          window.removeEventListener('mousemove', handlePointerMove);
+          container.removeEventListener('touchstart', handleTouchStart);
+          container.removeEventListener('touchmove', handleTouchMove);
+        };
+      }
       
       return () => {
         window.removeEventListener('mousemove', handlePointerMove);
-        window.removeEventListener('touchstart', handleTouchStart);
-        window.removeEventListener('touchmove', handleTouchMove);
       };
     }
   }, [followMouse]);
