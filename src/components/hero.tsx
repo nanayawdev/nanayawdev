@@ -1,36 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 export function Hero() {
-  // Service cards data
-  const serviceCards = [
-    { 
-      title: "WEB DEVELOPMENT",
-      description: "Custom websites, e-commerce platforms, and web applications",
-      href: "/services/web-development"
-    },
-    { 
-      title: "UI/UX DESIGN",
-      description: "User-centered design that drives engagement and conversions",
-      href: "/services/ui-ux-design"
-    },
-    { 
-      title: "MOBILE APPS",
-      description: "Native and cross-platform mobile applications",
-      href: "/services/mobile-apps"
-    },
-    { 
-      title: "BRAND IDENTITY",
-      description: "Complete brand identity and design systems",
-      href: "/services/brand-identity"
-    },
-  ];
 
   return (
     <section className="relative min-h-screen bg-background">
@@ -41,13 +16,24 @@ export function Hero() {
             <div className="max-w-5xl text-foreground text-center">
               {/* YES! Badge */}
               <div className="mb-6">
-                <div className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2 text-sm font-medium">
+                <motion.div 
+                  className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    backgroundColor: "rgba(255, 255, 255, 0.15)",
+                    borderColor: "rgba(255, 255, 255, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Badge variant="default" className="text-xs font-semibold">
                     YES!
                   </Badge>
-                  <span>We bring your ideas to life</span>
+                  <span>Creativity powered by code</span>
                   <ArrowRight className="w-4 h-4" />
-                </div>
+                </motion.div>
               </div>
 
               {/* Main Title */}
@@ -90,46 +76,6 @@ export function Hero() {
                   priority
                 />
               </motion.div>
-            </div>
-          </div>
-
-          {/* Service Cards Grid */}
-          <div className="pb-12 lg:pb-16">
-            <div className="w-full max-w-7xl mx-auto">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                {serviceCards.map((card, index) => (
-                  <Link key={index} href={card.href}>
-                    <motion.div
-                      className="group relative bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col h-full"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.5,
-                        delay: 1 + (index * 0.1),
-                        ease: "easeOut"
-                      }}
-                      whileHover={{ y: -5 }}
-                    >
-                      {/* Card Content */}
-                      <div className="p-4 sm:p-6 flex flex-col min-h-[120px] bg-card">
-                        <h3 className="font-bold text-foreground mb-2 text-sm sm:text-base uppercase tracking-wide">
-                          {card.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground mb-4 flex-grow leading-relaxed">
-                          {card.description}
-                        </p>
-                        <div className="inline-flex items-center text-xs sm:text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200 mt-auto">
-                          Explore
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </div>
-                      </div>
-                      
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
             </div>
           </div>
         </div>
