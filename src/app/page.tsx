@@ -7,7 +7,6 @@ import { WhyUs } from "@/components/why-us";
 import { OurProcesses } from "@/components/our-processes";
 import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
-import { AdBanner } from "@/components/ad-banner";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,7 +31,6 @@ export default function Home() {
       <OurProcesses />
       <FAQ />
       <MainCTA />
-      <AdBanner />
     </>
   );
 }
