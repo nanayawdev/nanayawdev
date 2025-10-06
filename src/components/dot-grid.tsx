@@ -37,7 +37,7 @@ export default function DotGrid({
   const containerRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLDivElement[]>([]);
   const mouseRef = useRef({ x: 0, y: 0, prevX: 0, prevY: 0, speed: 0 });
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;

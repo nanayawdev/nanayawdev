@@ -9,8 +9,6 @@ import {
   Lightbulb, 
   Search 
 } from "lucide-react";
-import Beams from "./beams";
-import "./beams.css";
 
 const features = [
   {
@@ -47,22 +45,8 @@ const features = [
 
 export function WhyUs() {
   return (
-    <section className="relative py-20 bg-background overflow-hidden">
-      {/* Beams Background */}
-      <div className="absolute inset-0 z-0">
-        <Beams
-          beamWidth={3}
-          beamHeight={30}
-          beamNumber={20}
-          lightColor="#ffffff"
-          speed={2}
-          noiseIntensity={1.75}
-          scale={0.2}
-          rotation={30}
-        />
-      </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-8">
+    <section className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-8">
         {/* Main Title */}
         <motion.h2
           className="text-4xl lg:text-6xl font-bold text-foreground mb-16 text-left"
