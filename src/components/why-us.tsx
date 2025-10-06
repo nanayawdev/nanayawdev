@@ -72,11 +72,11 @@ export function WhyUs() {
             >
               {/* Icon - Above text */}
               <div className="mb-4">
-                <feature.icon className="w-6 h-6 text-muted-foreground/70" />
+                <feature.icon className="w-12 h-12 text-muted-foreground/70" />
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-foreground mb-4 text-left">
+              <h3 className="text-xl text-foreground mb-4 text-left">
                 {feature.title}
               </h3>
 
