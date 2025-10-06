@@ -72,7 +72,7 @@ export function WhyUs() {
             >
               {/* Icon - Above text */}
               <div className="mb-4">
-                <feature.icon className="w-12 h-12 text-muted-foreground/70" />
+                <feature.icon className="w-16 h-16 text-muted-foreground/70" />
               </div>
 
               {/* Title */}
