@@ -23,19 +23,42 @@ export function Navbar() {
             <div className="hidden md:flex">
               <div className="bg-card/80 backdrop-blur-md border border-border rounded-full px-6 py-2">
                 <div className="flex items-center space-x-4">
-                  <a href="/" className="text-sm font-medium text-foreground flex items-center py-2">
+                  <motion.a 
+                    href="/" 
+                    className="text-sm font-medium text-foreground flex items-center py-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>
                     Home
-                  </a>
-                  <a href="/services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+                  </motion.a>
+                  <motion.a 
+                    href="/services" 
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 flex items-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mr-2"></span>
                     Services
-                  </a>
-                  <a href="/portfolio" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+                  </motion.a>
+                  <motion.a 
+                    href="/portfolio" 
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 flex items-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mr-2"></span>
                     Projects
-                  </a>
-                  <a href="/case-studies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+                  </motion.a>
+                  <motion.a 
+                    href="/case-studies" 
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 flex items-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mr-2"></span>
                     Case Studies
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </div>
