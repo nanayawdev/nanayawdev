@@ -8,7 +8,7 @@ const services = [
     name: "Web Design",
     description: "We design visually compelling, user-centric websites that blend creativity with functional brand from scratch.",
     tags: ["UX/UI Design", "Responsive Layouts", "Web Development"],
-    image: "/hero.avif"
+    image: "/hero1.avif"
   },
   {
     name: "Mobile Apps",
@@ -20,13 +20,13 @@ const services = [
     name: "Brand Identity",
     description: "We craft memorable brand identities that tell your story and connect with your audience on an emotional level.",
     tags: ["Logo Design", "Brand Guidelines", "Visual Identity"],
-    image: "/hero.avif"
+    image: "/hero2.avif"
   },
   {
     name: "Digital Marketing",
     description: "We develop data-driven marketing strategies that increase visibility and convert prospects into loyal customers.",
     tags: ["SEO", "Social Media", "Content Strategy"],
-    image: "/hero.avif"
+    image: "/hero3.avif"
   }
 ];
 
