@@ -86,7 +86,7 @@ export function FAQ() {
             >
               <button
                 onClick={() => toggleItem(item.id)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200"
+                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
               >
                 <h3 className="text-lg font-medium text-foreground pr-4">
                   {item.question}
