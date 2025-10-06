@@ -13,6 +13,7 @@ All ESLint errors have been resolved in these files:
 7. **`/src/components/light-rays.tsx`** - Line 67 (TypeScript any)
 8. **`/src/components/logo-loop.tsx`** - Lines 12, 14, 39, 231 (TypeScript any + Next.js Image)
 9. **`/src/components/beams.tsx`** - Lines 1, 11, 11, 25, 29, 284, 298, 307, 314, 315, 321 (TypeScript any + unused ESLint directives)
+10. **`/src/components/theme-provider.tsx`** - Line 5 (TypeScript import error)
 
 ## Changes Made
 
@@ -138,6 +139,18 @@ Removed unused ESLint disable directives:
 // Removed unused directives
 ```
 
+### 7. TypeScript Import Errors
+Fixed incorrect import paths for third-party library types:
+
+```tsx
+// ❌ Before
+import { type ThemeProviderProps } from "next-themes/dist/types"
+
+// ✅ After
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+type ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>
+```
+
 ## Quick Commands
 
 ```bash
@@ -170,5 +183,6 @@ npm run lint src/app/services/
 - `@typescript-eslint/no-unused-vars` - Remove unused variables
 - `react/no-unknown-property` - Avoid unknown DOM properties
 - Unused ESLint directives - Remove unnecessary disable comments
+- TypeScript import errors - Use correct import paths for third-party libraries
 
 All components now pass ESLint validation! 🚀
