@@ -18,7 +18,7 @@ const features = [
   },
   {
     icon: Sparkles,
-    title: "Innovation Meets Imagination",
+    title: "Innovation & Imagination",
     description: "Where cutting-edge technology meets creative storytelling to bring your vision to life."
   },
   {
@@ -63,22 +63,23 @@ export function WhyUs() {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              className="border border-border/60 dark:border-border/40 rounded-2xl p-8 hover:border-border/80 dark:hover:border-border/60 transition-colors duration-300"
+              className="bg-card border border-border rounded-2xl p-8 hover:border-border/80 transition-colors duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.02 }}
             >
-              {/* Icon - Above text */}
-              <div className="mb-4">
-                <feature.icon className="w-16 h-16 text-muted-foreground" />
+              {/* Icon and Heading - Same Line */}
+              <div className="flex items-center gap-4 mb-6">
+                <feature.icon className="w-8 h-8 text-foreground flex-shrink-0" />
+                <h3 className="text-2xl text-foreground">
+                  {feature.title}
+                </h3>
               </div>
 
-              {/* Title */}
-              <h3 className="text-xl text-foreground mb-4 text-left">
-                {feature.title}
-              </h3>
+              {/* Divider */}
+              <div className="border-t border-border/60 mb-6"></div>
 
               {/* Description */}
               <p className="text-muted-foreground leading-relaxed text-left">
