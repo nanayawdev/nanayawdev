@@ -29,7 +29,7 @@ export function Hero() {
         />
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 sm:pt-16 lg:pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 sm:pt-24 lg:pt-28">
         <div className="flex flex-col">
           {/* Top Content - Centered */}
           <div className="min-h-[45vh] sm:min-h-[55vh] lg:min-h-[60vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">

@@ -5,27 +5,27 @@ import Image from "next/image";
 
 const services = [
   {
-    name: "Web Design",
+    name: "Web Design & Development",
     description: "We design visually compelling, user-centric websites that blend creativity with functional brand from scratch.",
-    tags: ["UX/UI Design", "Responsive Layouts", "Web Development"],
+    tags: ["UX/UI Design", "Responsive Layouts", "Web Apps Development"],
     image: "/hero1.avif"
   },
   {
-    name: "Mobile Apps",
+    name: "Mobile Apps Development",
     description: "We create intuitive mobile experiences that engage users and drive business growth across iOS and Android platforms.",
-    tags: ["iOS Development", "Android Development", "Cross-Platform"],
+    tags: ["iOS Development", "Android Development", "Cross-Platform", "Mobile Apps Development"],
     image: "/hero.avif"
   },
   {
     name: "Brand Identity",
     description: "We craft memorable brand identities that tell your story and connect with your audience on an emotional level.",
-    tags: ["Logo Design", "Brand Guidelines", "Visual Identity"],
+    tags: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Identity Development"],
     image: "/hero2.avif"
   },
   {
     name: "Digital Marketing",
     description: "We develop data-driven marketing strategies that increase visibility and convert prospects into loyal customers.",
-    tags: ["SEO", "Social Media", "Content Strategy"],
+    tags: ["SEO", "Social Media", "Content Strategy", "Digital Marketing"],
     image: "/hero3.avif"
   }
 ];
