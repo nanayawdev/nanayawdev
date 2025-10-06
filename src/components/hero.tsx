@@ -28,7 +28,7 @@ export function Hero() {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Badge variant="default" className="text-xs font-semibold">
+                  <Badge variant="default" className="text-xs font-semibold rounded-full">
                     YES!
                   </Badge>
                   <span>Creativity powered by code</span>

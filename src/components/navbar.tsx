@@ -25,15 +25,23 @@ export function Navbar() {
                 <div className="flex items-center space-x-4">
             {/* Navigation */}
             <div className="hidden md:flex">
-              <div className="bg-card/80 backdrop-blur-md border border-border rounded-full px-6 py-2">
-                <div className="flex items-center space-x-4">
+              <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-6 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
+                <div className="flex items-center space-x-4 relative">
                   <motion.a 
                     href="/" 
                     className={`text-sm font-medium flex items-center py-2 ${isActive('/') ? 'text-foreground' : 'text-muted-foreground hover:text-foreground transition-colors'}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {isActive('/') && <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>}
+                    <motion.span 
+                      className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"
+                      initial={false}
+                      animate={{ 
+                        opacity: isActive('/') ? 1 : 0,
+                        scale: isActive('/') ? 1 : 0.5
+                      }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    />
                     Home
                   </motion.a>
                   <motion.a 
@@ -42,7 +50,15 @@ export function Navbar() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {isActive('/services') && <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>}
+                    <motion.span 
+                      className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"
+                      initial={false}
+                      animate={{ 
+                        opacity: isActive('/services') ? 1 : 0,
+                        scale: isActive('/services') ? 1 : 0.5
+                      }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    />
                     Services
                   </motion.a>
                   <motion.a 
@@ -51,7 +67,15 @@ export function Navbar() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {isActive('/portfolio') && <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>}
+                    <motion.span 
+                      className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"
+                      initial={false}
+                      animate={{ 
+                        opacity: isActive('/portfolio') ? 1 : 0,
+                        scale: isActive('/portfolio') ? 1 : 0.5
+                      }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    />
                     Projects
                   </motion.a>
                   <motion.a 
@@ -60,7 +84,15 @@ export function Navbar() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {isActive('/case-studies') && <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>}
+                    <motion.span 
+                      className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"
+                      initial={false}
+                      animate={{ 
+                        opacity: isActive('/case-studies') ? 1 : 0,
+                        scale: isActive('/case-studies') ? 1 : 0.5
+                      }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    />
                     Case Studies
                   </motion.a>
                 </div>
@@ -68,7 +100,7 @@ export function Navbar() {
             </div>
 
             {/* Actions */}
-            <div className="bg-card/80 backdrop-blur-md border border-border rounded-full px-2 py-2">
+            <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-2 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
               <div className="flex items-center space-x-3">
                 <motion.button 
                   className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-medium"
