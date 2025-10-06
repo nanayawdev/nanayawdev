@@ -108,7 +108,7 @@ export default function BrandIdentity() {
 
         <div className="bg-primary text-primary-foreground p-8 rounded-lg text-center">
           <h2 className="text-2xl font-semibold mb-4">Ready to Build Your Brand Identity?</h2>
-          <p className="mb-6">Let's create a brand that stands out and connects with your global audience.</p>
+          <p className="mb-6">Let&apos;s create a brand that stands out and connects with your global audience.</p>
           <button className="bg-white text-primary px-6 py-3 rounded-md hover:bg-gray-100 transition-colors">
             Start Your Brand
           </button>

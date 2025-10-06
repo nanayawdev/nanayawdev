@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 "use client";
 
 import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
@@ -8,32 +7,54 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import './beams.css';
 
-function extendMaterial(BaseMaterial: any, cfg: any) {
+interface MaterialConfig {
+  material?: Record<string, unknown>;
+  uniforms?: Record<string, unknown>;
+  header?: string;
+  vertexHeader?: string;
+  fragmentHeader?: string;
+  vertexMain?: string;
+  fragmentMain?: string;
+  vertex?: Record<string, string>;
+  fragment?: Record<string, string>;
+}
+
+function extendMaterial(BaseMaterial: typeof THREE.Material, cfg: MaterialConfig) {
   const physical = THREE.ShaderLib.physical;
   const { vertexShader: baseVert, fragmentShader: baseFrag, uniforms: baseUniforms } = physical;
-  const baseDefines = physical.defines ?? {};
+  const baseDefines = (physical as any).defines ?? {};
 
   const uniforms = THREE.UniformsUtils.clone(baseUniforms);
 
-  const defaults = new BaseMaterial(cfg.material || {});
+  const defaults = new BaseMaterial() as any;
   if (defaults.color) uniforms.diffuse.value = defaults.color;
   if ('roughness' in defaults) uniforms.roughness.value = defaults.roughness;
   if ('metalness' in defaults) uniforms.metalness.value = defaults.metalness;
   if ('envMap' in defaults) uniforms.envMap.value = defaults.envMap;
   if ('envMapIntensity' in defaults) uniforms.envMapIntensity.value = defaults.envMapIntensity;
 
-  Object.entries(cfg.uniforms ?? {}).forEach(([key, u]: [string, any]) => {
+  Object.entries(cfg.uniforms ?? {}).forEach(([key, u]: [string, unknown]) => {
     uniforms[key] = u !== null && typeof u === 'object' && 'value' in u ? u : { value: u };
   });
 
   let vert = `${cfg.header}\n${cfg.vertexHeader ?? ''}\n${baseVert}`;
   let frag = `${cfg.header}\n${cfg.fragmentHeader ?? ''}\n${baseFrag}`;
 
-  for (const [inc, code] of Object.entries(cfg.vertex ?? {})) {
-    vert = vert.replace(inc, `${inc}\n${code}`);
+  if (cfg.vertexMain) {
+    vert = vert.replace('#include <main>', cfg.vertexMain);
   }
-  for (const [inc, code] of Object.entries(cfg.fragment ?? {})) {
-    frag = frag.replace(inc, `${inc}\n${code}`);
+  if (cfg.fragmentMain) {
+    frag = frag.replace('#include <main>', cfg.fragmentMain);
+  }
+  if (cfg.vertex) {
+    for (const [inc, code] of Object.entries(cfg.vertex)) {
+      vert = vert.replace(inc, `${inc}\n${code}`);
+    }
+  }
+  if (cfg.fragment) {
+    for (const [inc, code] of Object.entries(cfg.fragment)) {
+      frag = frag.replace(inc, `${inc}\n${code}`);
+    }
   }
 
   const mat = new THREE.ShaderMaterial({
@@ -281,21 +302,30 @@ function createStackedPlanesBufferGeometry(n: number, width: number, height: num
   return geometry;
 }
 
-const MergedPlanes = forwardRef(({ material, width, count, height }: any, ref) => {
-  const mesh = useRef(null);
-  useImperativeHandle(ref, () => mesh.current);
+interface MergedPlanesProps {
+  material: THREE.Material;
+  width: number;
+  count: number;
+  height: number;
+}
+
+const MergedPlanes = forwardRef<THREE.Mesh, MergedPlanesProps>(({ material, width, count, height }, ref) => {
+  const mesh = useRef<THREE.Mesh>(null);
+  useImperativeHandle(ref, () => mesh.current!);
   const geometry = useMemo(
     () => createStackedPlanesBufferGeometry(count, width, height, 0, 100),
     [count, width, height]
   );
   useFrame((_, delta) => {
-    mesh.current.material.uniforms.time.value += 0.1 * delta;
+    if (mesh.current) {
+      (mesh.current.material as any).uniforms.time.value += 0.1 * delta;
+    }
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
 MergedPlanes.displayName = 'MergedPlanes';
 
-const PlaneNoise = forwardRef((props: any, ref) => (
+const PlaneNoise = forwardRef<THREE.Mesh, MergedPlanesProps>((props, ref) => (
   <MergedPlanes ref={ref} material={props.material} width={props.width} count={props.count} height={props.height} />
 ));
 PlaneNoise.displayName = 'PlaneNoise';
@@ -304,15 +334,14 @@ const DirLight = ({ position, color }: { position: [number, number, number]; col
   const dir = useRef(null);
   useEffect(() => {
     if (!dir.current) return;
-    const cam = (dir.current as any).shadow.camera;
+    const cam = (dir.current as THREE.DirectionalLight).shadow.camera;
     if (!cam) return;
     cam.top = 24;
     cam.bottom = -24;
     cam.left = -24;
     cam.right = 24;
     cam.far = 64;
-    (dir.current as any).shadow.bias = -0.004;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (dir.current as THREE.DirectionalLight).shadow.bias = -0.004;
   }, []);
   return <directionalLight ref={dir} color={color} intensity={1} position={position} />;
 };

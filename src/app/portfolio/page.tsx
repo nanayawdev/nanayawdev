@@ -25,7 +25,7 @@ export default function Portfolio() {
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Project Title {item}</h3>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Brief description of the project and the impact it had on the client's business.
+                  Brief description of the project and the impact it had on the client&apos;s business.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Web Development</span>

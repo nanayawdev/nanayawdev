@@ -60,7 +60,7 @@ export default function About() {
                 <span className="text-primary-foreground text-2xl">🌍</span>
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Global Impact</h3>
-              <p className="text-muted-foreground text-sm">We're committed to helping African brands reach global audiences.</p>
+              <p className="text-muted-foreground text-sm">We&apos;re committed to helping African brands reach global audiences.</p>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function About() {
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-foreground mb-6">Ready to Work With Us?</h2>
           <p className="text-muted-foreground mb-8">
-            Let's discuss how we can help your brand go global.
+            Let&apos;s discuss how we can help your brand go global.
           </p>
           <button className="bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors">
             Get In Touch

@@ -12,7 +12,7 @@ export default function Contact() {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to take your brand global? Let's discuss your project and explore how we can help you achieve your goals.
+            Ready to take your brand global? Let&apos;s discuss your project and explore how we can help you achieve your goals.
           </p>
         </div>
 

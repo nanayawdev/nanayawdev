@@ -12,7 +12,7 @@ export default function CaseStudies() {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Case Studies</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Deep dive into our successful projects and the impact we've made helping African startups and brands go global.
+            Deep dive into our successful projects and the impact we&apos;ve made helping African startups and brands go global.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export default function CaseStudies() {
         <div className="text-center mt-16">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Want to See Your Success Story Here?</h2>
           <p className="text-muted-foreground mb-8">
-            Let's work together to create your own success story.
+            Let&apos;s work together to create your own success story.
           </p>
           <button className="bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors">
             Start Your Project

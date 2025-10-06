@@ -103,7 +103,7 @@ export default function Services() {
         <div className="bg-muted/30 p-8 rounded-lg text-center">
           <h3 className="text-xl font-semibold text-foreground mb-4">Coming Soon</h3>
           <p className="text-muted-foreground mb-4">
-            We're expanding our services to include:
+            We&apos;re expanding our services to include:
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full">Copywriting</span>
