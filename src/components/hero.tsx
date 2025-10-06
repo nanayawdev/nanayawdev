@@ -29,7 +29,7 @@ export function Hero() {
         />
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
         <div className="flex flex-col">
           {/* Top Content - Centered */}
           <div className="min-h-[60vh] flex items-end justify-center py-8 lg:py-16">
@@ -57,8 +57,8 @@ export function Hero() {
               </div>
 
               {/* Main Title */}
-              <motion.h1
-                className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-6 leading-tight"
+                     <motion.h1
+                       className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-6 leading-none"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
