@@ -20,13 +20,13 @@ const services = [
     name: "Brand Identity",
     description: "We craft memorable brand identities that tell your story and connect with your audience on an emotional level.",
     tags: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Identity Development"],
-    image: "/hero2.avif"
+    image: "/hero6.webp"
   },
   {
     name: "Digital Marketing",
     description: "We develop data-driven marketing strategies that increase visibility and convert prospects into loyal customers.",
     tags: ["SEO", "Social Media", "Content Strategy", "Digital Marketing"],
-    image: "/hero3.avif"
+    image: "/hero7.webp"
   }
 ];
 
