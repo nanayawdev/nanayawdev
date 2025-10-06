@@ -49,7 +49,7 @@ export function WhyUs() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Main Title */}
         <motion.h2
-          className="text-4xl lg:text-5xl font-bold text-foreground mb-16 text-center"
+          className="text-4xl lg:text-6xl font-bold text-foreground mb-16 text-left"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -72,7 +72,7 @@ export function WhyUs() {
             >
               {/* Icon - Above text */}
               <div className="mb-4">
-                <feature.icon className="w-16 h-16 text-muted-foreground/70" />
+                <feature.icon className="w-16 h-16 text-muted-foreground" />
               </div>
 
               {/* Title */}
