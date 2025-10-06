@@ -21,19 +21,19 @@ export function Navbar() {
                 <div className="flex items-center space-x-4">
             {/* Navigation */}
             <div className="hidden md:flex">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2">
+              <div className="bg-card/80 backdrop-blur-md border border-border rounded-full px-6 py-2">
                 <div className="flex items-center space-x-4">
-                  <a href="/" className="text-sm font-medium text-white flex items-center py-2">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full mr-2"></span>
+                  <a href="/" className="text-sm font-medium text-foreground flex items-center py-2">
+                    <span className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"></span>
                     Home
                   </a>
-                  <a href="/services" className="text-sm font-medium text-white/70 hover:text-white transition-colors py-2">
+                  <a href="/services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
                     Services
                   </a>
-                  <a href="/portfolio" className="text-sm font-medium text-white/70 hover:text-white transition-colors py-2">
+                  <a href="/portfolio" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
                     Projects
                   </a>
-                  <a href="/case-studies" className="text-sm font-medium text-white/70 hover:text-white transition-colors py-2">
+                  <a href="/case-studies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
                     Case Studies
                   </a>
                 </div>
@@ -41,7 +41,7 @@ export function Navbar() {
             </div>
 
             {/* Actions */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2">
+            <div className="bg-card/80 backdrop-blur-md border border-border rounded-full px-2 py-2">
               <div className="flex items-center space-x-3">
                 <motion.button 
                   className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-medium"
