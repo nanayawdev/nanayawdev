@@ -74,6 +74,13 @@ const LightRays = ({
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  // Mobile detection for optimized parameters
+  const isMobile = typeof window !== 'undefined' && (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+    window.innerWidth <= 768 || 
+    'ontouchstart' in window
+  );
+
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -110,9 +117,15 @@ const LightRays = ({
 
       if (!containerRef.current) return;
 
+      // Detect mobile device for optimization
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                      window.innerWidth <= 768 || 
+                      'ontouchstart' in window;
+
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
-        alpha: true
+        dpr: isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2),
+        alpha: true,
+        powerPreference: isMobile ? 'low-power' : 'high-performance'
       });
       rendererRef.current = renderer;
 
@@ -227,20 +240,26 @@ const LightRays = ({
         }
       `;
 
+      // Mobile-optimized parameters
+      const mobileRaysSpeed = isMobile ? raysSpeed * 0.8 : raysSpeed;
+      const mobileLightSpread = isMobile ? Math.min(lightSpread * 1.2, 0.8) : lightSpread;
+      const mobileRayLength = isMobile ? Math.min(rayLength * 1.1, 4) : rayLength;
+      const mobileMouseInfluence = isMobile ? mouseInfluence * 1.5 : mouseInfluence;
+
       const uniforms = {
         iTime: { value: 0 },
         iResolution: { value: [1, 1] },
         rayPos: { value: [0, 0] },
         rayDir: { value: [0, 1] },
         raysColor: { value: hexToRgb(raysColor) },
-        raysSpeed: { value: raysSpeed },
-        lightSpread: { value: lightSpread },
-        rayLength: { value: rayLength },
+        raysSpeed: { value: mobileRaysSpeed },
+        lightSpread: { value: mobileLightSpread },
+        rayLength: { value: mobileRayLength },
         pulsating: { value: pulsating ? 1.0 : 0.0 },
         fadeDistance: { value: fadeDistance },
         saturation: { value: saturation },
         mousePos: { value: [0.5, 0.5] },
-        mouseInfluence: { value: mouseInfluence },
+        mouseInfluence: { value: mobileMouseInfluence },
         noiseAmount: { value: noiseAmount },
         distortion: { value: distortion }
       };
@@ -393,19 +412,50 @@ const LightRays = ({
   ]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
       if (!containerRef.current || !rendererRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
+      let clientX: number, clientY: number;
+
+      if (e instanceof TouchEvent) {
+        if (e.touches.length === 0) return;
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+
+      const x = (clientX - rect.left) / rect.width;
+      const y = (clientY - rect.top) / rect.height;
 
       mouseRef.current = { x, y };
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      handlePointerMove(e);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      handlePointerMove(e);
+    };
+
     if (followMouse) {
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
+      // Mouse events for desktop
+      window.addEventListener('mousemove', handlePointerMove);
+      
+      // Touch events for mobile
+      window.addEventListener('touchstart', handleTouchStart, { passive: false });
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      
+      return () => {
+        window.removeEventListener('mousemove', handlePointerMove);
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchmove', handleTouchMove);
+      };
     }
   }, [followMouse]);
 
