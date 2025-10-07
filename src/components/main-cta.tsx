@@ -7,7 +7,7 @@ export function MainCTA() {
     <section className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-8">
         <motion.div
-          className="bg-card text-foreground rounded-2xl p-8 lg:p-12 border border-border relative overflow-hidden"
+          className="bg-card text-foreground rounded-4xl p-8 lg:p-12 border border-border relative overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

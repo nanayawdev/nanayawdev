@@ -63,7 +63,7 @@ export function WhyUs() {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              className="bg-card border border-border rounded-2xl p-8 hover:border-border/80 transition-colors duration-300"
+              className="bg-card border border-border rounded-4xl p-8 hover:border-border/80 transition-colors duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
