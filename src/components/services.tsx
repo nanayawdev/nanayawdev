@@ -52,7 +52,7 @@ export function Services() {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-12 lg:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-8">
         {/* Main Header */}
         <motion.h2

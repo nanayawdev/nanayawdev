@@ -14,10 +14,10 @@ export function MainCTA() {
           viewport={{ once: true }}
         >
           {/* Decorative corner elements */}
-          <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-border rounded-tr-lg"></div>
-          <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-border rounded-br-lg"></div>
-          <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-border rounded-tl-lg"></div>
-          <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-border rounded-bl-lg"></div>
+          <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-border rounded-tr-2xl"></div>
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-border rounded-br-2xl"></div>
+          <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-border rounded-tl-2xl"></div>
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-border rounded-bl-2xl"></div>
           
           <div className="max-w-4xl mx-auto text-center">
               {/* Main Headline */}
@@ -28,7 +28,7 @@ export function MainCTA() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                Convinced already?
+                Convinced?
               </motion.h2>
 
               {/* Description */}

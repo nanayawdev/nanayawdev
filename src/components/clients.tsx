@@ -9,7 +9,7 @@ const clientLogos = [
 
 export function Clients() {
   return (
-    <section className="py-12 bg-primary-background">
+    <section className="py-6 lg:py-12 bg-primary-background">
       <div className="max-w-7xl mx-auto px-8 text-center">
         <LogoLoop
           logos={clientLogos}

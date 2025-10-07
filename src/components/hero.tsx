@@ -79,7 +79,7 @@ export function Hero() {
           </div>
 
           {/* Bottom - Hero Image */}
-          <div className="pb-10 lg:pb-12">
+          <div className="pb-6 lg:pb-12">
             <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
               <motion.div
                 className="relative rounded-none lg:rounded-lg overflow-hidden shadow-2xl"
