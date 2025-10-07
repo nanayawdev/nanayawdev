@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { CookieConsent } from "@/components/cookie-consent";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -126,6 +127,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>
