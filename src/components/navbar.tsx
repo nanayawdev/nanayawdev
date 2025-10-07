@@ -34,7 +34,9 @@ export function Navbar() {
           {/* Left - Brand */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
-              <BadgeCheck className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: '#bdffaa' }} />
+              <div className="w-10 h-10 bg-card border border-border rounded-md flex items-center justify-center">
+                <BadgeCheck className="w-6 h-6 text-[#bdffaa]" />
+              </div>
             </Link>
           </div>
 
@@ -52,7 +54,7 @@ export function Navbar() {
                   >
                     <Link href={item.href} className="flex items-center">
                       <motion.span 
-                        className="w-1.5 h-1.5 bg-foreground rounded-full mr-2"
+                        className="w-1.5 h-1.5 bg-foreground rounded-sm mr-2"
                         initial={false}
                         animate={{ 
                           opacity: isActive(item.href) ? 1 : 0,
@@ -129,7 +131,7 @@ export function Navbar() {
                         }`}
                       >
                         <motion.span 
-                          className="w-2 h-2 bg-primary rounded-full mr-3"
+                          className="w-2 h-2 bg-primary rounded-sm mr-3"
                           initial={false}
                           animate={{ 
                             opacity: isActive(item.href) ? 1 : 0,
