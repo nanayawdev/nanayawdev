@@ -25,7 +25,7 @@ export default function About() {
               >
                 <Users className="w-16 h-16 lg:w-20 lg:h-20 text-primary" />
               </motion.div>
-              <h1 className="text-6xl lg:text-8xl font-bold leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight">
                 <span className="text-foreground">About</span>{" "}
                 <span className="text-muted-foreground">us</span>
               </h1>

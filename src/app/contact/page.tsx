@@ -1,137 +1,91 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Contact - Devs & Creatives",
-  description: "Get in touch with Devs & Creatives. Contact us to discuss your project and learn how we can help your African startup or brand go global.",
-};
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen py-16">
-      <div className="max-w-6xl mx-auto px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to take your brand global? Let&apos;s discuss your project and explore how we can help you achieve your goals.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">Get In Touch</h2>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-primary-foreground">📧</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Email</h3>
-                  <p className="text-muted-foreground">hello@devsandcreatives.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-primary-foreground">📱</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Phone</h3>
-                  <p className="text-muted-foreground">+234 XXX XXX XXXX</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-primary-foreground">📍</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Location</h3>
-                  <p className="text-muted-foreground">Lagos, Nigeria</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Follow Us</h3>
-              <div className="flex space-x-4">
-                <a href="https://twitter.com/devsandcreatives" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Twitter
-                </a>
-                <a href="https://linkedin.com/company/devsandcreatives" className="text-muted-foreground hover:text-foreground transition-colors">
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card p-8 rounded-lg border">
-            <h2 className="text-2xl font-semibold text-foreground mb-6">Send us a Message</h2>
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Your first name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Last Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Your last name"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Email</label>
-                <input 
-                  type="email" 
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="your@email.com"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Company</label>
-                <input 
-                  type="text" 
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Your company name"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Project Type</label>
-                <select className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option>Web Development</option>
-                  <option>UI/UX Design</option>
-                  <option>Mobile App</option>
-                  <option>Brand Identity</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-                <textarea 
-                  rows={4}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Tell us about your project..."
-                ></textarea>
-              </div>
-              
-              <button 
-                type="submit"
-                className="w-full bg-primary text-primary-foreground py-3 rounded-md hover:bg-primary/90 transition-colors"
+    <div className="min-h-screen bg-background">
+      {/* Content */}
+      <div className="min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto px-8 py-20">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
+          >
+            {/* Heading */}
+            <div className="flex items-center gap-6 mb-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex-shrink-0"
               >
-                Send Message
-              </button>
-            </form>
-          </div>
+                <Mail className="w-16 h-16 lg:w-20 lg:h-20 text-[#bdffaa]" />
+              </motion.div>
+              <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight">
+                <span className="text-[#bdffaa]">Contact</span>{" "}
+                <span className="text-muted-foreground">us</span>
+              </h1>
+            </div>
+
+            {/* First Paragraph */}
+            <motion.p
+              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              Ready to take your brand global? Let's discuss your project and explore 
+              how we can help you achieve your goals through innovative digital solutions.
+            </motion.p>
+
+            {/* Second Paragraph */}
+            <motion.p
+              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              Get in touch with our team to start your digital transformation journey. 
+              We're here to help African startups and brands reach their full potential 
+              on the global stage.
+            </motion.p>
+
+            {/* Contact Info */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 mt-12"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              <div className="text-center">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Mail className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-foreground font-semibold mb-1 text-sm">Email</h3>
+                <p className="text-muted-foreground text-xs">hello@devsandcreatives.com</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-foreground font-semibold mb-1 text-sm">Phone</h3>
+                <p className="text-muted-foreground text-xs">+233 XXX XXX XXXX</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <MapPin className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-foreground font-semibold mb-1 text-sm">Location</h3>
+                <p className="text-muted-foreground text-xs">Accra, Ghana</p>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
