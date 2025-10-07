@@ -52,7 +52,7 @@ export function Services() {
   };
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-8">
         {/* Main Header */}
         <motion.h2
@@ -84,7 +84,7 @@ export function Services() {
                   <h3 className="text-3xl lg:text-4xl font-medium text-foreground mb-2">
                     {service.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-muted-foreground" style={{ fontSize: '18px' }}>
                     {service.shortDescription}
                   </p>
                 </div>
@@ -111,7 +111,7 @@ export function Services() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* Left Column - Description and Tags */}
                     <div>
-                      <p className="text-muted-foreground leading-relaxed text-lg mb-6" style={{ fontSize: '18px' }}>
+                      <p className="text-muted-foreground leading-relaxed text-lg mb-6">
                         {service.description}
                       </p>
                       
