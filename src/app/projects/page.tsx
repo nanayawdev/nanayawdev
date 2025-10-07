@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { OurProcesses } from "@/components/our-processes";
 
 const projects = [
   {
@@ -131,6 +132,11 @@ export default function Projects() {
           ))}
         </div>
               </div>
+
+            {/* Our Process Section */}
+            <div className="mt-16">
+              <OurProcesses />
+            </div>
 
             {/* CTA Section */}
             <motion.div
