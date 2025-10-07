@@ -52,11 +52,11 @@ export function Services() {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-8">
         {/* Main Header */}
         <motion.h2
-          className="text-4xl lg:text-6xl font-bold text-foreground mb-16 text-left"
+          className="text-4xl lg:text-6xl font-bold text-foreground mb-8 text-left"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -111,7 +111,7 @@ export function Services() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* Left Column - Description and Tags */}
                     <div>
-                      <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                      <p className="text-muted-foreground leading-relaxed text-lg mb-6" style={{ fontSize: '18px' }}>
                         {service.description}
                       </p>
                       
