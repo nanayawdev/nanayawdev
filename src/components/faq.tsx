@@ -78,7 +78,7 @@ export function FAQ() {
           {faqData.map((item, index) => (
             <motion.div
               key={item.id}
-              className="bg-card border border-border rounded-xl overflow-hidden"
+              className="bg-card border border-border rounded-2xl overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
