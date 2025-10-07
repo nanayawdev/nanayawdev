@@ -59,7 +59,7 @@ export function MainCTA() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Get started
+                  Let&apos;s Talk
                 </motion.button>
               </motion.div>
           </div>
