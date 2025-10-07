@@ -23,10 +23,10 @@ export default function Contact() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="flex-shrink-0"
               >
-                <Mail className="w-16 h-16 lg:w-20 lg:h-20 text-[#bdffaa]" />
+                <Mail className="w-16 h-16 lg:w-20 lg:h-20 text-primary" />
               </motion.div>
               <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight">
-                <span className="text-[#bdffaa]">Contact</span>{" "}
+                <span className="text-primary">Contact</span>{" "}
                 <span className="text-muted-foreground">us</span>
               </h1>
             </div>
@@ -62,7 +62,7 @@ export default function Contact() {
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Mail className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Email</h3>
@@ -70,7 +70,7 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Phone className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Phone</h3>
@@ -78,7 +78,7 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
                   <MapPin className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Location</h3>
@@ -86,7 +86,7 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Clock className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Hours</h3>

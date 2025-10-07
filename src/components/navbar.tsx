@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, BadgeCheck } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -33,10 +33,8 @@ export function Navbar() {
         <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Left - Brand */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2" onClick={closeMobileMenu}>
-              <span className="text-lg sm:text-xl font-semibold text-foreground">
-                Devs & Cre8vs
-              </span>
+            <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
+              <BadgeCheck className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: '#bdffaa' }} />
             </Link>
           </div>
 
