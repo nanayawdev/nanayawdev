@@ -16,7 +16,7 @@ const projects = [
     title: "Appointment App",
     image: "/hero2.avif",
     logo: "AA",
-    description: "Never Miss An Appointment Again"
+    description: "Appointment App"
   },
   {
     id: 3,
@@ -68,21 +68,23 @@ export function LatestWork() {
                   alt={project.title}
                   width={300}
                   height={375}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 group-hover:grayscale transition-all duration-300"
                 />
                 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
                 {/* Project Logo/Title */}
-                <div className="absolute bottom-4 left-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                      <span className="text-black font-bold text-sm">{project.logo}</span>
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold text-lg">{project.title}</h3>
-                      <p className="text-white/80 text-sm">{project.description}</p>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-card/90 backdrop-blur-sm border border-border rounded-xl p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <span className="text-primary-foreground font-bold text-sm">{project.logo}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-foreground font-semibold text-lg">{project.title}</h3>
+                        <p className="text-muted-foreground text-sm">{project.description}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -90,6 +92,23 @@ export function LatestWork() {
             </motion.div>
           ))}
         </div>
+
+        {/* See More Button */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.button
+            className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            See More
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );
