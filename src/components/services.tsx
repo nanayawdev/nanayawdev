@@ -56,7 +56,7 @@ export function Services() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Main Header */}
         <motion.h2
-          className="text-4xl lg:text-6xl font-bold text-foreground mb-8 text-left"
+          className="text-4xl lg:text-6xl font-bold text-foreground mb-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

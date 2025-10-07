@@ -23,7 +23,7 @@ export function Navbar() {
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
-    { href: "/portfolio", label: "Projects" },
+    { href: "/projects", label: "Projects" },
     { href: "/case-studies", label: "Case Studies" }
   ];
 
@@ -77,7 +77,7 @@ export function Navbar() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Get Started
+                  Let's Talk
                 </motion.button>
                 <ThemeToggle />
               </div>
@@ -157,7 +157,7 @@ export function Navbar() {
                       whileTap={{ scale: 0.98 }}
                       onClick={closeMobileMenu}
                     >
-                      Get Started
+                      Let's Talk
                     </motion.button>
                   </motion.div>
                 </div>
