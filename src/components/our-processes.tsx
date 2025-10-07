@@ -39,13 +39,23 @@ export function OurProcesses() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="relative w-full rounded-4xl overflow-hidden">
+            <div className="relative w-full aspect-square lg:aspect-auto rounded-4xl overflow-hidden">
+              {/* Mobile Image */}
+              <Image
+                src="/man-playing-mobile.avif"
+                alt="Our Creative Team"
+                width={500}
+                height={500}
+                className="w-full h-full object-cover hover:grayscale transition-all duration-300 lg:hidden"
+              />
+              
+              {/* Desktop Image */}
               <Image
                 src="/man-playing.avif"
                 alt="Our Creative Team"
                 width={500}
                 height={800}
-                className="w-full h-auto object-cover hover:grayscale transition-all duration-300"
+                className="w-full h-full object-cover hover:grayscale transition-all duration-300 hidden lg:block"
               />
             </div>
           </motion.div>
