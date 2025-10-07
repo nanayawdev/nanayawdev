@@ -23,19 +23,9 @@ export function MainCTA() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              Design doesn&apos;t need to be complicated.
+              We Design. We Build. We Make it Matter.
             </motion.h2>
 
-            {/* Description */}
-            <motion.p
-              className="text-lg lg:text-xl text-background/80 mb-10 leading-relaxed max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Book a quick call and get a clear look at how we work, what&apos;s included, and whether we fit your pace.
-            </motion.p>
 
             {/* CTA Button */}
             <motion.div
