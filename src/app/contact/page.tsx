@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -56,13 +56,13 @@ export default function Contact() {
 
             {/* Contact Info */}
             <motion.div
-              className="grid grid-cols-3 gap-4 mt-12"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Mail className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Email</h3>
@@ -70,7 +70,7 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Phone className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Phone</h3>
@@ -78,11 +78,19 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
                   <MapPin className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Location</h3>
                 <p className="text-muted-foreground text-xs">Accra, Ghana</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Clock className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-foreground font-semibold mb-1 text-sm">Hours</h3>
+                <p className="text-muted-foreground text-xs">Mon-Fri 9AM-6PM</p>
               </div>
             </motion.div>
           </motion.div>
