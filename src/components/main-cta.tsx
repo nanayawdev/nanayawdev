@@ -23,7 +23,7 @@ export function MainCTA() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              We Design. We Build. We Make it Matter.
+              Let&apos;s build it together.
             </motion.h2>
 
 
@@ -35,11 +35,11 @@ export function MainCTA() {
               viewport={{ once: true }}
             >
               <motion.button
-                className="inline-flex items-center gap-3 bg-background text-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-background/90 transition-colors duration-200 cursor-pointer"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-gray-900 to-gray-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-gray-800 hover:to-gray-500 transition-all duration-200 cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span>Request Quote</span>
+                <span>Talk to Us</span>
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
             </motion.div>

@@ -63,7 +63,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
               >
-                Building digital experiences that speak.
+                We Design. We Build. We Make it Matter.
               </motion.h1>
 
               {/* Subtitle */}
