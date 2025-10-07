@@ -77,7 +77,7 @@ export function Navbar() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Let's Talk
+                  Let&apos;s Talk
                 </motion.button>
                 <ThemeToggle />
               </div>
@@ -157,7 +157,7 @@ export function Navbar() {
                       whileTap={{ scale: 0.98 }}
                       onClick={closeMobileMenu}
                     >
-                      Let's Talk
+                      Let&apos;s Talk
                     </motion.button>
                   </motion.div>
                 </div>

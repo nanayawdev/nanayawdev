@@ -71,7 +71,7 @@ export default function CaseStudies() {
               >
                 <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">Case Studies</h1>
                 <p className="text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto">
-                  Deep dive into our successful projects and the impact we've made helping African startups and brands go global.
+                  Deep dive into our successful projects and the impact we&apos;ve made helping African startups and brands go global.
                 </p>
               </motion.div>
             </div>
@@ -194,7 +194,7 @@ export default function CaseStudies() {
                       Want to See Your Success Story Here?
                     </h2>
                     <p className="text-muted-foreground text-lg mb-6">
-                      Let's work together to create your own success story.
+                      Let&apos;s work together to create your own success story.
                     </p>
                     <motion.button
                       className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
