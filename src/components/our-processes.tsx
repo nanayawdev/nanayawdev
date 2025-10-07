@@ -45,7 +45,7 @@ export function OurProcesses() {
                 alt="Our Creative Team"
                 width={500}
                 height={800}
-                className="w-full h-auto object-cover grayscale"
+                className="w-full h-auto object-cover hover:grayscale transition-all duration-300"
               />
             </div>
           </motion.div>
