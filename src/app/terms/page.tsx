@@ -16,7 +16,7 @@ export default function TermsOfService() {
             className="space-y-8"
           >
             {/* Heading */}
-            <div className="flex items-center gap-6 mb-8">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-8">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}

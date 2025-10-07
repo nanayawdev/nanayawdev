@@ -16,7 +16,7 @@ export default function Contact() {
             className="space-y-8"
           >
             {/* Heading */}
-            <div className="flex items-center gap-6 mb-8">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-8">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -38,7 +38,7 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              Ready to take your brand global? Let's discuss your project and explore 
+              Ready to take your brand global? Let&apos;s discuss your project and explore 
               how we can help you achieve your goals through innovative digital solutions.
             </motion.p>
 
@@ -50,7 +50,7 @@ export default function Contact() {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               Get in touch with our team to start your digital transformation journey. 
-              We're here to help African startups and brands reach their full potential 
+              We&apos;re here to help African startups and brands reach their full potential 
               on the global stage.
             </motion.p>
 
@@ -62,7 +62,7 @@ export default function Contact() {
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
                   <Mail className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Email</h3>
@@ -70,7 +70,7 @@ export default function Contact() {
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-[#bdffaa] rounded-full flex items-center justify-center mx-auto mb-3">
                   <Phone className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-foreground font-semibold mb-1 text-sm">Phone</h3>
