@@ -55,7 +55,7 @@ export function WhyUs() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Reasons you will love us
+          Why You'll Love Us
         </motion.h2>
 
         {/* Feature Cards Grid */}
