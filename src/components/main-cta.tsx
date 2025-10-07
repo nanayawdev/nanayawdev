@@ -40,10 +40,7 @@ export function MainCTA() {
                 viewport={{ once: true }}
               >
                 <p className="text-muted-foreground text-lg">
-                  Stake your claim on the digital world today with our platform!
-                </p>
-                <p className="text-muted-foreground text-lg">
-                  Deploy your application, database, or website in minutes.
+                  Let&apos;s build it together.
                 </p>
               </motion.div>
 
