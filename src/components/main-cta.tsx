@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 export function MainCTA() {
   return (
@@ -20,9 +19,7 @@ export function MainCTA() {
           <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-border rounded-tl-lg"></div>
           <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-border rounded-bl-lg"></div>
           
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            {/* Left Content */}
-            <div className="flex-1">
+          <div className="max-w-4xl mx-auto text-center">
               {/* Main Headline */}
               <motion.h2
                 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight"
@@ -65,20 +62,6 @@ export function MainCTA() {
                   Get started
                 </motion.button>
               </motion.div>
-            </div>
-
-            {/* Right Icon */}
-            <motion.div
-              className="flex-shrink-0"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <div className="w-20 h-20 bg-primary rounded-xl flex items-center justify-center">
-                <Sparkles className="w-10 h-10 text-primary-foreground" />
-              </div>
-            </motion.div>
           </div>
         </motion.div>
       </div>

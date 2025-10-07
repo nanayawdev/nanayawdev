@@ -70,7 +70,7 @@ export function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className="bg-card border border-border rounded-xl overflow-hidden"
+              className="bg-transparent border border-border rounded-2xl overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -78,7 +78,7 @@ export function Services() {
             >
               <button
                 onClick={() => toggleItem(service.id)}
-                className="w-full px-6 py-8 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
+                className="w-full px-6 py-12 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
               >
                 <div className="flex-1">
                   <h3 className="text-3xl lg:text-4xl font-medium text-foreground mb-2">
@@ -93,7 +93,7 @@ export function Services() {
                   transition={{ duration: 0.2 }}
                   className="flex-shrink-0 ml-4"
                 >
-                  <Plus className="w-5 h-5 text-muted-foreground" />
+                  <Plus className="w-7 h-7 text-muted-foreground" />
                 </motion.div>
               </button>
               
