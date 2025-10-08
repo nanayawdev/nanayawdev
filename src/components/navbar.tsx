@@ -34,7 +34,7 @@ export function Navbar() {
           {/* Left - Brand */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
-              <div className="w-10 h-10 bg-card border border-border rounded-md flex items-center justify-center">
+              <div className="w-10 h-10 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md flex items-center justify-center shadow-lg shadow-black/5 dark:shadow-black/20">
                 <BadgeCheck className="w-6 h-6 text-[#bdffaa]" />
               </div>
             </Link>
