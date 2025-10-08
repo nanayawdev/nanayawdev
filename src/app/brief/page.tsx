@@ -93,7 +93,7 @@ export default function BriefPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl p-8 max-w-md w-full shadow-lg shadow-black/5 dark:shadow-black/20 text-center"
+          className="bg-card border border-border rounded-2xl p-8 max-w-md w-full shadow-lg text-center"
         >
           <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <FileText className="h-8 w-8 text-primary" />
@@ -113,10 +113,10 @@ export default function BriefPage() {
   return (
     <div className="min-h-screen bg-background pt-20 sm:pt-24">
       {/* Header */}
-      <div className="bg-white/5 dark:bg-black/10 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+      <div className="bg-muted/30 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center space-x-4">
-            <Link href="/" className="p-2 hover:bg-white/10 dark:hover:bg-white/5 rounded-md transition-colors">
+            <Link href="/" className="p-2 hover:bg-accent rounded-md transition-colors">
               <ArrowLeft className="h-5 w-5 text-muted-foreground" />
             </Link>
             <div>
@@ -132,7 +132,7 @@ export default function BriefPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl p-8 shadow-lg shadow-black/5 dark:shadow-black/20"
+          className="bg-card border border-border rounded-2xl p-8 shadow-lg"
         >
           {/* Step Progress Indicator */}
           <div className="mb-8">
@@ -190,7 +190,7 @@ export default function BriefPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                         placeholder="Your full name"
                       />
                     </div>
@@ -203,7 +203,7 @@ export default function BriefPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -215,7 +215,7 @@ export default function BriefPage() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                         placeholder="+233 24 123 4567"
                       />
                     </div>
@@ -227,7 +227,7 @@ export default function BriefPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                         placeholder="Your company name"
                       />
                     </div>
@@ -250,7 +250,7 @@ export default function BriefPage() {
                         value={formData.projectTitle}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                         placeholder="e.g., E-commerce Mobile App"
                       />
                     </div>
@@ -262,7 +262,7 @@ export default function BriefPage() {
                         value={formData.projectType}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                       >
                         <option value="">Select project type</option>
                         <option value="web-development">Web Development</option>
@@ -280,7 +280,7 @@ export default function BriefPage() {
                         name="budget"
                         value={formData.budget}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                       >
                         <option value="">Select budget range</option>
                         <option value="under-10k">Under GHS 10,000</option>
@@ -297,7 +297,7 @@ export default function BriefPage() {
                         name="timeline"
                         value={formData.timeline}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                       >
                         <option value="">Select timeline</option>
                         <option value="asap">ASAP</option>
@@ -331,7 +331,7 @@ export default function BriefPage() {
                     value={formData.targetAudience}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="Describe your target audience, demographics, and user personas..."
                   />
                 </div>
@@ -344,7 +344,7 @@ export default function BriefPage() {
                     value={formData.competitors}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="List competitors, websites, or apps you like and want to reference..."
                   />
                 </div>
@@ -358,7 +358,7 @@ export default function BriefPage() {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="What are the main goals and objectives of this project? What problem does it solve?"
                   />
                 </div>
@@ -371,7 +371,7 @@ export default function BriefPage() {
                     value={formData.features}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="List the main features and functionality you want to include..."
                   />
                 </div>
@@ -384,7 +384,7 @@ export default function BriefPage() {
                     value={formData.designPreferences}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="Describe your preferred design style, colors, mood, and any brand guidelines..."
                   />
                 </div>
@@ -397,7 +397,7 @@ export default function BriefPage() {
                     value={formData.technicalRequirements}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="Any specific technical requirements, integrations, or platforms..."
                   />
                 </div>
@@ -410,7 +410,7 @@ export default function BriefPage() {
                     value={formData.content}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="What content do you have? Images, copy, brand assets, etc..."
                   />
                 </div>
@@ -423,7 +423,7 @@ export default function BriefPage() {
                     value={formData.additionalNotes}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                     placeholder="Any additional information, constraints, or special considerations..."
                   />
                 </div>
@@ -455,7 +455,7 @@ export default function BriefPage() {
                       name="documentReferences"
                       multiple
                       accept=".pdf,.doc,.docx,.txt,.rtf,.xls,.xlsx,.ppt,.pptx"
-                      className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                     />
                     <p className="text-xs text-muted-foreground mt-1">
                       Upload PDFs, Word docs, Excel files, PowerPoint presentations, etc.
@@ -473,7 +473,7 @@ export default function BriefPage() {
                       name="imageReferences"
                       multiple
                       accept="image/*"
-                      className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                     />
                     <p className="text-xs text-muted-foreground mt-1">
                       Upload images, mockups, wireframes, design references, etc.
@@ -491,7 +491,7 @@ export default function BriefPage() {
                       value={formData.videoReferences}
                       onChange={handleInputChange}
                       rows={3}
-                      className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                       placeholder="Share links to video references, demos, tutorials, or inspiration videos..."
                     />
                     <p className="text-xs text-muted-foreground mt-1">
@@ -503,12 +503,12 @@ export default function BriefPage() {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between pt-6 border-t border-white/10 dark:border-white/5">
+            <div className="flex justify-between pt-6 border-t border-border">
               <motion.button
                 type="button"
                 onClick={prevStep}
                 disabled={currentStep === 1}
-                className="flex items-center space-x-2 px-6 py-3 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-lg text-foreground hover:bg-white/20 dark:hover:bg-black/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center space-x-2 px-6 py-3 bg-card border border-border rounded-lg text-foreground hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={{ scale: currentStep === 1 ? 1 : 1.02 }}
                 whileTap={{ scale: currentStep === 1 ? 1 : 0.98 }}
               >

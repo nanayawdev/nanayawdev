@@ -42,7 +42,7 @@ export default function EnquiriesPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl p-8 max-w-md w-full shadow-lg shadow-black/5 dark:shadow-black/20 text-center"
+          className="bg-card border border-border rounded-2xl p-8 max-w-md w-full shadow-lg text-center"
         >
           <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Send className="h-8 w-8 text-primary" />
@@ -62,10 +62,10 @@ export default function EnquiriesPage() {
   return (
     <div className="min-h-screen bg-background pt-20 sm:pt-24">
       {/* Header */}
-      <div className="bg-white/5 dark:bg-black/10 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+      <div className="bg-muted/30 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center space-x-4">
-            <Link href="/" className="p-2 hover:bg-white/10 dark:hover:bg-white/5 rounded-md transition-colors">
+            <Link href="/" className="p-2 hover:bg-accent rounded-md transition-colors">
               <ArrowLeft className="h-5 w-5 text-muted-foreground" />
             </Link>
             <div>
@@ -81,7 +81,7 @@ export default function EnquiriesPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl p-8 shadow-lg shadow-black/5 dark:shadow-black/20"
+          className="bg-card border border-border rounded-2xl p-8 shadow-lg"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Personal Information */}
@@ -100,7 +100,7 @@ export default function EnquiriesPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                     placeholder="Your full name"
                   />
                 </div>
@@ -113,7 +113,7 @@ export default function EnquiriesPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -125,7 +125,7 @@ export default function EnquiriesPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                     placeholder="+233 24 123 4567"
                   />
                 </div>
@@ -137,7 +137,7 @@ export default function EnquiriesPage() {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors"
                     placeholder="Your company name"
                   />
                 </div>
@@ -159,7 +159,7 @@ export default function EnquiriesPage() {
                     value={formData.projectType}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="">Select project type</option>
                     <option value="web-development">Web Development</option>
@@ -177,7 +177,7 @@ export default function EnquiriesPage() {
                     name="budget"
                     value={formData.budget}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="">Select budget range</option>
                     <option value="under-10k">Under GHS 10,000</option>
@@ -194,7 +194,7 @@ export default function EnquiriesPage() {
                     name="timeline"
                     value={formData.timeline}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="">Select timeline</option>
                     <option value="asap">ASAP</option>
@@ -217,7 +217,7 @@ export default function EnquiriesPage() {
                 onChange={handleInputChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-white/5 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
+                className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-colors resize-none"
                 placeholder="Tell us about your project, goals, and any specific requirements..."
               />
             </div>
