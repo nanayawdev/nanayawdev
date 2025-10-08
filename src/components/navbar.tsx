@@ -5,6 +5,7 @@ import { InquireBriefModal } from "@/components/inquire-brief";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, BadgeCheck } from "lucide-react";
 
@@ -39,9 +40,21 @@ export function Navbar() {
           {/* Left - Brand */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
-              <div className="w-10 h-10 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md flex items-center justify-center shadow-lg shadow-black/5 dark:shadow-black/20">
-                <BadgeCheck className="w-6 h-6 text-[#bdffaa]" />
+              {/* New logo with logo.png */}
+              <div className="w-16 h-16 rounded-md overflow-hidden shadow-lg shadow-black/5 dark:shadow-black/20">
+                <Image
+                  src="/logo.png"
+                  alt="Devs & Cre8vs Logo"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-contain"
+                />
               </div>
+              
+              {/* Commented out old logo - uncomment if you want to revert */}
+              {/* <div className="w-10 h-10 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md flex items-center justify-center shadow-lg shadow-black/5 dark:shadow-black/20">
+                <BadgeCheck className="w-6 h-6 text-[#bdffaa]" />
+              </div> */}
             </Link>
           </div>
 
