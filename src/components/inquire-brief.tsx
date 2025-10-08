@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, FileText } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface InquireBriefModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface InquireBriefModalProps {
 }
 
 export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
+  const router = useRouter();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -57,13 +59,12 @@ export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
               <div className="space-y-4">
                 {/* Make Enquiries Button */}
                 <motion.button
-                  className="w-full bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-lg p-4 flex items-center justify-center space-x-3 hover:bg-white/20 dark:hover:bg-black/30 transition-colors"
+                  className="w-full bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-lg p-4 flex items-center justify-center space-x-3 hover:bg-white/20 dark:hover:bg-black/30 transition-colors cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
-                    // Handle make enquiries action
-                    console.log("Make enquiries clicked");
                     onClose();
+                    router.push("/enquiries");
                   }}
                 >
                   <MessageCircle className="h-5 w-5 text-primary" />
@@ -72,13 +73,12 @@ export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
 
                 {/* Send Brief Button */}
                 <motion.button
-                  className="w-full bg-primary text-primary-foreground rounded-lg p-4 flex items-center justify-center space-x-3 hover:bg-primary/90 transition-colors"
+                  className="w-full bg-primary text-primary-foreground rounded-lg p-4 flex items-center justify-center space-x-3 hover:bg-primary/90 transition-colors cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
-                    // Handle send brief action
-                    console.log("Send brief clicked");
                     onClose();
+                    router.push("/brief");
                   }}
                 >
                   <FileText className="h-5 w-5" />

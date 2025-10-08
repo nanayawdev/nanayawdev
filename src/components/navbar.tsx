@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { InquireBriefModal } from "@/components/inquire-brief";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import { Menu, X, BadgeCheck } from "lucide-react";
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
 
@@ -20,6 +22,9 @@ export function Navbar() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
@@ -73,9 +78,10 @@ export function Navbar() {
             <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-2 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
               <div className="flex items-center space-x-3">
                 <motion.button 
-                  className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 rounded-full text-sm font-medium"
+                  className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 rounded-full text-sm font-medium cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={openModal}
                 >
                   Let&apos;s Talk
                 </motion.button>
@@ -152,10 +158,13 @@ export function Navbar() {
                     className="pt-4 border-t border-white/10 dark:border-white/5"
                   >
                     <motion.button 
-                      className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-lg text-sm font-medium"
+                      className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-lg text-sm font-medium cursor-pointer"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={closeMobileMenu}
+                      onClick={() => {
+                        closeMobileMenu();
+                        openModal();
+                      }}
                     >
                       Let&apos;s Talk
                     </motion.button>
@@ -166,6 +175,9 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </div>
+      
+      {/* Modal */}
+      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </nav>
   );
 }

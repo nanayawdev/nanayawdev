@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { OurProcesses } from "@/components/our-processes";
+import { InquireBriefModal } from "@/components/inquire-brief";
+import { useState } from "react";
 
 const projects = [
   {
@@ -64,6 +66,11 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
@@ -163,6 +170,7 @@ export default function Projects() {
                     className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={openModal}
                   >
                     Start Your Project
                   </motion.button>
@@ -172,6 +180,9 @@ export default function Projects() {
           </div>
         </div>
       </div>
+      
+      {/* Modal */}
+      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }

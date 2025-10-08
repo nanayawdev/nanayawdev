@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import { InquireBriefModal } from "@/components/inquire-brief";
+import { useState } from "react";
 
 const caseStudies = [
   {
@@ -56,6 +58,19 @@ const caseStudies = [
 ];
 
 export default function CaseStudies() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof caseStudies[0] | null>(null);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const openCaseStudy = (study: typeof caseStudies[0]) => {
+    setSelectedCaseStudy(study);
+    // For now, we'll show an alert with the case study details
+    // In a real app, this would navigate to a detailed case study page
+    alert(`Case Study: ${study.title}\n\nClient: ${study.client}\nTimeline: ${study.timeline}\nResult: ${study.result}\n\nDescription: ${study.description}\n\nKey Results:\n${study.keyResults.map(result => `• ${result}`).join('\n')}`);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
@@ -165,6 +180,7 @@ export default function CaseStudies() {
                           className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-200"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
+                          onClick={() => openCaseStudy(study)}
                         >
                           Read Full Case Study
                           <ArrowRight className="w-4 h-4" />
@@ -200,6 +216,7 @@ export default function CaseStudies() {
                       className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      onClick={openModal}
                     >
                       Start Your Project
                     </motion.button>
@@ -210,6 +227,9 @@ export default function CaseStudies() {
           </div>
         </div>
       </div>
+      
+      {/* Modal */}
+      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
