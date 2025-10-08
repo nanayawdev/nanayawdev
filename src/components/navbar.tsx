@@ -88,7 +88,7 @@ export function Navbar() {
           <div className="lg:hidden flex items-center">
             <motion.button
               onClick={toggleMobileMenu}
-              className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full p-2 shadow-lg shadow-black/5 dark:shadow-black/20"
+              className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md p-2 shadow-lg shadow-black/5 dark:shadow-black/20"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle mobile menu"
