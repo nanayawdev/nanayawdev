@@ -73,7 +73,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
               >
-                A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.
+                A digital agency helping startups and brands go global through design, development, and storytelling. We empower brands with world-class digital experiences.
               </motion.p>
             </div>
           </div>
