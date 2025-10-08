@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { InquireBriefModal } from "@/components/inquire-brief";
 
 export function MainCTA() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <section className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-8">
@@ -55,6 +62,7 @@ export function MainCTA() {
                   className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={openModal}
                 >
                   Let&apos;s Talk
                 </motion.button>
@@ -62,6 +70,9 @@ export function MainCTA() {
           </div>
         </motion.div>
       </div>
+      
+      {/* Modal */}
+      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </section>
   );
 }
