@@ -119,23 +119,6 @@ export function FAQ() {
           ))}
         </div>
 
-        {/* View All Button */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <motion.button
-            className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-full text-foreground hover:bg-muted transition-colors duration-200 cursor-pointer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="font-medium">View All</span>
-            <ArrowRight className="w-4 h-4" />
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );
