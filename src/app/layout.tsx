@@ -6,7 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 
-const geist = Geist({
+const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-geist-sans",
 });
@@ -116,7 +116,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

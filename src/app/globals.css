@@ -36,8 +36,8 @@
   --sidebar-accent-foreground: oklch(0.2050 0 0);
   --sidebar-border: oklch(0.9220 0 0);
   --sidebar-ring: oklch(0.7080 0 0);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, sans-serif, system-ui;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --radius: 0.625rem;
   --shadow-x: -50px;
   --shadow-y: -50px;
@@ -90,8 +90,8 @@
   --sidebar-accent-foreground: oklch(0.9850 0 0);
   --sidebar-border: oklch(0.2750 0 0);
   --sidebar-ring: oklch(0.4390 0 0);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, sans-serif, system-ui;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --radius: 0.625rem;
   --shadow-x: -50px;
   --shadow-y: -50px;
