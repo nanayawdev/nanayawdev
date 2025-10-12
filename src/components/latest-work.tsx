@@ -19,20 +19,6 @@ const projects = [
     image: "/hero2.avif",
     logo: "AA",
     description: "Appointment App"
-  },
-  {
-    id: 3,
-    title: "Ultimate Kairos",
-    image: "/hero3.avif",
-    logo: "UK",
-    description: "Bakes & More"
-  },
-  {
-    id: 4,
-    title: "Yum Chef",
-    image: "/hero6.webp",
-    logo: "YC",
-    description: "OH YES!"
   }
 ];
 
