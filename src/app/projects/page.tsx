@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { EyeIcon } from "lucide-react";
 import { OurProcesses } from "@/components/our-processes";
 import { InquireBriefModal } from "@/components/inquire-brief";
 import { useState } from "react";
@@ -97,45 +99,65 @@ export default function Projects() {
             <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="relative group cursor-pointer"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-            >
-              {/* Project Image */}
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-gray-900">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={300}
-                  height={375}
-                  className="w-full h-full object-cover group-hover:scale-105 group-hover:grayscale transition-all duration-300"
-                />
-                
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                
-                {/* Project Logo/Title */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-card/90 backdrop-blur-sm border border-border rounded-xl p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold text-sm">{project.logo}</span>
-                      </div>
-                      <div>
-                        <h3 className="text-foreground font-semibold text-lg">{project.title}</h3>
-                        <p className="text-muted-foreground text-sm">{project.description}</p>
+            <Link key={project.id} href="/projects">
+              <motion.div
+                className="relative group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ scale: 1.01 }}
+              >
+                {/* Card Container */}
+                <div className="relative aspect-[3/2] rounded-3xl overflow-hidden">
+                  {/* Project Image */}
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                 
+                    
+                  {/* Large Title Overlay */}
+                  <div className="absolute top-8 left-8 right-8">
+                    <h3 className="text-white text-5xl lg:text-6xl font-bold tracking-tight uppercase">
+                      {project.title}
+                    </h3>
+                  </div>
+                  
+                  {/* Bottom Info Card */}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="bg-card rounded-3xl p-5 shadow-2xl border flex items-center justify-between">
+                      <div className="flex items-center gap-4 flex-1">
+                        {/* Logo Circle */}
+                        <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-primary-foreground font-bold text-lg">{project.logo}</span>
+                        </div>
+                        
+                        {/* Text Content */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-foreground font-semibold text-lg mb-0.5">
+                            {project.title}
+                          </h4>
+                          <p className="text-muted-foreground text-sm">
+                            {project.description}
+                          </p>
+                        </div>
+                        
+                        {/* View Project Icon Button */}
+                        <div className="flex-shrink-0">
+                          <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
+                            <EyeIcon className="w-5 h-5" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
               </div>

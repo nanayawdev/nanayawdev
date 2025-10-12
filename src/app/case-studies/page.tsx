@@ -2,74 +2,61 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { EyeIcon } from "lucide-react";
 import { InquireBriefModal } from "@/components/inquire-brief";
 import { useState } from "react";
 
 const caseStudies = [
   {
     id: 1,
-    title: "Remora Digital Platform",
-    client: "Remora Digital",
-    industry: "Fintech",
-    timeline: "4 months",
-    result: "300% Growth",
-    image: "/hero1.avif",
-    description: "A comprehensive digital platform that revolutionized how African fintech companies manage their operations and serve customers globally.",
-    tags: ["Web Development", "UI/UX Design", "API Integration"],
-    keyResults: [
-      "Increased user engagement by 250%",
-      "Expanded to 5 new markets",
-      "Improved conversion rate by 180%"
-    ]
+    title: "Remora Digital",
+    logo: "RD",
+    description: "Digital platform development",
+    image: "/hero1.avif"
   },
   {
     id: 2,
-    title: "Appointment Management System",
-    client: "HealthConnect",
-    industry: "Healthcare",
-    timeline: "3 months",
-    result: "500% Efficiency",
-    image: "/hero2.avif",
-    description: "A mobile-first appointment booking system that streamlined healthcare access across multiple African countries.",
-    tags: ["Mobile App", "UI/UX Design", "Backend Development"],
-    keyResults: [
-      "Reduced booking time by 70%",
-      "Served 50,000+ patients",
-      "Achieved 95% user satisfaction"
-    ]
+    title: "Appointment App",
+    logo: "AA",
+    description: "Appointment App",
+    image: "/hero2.avif"
   },
   {
     id: 3,
-    title: "E-commerce Revolution",
-    client: "Ultimate Kairos",
-    industry: "Food & Beverage",
-    timeline: "5 months",
-    result: "400% Sales",
-    image: "/hero3.avif",
-    description: "A complete digital transformation including brand identity, e-commerce platform, and mobile app for a premium bakery chain.",
-    tags: ["Brand Identity", "E-commerce", "Mobile App"],
-    keyResults: [
-      "Increased online sales by 400%",
-      "Launched in 3 new cities",
-      "Built loyal customer base of 10,000+"
-    ]
+    title: "Ultimate Kairos",
+    logo: "UK",
+    description: "Bakes & More",
+    image: "/hero3.avif"
+  },
+  {
+    id: 4,
+    title: "Yum Chef",
+    logo: "YC",
+    description: "OH YES!",
+    image: "/hero6.webp"
+  },
+  {
+    id: 5,
+    title: "EcoTech Solutions",
+    logo: "ES",
+    description: "Sustainable technology platform",
+    image: "/hero7.webp"
+  },
+  {
+    id: 6,
+    title: "FinanceFlow",
+    logo: "FF",
+    description: "Financial management app",
+    image: "/hero8.jpg"
   }
 ];
 
 export default function CaseStudies() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof caseStudies[0] | null>(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const openCaseStudy = (study: typeof caseStudies[0]) => {
-    setSelectedCaseStudy(study);
-    // For now, we'll show an alert with the case study details
-    // In a real app, this would navigate to a detailed case study page
-    alert(`Case Study: ${study.title}\n\nClient: ${study.client}\nTimeline: ${study.timeline}\nResult: ${study.result}\n\nDescription: ${study.description}\n\nKey Results:\n${study.keyResults.map(result => `• ${result}`).join('\n')}`);
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -95,99 +82,66 @@ export default function CaseStudies() {
           {/* Bottom - Case Studies */}
           <div className="pb-10 lg:pb-12">
             <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
-              <div className="space-y-8">
+              {/* Case Studies Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {caseStudies.map((study, index) => (
-                  <motion.div
-                    key={study.id}
-                    className="bg-card border border-border rounded-4xl overflow-hidden group hover:border-border/80 transition-all duration-300"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.01 }}
-                  >
-                    <div className="grid grid-cols-1 lg:grid-cols-2">
-                      {/* Image Section */}
-                      <div className="relative aspect-[4/3] lg:aspect-auto">
+                  <Link key={study.id} href="/case-studies">
+                    <motion.div
+                      className="relative group cursor-pointer"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.01 }}
+                    >
+                      {/* Card Container */}
+                      <div className="relative aspect-[3/2] rounded-3xl overflow-hidden">
+                        {/* Project Image */}
                         <Image
                           src={study.image}
                           alt={study.title}
-                          width={600}
-                          height={400}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                       
+                          
+                        {/* Large Title Overlay */}
+                        <div className="absolute top-8 left-8 right-8">
+                          <h3 className="text-white text-5xl lg:text-6xl font-bold tracking-tight uppercase">
+                            {study.title}
+                          </h3>
+                        </div>
+                        
+                        {/* Bottom Info Card */}
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <div className="bg-card rounded-3xl p-5 shadow-2xl border flex items-center justify-between">
+                            <div className="flex items-center gap-4 flex-1">
+                              {/* Logo Circle */}
+                              <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-primary-foreground font-bold text-lg">{study.logo}</span>
+                              </div>
+                              
+                              {/* Text Content */}
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-foreground font-semibold text-lg mb-0.5">
+                                  {study.title}
+                                </h4>
+                                <p className="text-muted-foreground text-sm">
+                                  {study.description}
+                                </p>
+                              </div>
+                              
+                              {/* View Project Icon Button */}
+                              <div className="flex-shrink-0">
+                                <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
+                                  <EyeIcon className="w-5 h-5" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-
-                      {/* Content Section */}
-                      <div className="p-8 lg:p-12">
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {study.tags.map((tag, tagIndex) => (
-                            <span
-                              key={tagIndex}
-                              className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Title */}
-                        <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                          {study.title}
-                        </h2>
-
-                        {/* Description */}
-                        <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                          {study.description}
-                        </p>
-
-                        {/* Stats Grid */}
-                        <div className="grid grid-cols-2 gap-6 mb-8">
-                          <div>
-                            <h4 className="font-semibold text-foreground text-sm mb-1">Client</h4>
-                            <p className="text-muted-foreground">{study.client}</p>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-foreground text-sm mb-1">Timeline</h4>
-                            <p className="text-muted-foreground">{study.timeline}</p>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-foreground text-sm mb-1">Industry</h4>
-                            <p className="text-muted-foreground">{study.industry}</p>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-foreground text-sm mb-1">Result</h4>
-                            <p className="text-primary font-semibold">{study.result}</p>
-                          </div>
-                        </div>
-
-                        {/* Key Results */}
-                        <div className="mb-8">
-                          <h4 className="font-semibold text-foreground mb-4">Key Results:</h4>
-                          <ul className="space-y-3">
-                            {study.keyResults.map((result, resultIndex) => (
-                              <li key={resultIndex} className="flex items-start">
-                                <span className="mr-3 text-primary text-lg">✓</span>
-                                <span className="text-muted-foreground">{result}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* CTA Button */}
-                        <motion.button
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-200"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => openCaseStudy(study)}
-                        >
-                          Read Full Case Study
-                          <ArrowRight className="w-4 h-4" />
-                        </motion.button>
-                      </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
 
