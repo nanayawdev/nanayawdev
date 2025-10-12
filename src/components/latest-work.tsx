@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { EyeIcon } from "lucide-react";
 
 const projects = [
   {
@@ -63,7 +64,7 @@ export function LatestWork() {
                 whileHover={{ scale: 1.01 }}
               >
                 {/* Card Container */}
-                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <div className="relative aspect-[3/2] rounded-3xl overflow-hidden">
                   {/* Project Image */}
                   <Image
                     src={project.image}
@@ -71,8 +72,8 @@ export function LatestWork() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                
-                  
+                 
+                    
                   {/* Large Title Overlay */}
                   <div className="absolute top-8 left-8 right-8">
                     <h3 className="text-white text-5xl lg:text-6xl font-bold tracking-tight uppercase">
@@ -102,19 +103,7 @@ export function LatestWork() {
                         {/* View Project Icon Button */}
                         <div className="flex-shrink-0">
                           <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
-                            <svg 
-                              className="w-5 h-5" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={2} 
-                                d="M9 5l7 7-7 7" 
-                              />
-                            </svg>
+                            <EyeIcon className="w-5 h-5" />
                           </div>
                         </div>
                       </div>
