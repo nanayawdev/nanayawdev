@@ -42,15 +42,15 @@ export function LatestWork() {
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {projects.map((project, index) => (
-            <Link key={project.id} href="/projects">
-              <motion.div
-                className="relative group cursor-pointer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.01 }}
-              >
+            <motion.div
+              key={project.id}
+              className="relative group cursor-pointer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.01 }}
+            >
                 {/* Card Container */}
                 <div className="relative aspect-[4/3] md:aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden">
                   {/* Project Image */}
@@ -90,24 +90,22 @@ export function LatestWork() {
                         
                         {/* View Project Icon Button */}
                         <div className="flex-shrink-0">
-                          <a 
-                            href={project.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="block"
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              window.open(project.url, '_blank', 'noopener,noreferrer');
+                            }}
+                            className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors cursor-pointer"
                           >
-                            <div className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
-                              <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
-                            </div>
-                          </a>
+                            <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </Link>
+            </motion.div>
           ))}
         </div>
 
