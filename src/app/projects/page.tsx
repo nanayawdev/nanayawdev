@@ -11,59 +11,67 @@ import { useState } from "react";
 const projects = [
   {
     id: 1,
-    title: "Remora Digital",
+    title: "Thomisia Travel",
     image: "/hero1.avif",
-    logo: "RD",
-    description: "Digital platform development"
+    logo: "TT",
+    description: "Travel & Tour Platform",
+    url: "https://thomisiatravelandtour.com"
   },
   {
     id: 2,
-    title: "Appointment App",
+    title: "Urban Drive",
     image: "/hero2.avif",
-    logo: "AA",
-    description: "Appointment App"
+    logo: "UD",
+    description: "Ride Booking App",
+    url: "https://urbandriveapp.vercel.app"
   },
   {
     id: 3,
-    title: "Ultimate Kairos",
+    title: "Evvents Africa",
     image: "/hero3.avif",
-    logo: "UK",
-    description: "Bakes & More"
+    logo: "EA",
+    description: "Event Management Platform",
+    url: "https://evventsafrica.vercel.app"
   },
   {
     id: 4,
-    title: "Yum Chef",
+    title: "Urban Tickets",
     image: "/hero6.webp",
-    logo: "YC",
-    description: "OH YES!"
+    logo: "UT",
+    description: "Ticketing Platform",
+    url: "https://urbantickets.app"
   },
   {
     id: 5,
-    title: "EcoTech Solutions",
+    title: "Healthier BT",
     image: "/hero7.webp",
-    logo: "ES",
-    description: "Sustainable technology platform"
+    logo: "HB",
+    description: "Health & Wellness Solutions",
+    url: "https://healthierbtsolutions.com"
   },
   {
     id: 6,
-    title: "FinanceFlow",
+    title: "Atink News",
     image: "/hero8.jpg",
-    logo: "FF",
-    description: "Financial management app"
+    logo: "AN",
+    description: "News & Media Platform",
+    url: "https://atinknews.net"
   },
   {
     id: 7,
-    title: "HealthConnect",
+    title: "Licia Luxe",
     image: "/hero1.avif",
-    logo: "HC",
-    description: "Healthcare platform"
+    logo: "LL",
+    description: "Luxury Fashion Brand",
+    url: "https://licialuxe.vercel.app"
   },
   {
     id: 8,
-    title: "EduTech Hub",
+    title: "SMS App",
     image: "/hero2.avif",
-    logo: "EH",
-    description: "Educational technology"
+    logo: "SA",
+    description: "Messaging Platform",
+    url: "https://smsappv1.vercel.app"
   }
 ];
 
@@ -99,7 +107,7 @@ export default function Projects() {
             <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {projects.map((project, index) => (
             <Link key={project.id} href="/projects">
               <motion.div
@@ -110,7 +118,7 @@ export default function Projects() {
                 whileHover={{ scale: 1.01 }}
               >
                 {/* Card Container */}
-                <div className="relative aspect-[3/2] rounded-3xl overflow-hidden">
+                <div className="relative aspect-[4/3] md:aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden">
                   {/* Project Image */}
                   <Image
                     src={project.image}
@@ -121,36 +129,44 @@ export default function Projects() {
                  
                     
                   {/* Large Title Overlay */}
-                  <div className="absolute top-8 left-8 right-8">
-                    <h3 className="text-white text-5xl lg:text-6xl font-bold tracking-tight uppercase">
+                  <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8">
+                    <h3 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight uppercase leading-tight">
                       {project.title}
                     </h3>
                   </div>
                   
                   {/* Bottom Info Card */}
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-card rounded-3xl p-5 shadow-2xl border flex items-center justify-between">
-                      <div className="flex items-center gap-4 flex-1">
+                  <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6">
+                    <div className="bg-card rounded-2xl md:rounded-3xl p-3 md:p-5 shadow-2xl border flex items-center justify-between">
+                      <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
                         {/* Logo Circle */}
-                        <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="text-primary-foreground font-bold text-lg">{project.logo}</span>
+                        <div className="w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-primary-foreground font-bold text-sm md:text-lg">{project.logo}</span>
                         </div>
                         
                         {/* Text Content */}
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-foreground font-semibold text-lg mb-0.5">
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <h4 className="text-foreground font-semibold text-sm md:text-lg mb-0.5 truncate">
                             {project.title}
                           </h4>
-                          <p className="text-muted-foreground text-sm">
+                          <p className="text-muted-foreground text-xs md:text-sm truncate">
                             {project.description}
                           </p>
                         </div>
                         
                         {/* View Project Icon Button */}
                         <div className="flex-shrink-0">
-                          <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
-                            <EyeIcon className="w-5 h-5" />
-                          </div>
+                          <a 
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="block"
+                          >
+                            <div className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
+                              <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
+                            </div>
+                          </a>
                         </div>
                       </div>
                     </div>

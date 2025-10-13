@@ -8,27 +8,29 @@ import { EyeIcon } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Remora Digital",
+    title: "Thomisia Travel",
     image: "/hero1.avif",
-    logo: "RD",
-    description: "Digital platform development"
+    logo: "TT",
+    description: "Travel & Tour Platform",
+    url: "https://thomisiatravelandtour.com"
   },
   {
     id: 2,
-    title: "Appointment App",
+    title: "Urban Drive",
     image: "/hero2.avif",
-    logo: "AA",
-    description: "Appointment App"
+    logo: "UD",
+    description: "Ride Booking App",
+    url: "https://urbandriveapp.vercel.app"
   }
 ];
 
 export function LatestWork() {
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="py-12 md:py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Main Header */}
         <motion.h2
-          className="text-4xl lg:text-6xl font-bold text-foreground mb-16 text-center"
+          className="text-3xl md:text-4xl lg:text-6xl font-bold text-foreground mb-8 md:mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -38,7 +40,7 @@ export function LatestWork() {
         </motion.h2>
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {projects.map((project, index) => (
             <Link key={project.id} href="/projects">
               <motion.div
@@ -50,7 +52,7 @@ export function LatestWork() {
                 whileHover={{ scale: 1.01 }}
               >
                 {/* Card Container */}
-                <div className="relative aspect-[3/2] rounded-3xl overflow-hidden">
+                <div className="relative aspect-[4/3] md:aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden">
                   {/* Project Image */}
                   <Image
                     src={project.image}
@@ -61,36 +63,44 @@ export function LatestWork() {
                  
                     
                   {/* Large Title Overlay */}
-                  <div className="absolute top-8 left-8 right-8">
-                    <h3 className="text-white text-5xl lg:text-6xl font-bold tracking-tight uppercase">
+                  <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8">
+                    <h3 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight uppercase leading-tight">
                       {project.title}
                     </h3>
                   </div>
                   
                   {/* Bottom Info Card */}
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-card rounded-3xl p-5 shadow-2xl border flex items-center justify-between">
-                      <div className="flex items-center gap-4 flex-1">
+                  <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6">
+                    <div className="bg-card rounded-2xl md:rounded-3xl p-3 md:p-5 shadow-2xl border flex items-center justify-between">
+                      <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
                         {/* Logo Circle */}
-                        <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="text-primary-foreground font-bold text-lg">{project.logo}</span>
+                        <div className="w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-primary-foreground font-bold text-sm md:text-lg">{project.logo}</span>
                         </div>
                         
                         {/* Text Content */}
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-foreground font-semibold text-lg mb-0.5">
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <h4 className="text-foreground font-semibold text-sm md:text-lg mb-0.5 truncate">
                             {project.title}
                           </h4>
-                          <p className="text-muted-foreground text-sm">
+                          <p className="text-muted-foreground text-xs md:text-sm truncate">
                             {project.description}
                           </p>
                         </div>
                         
                         {/* View Project Icon Button */}
                         <div className="flex-shrink-0">
-                          <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
-                            <EyeIcon className="w-5 h-5" />
-                          </div>
+                          <a 
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="block"
+                          >
+                            <div className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
+                              <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
+                            </div>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -103,7 +113,7 @@ export function LatestWork() {
 
         {/* See More Button */}
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-8 md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
@@ -111,7 +121,7 @@ export function LatestWork() {
         >
           <Link href="/projects">
             <motion.button
-              className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
+              className="bg-primary text-primary-foreground px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-base md:text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
