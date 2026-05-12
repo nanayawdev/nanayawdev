@@ -1,5 +1,6 @@
 import { StructuredData } from "@/components/structured-data";
 import { Hero } from "@/components/hero";
+import { TechTicker } from "@/components/tech-ticker";
 import { Services } from "@/components/services";
 import { LatestWork } from "@/components/latest-work";
 import { WhyUs } from "@/components/why-us";
@@ -23,6 +24,7 @@ export default function Home() {
     <>
       <StructuredData />
       <Hero />
+      <TechTicker />
       <Services />
       <LatestWork />
       <WhyUs />
