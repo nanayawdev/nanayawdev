@@ -47,7 +47,7 @@ export function Hero() {
               <Badge variant="default" className="text-xs font-semibold rounded-full">
                 YES!
               </Badge>
-              <span>Creativity powered by code</span>
+              <span>We&apos;re developers and creatives</span>
               <ArrowRight className="w-4 h-4" />
             </motion.div>
           </div>
