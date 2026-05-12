@@ -131,7 +131,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <main className="pb-28">
+            {children}
+          </main>
           <Footer />
           <CookieConsent />
         </ThemeProvider>

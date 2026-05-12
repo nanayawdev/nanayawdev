@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X, BadgeCheck } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -15,182 +15,147 @@ export function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
     { href: "/projects", label: "Projects" },
-    { href: "/case-studies", label: "Case Studies" }
+    { href: "/case-studies", label: "Case Studies" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex h-14 sm:h-16 items-center justify-between">
-          {/* Left - Brand */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
-              {/* New logo with logo.png */}
-              <div className="w-16 h-16 rounded-md overflow-hidden shadow-lg shadow-black/5 dark:shadow-black/20">
-                <Image
-                  src="/logo.png"
-                  alt="Devs & Cre8vs Logo"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              
-              {/* Commented out old logo - uncomment if you want to revert */}
-              {/* <div className="w-10 h-10 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md flex items-center justify-center shadow-lg shadow-black/5 dark:shadow-black/20">
-                <BadgeCheck className="w-6 h-6 text-[#bdffaa]" />
-              </div> */}
-            </Link>
-          </div>
+    <>
+      <nav className="fixed bottom-6 z-50 w-full flex justify-center px-4">
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4">
-            {/* Navigation */}
-            <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-6 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
-              <div className="flex items-center space-x-4 relative">
-                {navigationItems.map((item) => (
-                  <motion.div
-                    key={item.href}
-                    className={`text-sm font-medium py-2 ${isActive(item.href) ? 'text-foreground flex items-center' : 'text-muted-foreground hover:text-foreground transition-colors'}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link href={item.href} className="flex items-center">
-                      <motion.span 
-                        className="w-1.5 h-1.5 bg-foreground rounded-sm mr-2"
-                        initial={false}
-                        animate={{ 
-                          opacity: isActive(item.href) ? 1 : 0,
-                          scale: isActive(item.href) ? 1 : 0.5
-                        }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
-                      />
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+        {/* Desktop — single compact floating pill */}
+        <div className="hidden lg:flex items-center gap-1 bg-background/60 backdrop-blur-2xl border border-border/60 rounded-full px-3 py-2 shadow-xl shadow-black/10 dark:shadow-black/40">
+          {/* Logo */}
+          <Link href="/" className="mr-2">
+            <div className="w-8 h-8 rounded-full overflow-hidden">
+              <Image src="/logo.png" alt="Devs & Cre8vs" width={32} height={32} className="w-full h-full object-contain" />
             </div>
+          </Link>
 
-            {/* Actions */}
-            <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-2 py-2 shadow-lg shadow-black/5 dark:shadow-black/20">
-              <div className="flex items-center space-x-3">
-                <motion.button 
-                  className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 rounded-full text-sm font-medium cursor-pointer"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={openModal}
-                >
-                  Let&apos;s Talk
-                </motion.button>
-                <ThemeToggle />
-              </div>
-            </div>
-          </div>
+          <div className="w-px h-4 bg-foreground/10 mx-1" />
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
-            <motion.button
-              onClick={toggleMobileMenu}
-              className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-md p-2 shadow-lg shadow-black/5 dark:shadow-black/20"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Toggle mobile menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-5 w-5 text-foreground" />
-              ) : (
-                <Menu className="h-5 w-5 text-foreground" />
-              )}
-            </motion.button>
-          </div>
+          {/* Nav links */}
+          {navigationItems.map((item) => (
+            <motion.div key={item.href} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href={item.href}
+                className={`flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full transition-colors ${
+                  isActive(item.href)
+                    ? "text-foreground bg-foreground/8"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {isActive(item.href) && (
+                  <span className="w-1.5 h-1.5 rounded-sm bg-foreground shrink-0" />
+                )}
+                {item.label}
+              </Link>
+            </motion.div>
+          ))}
+
+          <div className="w-px h-4 bg-foreground/10 mx-1" />
+
+          <ThemeToggle />
+
+          <motion.button
+            className="ml-1 bg-primary text-primary-foreground px-5 py-2 rounded-full text-sm font-medium cursor-pointer"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={openModal}
+          >
+            Let&apos;s Talk
+          </motion.button>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden"
-            >
-              <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl mt-4 p-6 shadow-lg shadow-black/5 dark:shadow-black/20">
-                <div className="space-y-4">
-                  {navigationItems.map((item, index) => (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={closeMobileMenu}
-                        className={`flex items-center py-3 px-4 rounded-lg transition-colors ${
-                          isActive(item.href)
-                            ? 'bg-primary/20 text-primary'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                        }`}
-                      >
-                        <motion.span 
-                          className="w-2 h-2 bg-primary rounded-sm mr-3"
-                          initial={false}
-                          animate={{ 
-                            opacity: isActive(item.href) ? 1 : 0,
-                            scale: isActive(item.href) ? 1 : 0.5
-                          }}
-                          transition={{ duration: 0.2, ease: "easeInOut" }}
-                        />
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    </motion.div>
-                  ))}
-                  
-                  {/* Mobile CTA Button */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.4 }}
-                    className="pt-4 border-t border-white/10 dark:border-white/5"
-                  >
-                    <motion.button 
-                      className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-lg text-sm font-medium cursor-pointer"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => {
-                        closeMobileMenu();
-                        openModal();
-                      }}
-                    >
-                      Let&apos;s Talk
-                    </motion.button>
-                  </motion.div>
-                </div>
+        {/* Mobile — full-width floating pill */}
+        <div className="lg:hidden w-full max-w-sm relative">
+          <div className="flex items-center justify-between bg-background/60 backdrop-blur-2xl border border-border/60 rounded-full px-4 py-2.5 shadow-xl shadow-black/10 dark:shadow-black/40">
+            <Link href="/" onClick={closeMobileMenu}>
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <Image src="/logo.png" alt="Devs & Cre8vs" width={32} height={32} className="w-full h-full object-contain" />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      
-      {/* Modal */}
+            </Link>
+
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <motion.button
+                onClick={() => setIsMobileMenuOpen((v) => !v)}
+                className="p-2 rounded-full bg-foreground/5 hover:bg-foreground/10 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Menu className="w-5 h-5 text-foreground" />
+                )}
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Mobile menu — slides up from the bar */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="absolute bottom-full mb-3 left-0 right-0"
+              >
+                <div className="bg-background/70 backdrop-blur-2xl border border-border/60 rounded-2xl p-3 shadow-xl shadow-black/10 dark:shadow-black/40">
+                  <div className="space-y-1">
+                    {navigationItems.map((item, index) => (
+                      <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.15, delay: index * 0.04 }}
+                      >
+                        <Link
+                          href={item.href}
+                          onClick={closeMobileMenu}
+                          className={`flex items-center gap-2.5 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${
+                            isActive(item.href)
+                              ? "bg-foreground/8 text-foreground"
+                              : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                          }`}
+                        >
+                          {isActive(item.href) && (
+                            <span className="w-1.5 h-1.5 rounded-sm bg-foreground shrink-0" />
+                          )}
+                          {item.label}
+                        </Link>
+                      </motion.div>
+                    ))}
+
+                    <div className="pt-2 mt-1 border-t border-border/40">
+                      <motion.button
+                        className="w-full bg-primary text-primary-foreground py-2.5 px-6 rounded-xl text-sm font-medium cursor-pointer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => { closeMobileMenu(); openModal(); }}
+                      >
+                        Let&apos;s Talk
+                      </motion.button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </nav>
+
       <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
-    </nav>
+    </>
   );
 }
