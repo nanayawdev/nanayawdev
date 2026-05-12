@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import LightRays from "./light-rays";
@@ -10,7 +9,7 @@ import "./light-rays.css";
 export function Hero() {
 
   return (
-    <section className="relative min-h-screen bg-background overflow-hidden">
+    <section className="relative min-h-screen bg-background overflow-hidden flex items-center justify-center">
       {/* Light Rays Background */}
       <div className="absolute inset-0 z-0">
         <LightRays
@@ -28,78 +27,50 @@ export function Hero() {
           saturation={1.0}
         />
       </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 sm:pt-24 lg:pt-28">
-        <div className="flex flex-col">
-          {/* Top Content - Centered */}
-          <div className="min-h-[45vh] sm:min-h-[55vh] lg:min-h-[60vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">
-            <div className="max-w-5xl text-foreground text-center">
-              {/* YES! Badge */}
-              <div className="mb-4 sm:mb-6">
-                <motion.div 
-                  className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    backgroundColor: "rgba(255, 255, 255, 0.15)",
-                    borderColor: "rgba(255, 255, 255, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Badge variant="default" className="text-xs font-semibold rounded-full">
-                    YES!
-                  </Badge>
-                  <span>Creativity powered by code</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
-              </div>
 
-              {/* Main Title */}
-                     <motion.h1
-                       className="max-w-3xl mx-auto text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-3.5px] mb-4 sm:mb-6 leading-none"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-              >
-                We Design. We Build. We Make it Matter.
-              </motion.h1>
-
-              {/* Subtitle */}
-              <motion.p
-                className="text-sm sm:text-base lg:text-base font-light leading-relaxed mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.4 }}
-              >
-                A digital agency helping startups and brands go global through design, development, and storytelling. We empower brands with world-class digital experiences.
-              </motion.p>
-            </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto text-foreground text-center">
+          {/* Badge */}
+          <div className="mb-6 sm:mb-8">
+            <motion.div
+              className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "rgba(255, 255, 255, 0.15)",
+                borderColor: "rgba(255, 255, 255, 0.3)"
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Badge variant="default" className="text-xs font-semibold rounded-full">
+                YES!
+              </Badge>
+              <span>Creativity powered by code</span>
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
           </div>
 
-          {/* Bottom - Hero Image */}
-          <div className="pb-6 lg:pb-12">
-            <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
-              <motion.div
-                className="relative rounded-none lg:rounded-lg overflow-hidden shadow-2xl"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.8 }}
-              >
-                <Image
-                  src="/hero.avif"
-                  alt="Devs & Creatives Digital Services"
-                  width={1200}
-                  height={600}
-                  className="w-full h-[500px] lg:h-[600px] object-cover"
-                  priority
-                />
-                {/* Bottom gradient fade */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background via-background/95 to-transparent pointer-events-none" />
-              </motion.div>
-            </div>
-          </div>
+          {/* Main Title */}
+          <motion.h1
+            className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-[-3.5px] mb-6 sm:mb-8 leading-none"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            We Design. We Build. We Make it Matter.
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            className="text-sm sm:text-base lg:text-lg font-light leading-relaxed opacity-90 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+          >
+            A digital agency helping startups and brands go global through design, development, and storytelling. We empower brands with world-class digital experiences.
+          </motion.p>
         </div>
       </div>
     </section>
