@@ -9,42 +9,43 @@ export function Hero() {
   return (
     <section className="relative min-h-screen bg-background overflow-hidden flex items-center justify-center">
       {/* Shader Gradient Background */}
-      <div className="absolute inset-0 z-0">
-        <ShaderGradientCanvas
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-        >
-          <ShaderGradient
-            animate="on"
-            brightness={1.2}
-            cAzimuthAngle={180}
-            cDistance={2.4}
-            cPolarAngle={95}
-            cameraZoom={1}
-            color1="#ff6a1a"
-            color2="#c73c00"
-            color3="#FD4912"
-            envPreset="city"
-            grain="off"
-            lightType="3d"
-            positionX={0}
-            positionY={-2.1}
-            positionZ={0}
-            reflection={0.1}
-            rotationX={0}
-            rotationY={0}
-            rotationZ={225}
-            shader="defaults"
-            type="waterPlane"
-            uAmplitude={0}
-            uDensity={1.8}
-            uFrequency={5.5}
-            uSpeed={0.2}
-            uStrength={3}
-            uTime={0.2}
-            wireframe={false}
-          />
-        </ShaderGradientCanvas>
-      </div>
+      <ShaderGradientCanvas
+        style={{ position: "absolute", inset: 0, zIndex: 0 }}
+        pixelDensity={1.5}
+        fov={45}
+        pointerEvents="none"
+      >
+        <ShaderGradient
+          animate="on"
+          brightness={1.2}
+          cAzimuthAngle={180}
+          cDistance={2.4}
+          cPolarAngle={95}
+          cameraZoom={1}
+          color1="#ff6a1a"
+          color2="#c73c00"
+          color3="#FD4912"
+          envPreset="city"
+          grain="off"
+          lightType="3d"
+          positionX={0}
+          positionY={-2.1}
+          positionZ={0}
+          reflection={0.1}
+          rotationX={0}
+          rotationY={0}
+          rotationZ={225}
+          shader="defaults"
+          type="waterPlane"
+          uAmplitude={0}
+          uDensity={1.8}
+          uFrequency={5.5}
+          uSpeed={0.2}
+          uStrength={3}
+          uTime={0.2}
+          wireframe={false}
+        />
+      </ShaderGradientCanvas>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto text-foreground text-center">
