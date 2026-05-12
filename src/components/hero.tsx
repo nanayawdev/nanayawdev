@@ -3,29 +3,47 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import LightRays from "./light-rays";
-import "./light-rays.css";
+import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 
 export function Hero() {
-
   return (
     <section className="relative min-h-screen bg-background overflow-hidden flex items-center justify-center">
-      {/* Light Rays Background */}
+      {/* Shader Gradient Background */}
       <div className="absolute inset-0 z-0">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1.5}
-          lightSpread={0.8}
-          rayLength={1.2}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0.1}
-          distortion={0.05}
-          pulsating={true}
-          fadeDistance={1.0}
-          saturation={1.0}
-        />
+        <ShaderGradientCanvas
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+        >
+          <ShaderGradient
+            animate="on"
+            brightness={1.2}
+            cAzimuthAngle={180}
+            cDistance={2.4}
+            cPolarAngle={95}
+            cameraZoom={1}
+            color1="#ff6a1a"
+            color2="#c73c00"
+            color3="#FD4912"
+            envPreset="city"
+            grain="off"
+            lightType="3d"
+            positionX={0}
+            positionY={-2.1}
+            positionZ={0}
+            reflection={0.1}
+            rotationX={0}
+            rotationY={0}
+            rotationZ={225}
+            shader="defaults"
+            type="waterPlane"
+            uAmplitude={0}
+            uDensity={1.8}
+            uFrequency={5.5}
+            uSpeed={0.2}
+            uStrength={3}
+            uTime={0.2}
+            wireframe={false}
+          />
+        </ShaderGradientCanvas>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
