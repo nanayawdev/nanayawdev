@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 
-const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
+const circular = localFont({
+  src: [
+    {
+      path: "../../public/fonts/circular/CircularStd-Book.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/circular/CircularStd-Book.woff",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-circular",
 });
 
 export const metadata: Metadata = {
@@ -116,7 +122,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${circular.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
