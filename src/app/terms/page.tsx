@@ -1,71 +1,131 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FileText } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+
+const sections = [
+  {
+    id: "introduction",
+    title: "Introduction",
+    content: `These Terms of Service ("Terms") govern your engagement with Devs & Creatives for any digital services including web design, web development, mobile app development, brand identity, and digital marketing. By engaging our services, you agree to be bound by these Terms. If you do not agree, please do not proceed with an engagement.`,
+  },
+  {
+    id: "services",
+    title: "Services",
+    content: `Devs & Creatives provides creative and technical digital services as agreed in individual project proposals or service agreements. The scope, deliverables, timeline, and cost of each engagement are defined in a written proposal or statement of work (SOW) issued before work begins. Any work outside the agreed scope will be quoted separately.`,
+  },
+  {
+    id: "project-engagements",
+    title: "Project Engagements",
+    content: `All projects begin with a signed proposal or SOW and an upfront deposit (typically 50% of the total project cost). Work will not commence until the deposit is received. You are responsible for providing accurate briefs, timely feedback, and any assets required for the project. Delays caused by late client feedback may affect the delivery timeline.`,
+  },
+  {
+    id: "payment-terms",
+    title: "Payment Terms",
+    content: `Payments are due as outlined in your project proposal. Invoices not paid within 14 days of the due date may incur a 2% monthly late fee. We reserve the right to pause or suspend work on overdue accounts. Final deliverables, source files, and live deployment will only be released upon receipt of full payment.`,
+  },
+  {
+    id: "intellectual-property",
+    title: "Intellectual Property",
+    content: `Upon receipt of full payment, all final deliverables created specifically for your project become your property. We retain ownership of all preliminary concepts, drafts, and unused designs. We reserve the right to display completed work in our portfolio and marketing materials unless otherwise agreed in writing. We retain ownership of any proprietary tools, frameworks, or processes used during the project.`,
+  },
+  {
+    id: "confidentiality",
+    title: "Confidentiality",
+    content: `Both parties agree to keep confidential any sensitive business information shared during the engagement. We will not disclose your proprietary information to third parties without your consent. Similarly, our internal processes, pricing structures, and vendor relationships are confidential. This obligation survives the termination of the engagement.`,
+  },
+  {
+    id: "limitation-of-liability",
+    title: "Limitation of Liability",
+    content: `Devs & Creatives shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services or deliverables. Our total liability for any claim shall not exceed the total fees paid for the specific project giving rise to the claim. We are not responsible for losses due to circumstances beyond our control, including third-party platform changes, hosting failures, or acts of nature.`,
+  },
+  {
+    id: "termination",
+    title: "Termination",
+    content: `Either party may terminate a project engagement with 14 days written notice. In the event of termination, you are responsible for paying for all work completed up to the termination date. Any deposit paid is non-refundable. If we terminate due to non-payment or breach of these Terms, we reserve the right to remove any work from live environments until outstanding balances are settled.`,
+  },
+  {
+    id: "contact",
+    title: "Contact Us",
+    content: `For any questions about these Terms or to discuss a specific engagement, please reach out at hello@devsandcreatives.com. We are based in Accra, Ghana, and aim to respond to all enquiries within 1–2 business days.`,
+  },
+];
 
 export default function TermsOfService() {
+  const [activeId, setActiveId] = useState(sections[0].id);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observerRef.current?.observe(el);
+    });
+
+    return () => observerRef.current?.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Content */}
-      <div className="min-h-screen flex items-center">
-        <div className="max-w-4xl mx-auto px-8 py-20">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
-          >
-            {/* Heading */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-8">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex-shrink-0"
-              >
-                <FileText className="w-16 h-16 lg:w-20 lg:h-20 text-primary" />
-              </motion.div>
-              <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight">
-                <span className="text-foreground">Terms of</span>{" "}
-                <span className="text-muted-foreground">Service</span>
-              </h1>
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
+
+        {/* Header */}
+        <div className="mb-16 pb-12 border-b border-border">
+          <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">Legal</p>
+          <h1 className="text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-4">
+            Terms of Service
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
+        </div>
+
+        {/* Body */}
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-16">
+
+          {/* Sticky nav */}
+          <nav className="hidden lg:block">
+            <ul className="sticky top-32 space-y-1">
+              {sections.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className={`block text-sm py-1.5 px-3 rounded-lg transition-colors duration-200 ${
+                      activeId === s.id
+                        ? "text-foreground font-medium bg-foreground/5"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {s.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Content */}
+          <div className="max-w-2xl space-y-14">
+            {sections.map((s) => (
+              <section key={s.id} id={s.id} className="scroll-mt-32">
+                <h2 className="text-xl font-semibold text-foreground mb-4">{s.title}</h2>
+                <p className="text-muted-foreground leading-relaxed text-base">{s.content}</p>
+              </section>
+            ))}
+            <div className="pt-6 border-t border-border">
+              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                ← Back to home
+              </Link>
             </div>
+          </div>
 
-            {/* First Paragraph */}
-            <motion.p
-              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              These Terms of Service govern your use of our digital agency services and 
-              outline the rights and responsibilities of both parties in our working relationship.
-            </motion.p>
-
-            {/* Second Paragraph */}
-            <motion.p
-              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              By engaging our services, you agree to these terms. We are committed to 
-              providing transparent, professional service while protecting both our 
-              interests and yours.
-            </motion.p>
-
-            {/* Last Updated */}
-            <motion.div
-              className="mt-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              <p className="text-muted-foreground text-sm">
-                Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </p>
-            </motion.div>
-          </motion.div>
         </div>
       </div>
     </div>

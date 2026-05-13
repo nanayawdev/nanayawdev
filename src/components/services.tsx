@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useState } from "react";
 
 const services = [
@@ -9,24 +10,28 @@ const services = [
     name: "Web Design & Development",
     description: "We design visually compelling, user-centric websites that blend creativity with functional brand from scratch.",
     tags: ["UX/UI Design", "Responsive Layouts", "Web Apps"],
+    image: "/hero1.avif",
   },
   {
     id: 2,
     name: "Mobile Apps Development",
     description: "We create intuitive mobile experiences that engage users and drive business growth across iOS and Android platforms.",
     tags: ["iOS", "Android", "Cross-Platform"],
+    image: "/hero2.avif",
   },
   {
     id: 3,
     name: "Brand Identity",
     description: "We craft memorable brand identities that tell your story and connect with your audience on an emotional level.",
     tags: ["Logo Design", "Brand Guidelines", "Visual Identity"],
+    image: "/hero6.webp",
   },
   {
     id: 4,
     name: "Digital Marketing",
     description: "We develop data-driven marketing strategies that increase visibility and convert prospects into loyal customers.",
     tags: ["SEO", "Social Media", "Content Strategy"],
+    image: "/hero7.webp",
   },
 ];
 
@@ -51,7 +56,7 @@ export function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className="group relative cursor-default"
+              className="group relative cursor-default overflow-hidden"
               onHoverStart={() => setHovered(service.id)}
               onHoverEnd={() => setHovered(null)}
               initial={{ opacity: 0, y: 16 }}
@@ -59,8 +64,24 @@ export function Services() {
               transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true }}
             >
+              {/* Background image — fades in on hover */}
               <motion.div
-                className="flex items-start gap-8 py-10 lg:py-12"
+                className="absolute inset-0 z-0"
+                animate={{ opacity: hovered === service.id ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  aria-hidden
+                />
+                <div className="absolute inset-0 bg-background/85 dark:bg-background/80" />
+              </motion.div>
+
+              <motion.div
+                className="relative z-10 flex items-start gap-8 py-10 lg:py-12"
                 animate={{ x: hovered === service.id ? 8 : 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               >
@@ -119,5 +140,6 @@ export function Services() {
         </div>
       </div>
     </section>
+
   );
 }
