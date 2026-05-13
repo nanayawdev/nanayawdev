@@ -1,124 +1,131 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus } from "lucide-react";
 
 const faqData = [
   {
     id: 1,
-    question: "What services do you offer for African startups?",
-    answer: "We provide comprehensive digital services including brand identity design, web development, mobile app prototypes, UI/UX design, and digital strategy. Our team specializes in helping African startups scale globally through world-class digital experiences."
+    question: "What services do you offer?",
+    answer: "We cover the full digital stack — brand identity, web design and development, mobile apps, and digital marketing. Most clients come to us for one thing and stay for everything else.",
   },
   {
     id: 2,
     question: "Do you work with international clients?",
-    answer: "Yes! While we specialize in African markets, we work with clients worldwide. Our global perspective combined with local market understanding helps us create digital experiences that resonate across cultures."
+    answer: "Yes. While we specialise in African markets, we work with founders and brands worldwide. Our edge is combining local cultural depth with international design and engineering standards.",
   },
   {
     id: 3,
-    question: "Can you guarantee project delivery timelines?",
-    answer: "We provide detailed project timelines and milestones for every engagement. Our agile development process ensures transparent communication and regular updates throughout the project lifecycle."
+    question: "How long does a typical project take?",
+    answer: "A brand identity takes 2–3 weeks. A web project is typically 4–8 weeks depending on complexity. Mobile apps run 8–16 weeks. We'll give you a precise timeline before anything starts.",
   },
   {
     id: 4,
-    question: "Do you offer ongoing maintenance and support?",
-    answer: "Absolutely! We provide comprehensive maintenance and hosting services to ensure your digital products continue to perform optimally. Our support includes regular updates, security patches, and performance monitoring."
+    question: "Do you offer post-launch support?",
+    answer: "Always. We offer retainer-based maintenance covering updates, performance monitoring, security patches, and ongoing feature work. We don't disappear after launch.",
   },
   {
     id: 5,
-    question: "What makes your approach different for African brands?",
-    answer: "We understand African markets deeply while maintaining global standards. Our team combines local cultural insights with international design trends to create brands that compete effectively on the world stage."
+    question: "What makes you different from other agencies?",
+    answer: "We're builders first. Every person on our team who touches your project can design and develop — no disconnected handoffs. And we actually care whether your product succeeds, not just whether we shipped it.",
   },
   {
     id: 6,
-    question: "Do you help with digital marketing strategy?",
-    answer: "Yes! We offer digital marketing strategy as part of our comprehensive services. This includes brand positioning, content strategy, and growth planning to help your brand reach its target audience effectively."
-  }
+    question: "How do we get started?",
+    answer: "Hit the Let's Talk button, fill in a brief, and we'll set up a discovery call within 48 hours. From there we scope the project, agree on timelines and pricing, and kick off.",
+  },
 ];
 
 export function FAQ() {
-  const [openItems, setOpenItems] = useState<number[]>([]);
+  const [openId, setOpenId] = useState<number | null>(1);
 
-  const toggleItem = (id: number) => {
-    setOpenItems(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    );
-  };
+  const toggle = (id: number) => setOpenId((prev) => (prev === id ? null : id));
 
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-4xl mx-auto px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.h2
-            className="text-4xl lg:text-5xl font-bold text-foreground mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Frequently Asked Questions
-          </motion.h2>
-          <motion.p
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Quick answers to your most common questions.
-          </motion.p>
-        </div>
+    <section className="py-16 lg:py-28 bg-background">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
 
-        {/* FAQ Items */}
-        <div className="space-y-4 mb-12">
-          {faqData.map((item, index) => (
-            <motion.div
-              key={item.id}
-              className="bg-card border border-border rounded-2xl overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
+          {/* Left — sticky */}
+          <div className="lg:sticky lg:top-32">
+            <motion.p
+              className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <button
-                onClick={() => toggleItem(item.id)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
-              >
-                <h3 className="text-lg font-medium text-foreground pr-4">
-                  {item.question}
-                </h3>
-                <motion.div
-                  animate={{ rotate: openItems.includes(item.id) ? 45 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex-shrink-0"
-                >
-                  <Plus className="w-5 h-5 text-muted-foreground" />
-                </motion.div>
-              </button>
-              
-              <motion.div
-                initial={false}
-                animate={{
-                  height: openItems.includes(item.id) ? "auto" : 0,
-                  opacity: openItems.includes(item.id) ? 1 : 0
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <div className="px-6 pb-5">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
+              FAQ
+            </motion.p>
+            <motion.h2
+              className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              viewport={{ once: true }}
+            >
+              Common
+              <br />
+              Questions
+            </motion.h2>
+            <motion.p
+              className="mt-6 text-muted-foreground text-base leading-relaxed max-w-xs"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              Can&apos;t find what you&apos;re looking for? Drop us a message and we&apos;ll get back to you within 24 hours.
+            </motion.p>
+          </div>
 
+          {/* Right — accordion */}
+          <div className="divide-y divide-border">
+            {faqData.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => toggle(item.id)}
+                  className="w-full flex items-start justify-between gap-6 py-7 text-left group cursor-pointer"
+                >
+                  <span className={`text-base lg:text-lg font-medium leading-snug transition-colors duration-200 ${openId === item.id ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
+                    {item.question}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: openId === item.id ? 45 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="shrink-0 mt-0.5"
+                  >
+                    <Plus className="w-5 h-5 text-muted-foreground" />
+                  </motion.div>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {openId === item.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-muted-foreground text-base leading-relaxed pb-7 max-w-xl">
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
       </div>
     </section>
   );
