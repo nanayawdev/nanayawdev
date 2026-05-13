@@ -1,100 +1,251 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Check, Twitter, Linkedin, Github, Instagram } from "lucide-react";
+
+const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
+
+const details = [
+  { label: "Email", value: "hello@devsandcreatives.com", href: "mailto:hello@devsandcreatives.com" },
+  { label: "Location", value: "Accra, Ghana", href: null },
+  { label: "Response time", value: "Within 24 hours", href: null },
+];
+
+const socials = [
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/devsandcreatives" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/devsandcreatives" },
+  { icon: Github, label: "GitHub", href: "https://github.com/devsandcreatives" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/devsandcreatives" },
+];
+
+type Form = { name: string; email: string; subject: string; message: string };
+type Errors = Partial<Record<keyof Form, string>>;
+
+const empty: Form = { name: "", email: "", subject: "", message: "" };
+
+const inputClass =
+  "w-full bg-transparent border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/30 transition-colors";
+
+function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-foreground mb-2">{label}</label>
+      {children}
+      {error && <p className="text-xs text-red-500 mt-1.5">{error}</p>}
+    </div>
+  );
+}
 
 export default function Contact() {
+  const [form, setForm] = useState<Form>(empty);
+  const [errors, setErrors] = useState<Errors>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const set =
+    (key: keyof Form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const validate = (): boolean => {
+    const e: Errors = {};
+    if (!form.name.trim()) e.name = "Name is required";
+    if (!form.email.trim()) e.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email";
+    if (!form.subject) e.subject = "Please select a subject";
+    if (!form.message.trim()) e.message = "Message is required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setLoading(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    setLoading(false);
+    setSubmitted(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Content */}
-      <div className="min-h-screen flex items-center">
-        <div className="max-w-4xl mx-auto px-8 py-20">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
-          >
-            {/* Heading */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-8">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex-shrink-0"
-              >
-                <Mail className="w-16 h-16 lg:w-20 lg:h-20 text-primary" />
-              </motion.div>
-              <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight">
-                <span className="text-primary">Contact</span>{" "}
-                <span className="text-muted-foreground">us</span>
-              </h1>
-            </div>
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-48 pb-24">
 
-            {/* First Paragraph */}
+        {/* Split layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
+
+          {/* Left — brand panel */}
+          <div className="flex flex-col">
             <motion.p
-              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
-              initial={{ opacity: 0, y: 30 }}
+              className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-5"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.5 }}
             >
-              Ready to take your brand global? Let&apos;s discuss your project and explore 
-              how we can help you achieve your goals through innovative digital solutions.
+              Contact
             </motion.p>
 
-            {/* Second Paragraph */}
-            <motion.p
-              className="text-foreground text-lg lg:text-xl leading-relaxed max-w-3xl"
-              initial={{ opacity: 0, y: 30 }}
+            <motion.h1
+              className="text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-8"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
             >
-              Get in touch with our team to start your digital transformation journey. 
-              We&apos;re here to help African startups and brands reach their full potential 
-              on the global stage.
+              Let&apos;s build
+              <br />
+              something
+              <br />
+              great.
+            </motion.h1>
+
+            <motion.p
+              className="text-muted-foreground text-base leading-relaxed max-w-sm mb-10"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              Whether you have a fully formed brief or just the seed of an idea, we&apos;d love
+              to hear from you. Drop us a message and we&apos;ll get back to you within a day.
             </motion.p>
 
-            {/* Contact Info */}
+            {/* Socials */}
             <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+              className="flex items-center gap-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Mail className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-foreground font-semibold mb-1 text-sm">Email</h3>
-                <p className="text-muted-foreground text-xs">hello@devsandcreatives.com</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Phone className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-foreground font-semibold mb-1 text-sm">Phone</h3>
-                <p className="text-muted-foreground text-xs">+233 XXX XXX XXXX</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <MapPin className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-foreground font-semibold mb-1 text-sm">Location</h3>
-                <p className="text-muted-foreground text-xs">Accra, Ghana</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Clock className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-foreground font-semibold mb-1 text-sm">Hours</h3>
-                <p className="text-muted-foreground text-xs">Mon-Fri 9AM-6PM</p>
-              </div>
+              {socials.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
             </motion.div>
+          </div>
+
+          {/* Right — form */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  className="flex flex-col items-center justify-center text-center py-28"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="w-16 h-16 rounded-full bg-foreground flex items-center justify-center mb-6">
+                    <Check className="w-7 h-7 text-background" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                    Message sent, {form.name.split(" ")[0]}.
+                  </h3>
+                  <p className="text-muted-foreground text-base max-w-xs leading-relaxed">
+                    We&apos;ll get back to you at{" "}
+                    <span className="text-foreground font-medium">{form.email}</span> within
+                    24 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  exit={{ opacity: 0 }}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <Field label="Full name" error={errors.name}>
+                      <input
+                        type="text"
+                        value={form.name}
+                        onChange={set("name")}
+                        placeholder="Jane Mensah"
+                        className={inputClass}
+                      />
+                    </Field>
+                    <Field label="Email address" error={errors.email}>
+                      <input
+                        type="email"
+                        value={form.email}
+                        onChange={set("email")}
+                        placeholder="jane@company.com"
+                        className={inputClass}
+                      />
+                    </Field>
+                  </div>
+
+                  <Field label="Subject" error={errors.subject}>
+                    <select
+                      value={form.subject}
+                      onChange={set("subject")}
+                      className={`${inputClass} appearance-none cursor-pointer`}
+                    >
+                      <option value="" disabled>Select a subject</option>
+                      {subjects.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </Field>
+
+                  <Field label="Message" error={errors.message}>
+                    <textarea
+                      value={form.message}
+                      onChange={set("message")}
+                      placeholder="Tell us what's on your mind…"
+                      rows={6}
+                      className={`${inputClass} resize-none`}
+                    />
+                  </Field>
+
+                  <motion.button
+                    type="submit"
+                    disabled={loading}
+                    className="inline-flex items-center gap-2 bg-foreground text-background px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                    whileHover={{ scale: loading ? 1 : 1.03 }}
+                    whileTap={{ scale: loading ? 1 : 0.97 }}
+                  >
+                    {loading ? "Sending…" : "Send message"}
+                    {!loading && <ArrowRight className="w-4 h-4" />}
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
+
+        {/* Bottom detail strip */}
+        <div className="border-t border-border pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {details.map(({ label, value, href }) => (
+            <div key={label}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                {label}
+              </p>
+              {href ? (
+                <a
+                  href={href}
+                  className="text-base font-medium text-foreground hover:text-muted-foreground transition-colors"
+                >
+                  {value}
+                </a>
+              ) : (
+                <p className="text-base font-medium text-foreground">{value}</p>
+              )}
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   );
