@@ -52,22 +52,16 @@ export function Hero() {
           {/* Badge */}
           <div className="mb-6 sm:mb-8">
             <motion.div
-              className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-4 py-2 text-sm font-medium rounded-full"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-3 py-1.5 text-xs font-medium rounded-full"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "rgba(255, 255, 255, 0.15)",
-                borderColor: "rgba(255, 255, 255, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
             >
-              <Badge variant="default" className="text-[10px] rounded-full">
+              <Badge variant="default" className="text-[9px] rounded-full px-2 py-0.5">
                 YES!
               </Badge>
               <span>We&apos;re developers and creatives</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3 h-3" />
             </motion.div>
           </div>
 

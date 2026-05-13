@@ -1,14 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { InquireBriefModal } from "@/components/inquire-brief";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export function MainCTA() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <section className="py-16 lg:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-8">
@@ -96,21 +93,20 @@ export function MainCTA() {
               <p className="text-white/70 text-base max-w-xs lg:text-right leading-relaxed">
                 Tell us what you&apos;re building and we&apos;ll take it from there.
               </p>
-              <motion.button
-                className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-semibold text-base hover:bg-white/90 transition-colors cursor-pointer shrink-0"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setIsModalOpen(true)}
-              >
-                Let&apos;s Talk
-                <ArrowUpRight className="w-4 h-4" />
-              </motion.button>
+              <Link href="/start">
+                <motion.span
+                  className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-semibold text-base hover:bg-white/90 transition-colors cursor-pointer shrink-0"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Let&apos;s Talk
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.span>
+              </Link>
             </motion.div>
           </div>
         </motion.div>
       </div>
-
-      <InquireBriefModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }
