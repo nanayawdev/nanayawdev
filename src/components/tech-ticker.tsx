@@ -29,7 +29,7 @@ const tickerItems = items.map((label) => ({
       <span className="text-sm font-medium text-foreground/70 whitespace-nowrap tracking-wide">
         {label}
       </span>
-      <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+      <span className="w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
     </span>
   ),
 }));
