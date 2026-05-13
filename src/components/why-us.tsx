@@ -1,92 +1,99 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Paintbrush, 
-  Sparkles, 
-  Layers, 
-  Users, 
-  Lightbulb, 
-  Search 
-} from "lucide-react";
 
-const features = [
+const reasons = [
   {
-    icon: Paintbrush,
     title: "African-First Design",
-    description: "We understand African markets and create designs that resonate locally while competing globally."
+    description: "We understand African markets deeply — we build experiences that feel local, travel globally, and speak to your audience in a way generic agencies never will.",
   },
   {
-    icon: Sparkles,
-    title: "Innovation & Imagination",
-    description: "Where cutting-edge technology meets creative storytelling to bring your vision to life."
+    title: "Full-Stack, One Team",
+    description: "Brand identity, web, mobile, marketing — all under one roof. No handoff gaps, no blame games. One team owns the entire outcome.",
   },
   {
-    icon: Layers,
-    title: "Full-Stack Solutions",
-    description: "From brand identity to web development, we're your one-stop creative and technical partner."
+    title: "Startup Speed",
+    description: "We move at the pace of ambitious founders. Fast iterations, direct communication, and zero corporate overhead between you and the people building your product.",
   },
   {
-    icon: Users,
-    title: "Startup-Focused",
-    description: "We specialize in helping African startups scale with digital experiences that drive growth."
-  },
-  {
-    icon: Lightbulb,
     title: "Global Ambition",
-    description: "We build digital experiences that help African brands compete on the world stage."
+    description: "We've helped African brands compete on the world stage. We know what it takes to go from local to international and we build with that goal from day one.",
   },
   {
-    icon: Search,
-    title: "Results-Driven",
-    description: "Every project is crafted with purpose—to grow your brand, engage your audience, and drive business success."
-  }
+    title: "Results, Not Deliverables",
+    description: "We don't hand you files and disappear. We care about whether your product grows, converts, and stands out — and we measure our work against that.",
+  },
 ];
 
 export function WhyUs() {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 lg:py-28 bg-background">
       <div className="max-w-7xl mx-auto px-8">
-        {/* Main Title */}
-        <motion.h2
-          className="text-4xl lg:text-6xl font-bold text-foreground mb-16 text-left"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          Why You&apos;ll Love Us
-        </motion.h2>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
 
-        {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              className="bg-card border border-border rounded-4xl p-8 hover:border-border/80 transition-colors duration-300"
-              initial={{ opacity: 0, y: 30 }}
+          {/* Left — sticky headline */}
+          <div className="lg:sticky lg:top-32">
+            <motion.p
+              className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
             >
-              {/* Icon and Heading - Same Line */}
-              <div className="flex items-center gap-4 mb-6">
-                <feature.icon className="w-8 h-8 text-foreground flex-shrink-0" />
-                <h3 className="text-2xl text-foreground">
-                  {feature.title}
-                </h3>
-              </div>
+              Why Us
+            </motion.p>
+            <motion.h2
+              className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              viewport={{ once: true }}
+            >
+              Why You&apos;ll
+              <br />
+              Love Us
+            </motion.h2>
+            <motion.p
+              className="mt-6 text-muted-foreground text-base leading-relaxed max-w-xs"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              We&apos;re not your average agency. Here&apos;s what makes working with us different.
+            </motion.p>
+          </div>
 
-              {/* Divider */}
-              <div className="border-t border-border/60 mb-6"></div>
+          {/* Right — reasons list */}
+          <div className="divide-y divide-border">
+            {reasons.map((reason, index) => (
+              <motion.div
+                key={reason.title}
+                className="py-8 lg:py-10 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.07 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-start gap-6">
+                  {/* Index */}
+                  <span className="text-xs font-medium text-muted-foreground/40 tabular-nums pt-1.5 w-6 shrink-0">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-              {/* Description */}
-              <p className="text-muted-foreground leading-relaxed text-left">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
+                  <div>
+                    <h3 className="text-xl lg:text-2xl font-semibold text-foreground mb-3 leading-snug">
+                      {reason.title}
+                    </h3>
+                    <p className="text-muted-foreground text-base leading-relaxed">
+                      {reason.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
