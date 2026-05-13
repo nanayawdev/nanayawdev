@@ -1,223 +1,123 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { EyeIcon } from "lucide-react";
-import { OurProcesses } from "@/components/our-processes";
-import { InquireBriefModal } from "@/components/inquire-brief";
 import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 const projects = [
-  {
-    id: 1,
-    title: "Thomisia Travel",
-    image: "/hero1.avif",
-    logo: "TT",
-    description: "Travel & Tour Platform",
-    url: "https://thomisiatravelandtour.com"
-  },
-  {
-    id: 2,
-    title: "Urban Drive",
-    image: "/hero2.avif",
-    logo: "UD",
-    description: "Ride Booking App",
-    url: "https://urbandriveapp.vercel.app"
-  },
-  {
-    id: 3,
-    title: "Evvents Africa",
-    image: "/hero3.avif",
-    logo: "EA",
-    description: "Event Management Platform",
-    url: "https://evventsafrica.vercel.app"
-  },
-  {
-    id: 4,
-    title: "Urban Tickets",
-    image: "/hero6.webp",
-    logo: "UT",
-    description: "Ticketing Platform",
-    url: "https://urbantickets.app"
-  },
-  {
-    id: 5,
-    title: "Healthier BT",
-    image: "/hero7.webp",
-    logo: "HB",
-    description: "Health & Wellness Solutions",
-    url: "https://healthierbtsolutions.com"
-  },
-  {
-    id: 6,
-    title: "Atink News",
-    image: "/hero8.jpg",
-    logo: "AN",
-    description: "News & Media Platform",
-    url: "https://atinknews.net"
-  },
-  {
-    id: 7,
-    title: "Licia Luxe",
-    image: "/hero1.avif",
-    logo: "LL",
-    description: "Luxury Fashion Brand",
-    url: "https://licialuxe.vercel.app"
-  },
-  {
-    id: 8,
-    title: "SMS App",
-    image: "/hero2.avif",
-    logo: "SA",
-    description: "Messaging Platform",
-    url: "https://smsappv1.vercel.app"
-  }
+  { id: 1, title: "Thomisia Travel", category: "Web", description: "Full-featured travel booking platform with real-time availability.", image: "/hero1.avif", url: "https://thomisiatravelandtour.com" },
+  { id: 2, title: "Urban Drive", category: "Mobile", description: "iOS & Android ride-hailing app with live driver tracking.", image: "/hero2.avif", url: "https://urbandriveapp.vercel.app" },
+  { id: 3, title: "Evvents Africa", category: "Web", description: "End-to-end event management and ticketing platform.", image: "/hero3.avif", url: "https://evventsafrica.vercel.app" },
+  { id: 4, title: "Urban Tickets", category: "Mobile", description: "Mobile-first ticketing app for live events across Africa.", image: "/hero6.webp", url: "https://urbantickets.app" },
+  { id: 5, title: "Healthier BT", category: "Web", description: "Health and wellness solutions platform for African consumers.", image: "/hero7.webp", url: "https://healthierbtsolutions.com" },
+  { id: 6, title: "Atink News", category: "Web", description: "Modern news and media platform with real-time updates.", image: "/hero8.jpg", url: "https://atinknews.net" },
+  { id: 7, title: "Licia Luxe", category: "Brand", description: "Luxury fashion brand identity — logo, guidelines, and visual system.", image: "/hero1.avif", url: "https://licialuxe.vercel.app" },
+  { id: 8, title: "SMS App", category: "Mobile", description: "Bulk messaging platform for businesses across West Africa.", image: "/hero2.avif", url: "https://smsappv1.vercel.app" },
 ];
 
-export default function Projects() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const filters = ["All", "Web", "Mobile", "Brand"];
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+export default function Projects() {
+  const [active, setActive] = useState("All");
+
+  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
-        <div className="flex flex-col">
-          {/* Top Content - Centered */}
-          <div className="min-h-[25vh] sm:min-h-[30vh] lg:min-h-[35vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">
-            <div className="max-w-5xl text-foreground text-center">
-              {/* Main Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
+
+        {/* Header */}
+        <motion.p
+          className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Our Work
+        </motion.p>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
+          <motion.h1
+            className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05 }}
+          >
+            Projects
+          </motion.h1>
+
+          {/* Filter tabs */}
+          <motion.div
+            className="flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => setActive(f)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                  active === f
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20"
+                }`}
               >
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">Our Projects</h1>
-                <p className="text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto">
-                  Showcasing our successful projects that have helped African startups and brands achieve global reach through innovative digital solutions.
-                </p>
-              </motion.div>
-            </div>
-          </div>
+                {f}
+              </button>
+            ))}
+          </motion.div>
+        </div>
 
-          {/* Bottom - Projects Grid */}
-          <div className="pb-10 lg:pb-12">
-            <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
-
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="relative group cursor-pointer"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.01 }}
-            >
-                {/* Card Container */}
-                <div className="relative aspect-[4/3] md:aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden">
-                  {/* Project Image */}
+        {/* Grid */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
+                className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer"
+              >
+                <a href={project.url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                 
-                    
-                  {/* Large Title Overlay */}
-                  <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8">
-                    <h3 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight uppercase leading-tight">
-                      {project.title}
-                    </h3>
-                  </div>
-                  
-                  {/* Bottom Info Card */}
-                  <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6">
-                    <div className="bg-card rounded-2xl md:rounded-3xl p-3 md:p-5 shadow-2xl border flex items-center justify-between">
-                      <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
-                        {/* Logo Circle */}
-                        <div className="w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="text-primary-foreground font-bold text-sm md:text-lg">{project.logo}</span>
-                        </div>
-                        
-                        {/* Text Content */}
-                        <div className="flex-1 min-w-0 overflow-hidden">
-                          <h4 className="text-foreground font-semibold text-sm md:text-lg mb-0.5 truncate">
-                            {project.title}
-                          </h4>
-                          <p className="text-muted-foreground text-xs md:text-sm truncate">
-                            {project.description}
-                          </p>
-                        </div>
-                        
-                        {/* View Project Icon Button */}
-                        <div className="flex-shrink-0">
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              window.open(project.url, '_blank', 'noopener,noreferrer');
-                            }}
-                            className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors cursor-pointer"
-                          >
-                            <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </motion.div>
-          ))}
-        </div>
-              </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Our Process Section */}
-            <div className="mt-16">
-              <OurProcesses />
-            </div>
+                  {/* Category */}
+                  <div className="absolute top-4 left-4">
+                    <span className="text-xs font-medium text-white/70 uppercase tracking-widest bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+                      {project.category}
+                    </span>
+                  </div>
 
-            {/* CTA Section */}
-            <motion.div
-              className="mt-16"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              <div className="max-w-7xl mx-auto bg-card text-foreground rounded-4xl p-8 lg:p-12 border border-border relative overflow-hidden">
-                {/* Decorative corner elements */}
-                <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-border rounded-tr-2xl"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-border rounded-br-2xl"></div>
-                <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-border rounded-tl-2xl"></div>
-                <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-border rounded-bl-2xl"></div>
-                
-                <div className="max-w-4xl mx-auto text-center">
-                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                    Ready to see your project here?
-                  </h2>
-                  <p className="text-muted-foreground text-lg mb-6">
-                    Let&apos;s build it together.
-                  </p>
-                  <motion.button
-                    className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={openModal}
-                  >
-                    Start Your Project
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
+                  {/* Arrow */}
+                  <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                    <ArrowUpRight className="w-4 h-4 text-white" />
+                  </div>
+
+                  {/* Bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="text-white text-xl font-bold leading-tight mb-1">{project.title}</h3>
+                    <p className="text-white/60 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                      {project.description}
+                    </p>
+                  </div>
+                </a>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
       </div>
-      
-      {/* Modal */}
-      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }

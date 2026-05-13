@@ -2,199 +2,132 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { EyeIcon } from "lucide-react";
-import { InquireBriefModal } from "@/components/inquire-brief";
-import { useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 const caseStudies = [
   {
-    id: 1,
-    title: "Thomisia Travel",
-    logo: "TT",
-    description: "Travel & Tour Platform",
+    slug: "thomisia-travel",
+    client: "Thomisia Travel",
+    category: "Web Development",
+    outcome: "3× increase in online bookings",
+    year: "2024",
     image: "/hero1.avif",
-    url: "https://thomisiatravelandtour.com"
   },
   {
-    id: 2,
-    title: "Urban Drive",
-    logo: "UD",
-    description: "Ride Booking App",
+    slug: "urban-drive",
+    client: "Urban Drive",
+    category: "Mobile App",
+    outcome: "10,000 rides in first 60 days",
+    year: "2024",
     image: "/hero2.avif",
-    url: "https://urbandriveapp.vercel.app"
   },
   {
-    id: 3,
-    title: "Evvents Africa",
-    logo: "EA",
-    description: "Event Management Platform",
+    slug: "evvents-africa",
+    client: "Evvents Africa",
+    category: "Web Platform",
+    outcome: "50+ events managed at launch",
+    year: "2023",
     image: "/hero3.avif",
-    url: "https://evventsafrica.vercel.app"
   },
   {
-    id: 4,
-    title: "Urban Tickets",
-    logo: "UT",
-    description: "Ticketing Platform",
+    slug: "urban-tickets",
+    client: "Urban Tickets",
+    category: "Mobile App",
+    outcome: "20,000 tickets sold in 90 days",
+    year: "2023",
     image: "/hero6.webp",
-    url: "https://urbantickets.app"
   },
   {
-    id: 5,
-    title: "Healthier BT",
-    logo: "HB",
-    description: "Health & Wellness Solutions",
+    slug: "healthier-bt",
+    client: "Healthier BT",
+    category: "Web & Brand",
+    outcome: "40% rise in consultation bookings",
+    year: "2023",
     image: "/hero7.webp",
-    url: "https://healthierbtsolutions.com"
   },
-  {
-    id: 6,
-    title: "Atink News",
-    logo: "AN",
-    description: "News & Media Platform",
-    image: "/hero8.jpg",
-    url: "https://atinknews.net"
-  }
 ];
 
 export default function CaseStudies() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
-        <div className="flex flex-col">
-          {/* Top Content - Centered */}
-          <div className="min-h-[25vh] sm:min-h-[30vh] lg:min-h-[35vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">
-            <div className="max-w-5xl text-foreground text-center">
-              {/* Main Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">Case Studies</h1>
-                <p className="text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto">
-                  Deep dive into our successful projects and the impact we&apos;ve made helping African startups and brands go global.
-                </p>
-              </motion.div>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
 
-          {/* Bottom - Case Studies */}
-          <div className="pb-10 lg:pb-12">
-            <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-4">
-              {/* Case Studies Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                {caseStudies.map((study, index) => (
-                  <motion.div
-                    key={study.id}
-                    className="relative group cursor-pointer"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.01 }}
-                  >
-                      {/* Card Container */}
-                      <div className="relative aspect-[4/3] md:aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden">
-                        {/* Project Image */}
-                        <Image
-                          src={study.image}
-                          alt={study.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                       
-                          
-                        {/* Large Title Overlay */}
-                        <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8">
-                          <h3 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight uppercase leading-tight">
-                            {study.title}
-                          </h3>
-                        </div>
-                        
-                        {/* Bottom Info Card */}
-                        <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6">
-                          <div className="bg-card rounded-2xl md:rounded-3xl p-3 md:p-5 shadow-2xl border flex items-center justify-between">
-                            <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
-                              {/* Logo Circle */}
-                              <div className="w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                                <span className="text-primary-foreground font-bold text-sm md:text-lg">{study.logo}</span>
-                              </div>
-                              
-                              {/* Text Content */}
-                              <div className="flex-1 min-w-0 overflow-hidden">
-                                <h4 className="text-foreground font-semibold text-sm md:text-lg mb-0.5 truncate">
-                                  {study.title}
-                                </h4>
-                                <p className="text-muted-foreground text-xs md:text-sm truncate">
-                                  {study.description}
-                                </p>
-                              </div>
-                              
-                              {/* View Project Icon Button */}
-                              <div className="flex-shrink-0">
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    window.open(study.url, '_blank', 'noopener,noreferrer');
-                                  }}
-                                  className="bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors cursor-pointer"
-                                >
-                                  <EyeIcon className="w-4 h-4 md:w-5 md:h-5" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </motion.div>
-                ))}
-              </div>
+        {/* Header */}
+        <motion.p
+          className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Case Studies
+        </motion.p>
+        <motion.h1
+          className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-6"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+        >
+          The Work
+          <br />
+          Behind the Work
+        </motion.h1>
+        <motion.p
+          className="text-muted-foreground text-lg max-w-xl mb-20"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Five stories of real problems, real solutions, and real results for African brands.
+        </motion.p>
 
-              {/* CTA Section */}
-              <motion.div
-                className="mt-16"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <div className="max-w-7xl mx-auto bg-card text-foreground rounded-4xl p-8 lg:p-12 border border-border relative overflow-hidden">
-                  {/* Decorative corner elements */}
-                  <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-border rounded-tr-2xl"></div>
-                  <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-border rounded-br-2xl"></div>
-                  <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-border rounded-tl-2xl"></div>
-                  <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-border rounded-bl-2xl"></div>
-                  
-                  <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                      Want to See Your Success Story Here?
+        {/* Editorial list */}
+        <div className="divide-y divide-border">
+          {caseStudies.map((study, index) => (
+            <motion.div
+              key={study.slug}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.07 }}
+              viewport={{ once: true }}
+            >
+              <Link href={`/case-studies/${study.slug}`} className="group flex items-center gap-8 py-8 lg:py-10">
+
+                {/* Index */}
+                <span className="text-sm font-medium text-muted-foreground/40 tabular-nums w-8 shrink-0">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                {/* Main content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-6 mb-2">
+                    <h2 className="text-2xl lg:text-4xl font-bold text-foreground leading-tight group-hover:text-muted-foreground transition-colors duration-200">
+                      {study.client}
                     </h2>
-                    <p className="text-muted-foreground text-lg mb-6">
-                      Let&apos;s work together to create your own success story.
-                    </p>
-                    <motion.button
-                      className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={openModal}
-                    >
-                      Start Your Project
-                    </motion.button>
+                    <span className="text-sm text-muted-foreground border border-border px-3 py-0.5 rounded-full w-fit">
+                      {study.category}
+                    </span>
                   </div>
+                  <p className="text-muted-foreground text-base">{study.outcome}</p>
                 </div>
-              </motion.div>
-            </div>
-          </div>
+
+                {/* Thumbnail */}
+                <div className="relative w-20 h-14 lg:w-32 lg:h-20 rounded-xl overflow-hidden shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                  <Image src={study.image} alt={study.client} fill className="object-cover" />
+                </div>
+
+                {/* Year + Arrow */}
+                <div className="hidden lg:flex flex-col items-end gap-2 shrink-0">
+                  <span className="text-sm text-muted-foreground/50">{study.year}</span>
+                  <ArrowUpRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-1 group-hover:translate-x-0" />
+                </div>
+
+              </Link>
+            </motion.div>
+          ))}
         </div>
+
       </div>
-      
-      {/* Modal */}
-      <InquireBriefModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
