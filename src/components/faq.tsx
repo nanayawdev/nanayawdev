@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { CTACard } from "@/components/cta-card";
 
 const faqData = [
   {
@@ -78,6 +79,15 @@ export function FAQ() {
             >
               Can&apos;t find what you&apos;re looking for? Drop us a message and we&apos;ll get back to you within 24 hours.
             </motion.p>
+            <motion.div
+              className="mt-10"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              viewport={{ once: true }}
+            >
+              <CTACard />
+            </motion.div>
           </div>
 
           {/* Right — accordion */}
