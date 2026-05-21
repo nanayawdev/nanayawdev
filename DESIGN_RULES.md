@@ -178,6 +178,12 @@ Used in lists, cards, and project rows to add editorial structure.
 - Wrap the parent with `group` and target children with `group-hover:*`.
 - Icon-only social links: `text-muted-foreground hover:text-foreground transition-colors duration-300`.
 
+### Navbar
+- Nav links use the eyebrow label style: `text-[0.65rem] font-semibold uppercase tracking-[0.18em]`.
+- Active state uses a sharp (no border-radius) `bg-foreground/8` highlight — **no `rounded-full` or `rounded-*`**.
+- The "Let's Talk" CTA button is a sharp primary button: `bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90`.
+- No rounded corners anywhere in the navbar — this applies to links, active indicators, buttons, and the hamburger button.
+
 ---
 
 ## 12. What to Avoid

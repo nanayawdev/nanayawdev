@@ -14,6 +14,7 @@ const navigationItems = [
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
   { href: "/case-studies", label: "Case Studies" },
+  { href: "/resources", label: "Resources" },
 ];
 
 export function Navbar() {
@@ -60,14 +61,14 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
+                className={`relative px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 ${
                   isActive(item.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {isActive(item.href) && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-foreground/8"
+                    className="absolute inset-0 bg-foreground/8"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
                   />
                 )}
@@ -81,7 +82,7 @@ export function Navbar() {
             <ThemeToggle />
             <Link href="/start">
               <motion.span
-                className="inline-block bg-foreground text-background px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
+                className="inline-block bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] cursor-pointer transition-opacity hover:opacity-90"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -94,7 +95,7 @@ export function Navbar() {
           <div className="lg:hidden flex items-center gap-2">
             <Link href="/start">
               <motion.span
-                className="inline-block bg-foreground text-background px-4 py-2 rounded-full text-sm font-semibold cursor-pointer"
+                className="inline-block bg-foreground text-background px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] cursor-pointer transition-opacity hover:opacity-90"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -103,7 +104,7 @@ export function Navbar() {
             </Link>
             <motion.button
               onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className="p-2 rounded-full text-foreground"
+              className="p-2 text-foreground"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
@@ -129,7 +130,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2.5 px-4 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-colors ${
                     isActive(item.href)
                       ? "bg-foreground/8 text-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
@@ -143,7 +144,7 @@ export function Navbar() {
               ))}
               <div className="pt-3 pb-1 flex items-center justify-between gap-3">
                 <Link href="/start" className="flex-1">
-                  <span className="block w-full bg-foreground text-background py-3 rounded-xl text-sm font-semibold text-center cursor-pointer">
+                  <span className="block w-full bg-foreground text-background py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-center cursor-pointer transition-opacity hover:opacity-90">
                     Let&apos;s Talk
                   </span>
                 </Link>
