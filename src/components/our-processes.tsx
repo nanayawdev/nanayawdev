@@ -70,7 +70,7 @@ export function OurProcesses() {
             >
               {/* Connector line — sits behind the number row */}
               <div className="flex items-center mb-8">
-                <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-border bg-background shrink-0 z-10">
+                <div className="relative flex items-center justify-center w-12 h-12 border border-border bg-background shrink-0 z-10">
                   <span className="text-sm font-semibold text-foreground tabular-nums">
                     {String(process.id).padStart(2, "0")}
                   </span>

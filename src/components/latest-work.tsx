@@ -84,7 +84,7 @@ function ProjectRow({
           {project.description}
         </p>
 
-        <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-foreground group-hover:text-foreground">
+        <span className="flex h-11 w-11 items-center justify-center border border-border text-muted-foreground transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-foreground group-hover:text-foreground">
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </Link>
