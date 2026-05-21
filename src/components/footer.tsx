@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, Github, Instagram, Linkedin, Mail, MessageCircle, Twitter } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
+import { ChatBubble } from "@/components/chat-bubble";
 
 const company = [
   { label: "About", href: "/about" },
@@ -140,13 +141,7 @@ export function Footer() {
         </div>
       </div>
 
-      <Link
-        href="/start"
-        aria-label="Contact Devs and Creatives"
-        className="absolute bottom-4 right-4 hidden h-12 w-12 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-colors hover:bg-muted sm:flex"
-      >
-        <MessageCircle className="h-4 w-4" />
-      </Link>
+      <ChatBubble />
     </footer>
   );
 }

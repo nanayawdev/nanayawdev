@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Github, Linkedin, Twitter, Globe } from "lucide-react";
 
@@ -85,108 +85,82 @@ const team = [
 ];
 
 function TeamMemberCard({ member, index }: { member: typeof team[0]; index: number }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
   return (
     <motion.div
-      className="relative group rounded-3xl border border-border bg-card/10 backdrop-blur-sm p-6 overflow-hidden transition-all duration-500 hover:border-foreground/10 hover:shadow-2xl hover:shadow-black/5"
-      onMouseMove={handleMouseMove}
+      className="group relative overflow-hidden border border-border bg-background"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.05 }}
       viewport={{ once: true }}
     >
-      {/* Background Spotlight Glow */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              250px circle at ${mouseX}px ${mouseY}px,
-              rgba(253, 73, 18, 0.07),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-      
-      {/* Profile Image Container */}
-      <div className="aspect-square rounded-2xl bg-muted/30 overflow-hidden mb-6 relative border border-border/50">
+      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
         <Image
           src="/hero7.webp"
           alt={member.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="object-cover grayscale transition duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
         />
-        
-        {/* Subtle dark overlay for visual coherence on hover */}
-        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-x-0 bottom-0 flex translate-y-4 items-center justify-end gap-3 bg-gradient-to-t from-black/55 to-transparent px-5 pb-5 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          {"github" in member.socials && member.socials.github && (
+            <a
+              href={member.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors duration-300 hover:text-white"
+              aria-label={`${member.name}'s GitHub`}
+            >
+              <Github className="h-4 w-4" />
+            </a>
+          )}
+          {"linkedin" in member.socials && member.socials.linkedin && (
+            <a
+              href={member.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors duration-300 hover:text-white"
+              aria-label={`${member.name}'s LinkedIn`}
+            >
+              <Linkedin className="h-4 w-4" />
+            </a>
+          )}
+          {"twitter" in member.socials && member.socials.twitter && (
+            <a
+              href={member.socials.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors duration-300 hover:text-white"
+              aria-label={`${member.name}'s Twitter`}
+            >
+              <Twitter className="h-4 w-4" />
+            </a>
+          )}
+          {"globe" in member.socials && member.socials.globe && (
+            <a
+              href={member.socials.globe}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors duration-300 hover:text-white"
+              aria-label={`${member.name}'s Website`}
+            >
+              <Globe className="h-4 w-4" />
+            </a>
+          )}
+        </div>
       </div>
 
-      {/* Info Block */}
-      <div className="space-y-1 relative z-10">
-        <h4 className="text-lg font-bold text-foreground tracking-tight transition-colors duration-300">
-          {member.name}
-        </h4>
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          {member.role}
-        </p>
-      </div>
-
-      {/* Social Links Row */}
-      <div className="mt-5 pt-4 border-t border-border/40 flex items-center gap-4 relative z-20">
-        {"github" in member.socials && member.socials.github && (
-          <a
-            href={member.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground/60 hover:text-foreground transition-colors duration-300"
-            aria-label={`${member.name}'s GitHub`}
-          >
-            <Github className="w-4.5 h-4.5" />
-          </a>
-        )}
-        {"linkedin" in member.socials && member.socials.linkedin && (
-          <a
-            href={member.socials.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground/60 hover:text-foreground transition-colors duration-300"
-            aria-label={`${member.name}'s LinkedIn`}
-          >
-            <Linkedin className="w-4.5 h-4.5" />
-          </a>
-        )}
-        {"twitter" in member.socials && member.socials.twitter && (
-          <a
-            href={member.socials.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground/60 hover:text-foreground transition-colors duration-300"
-            aria-label={`${member.name}'s Twitter`}
-          >
-            <Twitter className="w-4.5 h-4.5" />
-          </a>
-        )}
-        {"globe" in member.socials && member.socials.globe && (
-          <a
-            href={member.socials.globe}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground/60 hover:text-foreground transition-colors duration-300"
-            aria-label={`${member.name}'s Website`}
-          >
-            <Globe className="w-4.5 h-4.5" />
-          </a>
-        )}
+      <div className="grid grid-cols-[auto_1fr] gap-5 border-t border-border p-5">
+        <span className="pt-1 text-[0.65rem] text-muted-foreground/50 tabular-nums">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div>
+          <h4 className="text-xl font-semibold leading-none tracking-tight text-foreground">
+            {member.name}
+          </h4>
+          <p className="mt-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            {member.role}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
@@ -289,31 +263,47 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-16 lg:py-24 border-t border-border">
-        <div className="max-w-7xl mx-auto px-8">
-          <motion.p
-            className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            The Team
-          </motion.p>
-          <motion.h2
-            className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight mb-16"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
-            viewport={{ once: true }}
-          >
-            The people behind the work
-          </motion.h2>
+      <section className="border-t border-border">
+        <div className="border-b border-border px-8 py-10">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <motion.p
+              className="text-sm font-medium uppercase tracking-widest text-muted-foreground"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              The Team
+            </motion.p>
+            <motion.p
+              className="max-w-xl text-base leading-relaxed text-muted-foreground lg:justify-self-end"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              viewport={{ once: true }}
+            >
+              A small team of strategists, designers, and engineers building sharp digital products with care, clarity, and taste.
+            </motion.p>
+          </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {team.map((member, index) => (
-              <TeamMemberCard key={member.name} member={member} index={index} />
-            ))}
+        <div className="px-8 py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl">
+            <motion.h2
+              className="mb-12 max-w-5xl text-[clamp(3.5rem,11vw,10rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground lg:mb-16"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              viewport={{ once: true }}
+            >
+              The people behind the work
+            </motion.h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {team.map((member, index) => (
+                <TeamMemberCard key={member.name} member={member} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
