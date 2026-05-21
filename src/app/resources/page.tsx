@@ -116,9 +116,11 @@ export default function ResourcesPage() {
                     src={post.image}
                     alt={post.title}
                     fill
-                    className="object-cover grayscale transition duration-700 group-hover:grayscale-0"
+                    className="object-cover transition duration-700 group-hover:grayscale"
                   />
                   <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/10 transition-colors duration-500" />
+                  {/* Gradient scrim behind text */}
+                  <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
 
                   {/* Overlay content */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
