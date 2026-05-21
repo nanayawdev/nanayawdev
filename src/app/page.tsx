@@ -1,5 +1,5 @@
 import { StructuredData } from "@/components/structured-data";
-import { Hero } from "@/components/hero";
+import { EditorialHero } from "@/components/editorial-hero";
 import { TechTicker } from "@/components/tech-ticker";
 import { Services } from "@/components/services";
 import { LatestWork } from "@/components/latest-work";
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <StructuredData />
-      <Hero />
+      <EditorialHero />
       <TechTicker />
       <Services />
       <LatestWork />
