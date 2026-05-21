@@ -63,7 +63,7 @@ export default function CaseStudies() {
           Case Studies
         </motion.p>
         <motion.h1
-          className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-6"
+          className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground mb-6"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}

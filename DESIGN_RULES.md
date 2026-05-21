@@ -12,10 +12,12 @@ Use `clamp()` for responsive display headings so they scale fluidly without brea
 | Role | Class |
 |---|---|
 | Page hero | `text-[clamp(4rem,10vw,9rem)]` |
-| Section heading | `text-[clamp(3.5rem,9vw,8rem)]` |
+| Section / page index heading | `text-[clamp(3.5rem,9vw,8rem)]` |
 | Card heading | `text-3xl` – `text-4xl` |
 | Body | `text-base` – `text-lg` |
 | Label / eyebrow | `text-[0.65rem]` |
+
+> **Section heading standard:** All major section headings and page-level list headings (e.g. Latest Work, Case Studies index) use `text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em]`. Page hero headings (`/about`, homepage editorial hero) use `text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em]`.
 
 ### Tracking & leading
 - **Display headings:** `leading-[0.85] tracking-[-0.07em]`

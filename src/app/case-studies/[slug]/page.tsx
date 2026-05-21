@@ -264,6 +264,64 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
         </div>
       </div>
 
+      {/* More case studies */}
+      <div className="border-t border-border">
+        <div className="max-w-7xl mx-auto px-8 py-16 lg:py-20">
+
+          {/* Header row */}
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
+              More case studies
+            </h2>
+            <Link
+              href="/case-studies"
+              className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
+            >
+              View All
+            </Link>
+          </div>
+
+          {/* Cards */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {related.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/case-studies/${r.slug}`}
+                className="group flex overflow-hidden border border-border bg-muted/30 transition-colors hover:bg-muted/50"
+              >
+                {/* Image */}
+                <div className="relative w-2/5 shrink-0 overflow-hidden">
+                  <Image
+                    src={r.image}
+                    alt={r.client}
+                    fill
+                    sizes="(max-width: 768px) 40vw, 20vw"
+                    className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col justify-between p-6">
+                  <div>
+                    <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      {r.client}
+                    </p>
+                    <p className="text-base font-semibold leading-snug text-foreground">
+                      {r.resultHeadline}
+                    </p>
+                  </div>
+                  <span className="mt-6 inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
+                    Read More
+                    <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
     </div>
   );
 }
