@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { CTACard } from "@/components/cta-card";
 
 const caseStudies: Record<string, {
   client: string;
@@ -203,31 +204,7 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
               </ul>
             </div>
 
-            {/* CTA card */}
-            <div className="relative overflow-hidden border border-border bg-foreground p-8">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold leading-snug text-background mb-3">
-                  Ready to build something great?
-                </h3>
-                <p className="text-sm leading-relaxed text-background/60">
-                  Tell us about your project and we&apos;ll get back within 24 hours.
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/start"
-                  className="flex items-center gap-2 bg-[#FD4912] px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90"
-                >
-                  Start a Project
-                </Link>
-                <Link
-                  href="/case-studies"
-                  className="flex h-10 w-10 items-center justify-center border border-background/20 text-background transition-colors hover:bg-background/10"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
+            <CTACard />
           </div>
 
           {/* Narrative */}

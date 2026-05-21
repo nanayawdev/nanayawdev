@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Github, Linkedin, Twitter, Globe } from "lucide-react";
+import { CTACard } from "@/components/cta-card";
 
 const values = [
   {
@@ -28,6 +30,7 @@ const team = [
     name: "Kwame Asante",
     role: "Founder & Creative Director",
     initials: "KA",
+    image: "/hero1.avif",
     socials: {
       github: "https://github.com",
       linkedin: "https://linkedin.com",
@@ -38,6 +41,7 @@ const team = [
     name: "Ama Owusu",
     role: "Lead Engineer",
     initials: "AO",
+    image: "/hero2.avif",
     socials: {
       github: "https://github.com",
       linkedin: "https://linkedin.com",
@@ -48,6 +52,7 @@ const team = [
     name: "Kofi Mensah",
     role: "UI/UX Designer",
     initials: "KM",
+    image: "/hero3.avif",
     socials: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -58,6 +63,7 @@ const team = [
     name: "Abena Darko",
     role: "Brand Strategist",
     initials: "AD",
+    image: "/hero6.webp",
     socials: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -68,6 +74,7 @@ const team = [
     name: "Yaw Boateng",
     role: "Mobile Developer",
     initials: "YB",
+    image: "/hero7.webp",
     socials: {
       github: "https://github.com",
       linkedin: "https://linkedin.com",
@@ -77,6 +84,7 @@ const team = [
     name: "Akosua Frimpong",
     role: "Digital Marketer",
     initials: "AF",
+    image: "/hero8.jpg",
     socials: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -84,10 +92,25 @@ const team = [
   },
 ];
 
-function TeamMemberCard({ member, index }: { member: typeof team[0]; index: number }) {
+const PREVIEW_W = 320;
+const PREVIEW_H = 220;
+
+function TeamMemberCard({
+  member,
+  index,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  member: typeof team[0];
+  index: number;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}) {
   return (
     <motion.div
       className="group relative min-h-[320px] overflow-hidden border border-border bg-background p-6 transition-colors duration-300 hover:bg-muted/30"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.05 }}
@@ -170,8 +193,50 @@ function TeamMemberCard({ member, index }: { member: typeof team[0]; index: numb
 }
 
 export default function About() {
+  const [hoveredMember, setHoveredMember] = useState<typeof team[0] | null>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.5 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.5 });
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      mouseX.set(e.clientX + 24);
+      mouseY.set(e.clientY - PREVIEW_H / 2);
+    },
+    [mouseX, mouseY]
+  );
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
+
+      {/* Floating team member image preview */}
+      <AnimatePresence>
+        {hoveredMember && (
+          <motion.div
+            className="fixed top-0 left-0 z-50 pointer-events-none overflow-hidden"
+            style={{
+              width: PREVIEW_W,
+              height: PREVIEW_H,
+              x: springX,
+              y: springY,
+            }}
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src={hoveredMember.image}
+              alt={hoveredMember.name}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero */}
       <section className="pt-40 pb-24 lg:pt-52 lg:pb-32 max-w-7xl mx-auto px-8">
@@ -236,6 +301,9 @@ export default function About() {
               >
                 We&apos;re a small team of designers, engineers, and strategists. We move fast, communicate clearly, and we&apos;re obsessive about quality. Our clients don&apos;t come back because we&apos;re cheap — they come back because we make them look good and their products actually work.
               </motion.p>
+              <div className="mt-10">
+                <CTACard />
+              </div>
             </div>
 
             {/* Right — values */}
@@ -304,7 +372,13 @@ export default function About() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {team.map((member, index) => (
-                <TeamMemberCard key={member.name} member={member} index={index} />
+                <TeamMemberCard
+                  key={member.name}
+                  member={member}
+                  index={index}
+                  onMouseEnter={() => setHoveredMember(member)}
+                  onMouseLeave={() => setHoveredMember(null)}
+                />
               ))}
             </div>
           </div>
