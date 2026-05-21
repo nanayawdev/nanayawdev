@@ -94,7 +94,7 @@ export default function Projects() {
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
           <motion.h1
-            className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight"
+            className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}

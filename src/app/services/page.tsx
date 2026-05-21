@@ -13,31 +13,22 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
-        <div className="flex flex-col">
-          {/* Top Content - Centered */}
-          <div className="min-h-[25vh] sm:min-h-[30vh] lg:min-h-[35vh] flex items-end justify-center py-4 sm:py-6 lg:py-16">
-            <div className="max-w-5xl text-foreground text-center">
-              {/* Main Header */}
-              <div>
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">Our Services</h1>
-                <p className="text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto">
-                  Comprehensive digital solutions to help African startups and brands go global through design, development, and storytelling.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom - Components */}
-          <div className="pb-10 lg:pb-12">
-            <Services />
-            <LatestWork />
-            <WhyUs />
-            <FAQ />
-            <MainCTA />
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
+        <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
+          Services
+        </p>
+        <h1 className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground mb-6">
+          Our Services
+        </h1>
+        <p className="text-muted-foreground text-lg max-w-xl mb-20">
+          Comprehensive digital solutions to help African startups and brands go global through design, development, and storytelling.
+        </p>
       </div>
+      <Services />
+      <LatestWork />
+      <WhyUs />
+      <FAQ />
+      <MainCTA />
     </div>
   );
 }
