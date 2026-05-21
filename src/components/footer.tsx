@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Twitter, Linkedin, Github, Instagram } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Linkedin, Mail, MessageCircle, Twitter } from "lucide-react";
 
 const company = [
   { label: "About", href: "/about" },
@@ -23,117 +22,131 @@ const socials = [
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/devsandcreatives" },
 ];
 
+const footerColumns = [
+  {
+    title: "Studio",
+    links: company,
+  },
+  {
+    title: "Services",
+    links: services,
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Start a Project", href: "/start" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
+
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="max-w-7xl mx-auto px-8 pt-16 pb-8">
-
-        {/* Main grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 mb-16">
-
-          {/* Col 1 — Brand */}
-          <div>
-            <Link href="/" className="inline-block mb-5">
-              <div className="w-14 h-14 rounded-xl overflow-hidden">
-                <Image
-                  src="/logo.png"
-                  alt="Devs & Creatives"
-                  width={56}
-                  height={56}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mb-6">
-              A digital agency helping African startups and brands go global through design, development, and storytelling.
-            </p>
-            <div className="flex items-center gap-4">
-              {socials.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Col 2 — Company */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5">
-              Company
-            </p>
-            <ul className="space-y-3">
-              {company.map(({ label, href }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3 — Services */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5">
-              Services
-            </p>
-            <ul className="space-y-3">
-              {services.map(({ label, href }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4 — Start a project */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-5">
-              Start a Project
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-              Have something in mind? We&apos;d love to hear about it.
-            </p>
-            <a
-              href="mailto:hello@devsandcreatives.com"
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors break-all"
-            >
-              hello@devsandcreatives.com
-            </a>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Devs &amp; Creatives. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Terms of Service
-            </Link>
-          </div>
-        </div>
-
+    <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
+      <div className="border-b border-border px-4 py-6 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          className="block text-center text-[clamp(4.5rem,16vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
+          aria-label="Devs and Creatives home"
+        >
+          devs&amp;creatives
+        </Link>
       </div>
+
+      <div className="grid border-b border-border lg:grid-cols-[minmax(260px,0.85fr)_1fr]">
+        <div className="border-b border-border p-6 sm:p-8 lg:border-b-0 lg:border-r">
+          <p className="mb-6 text-[0.7rem] font-medium tracking-[0.18em] text-muted-foreground">
+            Newsletter
+          </p>
+          <form className="max-w-xs">
+            <label className="sr-only" htmlFor="footer-email">
+              Email address
+            </label>
+            <div className="flex items-center border-b border-border pb-2">
+              <input
+                id="footer-email"
+                type="email"
+                placeholder="name@email.com"
+                className="min-w-0 flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground/70 outline-none"
+              />
+              <button
+                type="submit"
+                className="ml-3 text-muted-foreground transition-colors hover:text-foreground"
+                aria-label="Subscribe to newsletter"
+              >
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <p className="mt-3 text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground/70">
+              Subscribe for digital insights
+            </p>
+          </form>
+
+          <div className="mt-8 flex items-center gap-4">
+            {socials.map(({ icon: Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 p-6 sm:grid-cols-3 sm:p-8 lg:px-12">
+          {footerColumns.map((column) => (
+            <div key={column.title}>
+              <p className="mb-5 text-[0.7rem] font-medium tracking-[0.18em] text-muted-foreground">
+                {column.title}
+              </p>
+              <ul className="space-y-2">
+                {column.links.map(({ label, href }) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="text-xs leading-relaxed text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-5 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <p className="text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground">
+          Copyright Devs &amp; Creatives {new Date().getFullYear()}
+        </p>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.65rem] text-muted-foreground">
+          <a
+            href="mailto:hello@devsandcreatives.com"
+            className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
+          >
+            <Mail className="h-3 w-3" />
+            hello@devsandcreatives.com
+          </a>
+          <Link href="/start" className="transition-colors hover:text-foreground">
+            Start a project
+          </Link>
+        </div>
+      </div>
+
+      <Link
+        href="/start"
+        aria-label="Contact Devs and Creatives"
+        className="absolute bottom-4 right-4 hidden h-12 w-12 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-colors hover:bg-muted sm:flex"
+      >
+        <MessageCircle className="h-4 w-4" />
+      </Link>
     </footer>
   );
 }
