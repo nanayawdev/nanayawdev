@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { CTACard } from "@/components/cta-card";
+import { FaqCtaCard } from "@/components/faq-cta-card";
 
 const faqData = [
   {
@@ -86,7 +86,7 @@ export function FAQ() {
               transition={{ duration: 0.5, delay: 0.15 }}
               viewport={{ once: true }}
             >
-              <CTACard />
+              <FaqCtaCard />
             </motion.div>
           </div>
 
