@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 const caseStudies: Record<string, {
   client: string;
@@ -15,6 +15,8 @@ const caseStudies: Record<string, {
   problem: string;
   approach: string;
   result: string;
+  resultHeadline: string;
+  resultBody: string;
 }> = {
   "thomisia-travel": {
     client: "Thomisia Travel",
@@ -31,7 +33,9 @@ const caseStudies: Record<string, {
     ],
     problem: "Thomisia Travel was processing bookings entirely over WhatsApp and phone calls. They had no way to capture leads outside business hours, no visibility into conversion rates, and their competitors were pulling ahead with modern booking experiences.",
     approach: "We started with a deep discovery session to understand their most common booking flows, then designed a streamlined web experience around those journeys. We built a custom availability and inquiry system integrated with their existing workflow — no off-the-shelf booking engine that would force them to change how they operate.",
-    result: "Within three months of launch, online bookings tripled. The team stopped spending hours on manual WhatsApp coordination and could focus on client experience. The site now handles enquiries 24/7 and consistently ranks on the first page for their key search terms.",
+    result: "Within three months of launch, online bookings tripled. The team stopped spending hours on manual WhatsApp coordination and could focus on client experience.",
+    resultHeadline: "Thomisia Travel triples online bookings in three months.",
+    resultBody: "The site now handles enquiries 24/7 and consistently ranks on the first page for their key search terms. The team reclaimed hours previously lost to manual coordination.",
   },
   "urban-drive": {
     client: "Urban Drive",
@@ -48,7 +52,9 @@ const caseStudies: Record<string, {
     ],
     problem: "Urban Drive needed a ride-hailing app that worked reliably in cities with inconsistent data coverage and cash-dominant payment cultures — problems that apps built for Western markets had never solved well.",
     approach: "We built the app with offline-first architecture so core features work even with poor connectivity. We integrated mobile money alongside card payments and kept the driver onboarding flow under ten minutes — a critical metric for driver supply growth.",
-    result: "10,000 rides were completed in the first 60 days. Driver retention outperformed projections because the app was genuinely easier to use than the alternatives. The 4.7 App Store rating reflects how much passengers appreciated a product designed for their reality.",
+    result: "10,000 rides were completed in the first 60 days. Driver retention outperformed projections because the app was genuinely easier to use than the alternatives.",
+    resultHeadline: "Urban Drive completes 10,000 rides in the first 60 days.",
+    resultBody: "The 4.7 App Store rating reflects how much passengers appreciated a product designed for their reality. Driver onboarding time stayed under ten minutes, fuelling rapid supply growth.",
   },
   "evvents-africa": {
     client: "Evvents Africa",
@@ -65,7 +71,9 @@ const caseStudies: Record<string, {
     ],
     problem: "Event organisers across West Africa were piecing together spreadsheets, bank transfers, and social media DMs to manage ticket sales. There was no platform that understood local payment methods or the informal way many African events are promoted.",
     approach: "We built a clean, opinionated event management platform — organisers can create an event, set ticket tiers, and start selling in under 15 minutes. We integrated mobile money, card payments, and a QR code check-in system that works offline.",
-    result: "Over 50 events were published in the first month of launch. More than 5,000 tickets were sold through the platform in that same period. Organisers reported saving hours per event on administrative work.",
+    result: "Over 50 events were published in the first month of launch. More than 5,000 tickets were sold through the platform in that same period.",
+    resultHeadline: "Evvents Africa sells 5,000+ tickets in its first month.",
+    resultBody: "Organisers reported saving hours per event on administrative work. The offline QR check-in system was highlighted as a standout feature at every major event.",
   },
   "urban-tickets": {
     client: "Urban Tickets",
@@ -82,7 +90,9 @@ const caseStudies: Record<string, {
     ],
     problem: "Urban Tickets needed a mobile-first ticketing app that could compete with established players while serving markets where most users transact exclusively on mobile and prefer to pay with mobile money.",
     approach: "We designed a purchase flow optimised for speed — the average checkout takes 45 seconds from search to confirmation. We built smart event discovery using location and preference signals, and the check-in system uses QR codes that work completely offline.",
-    result: "20,000 tickets were sold across 120+ events in the first 90 days. The offline QR check-in system eliminated entry queues at several major events, which drove word-of-mouth that money couldn't buy.",
+    result: "20,000 tickets were sold across 120+ events in the first 90 days.",
+    resultHeadline: "Urban Tickets sells 20,000 tickets across 120+ events in 90 days.",
+    resultBody: "The offline QR check-in system eliminated entry queues at several major events, driving word-of-mouth that money couldn't buy. Average checkout time held steady at 45 seconds.",
   },
   "healthier-bt": {
     client: "Healthier BT",
@@ -99,13 +109,28 @@ const caseStudies: Record<string, {
     ],
     problem: "Healthier BT had strong clinical expertise but a brand and website that didn't reflect it. Potential clients were landing on their site and leaving — the design was outdated, the messaging was generic, and there was no easy way to book a consultation online.",
     approach: "We started with the brand — new visual identity, refined messaging, and a clear point of view. Then we rebuilt the website around a single goal: getting qualified visitors to book a consultation. Every page, every piece of copy was written with that conversion in mind.",
-    result: "Consultation bookings increased 40% in the first quarter after launch. Organic search traffic doubled within six months as the new site structure made it far easier for Google to understand and rank their content.",
+    result: "Consultation bookings increased 40% in the first quarter after launch.",
+    resultHeadline: "Healthier BT grows consultation bookings by 40% in one quarter.",
+    resultBody: "Organic search traffic doubled within six months as the new site structure made it far easier for Google to understand and rank their content. The rebrand completed in just four weeks.",
   },
 };
+
+const caseStudySlugs = [
+  "thomisia-travel",
+  "urban-drive",
+  "evvents-africa",
+  "urban-tickets",
+  "healthier-bt",
+];
 
 export default function CaseStudyDetail({ params }: { params: { slug: string } }) {
   const study = caseStudies[params.slug];
   if (!study) notFound();
+
+  const related = caseStudySlugs
+    .filter((s) => s !== params.slug)
+    .slice(0, 2)
+    .map((s) => ({ slug: s, ...caseStudies[s] }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,7 +147,7 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
       </div>
 
       {/* Hero */}
-      <div className="max-w-7xl mx-auto px-8 mb-16">
+      <div className="max-w-7xl mx-auto px-8 mb-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-10">
           <div>
             <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
@@ -137,16 +162,16 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
             href={study.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-full text-sm font-semibold hover:bg-foreground/90 transition-colors shrink-0"
+            className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 shrink-0"
           >
             Visit Site <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
+      </div>
 
-        {/* Hero image */}
-        <div className="relative w-full aspect-[16/7] rounded-2xl lg:rounded-3xl overflow-hidden">
-          <Image src={study.image} alt={study.client} fill className="object-cover" />
-        </div>
+      {/* Full-width hero image */}
+      <div className="relative w-full aspect-[16/7] overflow-hidden mb-16">
+        <Image src={study.image} alt={study.client} fill className="object-cover" />
       </div>
 
       {/* Stats */}
@@ -167,14 +192,42 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
       <div className="max-w-7xl mx-auto px-8 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-16 lg:gap-24">
 
-          {/* Services sidebar */}
-          <div className="lg:sticky lg:top-32 h-fit">
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Services</p>
-            <ul className="space-y-2">
-              {study.services.map((s) => (
-                <li key={s} className="text-base text-foreground font-medium">{s}</li>
-              ))}
-            </ul>
+          {/* Services sidebar + CTA card */}
+          <div className="lg:sticky lg:top-32 h-fit space-y-10">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Services</p>
+              <ul className="space-y-2">
+                {study.services.map((s) => (
+                  <li key={s} className="text-base text-foreground font-medium">{s}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* CTA card */}
+            <div className="relative overflow-hidden border border-border bg-foreground p-8">
+              <div className="mb-6">
+                <h3 className="text-xl font-bold leading-snug text-background mb-3">
+                  Ready to build something great?
+                </h3>
+                <p className="text-sm leading-relaxed text-background/60">
+                  Tell us about your project and we&apos;ll get back within 24 hours.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/start"
+                  className="flex items-center gap-2 bg-[#FD4912] px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90"
+                >
+                  Start a Project
+                </Link>
+                <Link
+                  href="/case-studies"
+                  className="flex h-10 w-10 items-center justify-center border border-background/20 text-background transition-colors hover:bg-background/10"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* Narrative */}
@@ -182,13 +235,31 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
             {[
               { label: "The Problem", body: study.problem },
               { label: "Our Approach", body: study.approach },
-              { label: "The Result", body: study.result },
             ].map(({ label, body }) => (
               <div key={label}>
                 <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">{label}</p>
                 <p className="text-foreground text-lg leading-relaxed">{body}</p>
               </div>
             ))}
+
+            {/* Results */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Results</p>
+              <h3 className="text-2xl font-bold leading-snug text-foreground mb-4">
+                {study.resultHeadline}
+              </h3>
+              <p className="text-foreground text-lg leading-relaxed mb-8">{study.result}</p>
+              <p className="text-sm text-muted-foreground mb-6">The results are clear:</p>
+              <div className="grid grid-cols-3 divide-x divide-border border border-border mb-8">
+                {study.stats.map((stat) => (
+                  <div key={stat.label} className="bg-muted/40 px-5 py-6">
+                    <p className="text-3xl font-bold text-foreground mb-2">{stat.value}</p>
+                    <p className="text-xs leading-snug text-muted-foreground">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-foreground text-lg leading-relaxed">{study.resultBody}</p>
+            </div>
           </div>
         </div>
       </div>
