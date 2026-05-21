@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 
 const projects = [
   {
@@ -13,8 +14,6 @@ const projects = [
     description: "A full-featured booking platform for a travel agency with real-time availability and payment integration.",
     image: "/hero1.avif",
     url: "https://thomisiatravelandtour.com",
-    span: "col-span-2",
-    height: "h-[420px] lg:h-[520px]",
   },
   {
     id: 2,
@@ -23,8 +22,6 @@ const projects = [
     description: "iOS & Android ride-hailing app with live driver tracking and in-app payments.",
     image: "/hero2.avif",
     url: "https://urbandriveapp.vercel.app",
-    span: "col-span-1",
-    height: "h-[420px] lg:h-[520px]",
   },
   {
     id: 3,
@@ -33,8 +30,6 @@ const projects = [
     description: "End-to-end brand identity system for an emerging African fintech startup.",
     image: "/hero6.webp",
     url: "/projects",
-    span: "col-span-1",
-    height: "h-[340px] lg:h-[400px]",
   },
   {
     id: 4,
@@ -43,75 +38,99 @@ const projects = [
     description: "A multi-channel campaign that drove 3× growth in organic traffic within 90 days.",
     image: "/hero7.webp",
     url: "/projects",
-    span: "col-span-2",
-    height: "h-[340px] lg:h-[400px]",
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectRow({
+  project,
+  index,
+  onPreview,
+}: {
+  project: typeof projects[0];
+  index: number;
+  onPreview: () => void;
+}) {
+  const isExternal = project.url.startsWith("http");
+
   return (
     <motion.div
-      className={`${project.span} ${project.height} relative group rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer`}
+      className="group border-t border-border last:border-b"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.08 }}
       viewport={{ once: true }}
+      onMouseEnter={onPreview}
     >
-      <a href={project.url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-        {/* Image */}
+      <Link
+        href={project.url}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        className="grid gap-6 py-7 transition-colors duration-300 hover:bg-muted/30 md:grid-cols-[4rem_1fr_0.9fr_auto] md:items-center md:px-4 lg:py-9"
+      >
+        <span className="text-xs text-muted-foreground/50 tabular-nums">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <div>
+          <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            {project.category}
+          </p>
+          <h3 className="text-3xl font-semibold leading-none tracking-[-0.045em] text-foreground md:text-4xl">
+            {project.title}
+          </h3>
+        </div>
+
+        <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+          {project.description}
+        </p>
+
+        <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-foreground group-hover:text-foreground">
+          <ArrowUpRight className="h-4 w-4" />
+        </span>
+      </Link>
+    </motion.div>
+  );
+}
+
+function ProjectPreview({ project }: { project: typeof projects[0] }) {
+  return (
+    <motion.div
+      key={project.id}
+      className="sticky top-28 hidden overflow-hidden border border-border bg-muted lg:block"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="relative aspect-[4/5]">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          sizes="33vw"
+          className="object-cover grayscale transition duration-700 hover:grayscale-0"
         />
-
-        {/* Default gradient — always visible at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-        {/* Bottom content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-          {/* Category — always visible */}
-          <span className="inline-block text-white/60 text-xs font-medium uppercase tracking-widest mb-2">
-            {project.category}
-          </span>
-
-          {/* Title — always visible */}
-          <h3 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-0">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-white/60">
+            Current Preview
+          </p>
+          <h3 className="text-3xl font-semibold leading-none tracking-[-0.045em] text-white">
             {project.title}
           </h3>
-
-          {/* Description — slides up on hover */}
-          <div className="overflow-hidden">
-            <motion.p
-              className="text-white/80 text-sm leading-relaxed mt-3 max-w-md"
-              initial={false}
-              animate={{ opacity: 0, y: 12 }}
-              whileHover={{ opacity: 1, y: 0 }}
-            >
-              {project.description}
-            </motion.p>
-          </div>
         </div>
-
-        {/* Arrow — top right, appears on hover */}
-        <div className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-          <ArrowUpRight className="w-4 h-4 text-white" />
-        </div>
-      </a>
+      </div>
     </motion.div>
   );
 }
 
 export function LatestWork() {
+  const [activeProject, setActiveProject] = useState(projects[0]);
+
   return (
-    <section className="py-16 lg:py-28 bg-background">
+    <section className="border-t border-border bg-background py-16 lg:py-28">
       <div className="max-w-7xl mx-auto px-8">
 
-        <div className="flex items-end justify-between mb-10">
+        <div className="mb-12 grid grid-cols-1 gap-8 border-b border-border pb-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <motion.p
               className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-3"
@@ -123,13 +142,15 @@ export function LatestWork() {
               Our Work
             </motion.p>
             <motion.h2
-              className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05 }}
               viewport={{ once: true }}
             >
-              Latest Projects
+              Latest
+              <br />
+              Projects
             </motion.h2>
           </div>
 
@@ -141,20 +162,28 @@ export function LatestWork() {
           >
             <Link href="/projects">
               <motion.span
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                 whileHover={{ x: 4 }}
               >
-                View all <ArrowUpRight className="w-4 h-4" />
+                View all <ArrowUpRight className="h-4 w-4" />
               </motion.span>
             </Link>
           </motion.div>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_420px]">
+          <div>
+            {projects.map((project, index) => (
+              <ProjectRow
+                key={project.id}
+                project={project}
+                index={index}
+                onPreview={() => setActiveProject(project)}
+              />
+            ))}
+          </div>
+
+          <ProjectPreview project={activeProject} />
         </div>
       </div>
     </section>
