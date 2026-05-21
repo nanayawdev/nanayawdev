@@ -87,79 +87,82 @@ const team = [
 function TeamMemberCard({ member, index }: { member: typeof team[0]; index: number }) {
   return (
     <motion.div
-      className="group relative overflow-hidden border border-border bg-background"
+      className="group relative min-h-[320px] overflow-hidden border border-border bg-background p-6 transition-colors duration-300 hover:bg-muted/30"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.05 }}
       viewport={{ once: true }}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-        <Image
-          src="/hero7.webp"
-          alt={member.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover grayscale transition duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
-        />
-        <div className="absolute inset-x-0 bottom-0 flex translate-y-4 items-center justify-end gap-3 bg-gradient-to-t from-black/55 to-transparent px-5 pb-5 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          {"github" in member.socials && member.socials.github && (
-            <a
-              href={member.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 transition-colors duration-300 hover:text-white"
-              aria-label={`${member.name}'s GitHub`}
-            >
-              <Github className="h-4 w-4" />
-            </a>
-          )}
-          {"linkedin" in member.socials && member.socials.linkedin && (
-            <a
-              href={member.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 transition-colors duration-300 hover:text-white"
-              aria-label={`${member.name}'s LinkedIn`}
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
-          )}
-          {"twitter" in member.socials && member.socials.twitter && (
-            <a
-              href={member.socials.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 transition-colors duration-300 hover:text-white"
-              aria-label={`${member.name}'s Twitter`}
-            >
-              <Twitter className="h-4 w-4" />
-            </a>
-          )}
-          {"globe" in member.socials && member.socials.globe && (
-            <a
-              href={member.socials.globe}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 transition-colors duration-300 hover:text-white"
-              aria-label={`${member.name}'s Website`}
-            >
-              <Globe className="h-4 w-4" />
-            </a>
-          )}
-        </div>
+      <span className="absolute right-5 top-5 text-[0.65rem] text-muted-foreground/50 tabular-nums">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      <div className="pointer-events-none absolute inset-x-0 top-8 text-center text-[clamp(7rem,18vw,12rem)] font-semibold leading-none tracking-[-0.12em] text-muted-foreground/[0.08] transition-colors duration-300 group-hover:text-muted-foreground/[0.14]">
+        {member.initials}
       </div>
 
-      <div className="grid grid-cols-[auto_1fr] gap-5 border-t border-border p-5">
-        <span className="pt-1 text-[0.65rem] text-muted-foreground/50 tabular-nums">
-          {String(index + 1).padStart(2, "0")}
-        </span>
+      <div className="relative z-10 flex h-full min-h-[272px] flex-col justify-between">
         <div>
-          <h4 className="text-xl font-semibold leading-none tracking-tight text-foreground">
+          <p className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            Team Member
+          </p>
+        </div>
+
+        <div>
+          <h4 className="max-w-[12rem] text-3xl font-semibold leading-[0.95] tracking-[-0.04em] text-foreground">
             {member.name}
           </h4>
-          <p className="mt-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            {member.role}
-          </p>
+          <div className="mt-5 flex items-end justify-between gap-6 border-t border-border pt-5">
+            <p className="max-w-[11rem] text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              {member.role}
+            </p>
+            <div className="flex shrink-0 items-center gap-3">
+              {"github" in member.socials && member.socials.github && (
+                <a
+                  href={member.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                  aria-label={`${member.name}'s GitHub`}
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+              )}
+              {"linkedin" in member.socials && member.socials.linkedin && (
+                <a
+                  href={member.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                  aria-label={`${member.name}'s LinkedIn`}
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+              )}
+              {"twitter" in member.socials && member.socials.twitter && (
+                <a
+                  href={member.socials.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                  aria-label={`${member.name}'s Twitter`}
+                >
+                  <Twitter className="h-4 w-4" />
+                </a>
+              )}
+              {"globe" in member.socials && member.socials.globe && (
+                <a
+                  href={member.socials.globe}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                  aria-label={`${member.name}'s Website`}
+                >
+                  <Globe className="h-4 w-4" />
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
