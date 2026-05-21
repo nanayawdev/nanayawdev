@@ -189,17 +189,7 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
         >
-          We&apos;re{" "}
-          <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
-            developers
-          </span>
-          <br />
-          and{" "}
-          <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
-            creatives
-          </span>
-          <br />
-          <span className="text-muted-foreground">who give a damn.</span>
+          We Design. We Build. We Make it Matter.
         </motion.h1>
       </section>
 

@@ -51,7 +51,7 @@ export function Footer() {
           className="block text-center text-[clamp(4.5rem,16vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
           aria-label="Devs and Creatives home"
         >
-          devs&amp;creatives
+          devs<span className="text-[#FD4912]">&amp;</span>creatives
         </Link>
       </div>
 
