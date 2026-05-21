@@ -3,13 +3,21 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { resources } from "@/lib/resources-data";
+import { useState } from "react";
 
 const featured = resources.find((r) => r.featured);
 const rest = resources.filter((r) => !r.featured);
 
+const PER_PAGE = 6;
+
 export default function ResourcesPage() {
+  const [page, setPage] = useState(1);
+
+  const totalPages = Math.ceil(rest.length / PER_PAGE);
+  const paginated = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
@@ -93,7 +101,7 @@ export default function ResourcesPage() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rest.map((post, index) => (
+          {paginated.map((post, index) => (
             <motion.div
               key={post.slug}
               className="bg-background"
@@ -130,6 +138,46 @@ export default function ResourcesPage() {
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-16 flex items-center justify-center gap-2">
+            {/* Prev */}
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="flex h-10 w-10 items-center justify-center border border-border text-foreground transition-colors hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+              aria-label="Previous page"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+
+            {/* Page numbers */}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className={`flex h-10 w-10 items-center justify-center text-[0.65rem] font-semibold tracking-[0.18em] transition-colors ${
+                  page === n
+                    ? "border border-foreground bg-foreground text-background"
+                    : "border border-border text-foreground hover:bg-muted"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+
+            {/* Next */}
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="flex h-10 w-10 items-center justify-center border border-border text-foreground transition-colors hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+              aria-label="Next page"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
 
       </div>
     </div>
