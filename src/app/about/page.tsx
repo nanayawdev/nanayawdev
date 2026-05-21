@@ -184,12 +184,22 @@ export default function About() {
           About Us
         </motion.p>
         <motion.h1
-          className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight max-w-4xl"
+          className="max-w-5xl overflow-visible text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em] text-foreground"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
         >
-          We&apos;re developers and creatives who give a damn.
+          We&apos;re{" "}
+          <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
+            developers
+          </span>
+          <br />
+          and{" "}
+          <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
+            creatives
+          </span>
+          <br />
+          <span className="text-muted-foreground">who give a damn.</span>
         </motion.h1>
       </section>
 
