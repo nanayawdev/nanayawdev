@@ -1,111 +1,135 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
+function MagneticButton({ children, href }: { children: React.ReactNode; href: string }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distX = (e.clientX - centerX) * 0.15;
+    const distY = (e.clientY - centerY) * 0.15;
+    setPosition({ x: distX, y: distY });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <Link
+      ref={ref}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative inline-flex items-center gap-2 border border-white text-white px-6 py-3 font-medium overflow-hidden transition-colors hover:text-black"
+    >
+      <motion.span
+        className="absolute inset-0 bg-white"
+        initial={{ x: "-100%" }}
+        whileHover={{ x: 0 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.span
+        className="relative z-10 flex items-center gap-2"
+        animate={{ x: position.x, y: position.y }}
+        transition={{ type: "spring", stiffness: 350, damping: 15, mass: 0.5 }}
+      >
+        {children}
+        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </motion.span>
+    </Link>
+  );
+}
+
 export function MainCTA() {
   return (
-    <section className="py-16 lg:py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="relative overflow-hidden bg-[#0a0a0a]">
+      {/* Subtle animated mesh gradient background */}
+      <div className="absolute inset-0 opacity-30">
         <motion.div
-          className="relative rounded-3xl overflow-hidden min-h-[420px] lg:min-h-[480px] flex items-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          {/* ShaderGradient background */}
-          <ShaderGradientCanvas
-            style={{ position: "absolute", inset: 0, zIndex: 0 }}
-            pixelDensity={1.5}
-            fov={45}
-            pointerEvents="none"
+          className="absolute inset-0 bg-gradient-to-br from-[#FD4912]/30 via-transparent to-black"
+          animate={{
+            background: [
+              "radial-gradient(circle at 20% 80%, rgba(253,73,18,0.25) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(253,73,18,0.15) 0%, transparent 40%)",
+              "radial-gradient(circle at 80% 80%, rgba(253,73,18,0.25) 0%, transparent 50%), radial-gradient(circle at 20% 20%, rgba(253,73,18,0.15) 0%, transparent 40%)",
+              "radial-gradient(circle at 20% 80%, rgba(253,73,18,0.25) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(253,73,18,0.15) 0%, transparent 40%)",
+            ],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        {/* Noise texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-8 py-24 lg:py-32">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-end">
+          {/* Headline */}
+          <motion.h2
+            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9] tracking-tight"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
           >
-            <ShaderGradient
-              animate="on"
-              brightness={1.2}
-              cAzimuthAngle={180}
-              cDistance={2.4}
-              cPolarAngle={95}
-              cameraZoom={1}
-              color1="#ff6a1a"
-              color2="#c73c00"
-              color3="#FD4912"
-              envPreset="city"
-              grain="off"
-              lightType="3d"
-              positionX={0}
-              positionY={-2.1}
-              positionZ={0}
-              reflection={0.1}
-              rotationX={0}
-              rotationY={0}
-              rotationZ={225}
-              shader="defaults"
-              type="waterPlane"
-              uAmplitude={0}
-              uDensity={1.8}
-              uFrequency={5.5}
-              uSpeed={0.2}
-              uStrength={3}
-              uTime={0.2}
-              wireframe={false}
-            />
-          </ShaderGradientCanvas>
+            Ready to build
+            <br />
+            something great?
+          </motion.h2>
 
-          {/* Dark overlay for text legibility */}
-          <div className="absolute inset-0 bg-black/30 z-10" />
-
-          {/* Content */}
-          <div className="relative z-20 w-full px-10 lg:px-16 py-16 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-            <div className="max-w-2xl">
-              <motion.p
-                className="text-white/60 text-sm font-medium uppercase tracking-widest mb-5"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                Let&apos;s Work Together
-              </motion.p>
-              <motion.h2
-                className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white leading-none tracking-tight"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                Got a project
-                <br />
-                in mind?
-              </motion.h2>
-            </div>
-
-            <motion.div
-              className="flex flex-col sm:flex-row lg:flex-col gap-4 lg:items-end shrink-0"
+          {/* CTA Section */}
+          <motion.div
+            className="flex flex-col gap-6 lg:items-end"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <motion.p
+              className="text-white/60 text-lg lg:text-xl max-w-sm lg:text-right leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <p className="text-white/70 text-base max-w-xs lg:text-right leading-relaxed">
-                Tell us what you&apos;re building and we&apos;ll take it from there.
-              </p>
-              <Link href="/start">
-                <motion.span
-                  className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-semibold text-base hover:bg-white/90 transition-colors cursor-pointer shrink-0"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Let&apos;s Talk
-                  <ArrowUpRight className="w-4 h-4" />
-                </motion.span>
+              Tell us what you&apos;re building.
+              <br className="hidden lg:block" />
+              We&apos;ll handle the rest.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 items-start sm:items-center lg:items-end"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <MagneticButton href="/start">
+                Start a Project
+              </MagneticButton>
+
+              <Link
+                href="/projects"
+                className="group text-white/50 hover:text-white transition-colors text-sm font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white flex items-center gap-1"
+              >
+                View our work
+                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

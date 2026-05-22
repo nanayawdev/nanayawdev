@@ -4,53 +4,29 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const projects = [
-  {
-    id: 1,
-    title: "Thomisia Travel",
-    category: "Travel & Tour Platform",
-    description: "A full-featured booking platform for a travel agency with real-time availability and payment integration.",
-    image: "/hero1.avif",
-    url: "https://thomisiatravelandtour.com",
-  },
-  {
-    id: 2,
-    title: "Urban Drive",
-    category: "Ride Booking App",
-    description: "iOS & Android ride-hailing app with live driver tracking and in-app payments.",
-    image: "/hero2.avif",
-    url: "https://urbandriveapp.vercel.app",
-  },
-  {
-    id: 3,
-    title: "Brand Identity",
-    category: "Visual Identity",
-    description: "End-to-end brand identity system for an emerging African fintech startup.",
-    image: "/hero6.webp",
-    url: "/projects",
-  },
-  {
-    id: 4,
-    title: "Digital Campaign",
-    category: "Digital Marketing",
-    description: "A multi-channel campaign that drove 3× growth in organic traffic within 90 days.",
-    image: "/hero7.webp",
-    url: "/projects",
-  },
-];
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  cover_image: string | null;
+  client_url: string | null;
+  slug: string;
+}
 
 function ProjectRow({
   project,
   index,
   onPreview,
 }: {
-  project: typeof projects[0];
+  project: Project;
   index: number;
   onPreview: () => void;
 }) {
-  const isExternal = project.url.startsWith("http");
+  const href = project.client_url ?? `/projects`;
+  const isExternal = href.startsWith("http");
 
   return (
     <motion.div
@@ -62,7 +38,7 @@ function ProjectRow({
       onMouseEnter={onPreview}
     >
       <Link
-        href={project.url}
+        href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
         className="grid gap-6 py-7 transition-colors duration-300 hover:bg-muted/30 md:grid-cols-[4rem_1fr_0.9fr_auto] md:items-center md:px-4 lg:py-9"
@@ -92,7 +68,7 @@ function ProjectRow({
   );
 }
 
-function ProjectPreview({ project }: { project: typeof projects[0] }) {
+function ProjectPreview({ project }: { project: Project }) {
   return (
     <motion.div
       key={project.id}
@@ -102,13 +78,17 @@ function ProjectPreview({ project }: { project: typeof projects[0] }) {
       transition={{ duration: 0.35 }}
     >
       <div className="relative aspect-[4/5]">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          sizes="33vw"
-          className="object-cover grayscale transition duration-700 hover:grayscale-0"
-        />
+        {project.cover_image ? (
+          <Image
+            src={project.cover_image}
+            alt={project.title}
+            fill
+            sizes="33vw"
+            className="object-cover grayscale transition duration-700 hover:grayscale-0"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-muted" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6">
           <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-white/60">
@@ -124,7 +104,20 @@ function ProjectPreview({ project }: { project: typeof projects[0] }) {
 }
 
 export function LatestWork() {
-  const [activeProject, setActiveProject] = useState(projects[0]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((r) => r.ok ? r.json() : { projects: [] })
+      .then((d) => {
+        const list: Project[] = (d.projects ?? []).slice(0, 4);
+        setProjects(list);
+        if (list.length > 0) setActiveProject(list[0]);
+      });
+  }, []);
+
+  if (projects.length === 0) return null;
 
   return (
     <section className="border-t border-border bg-background py-16 lg:py-28">
@@ -183,7 +176,7 @@ export function LatestWork() {
             ))}
           </div>
 
-          <ProjectPreview project={activeProject} />
+          {activeProject && <ProjectPreview project={activeProject} />}
         </div>
       </div>
     </section>

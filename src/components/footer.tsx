@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowUpRight, Github, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { ChatBubble } from "@/components/chat-bubble";
 
@@ -43,12 +46,31 @@ const footerColumns = [
 ];
 
 export function Footer() {
+  const [email, setEmail]       = useState("");
+  const [subState, setSubState] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubState("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setSubState(res.ok ? "done" : "error");
+    } catch {
+      setSubState("error");
+    }
+  }
+
   return (
     <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
       <div className="border-b border-border px-4 py-6 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="block text-center text-[clamp(4.5rem,16vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
+          className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
           aria-label="Devs and Creatives home"
         >
           devs<span className="text-[#FD4912]">&amp;</span>creatives
@@ -60,28 +82,45 @@ export function Footer() {
           <p className="mb-6 text-[0.7rem] font-medium tracking-[0.18em] text-muted-foreground">
             Newsletter
           </p>
-          <form className="max-w-xs">
+          <form className="max-w-xs" onSubmit={handleSubscribe}>
             <label className="sr-only" htmlFor="footer-email">
               Email address
             </label>
-            <div className="flex items-center border-b border-border pb-2">
-              <input
-                id="footer-email"
-                type="email"
-                placeholder="name@email.com"
-                className="min-w-0 flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground/70 outline-none"
-              />
-              <button
-                type="submit"
-                className="ml-3 text-muted-foreground transition-colors hover:text-foreground"
-                aria-label="Subscribe to newsletter"
-              >
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </button>
-            </div>
-            <p className="mt-3 text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground/70">
-              Subscribe for digital insights
-            </p>
+            {subState === "done" ? (
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#FD4912]">
+                You&apos;re subscribed!
+              </p>
+            ) : (
+              <>
+                <div className="flex items-center border-b border-border pb-2">
+                  <input
+                    id="footer-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@email.com"
+                    className="min-w-0 flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground/70 outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={subState === "loading"}
+                    className="ml-3 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+                    aria-label="Subscribe to newsletter"
+                  >
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                {subState === "error" && (
+                  <p className="mt-2 text-[0.55rem] uppercase tracking-[0.18em] text-red-500">
+                    Something went wrong. Try again.
+                  </p>
+                )}
+                <p className="mt-3 text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground/70">
+                  Subscribe for digital insights
+                </p>
+              </>
+            )}
           </form>
 
           <div className="mt-8 flex items-center gap-4">
@@ -100,7 +139,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 p-6 sm:grid-cols-3 sm:p-8 lg:px-12">
+        <div className="grid grid-cols-2 gap-8 p-6 sm:grid-cols-3 sm:p-8 lg:px-12">
           {footerColumns.map((column) => (
             <div key={column.title}>
               <p className="mb-5 text-[0.7rem] font-medium tracking-[0.18em] text-muted-foreground">

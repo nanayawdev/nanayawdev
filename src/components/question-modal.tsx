@@ -13,6 +13,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -21,6 +22,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
       setSubmitted(false);
       setName("");
       setEmail("");
+      setPhone("");
       setQuestion("");
     }
   }, [open]);
@@ -33,9 +35,26 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [open, onClose]);
 
-  function handleSubmit(e: React.FormEvent) {
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setApiError("");
+    try {
+      const res = await fetch("/api/questions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone: phone || undefined, question }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setSubmitted(true);
+    } catch {
+      setApiError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -131,6 +150,18 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
                   </div>
                   <div>
                     <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      Phone <span className="normal-case tracking-normal text-muted-foreground/50">(optional)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+233 XX XXX XXXX"
+                      className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                       Your Question
                     </label>
                     <textarea
@@ -142,11 +173,17 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
                       className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                     />
                   </div>
+                  {apiError && (
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-red-500">
+                      {apiError}
+                    </p>
+                  )}
                   <button
                     type="submit"
-                    className="bg-[#FD4912] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90"
+                    disabled={loading}
+                    className="bg-[#FD4912] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                   >
-                    Send Question
+                    {loading ? "Sending…" : "Send Question"}
                   </button>
                 </form>
               )}

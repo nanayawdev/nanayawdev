@@ -172,3 +172,64 @@
   }
 }
 
+/* ── Rich text / article body styles ────────────────────────── */
+.prose-custom h1 {
+  @apply text-4xl font-bold tracking-tight text-foreground mt-12 mb-4 leading-tight;
+}
+.prose-custom h2 {
+  @apply text-2xl font-bold tracking-tight text-foreground mt-10 mb-3 leading-snug;
+}
+.prose-custom h3 {
+  @apply text-xl font-semibold text-foreground mt-8 mb-2;
+}
+.prose-custom p {
+  @apply text-lg text-foreground leading-relaxed mb-5;
+}
+.prose-custom strong {
+  @apply font-semibold text-foreground;
+}
+.prose-custom em {
+  @apply italic;
+}
+.prose-custom u {
+  @apply underline;
+}
+.prose-custom s {
+  @apply line-through;
+}
+.prose-custom a {
+  @apply text-[#FD4912] underline underline-offset-2 hover:opacity-80 transition-opacity;
+}
+.prose-custom ul {
+  @apply list-disc pl-6 mb-5 space-y-1.5 text-lg text-foreground;
+}
+.prose-custom ol {
+  @apply list-decimal pl-6 mb-5 space-y-1.5 text-lg text-foreground;
+}
+.prose-custom li {
+  @apply leading-relaxed;
+}
+.prose-custom blockquote {
+  @apply border-l-4 border-[#FD4912] pl-5 italic text-muted-foreground text-lg my-6;
+}
+.prose-custom hr {
+  @apply border-border my-10;
+}
+.prose-custom img {
+  @apply max-w-full my-8 rounded-sm;
+}
+.prose-custom pre {
+  @apply bg-muted rounded-sm px-5 py-4 text-sm overflow-x-auto my-6;
+}
+.prose-custom code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+.prose-custom pre code {
+  @apply bg-transparent p-0;
+}
+/* Tiptap placeholder */
+.tiptap p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground/50 pointer-events-none float-left h-0;
+  content: attr(data-placeholder);
+}
+

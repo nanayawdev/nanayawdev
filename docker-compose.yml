@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: devs_creatives_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: devs_creatives
+      POSTGRES_USER: devadmin
+      POSTGRES_PASSWORD: devadmin_local_2025
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/migrate.sql:/docker-entrypoint-initdb.d/migrate.sql
+
+volumes:
+  postgres_data:

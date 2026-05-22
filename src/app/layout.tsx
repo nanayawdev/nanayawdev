@@ -121,21 +121,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${circular.variable} antialiased`}
-      >
+      <body className={`${circular.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main>
-            {children}
-          </main>
-          <Footer />
-          <CookieConsent />
+          {children}
         </ThemeProvider>
       </body>
     </html>
