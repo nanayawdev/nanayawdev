@@ -70,7 +70,7 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
   useEffect(() => {
     if (!editor) return;
     if (editor.getHTML() !== value) {
-      editor.commands.setContent(value, false);
+      editor.commands.setContent(value, { emitUpdate: false });
     }
   }, [value, editor]);
 
@@ -79,7 +79,7 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
   function insertLink() {
     const url = window.prompt("Enter URL:");
     if (!url) return;
-    editor!.chain().focus().extendMarkToLink({ href: url }).setLink({ href: url }).run();
+    editor!.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }
 
   async function handleImageFile(file: File) {
