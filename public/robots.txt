@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://devsandcreatives.com/sitemap.xml
+Sitemap: https://luminixstudio.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

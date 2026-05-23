@@ -24,8 +24,8 @@ const circular = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Devs & Creatives - Digital Agency for African Startups & Brands",
-    template: "%s | Devs & Creatives"
+    default: "Luminix Studio - Digital Agency for African Startups & Brands",
+    template: "%s | Luminix Studio"
   },
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   keywords: [
@@ -44,40 +44,40 @@ export const metadata: Metadata = {
     "African brands",
     "global expansion"
   ],
-  authors: [{ name: "Devs & Creatives Team" }],
-  creator: "Devs & Creatives",
-  publisher: "Devs & Creatives",
+  authors: [{ name: "Luminix Studio Team" }],
+  creator: "Luminix Studio",
+  publisher: "Luminix Studio",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://devsandcreatives.com"),
+  metadataBase: new URL("https://luminixstudio.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://devsandcreatives.com",
-    title: "Devs & Creatives - Digital Agency for African Startups & Brands",
+    url: "https://luminixstudio.com",
+    title: "Luminix Studio - Digital Agency for African Startups & Brands",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
-    siteName: "Devs & Creatives",
+    siteName: "Luminix Studio",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Devs & Creatives - Where innovation meets imagination",
+        alt: "Luminix Studio - Where innovation meets imagination",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Devs & Creatives - Digital Agency for African Startups & Brands",
+    title: "Luminix Studio - Digital Agency for African Startups & Brands",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     images: ["/og-image.jpg"],
-    creator: "@devsandcreatives",
+    creator: "@luminixstudio",
   },
   robots: {
     index: true,

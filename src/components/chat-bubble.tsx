@@ -6,7 +6,7 @@ import { Phone, X, Send, Minus } from "lucide-react";
 type Stage = "idle" | "phone" | "otp" | "chat" | "closed";
 type Message = { id: string; sender: "agent" | "user"; body: string; created_at: string };
 
-const STORAGE_KEY = "dc_chat_session";
+const STORAGE_KEY = "luminix_chat_session";
 
 interface PersistedSession {
   sessionId: string;
@@ -174,7 +174,7 @@ export function ChatBubble() {
           <div className="flex items-center justify-between border-b border-border px-4 py-3 shrink-0">
             <div>
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
-                Devs &amp; Creatives
+                Luminix Studio
               </p>
               <p className="text-[0.6rem] text-muted-foreground">Support Chat</p>
             </div>

@@ -7,16 +7,16 @@ import { ArrowRight, Check, Twitter, Linkedin, Github, Instagram } from "lucide-
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
 const details = [
-  { label: "Email", value: "hello@devsandcreatives.com", href: "mailto:hello@devsandcreatives.com" },
+  { label: "Email", value: "hello@luminixstudio.com", href: "mailto:hello@luminixstudio.com" },
   { label: "Location", value: "Accra, Ghana", href: null },
   { label: "Response time", value: "Within 24 hours", href: null },
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/devsandcreatives" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/devsandcreatives" },
-  { icon: Github, label: "GitHub", href: "https://github.com/devsandcreatives" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/devsandcreatives" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/luminixstudio" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/luminixstudio" },
+  { icon: Github, label: "GitHub", href: "https://github.com/luminixstudio" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/luminixstudio" },
 ];
 
 type Form = { name: string; email: string; subject: string; message: string };

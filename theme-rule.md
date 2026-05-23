@@ -1,4 +1,4 @@
-# Theme Rules for Devs & Creatives
+# Theme Rules for Luminix Studio
 
 ## 🎨 Light & Dark Theme Guidelines
 

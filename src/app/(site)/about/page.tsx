@@ -60,7 +60,7 @@ export default function About() {
         >
           <Image
             src="/hero6.webp"
-            alt="Devs & Creatives Creative Studio"
+            alt="Luminix Studio Creative Studio"
             fill
             priority
             sizes="100vw"
@@ -80,7 +80,7 @@ export default function About() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                Devs & Creatives was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
+                Luminix Studio was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
               </motion.p>
               <motion.p
                 className="text-muted-foreground text-lg leading-relaxed"

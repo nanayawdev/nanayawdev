@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://devsandcreatives.com/sitemap.xml',
+    sitemap: 'https://luminixstudio.com/sitemap.xml',
   }
 }

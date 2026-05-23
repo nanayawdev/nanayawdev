@@ -20,10 +20,10 @@ const services = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/devsandcreatives" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/devsandcreatives" },
-  { icon: Github, label: "GitHub", href: "https://github.com/devsandcreatives" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/devsandcreatives" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/luminixstudio" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/luminixstudio" },
+  { icon: Github, label: "GitHub", href: "https://github.com/luminixstudio" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/luminixstudio" },
 ];
 
 const footerColumns = [
@@ -71,9 +71,9 @@ export function Footer() {
         <Link
           href="/"
           className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
-          aria-label="Devs and Creatives home"
+          aria-label="Luminix Studio home"
         >
-          devs<span className="text-[#FD4912]">&amp;</span>creatives
+          luminix<span className="text-[#FD4912]">studio</span>
         </Link>
       </div>
 
@@ -164,15 +164,15 @@ export function Footer() {
 
       <div className="flex flex-col gap-5 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p className="text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground">
-          Copyright Devs &amp; Creatives {new Date().getFullYear()}
+          Copyright Luminix Studio {new Date().getFullYear()}
         </p>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.65rem] text-muted-foreground">
           <a
-            href="mailto:hello@devsandcreatives.com"
+            href="mailto:hello@luminixstudio.com"
             className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
           >
             <Mail className="h-3 w-3" />
-            hello@devsandcreatives.com
+            hello@luminixstudio.com
           </a>
           <Link href="/start" className="transition-colors hover:text-foreground">
             Start a project

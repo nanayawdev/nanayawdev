@@ -6,7 +6,7 @@ import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 
 export const metadata: Metadata = {
-  title: "Services - Devs & Creatives",
+  title: "Services - Luminix Studio",
   description: "Explore our comprehensive digital services including web development, UI/UX design, mobile apps, brand identity, and more. Helping African startups go global.",
 };
 

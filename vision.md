@@ -1,6 +1,8 @@
-# DEVS & CREATIVES
+# LUMINIX STUDIO
 
 A digital agency helping African startups and brands go global through design, development, and storytelling.
+
+Formerly known as Devs & Creatives.
 
 **Mission:** Empower African brands with world-class digital experiences that drive growth, inspire confidence, and connect with their audiences globally.
 

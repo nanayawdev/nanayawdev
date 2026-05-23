@@ -35,7 +35,7 @@ export function EditorialHero() {
       >
         <Image
           src="/hero6.webp"
-          alt="Devs & Creatives digital studio"
+          alt="Luminix Studio digital studio"
           fill
           priority
           sizes="100vw"
