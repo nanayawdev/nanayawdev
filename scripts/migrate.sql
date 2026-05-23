@@ -1,5 +1,5 @@
 -- ============================================================
--- Luminix Studio — Database Migration
+-- Ananse Digital — Database Migration
 -- ============================================================
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   cover_image  TEXT,
   featured     BOOLEAN NOT NULL DEFAULT FALSE,
   published    BOOLEAN NOT NULL DEFAULT FALSE,
-  author       TEXT NOT NULL DEFAULT 'Luminix Studio',
+  author       TEXT NOT NULL DEFAULT 'Ananse Digital',
   published_at TIMESTAMPTZ,
   created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()

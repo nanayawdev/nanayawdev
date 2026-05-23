@@ -7,7 +7,7 @@ const sections = [
   {
     id: "introduction",
     title: "Introduction",
-    content: `Luminix Studio ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect when you visit our website or engage our services, how we use it, and your rights regarding it. By using our site or services, you agree to the practices described here.`,
+    content: `Ananse Digital ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect when you visit our website or engage our services, how we use it, and your rights regarding it. By using our site or services, you agree to the practices described here.`,
   },
   {
     id: "information-we-collect",
@@ -32,7 +32,7 @@ const sections = [
   {
     id: "your-rights",
     title: "Your Rights",
-    content: `You have the right to access, correct, or delete the personal information we hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact us at hello@luminixstudio.com. We will respond within 30 days.`,
+    content: `You have the right to access, correct, or delete the personal information we hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact us at hello@anansedigital.com. We will respond within 30 days.`,
   },
   {
     id: "cookies",
@@ -42,7 +42,7 @@ const sections = [
   {
     id: "contact",
     title: "Contact Us",
-    content: `If you have any questions about this Privacy Policy or how we handle your data, please contact us at hello@luminixstudio.com. We are based in Accra, Ghana, and are happy to address any concerns you may have.`,
+    content: `If you have any questions about this Privacy Policy or how we handle your data, please contact us at hello@anansedigital.com. We are based in Accra, Ghana, and are happy to address any concerns you may have.`,
   },
 ];
 

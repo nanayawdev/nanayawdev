@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects - Luminix Studio",
+  title: "Projects - Ananse Digital",
   description: "Explore our portfolio of successful projects helping African startups and brands go global. See our web development, design, and digital solutions.",
 };
 

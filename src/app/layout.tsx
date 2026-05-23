@@ -24,8 +24,8 @@ const circular = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Luminix Studio - Digital Agency for African Startups & Brands",
-    template: "%s | Luminix Studio"
+    default: "Ananse Digital - Digital Agency for African Startups & Brands",
+    template: "%s | Ananse Digital"
   },
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   keywords: [
@@ -44,40 +44,40 @@ export const metadata: Metadata = {
     "African brands",
     "global expansion"
   ],
-  authors: [{ name: "Luminix Studio Team" }],
-  creator: "Luminix Studio",
-  publisher: "Luminix Studio",
+  authors: [{ name: "Ananse Digital Team" }],
+  creator: "Ananse Digital",
+  publisher: "Ananse Digital",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://luminixstudio.com"),
+  metadataBase: new URL("https://anansedigital.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://luminixstudio.com",
-    title: "Luminix Studio - Digital Agency for African Startups & Brands",
+    url: "https://anansedigital.com",
+    title: "Ananse Digital - Digital Agency for African Startups & Brands",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
-    siteName: "Luminix Studio",
+    siteName: "Ananse Digital",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Luminix Studio - Where innovation meets imagination",
+        alt: "Ananse Digital - Where innovation meets imagination",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luminix Studio - Digital Agency for African Startups & Brands",
+    title: "Ananse Digital - Digital Agency for African Startups & Brands",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     images: ["/og-image.jpg"],
-    creator: "@luminixstudio",
+    creator: "@anansedigital",
   },
   robots: {
     index: true,

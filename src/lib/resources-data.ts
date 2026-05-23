@@ -46,7 +46,7 @@ Practically, it means:
 
 Start with clarity. Before you build anything, answer: who are we for, what problem do we solve, and why should anyone trust us? Get those answers sharp, then build the digital layer on top.
 
-That's the work we do at Luminix Studio. And it's never too late to start.`,
+That's the work we do at Ananse Digital. And it's never too late to start.`,
   },
   {
     slug: "design-systems-for-startups",

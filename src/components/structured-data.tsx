@@ -2,13 +2,13 @@ export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Luminix Studio",
+    "name": "Ananse Digital",
     "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
-    "url": "https://luminixstudio.com",
-    "logo": "https://luminixstudio.com/logo.png",
+    "url": "https://anansedigital.com",
+    "logo": "https://anansedigital.com/logo.png",
     "sameAs": [
-      "https://twitter.com/luminixstudio",
-      "https://linkedin.com/company/luminixstudio"
+      "https://twitter.com/anansedigital",
+      "https://linkedin.com/company/anansedigital"
     ],
     "address": {
       "@type": "PostalAddress",

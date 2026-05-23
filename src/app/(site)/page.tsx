@@ -10,10 +10,10 @@ import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Luminix Studio - Digital Agency for African Startups & Brands",
+  title: "Ananse Digital - Digital Agency for African Startups & Brands",
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   openGraph: {
-    title: "Luminix Studio - Digital Agency for African Startups & Brands",
+    title: "Ananse Digital - Digital Agency for African Startups & Brands",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     type: "website",
   },

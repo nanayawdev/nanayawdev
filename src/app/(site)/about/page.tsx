@@ -60,7 +60,7 @@ export default function About() {
         >
           <Image
             src="/hero6.webp"
-            alt="Luminix Studio Creative Studio"
+            alt="Ananse Digital Creative Studio"
             fill
             priority
             sizes="100vw"
@@ -80,7 +80,7 @@ export default function About() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                Luminix Studio was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
+                Ananse Digital was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
               </motion.p>
               <motion.p
                 className="text-muted-foreground text-lg leading-relaxed"

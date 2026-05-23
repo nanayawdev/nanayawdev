@@ -1,4 +1,4 @@
-# LUMINIX STUDIO
+# ANANSE DIGITAL
 
 A digital agency helping African startups and brands go global through design, development, and storytelling.
 

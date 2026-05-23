@@ -1,4 +1,4 @@
-# Theme Rules for Luminix Studio
+# Theme Rules for Ananse Digital
 
 ## 🎨 Light & Dark Theme Guidelines
 
