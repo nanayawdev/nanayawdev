@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "to, subject and message are required" }, { status: 400 });
     }
 
-    const fromAddress = process.env.RESEND_FROM ?? "Ananse Digital <hello@anansedigital.com>";
+    const fromAddress = process.env.RESEND_FROM ?? "Codebase Technologies <hello@codebase.africa>";
 
     const { error } = await resend.emails.send({
       from: fromAddress,
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:32px">
         <p style="font-size:14px;color:#111;white-space:pre-wrap;line-height:1.7">${message.replace(/\n/g, "<br/>")}</p>
         <hr style="margin:32px 0;border:none;border-top:1px solid #eee"/>
-        <p style="font-size:11px;color:#999">Ananse Digital · <a href="https://anansedigital.com" style="color:#999">anansedigital.com</a></p>
+        <p style="font-size:11px;color:#999">Codebase Technologies · <a href="https://codebase.africa" style="color:#999">codebase.africa</a></p>
       </div>`,
     });
 

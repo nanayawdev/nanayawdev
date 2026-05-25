@@ -22,7 +22,7 @@ interface Post {
 
 const EMPTY: Omit<Post, "id" | "slug" | "published_at" | "created_at"> = {
   title: "", excerpt: "", body: "", category: "General",
-  cover_image: "", featured: false, published: false, author: "Ananse Digital",
+  cover_image: "", featured: false, published: false, author: "Codebase Technologies",
 };
 
 const CATEGORIES = ["General", "Design", "Development", "Branding", "Marketing", "Case Study"];

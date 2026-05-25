@@ -1,4 +1,4 @@
-# ANANSE DIGITAL
+# CODEBASE TECHNOLOGIES LIMITED
 
 A digital agency helping African startups and brands go global through design, development, and storytelling.
 

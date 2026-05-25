@@ -7,12 +7,12 @@ const sections = [
   {
     id: "introduction",
     title: "Introduction",
-    content: `These Terms of Service ("Terms") govern your engagement with Ananse Digital for any digital services including web design, web development, mobile app development, brand identity, and digital marketing. By engaging our services, you agree to be bound by these Terms. If you do not agree, please do not proceed with an engagement.`,
+    content: `These Terms of Service ("Terms") govern your engagement with Codebase Technologies Limited for any digital services including web design, web development, mobile app development, brand identity, and digital marketing. By engaging our services, you agree to be bound by these Terms. If you do not agree, please do not proceed with an engagement.`,
   },
   {
     id: "services",
     title: "Services",
-    content: `Ananse Digital provides creative and technical digital services as agreed in individual project proposals or service agreements. The scope, deliverables, timeline, and cost of each engagement are defined in a written proposal or statement of work (SOW) issued before work begins. Any work outside the agreed scope will be quoted separately.`,
+    content: `Codebase Technologies Limited provides creative and technical digital services as agreed in individual project proposals or service agreements. The scope, deliverables, timeline, and cost of each engagement are defined in a written proposal or statement of work (SOW) issued before work begins. Any work outside the agreed scope will be quoted separately.`,
   },
   {
     id: "project-engagements",
@@ -37,7 +37,7 @@ const sections = [
   {
     id: "limitation-of-liability",
     title: "Limitation of Liability",
-    content: `Ananse Digital shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services or deliverables. Our total liability for any claim shall not exceed the total fees paid for the specific project giving rise to the claim. We are not responsible for losses due to circumstances beyond our control, including third-party platform changes, hosting failures, or acts of nature.`,
+    content: `Codebase Technologies Limited shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services or deliverables. Our total liability for any claim shall not exceed the total fees paid for the specific project giving rise to the claim. We are not responsible for losses due to circumstances beyond our control, including third-party platform changes, hosting failures, or acts of nature.`,
   },
   {
     id: "termination",
@@ -47,7 +47,7 @@ const sections = [
   {
     id: "contact",
     title: "Contact Us",
-    content: `For any questions about these Terms or to discuss a specific engagement, please reach out at hello@anansedigital.com. We are based in Accra, Ghana, and aim to respond to all enquiries within 1–2 business days.`,
+    content: `For any questions about these Terms or to discuss a specific engagement, please reach out at hello@codebase.africa. We are based in Accra, Ghana, and aim to respond to all enquiries within 1–2 business days.`,
   },
 ];
 

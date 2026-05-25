@@ -1,4 +1,4 @@
-# Ananse Digital — Design Rules
+# Codebase Technologies — Design Rules
 
 A living reference for every design decision made across the site. Follow these rules to keep the visual language consistent.
 

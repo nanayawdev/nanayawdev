@@ -1,4 +1,4 @@
-# Theme Rules for Ananse Digital
+# Theme Rules for Codebase Technologies
 
 ## 🎨 Light & Dark Theme Guidelines
 

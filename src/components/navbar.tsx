@@ -51,7 +51,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <div className="w-10 h-10 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="Ananse Digital" width={40} height={40} className="w-full h-full object-contain" />
+              <Image src="/logo.png" alt="Codebase Technologies" width={40} height={40} className="w-full h-full object-contain" />
             </div>
           </Link>
 

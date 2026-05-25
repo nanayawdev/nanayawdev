@@ -35,7 +35,7 @@ export function EditorialHero() {
       >
         <Image
           src="/hero6.webp"
-          alt="Ananse Digital digital studio"
+          alt="Codebase Technologies digital studio"
           fill
           priority
           sizes="100vw"

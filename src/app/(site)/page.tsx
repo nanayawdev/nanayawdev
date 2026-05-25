@@ -10,10 +10,10 @@ import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ananse Digital - Digital Agency for African Startups & Brands",
+  title: "Codebase Technologies - Software Development Agency",
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   openGraph: {
-    title: "Ananse Digital - Digital Agency for African Startups & Brands",
+    title: "Codebase Technologies - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     type: "website",
   },

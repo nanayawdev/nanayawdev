@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://anansedigital.com'
+  const baseUrl = 'https://codebase.africa'
   
   return [
     {
