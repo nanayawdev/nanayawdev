@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://codebase.africa/sitemap.xml
+Sitemap: https://octacoreafrica.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

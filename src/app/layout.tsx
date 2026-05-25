@@ -24,8 +24,8 @@ const circular = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Codebase Technologies - Software Development Agency",
-    template: "%s | Codebase Technologies"
+    default: "Octacore - Software Development Agency",
+    template: "%s | Octacore"
   },
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   keywords: [
@@ -44,40 +44,40 @@ export const metadata: Metadata = {
     "African brands",
     "global expansion"
   ],
-  authors: [{ name: "Codebase Technologies Team" }],
-  creator: "Codebase Technologies",
-  publisher: "Codebase Technologies",
+  authors: [{ name: "Octacore Team" }],
+  creator: "Octacore",
+  publisher: "Octacore",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://codebase.africa"),
+  metadataBase: new URL("https://octacoreafrica.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://codebase.africa",
-    title: "Codebase Technologies - Software Development Agency",
+    url: "https://octacoreafrica.com",
+    title: "Octacore - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
-    siteName: "Codebase Technologies",
+    siteName: "Octacore",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Codebase Technologies - Software Development Agency",
+        alt: "Octacore - Software Development Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Codebase Technologies - Software Development Agency",
+    title: "Octacore - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     images: ["/og-image.jpg"],
-    creator: "@codebaseafrica",
+    creator: "@octacoreafrica",
   },
   robots: {
     index: true,

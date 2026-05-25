@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
        RETURNING id::text, slug, title, published, created_at`,
       [slug, title, excerpt, body, category ?? "General", cover_image ?? null,
-       featured ?? false, published ?? false, author ?? "Codebase Technologies", published_at]
+       featured ?? false, published ?? false, author ?? "Octacore", published_at]
     );
     return NextResponse.json({ success: true, post: rows[0] }, { status: 201 });
   } catch (err: unknown) {

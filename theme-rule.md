@@ -1,4 +1,4 @@
-# Theme Rules for Codebase Technologies
+# Theme Rules for Octacore
 
 ## 🎨 Light & Dark Theme Guidelines
 

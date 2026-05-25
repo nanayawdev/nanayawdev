@@ -1,6 +1,6 @@
 {
-  "name": "Codebase Technologies - Software Development Agency",
-  "short_name": "Codebase Technologies",
+  "name": "Octacore - Software Development Agency",
+  "short_name": "Octacore",
   "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
   "start_url": "/",
   "display": "standalone",
@@ -48,14 +48,14 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Codebase Technologies Desktop View"
+      "label": "Octacore Desktop View"
     },
     {
       "src": "/screenshot-mobile.png", 
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Codebase Technologies Mobile View"
+      "label": "Octacore Mobile View"
     }
   ],
   "shortcuts": [

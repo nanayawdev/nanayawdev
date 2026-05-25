@@ -2,13 +2,13 @@ export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Codebase Technologies Limited",
+    "name": "Octacore Africa Limited",
     "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
-    "url": "https://codebase.africa",
-    "logo": "https://codebase.africa/logo.png",
+    "url": "https://octacoreafrica.com",
+    "logo": "https://octacoreafrica.com/logo.png",
     "sameAs": [
-      "https://twitter.com/codebaseafrica",
-      "https://linkedin.com/company/codebaseafrica"
+      "https://twitter.com/octacoreafrica",
+      "https://linkedin.com/company/octacoreafrica"
     ],
     "address": {
       "@type": "PostalAddress",

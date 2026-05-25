@@ -182,7 +182,7 @@ export default function StartPage() {
           {/* Logo */}
           <Link href="/">
             <div className="w-10 h-10 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="Codebase Technologies" width={40} height={40} className="w-full h-full object-contain" />
+              <Image src="/logo.png" alt="Octacore" width={40} height={40} className="w-full h-full object-contain" />
             </div>
           </Link>
 
@@ -255,7 +255,7 @@ export default function StartPage() {
         <div className="lg:hidden px-8 pt-8 pb-4">
           <Link href="/">
             <div className="w-9 h-9 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="Codebase Technologies" width={36} height={36} className="w-full h-full object-contain" />
+              <Image src="/logo.png" alt="Octacore" width={36} height={36} className="w-full h-full object-contain" />
             </div>
           </Link>
         </div>

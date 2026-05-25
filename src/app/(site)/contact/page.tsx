@@ -7,16 +7,16 @@ import { ArrowRight, Check, Twitter, Linkedin, Github, Instagram } from "lucide-
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
 const details = [
-  { label: "Email", value: "hello@codebase.africa", href: "mailto:hello@codebase.africa" },
+  { label: "Email", value: "hello@octacoreafrica.com", href: "mailto:hello@octacoreafrica.com" },
   { label: "Location", value: "Accra, Ghana", href: null },
   { label: "Response time", value: "Within 24 hours", href: null },
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/codebaseafrica" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/codebaseafrica" },
-  { icon: Github, label: "GitHub", href: "https://github.com/codebaseafrica" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/codebaseafrica" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/octacoreafrica" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/octacoreafrica" },
+  { icon: Github, label: "GitHub", href: "https://github.com/octacoreafrica" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/octacoreafrica" },
 ];
 
 type Form = { name: string; email: string; subject: string; message: string };

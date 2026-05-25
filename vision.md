@@ -1,4 +1,4 @@
-# CODEBASE TECHNOLOGIES LIMITED
+# OCTACORE AFRICA LIMITED
 
 A digital agency helping African startups and brands go global through design, development, and storytelling.
 

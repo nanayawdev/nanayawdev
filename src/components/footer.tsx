@@ -20,10 +20,10 @@ const services = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/codebaseafrica" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/codebaseafrica" },
-  { icon: Github, label: "GitHub", href: "https://github.com/codebaseafrica" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/codebaseafrica" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/octacoreafrica" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/octacoreafrica" },
+  { icon: Github, label: "GitHub", href: "https://github.com/octacoreafrica" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/octacoreafrica" },
 ];
 
 const footerColumns = [
@@ -71,9 +71,9 @@ export function Footer() {
         <Link
           href="/"
           className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
-          aria-label="Codebase Technologies home"
+          aria-label="Octacore home"
         >
-          code<span className="text-[#FD4912]">base</span>
+          octa<span className="text-[#FD4912]">core</span>
         </Link>
       </div>
 
@@ -164,15 +164,15 @@ export function Footer() {
 
       <div className="flex flex-col gap-5 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p className="text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground">
-          Copyright Codebase Technologies Limited {new Date().getFullYear()}
+          Copyright Octacore Africa Limited {new Date().getFullYear()}
         </p>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.65rem] text-muted-foreground">
           <a
-            href="mailto:hello@codebase.africa"
+            href="mailto:hello@octacoreafrica.com"
             className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
           >
             <Mail className="h-3 w-3" />
-            hello@codebase.africa
+            hello@octacoreafrica.com
           </a>
           <Link href="/start" className="transition-colors hover:text-foreground">
             Start a project
