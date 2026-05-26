@@ -1,4 +1,4 @@
-# Octacore — Design Rules
+# Arssent — Design Rules
 
 A living reference for every design decision made across the site. Follow these rules to keep the visual language consistent.
 

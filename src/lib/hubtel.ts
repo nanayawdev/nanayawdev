@@ -25,7 +25,7 @@ export async function sendOtp(phone: string, otp: string): Promise<void> {
   const clientSecret = requireEnv("HUBTEL_SMS_CLIENT_SECRET");
   const senderId     = requireEnv("HUBTEL_SMS_SENDER_ID");
 
-  const message = `Your Octacore chat code is ${otp}. Valid for 10 minutes.`;
+  const message = `Your Arssent chat code is ${otp}. Valid for 10 minutes.`;
 
   const res = await fetch(baseUrl, {
     method: "POST",

@@ -6,7 +6,7 @@ import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 
 export const metadata: Metadata = {
-  title: "Services - Octacore",
+  title: "Services - Arssent",
   description: "Explore our comprehensive digital services including web development, UI/UX design, mobile apps, brand identity, and more. Helping African startups go global.",
 };
 

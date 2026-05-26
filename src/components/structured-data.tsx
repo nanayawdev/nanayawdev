@@ -2,13 +2,13 @@ export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Octacore Africa Limited",
+    "name": "Arssent Technologies Limited",
     "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
-    "url": "https://octacoreafrica.com",
-    "logo": "https://octacoreafrica.com/logo.png",
+    "url": "https://arssent.com",
+    "logo": "https://arssent.com/logo.png",
     "sameAs": [
-      "https://twitter.com/octacoreafrica",
-      "https://linkedin.com/company/octacoreafrica"
+      "https://twitter.com/arssent",
+      "https://linkedin.com/company/arssent"
     ],
     "address": {
       "@type": "PostalAddress",

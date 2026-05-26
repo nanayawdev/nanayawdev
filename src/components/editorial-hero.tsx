@@ -6,9 +6,9 @@ import Image from "next/image";
 export function EditorialHero() {
   return (
     <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-8 pb-24 pt-40 lg:pb-32 lg:pt-52">
+      <div className="mx-auto max-w-7xl px-8 pb-28 pt-40 lg:pb-36 lg:pt-52">
         <motion.h1
-          className="max-w-5xl overflow-visible text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em] text-foreground"
+          className="max-w-5xl overflow-visible pb-4 text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em] text-foreground"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
@@ -30,7 +30,7 @@ export function EditorialHero() {
       >
         <Image
           src="/hero6.webp"
-          alt="Octacore digital studio"
+          alt="Arssent digital studio"
           fill
           priority
           sizes="100vw"

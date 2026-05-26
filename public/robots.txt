@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://octacoreafrica.com/sitemap.xml
+Sitemap: https://arssent.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

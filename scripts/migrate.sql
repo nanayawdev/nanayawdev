@@ -1,5 +1,5 @@
 -- ============================================================
--- Octacore — Database Migration
+-- Arssent — Database Migration
 -- ============================================================
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   cover_image  TEXT,
   featured     BOOLEAN NOT NULL DEFAULT FALSE,
   published    BOOLEAN NOT NULL DEFAULT FALSE,
-  author       TEXT NOT NULL DEFAULT 'Octacore',
+  author       TEXT NOT NULL DEFAULT 'Arssent',
   published_at TIMESTAMPTZ,
   created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()

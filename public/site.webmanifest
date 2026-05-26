@@ -1,6 +1,6 @@
 {
-  "name": "Octacore - Software Development Agency",
-  "short_name": "Octacore",
+  "name": "Arssent - Software Development Agency",
+  "short_name": "Arssent",
   "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
   "start_url": "/",
   "display": "standalone",
@@ -48,14 +48,14 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Octacore Desktop View"
+      "label": "Arssent Desktop View"
     },
     {
       "src": "/screenshot-mobile.png", 
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Octacore Mobile View"
+      "label": "Arssent Mobile View"
     }
   ],
   "shortcuts": [

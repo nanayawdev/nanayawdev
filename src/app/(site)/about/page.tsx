@@ -60,7 +60,7 @@ export default function About() {
         >
           <Image
             src="/hero6.webp"
-            alt="Octacore Creative Studio"
+            alt="Arssent Technologies"
             fill
             priority
             sizes="100vw"
@@ -80,7 +80,7 @@ export default function About() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                Octacore was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
+                Arssent was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
               </motion.p>
               <motion.p
                 className="text-muted-foreground text-lg leading-relaxed"

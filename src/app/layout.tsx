@@ -24,8 +24,8 @@ const circular = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Octacore - Software Development Agency",
-    template: "%s | Octacore"
+    default: "Arssent - Software Development Agency",
+    template: "%s | Arssent"
   },
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   keywords: [
@@ -44,40 +44,40 @@ export const metadata: Metadata = {
     "African brands",
     "global expansion"
   ],
-  authors: [{ name: "Octacore Team" }],
-  creator: "Octacore",
-  publisher: "Octacore",
+  authors: [{ name: "Arssent Team" }],
+  creator: "Arssent",
+  publisher: "Arssent",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://octacoreafrica.com"),
+  metadataBase: new URL("https://arssent.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://octacoreafrica.com",
-    title: "Octacore - Software Development Agency",
+    url: "https://arssent.com",
+    title: "Arssent - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
-    siteName: "Octacore",
+    siteName: "Arssent",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Octacore - Software Development Agency",
+        alt: "Arssent - Software Development Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Octacore - Software Development Agency",
+    title: "Arssent - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     images: ["/og-image.jpg"],
-    creator: "@octacoreafrica",
+    creator: "@arssent",
   },
   robots: {
     index: true,

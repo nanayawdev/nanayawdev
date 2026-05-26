@@ -10,10 +10,10 @@ import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Octacore - Software Development Agency",
+  title: "Arssent - Software Development Agency",
   description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
   openGraph: {
-    title: "Octacore - Software Development Agency",
+    title: "Arssent - Software Development Agency",
     description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
     type: "website",
   },

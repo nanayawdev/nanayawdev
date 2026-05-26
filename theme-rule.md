@@ -1,4 +1,4 @@
-# Theme Rules for Octacore
+# Theme Rules for Arssent
 
 ## 🎨 Light & Dark Theme Guidelines
 
