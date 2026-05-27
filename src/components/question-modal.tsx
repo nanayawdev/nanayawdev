@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -59,12 +60,12 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
 
   return (
     <AnimatePresence>
-      {open && (
+      {open && createPortal(
         <>
           {/* Backdrop */}
           <motion.div
             ref={overlayRef}
-            className="fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[1000] bg-foreground/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -74,7 +75,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
 
           {/* Panel */}
           <motion.div
-            className="fixed inset-x-4 bottom-0 z-50 border border-border bg-background sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:-translate-y-1/2"
+            className="fixed inset-x-4 bottom-0 z-[1001] border border-border bg-background sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:-translate-y-1/2"
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 32 }}
@@ -189,7 +190,8 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
               )}
             </div>
           </motion.div>
-        </>
+        </>,
+        document.body
       )}
     </AnimatePresence>
   );
