@@ -1,5 +1,4 @@
 import { StructuredData } from "@/components/structured-data";
-import { EditorialHero } from "@/components/editorial-hero";
 import { TechTicker } from "@/components/tech-ticker";
 import { Services } from "@/components/services";
 import { LatestWork } from "@/components/latest-work";
@@ -8,6 +7,7 @@ import { OurProcesses } from "@/components/our-processes";
 import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
+import { Hero } from "@/components/hero";
 
 export const metadata: Metadata = {
   title: "Arssent - Software Development Agency",
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <StructuredData />
-      <EditorialHero />
+      <Hero />
       <TechTicker />
       <Services />
       <LatestWork />

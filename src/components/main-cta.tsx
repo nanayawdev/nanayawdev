@@ -78,7 +78,7 @@ export function MainCTA() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-end">
           {/* Headline */}
           <motion.h2
-            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9] tracking-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.9] tracking-tight"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
