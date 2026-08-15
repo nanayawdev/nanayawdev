@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const processes = [
   {
@@ -30,13 +31,64 @@ const processes = [
   },
 ];
 
+function ProcessStep({
+  process,
+  isLast,
+}: {
+  process: (typeof processes)[number];
+  isLast: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+
+  return (
+    <div ref={ref} className="flex gap-6 lg:gap-8">
+      {/* Rail */}
+      <div className="flex flex-col items-center shrink-0">
+        <div
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-semibold tabular-nums transition-colors duration-500 ${
+            inView ? "border-[#542e7b] bg-[#542e7b] text-white" : "border-border text-foreground"
+          }`}
+        >
+          {String(process.id).padStart(2, "0")}
+        </div>
+        {!isLast && (
+          <div className="relative mt-2 w-px flex-1 bg-border">
+            <motion.div
+              className="absolute inset-x-0 top-0 w-px origin-top bg-[#542e7b]"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: inView ? 1 : 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <motion.div
+        className={isLast ? "pb-2" : "pb-14"}
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <h3 className="mb-2 text-xl font-semibold text-foreground lg:text-2xl">
+          {process.title}
+        </h3>
+        <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+          {process.description}
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
 export function OurProcesses() {
   return (
     <section className="py-16 lg:py-28 bg-background">
       <div className="max-w-7xl mx-auto px-8">
 
         {/* Header */}
-        <div className="mb-16 lg:mb-20">
+        <div className="mb-16 lg:mb-20 max-w-2xl">
           <motion.p
             className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 10 }}
@@ -47,7 +99,7 @@ export function OurProcesses() {
             How I Work
           </motion.p>
           <motion.h2
-            className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight"
+            className="text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
@@ -57,40 +109,10 @@ export function OurProcesses() {
           </motion.h2>
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-0">
+        {/* Timeline */}
+        <div className="max-w-3xl">
           {processes.map((process, index) => (
-            <motion.div
-              key={process.id}
-              className="relative"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              {/* Connector line — sits behind the number row */}
-              <div className="flex items-center mb-8">
-                <div className="relative flex items-center justify-center w-12 h-12 border border-border bg-background shrink-0 z-10">
-                  <span className="text-sm font-semibold text-foreground tabular-nums">
-                    {String(process.id).padStart(2, "0")}
-                  </span>
-                </div>
-                {/* Line to next step */}
-                {index < processes.length - 1 && (
-                  <div className="hidden md:block flex-1 h-px bg-border ml-0" />
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="pr-8">
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  {process.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {process.description}
-                </p>
-              </div>
-            </motion.div>
+            <ProcessStep key={process.id} process={process} isLast={index === processes.length - 1} />
           ))}
         </div>
 

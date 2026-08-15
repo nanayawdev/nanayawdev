@@ -53,7 +53,7 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-foreground py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-background py-20 lg:py-28">
       <motion.div
         className="relative z-10 w-full overflow-hidden"
         style={{ height: 340 }}
@@ -95,13 +95,13 @@ export function TestimonialsSection() {
             <motion.div
               key={testimonial.id}
               className={`absolute top-0 flex flex-col justify-between overflow-hidden rounded-2xl p-8 text-left shadow-xl ${
-                isActive ? "bg-background text-foreground" : "bg-background/10 text-background/70 backdrop-blur-sm"
+                isActive ? "bg-foreground text-background" : "bg-foreground/10 text-foreground/70 backdrop-blur-sm"
               }`}
               style={{ width: CARD_W, minHeight: 360, zIndex: s.zIndex }}
               animate={{ x: s.x, rotate: s.rotate, scale: s.scale, opacity: s.opacity }}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
-              <p className={`text-base leading-relaxed ${isActive ? "text-foreground/85" : "text-background/70"}`}>
+              <p className={`text-base leading-relaxed ${isActive ? "text-background/85" : "text-foreground/70"}`}>
                 {testimonial.quote}
               </p>
               <div className="mt-6 flex items-center gap-3">
@@ -110,11 +110,11 @@ export function TestimonialsSection() {
                     <Image src={testimonial.avatar} alt={testimonial.author_name} fill className="object-cover" />
                   </div>
                 ) : (
-                  <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${isActive ? "bg-muted" : "bg-background/15"}`}>
-                    <User className={`h-4 w-4 ${isActive ? "text-muted-foreground" : "text-background/60"}`} />
+                  <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${isActive ? "bg-muted" : "bg-foreground/15"}`}>
+                    <User className={`h-4 w-4 ${isActive ? "text-muted-foreground" : "text-foreground/60"}`} />
                   </div>
                 )}
-                <p className={`text-sm font-medium ${isActive ? "text-foreground" : "text-background/80"}`}>
+                <p className={`text-sm font-medium ${isActive ? "text-background" : "text-foreground/80"}`}>
                   {testimonial.author_name}
                   {testimonial.author_role && <>, {testimonial.author_role}</>}
                 </p>
