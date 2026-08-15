@@ -24,8 +24,8 @@ interface Project {
   year: string | null;
 }
 
-const PREVIEW_W = 380;
-const PREVIEW_H = 260;
+const PREVIEW_W = 480;
+const PREVIEW_H = 300;
 
 export default function Projects() {
   const [projects, setProjects]     = useState<Project[]>([]);
@@ -64,14 +64,14 @@ export default function Projects() {
       <AnimatePresence>
         {hoveredId && hoveredProject?.cover_image && (
           <motion.div
-            className="fixed top-0 left-0 z-50 pointer-events-none overflow-hidden"
+            className="fixed top-0 left-0 z-50 overflow-hidden bg-muted pointer-events-none"
             style={{ width: PREVIEW_W, height: PREVIEW_H, x: springX, y: springY }}
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.2 }}
           >
-            <Image src={hoveredProject.cover_image} alt={hoveredProject.title} fill className="object-cover" />
+            <Image src={hoveredProject.cover_image} alt={hoveredProject.title} fill className="object-contain" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -168,9 +168,6 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-                  <span className="hidden lg:block text-sm text-muted-foreground shrink-0 w-48 text-right">
-                    {project.description}
-                  </span>
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="text-sm text-muted-foreground/50 hidden lg:block">{project.year}</span>
                     <div className="w-8 h-8 border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0">
