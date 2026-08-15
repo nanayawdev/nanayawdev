@@ -33,7 +33,7 @@ export function Navbar() {
       socialItems={socialItems}
       displaySocials
       displayItemNumbering
-      logoText="nanayawdev"
+      logoText="nanayaw.dev"
       headerExtra={<ThemeToggle />}
       menuButtonColor="var(--foreground)"
       openMenuButtonColor="var(--foreground)"

@@ -67,13 +67,13 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
-      <div className="border-b border-border px-4 py-6 sm:px-6 lg:px-8">
+      <div className="border-b border-border bg-[#542e7b] px-4 py-6 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
+          className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-white"
           aria-label="nanayawdev home"
         >
-          nanayaw<span className="text-[#542e7b]">.dev</span>
+          nanayaw.dev
         </Link>
       </div>
 

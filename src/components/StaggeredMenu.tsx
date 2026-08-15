@@ -204,14 +204,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [position]);
 
   const playOpen = useCallback(() => {
+    console.log("[DEBUG] playOpen called, busy:", busyRef.current);
     if (busyRef.current) return;
     busyRef.current = true;
     const tl = buildOpenTimeline();
+    console.log("[DEBUG] buildOpenTimeline returned:", tl);
     if (tl) {
       tl.eventCallback("onComplete", () => {
         busyRef.current = false;
+        console.log("[DEBUG] onComplete fired");
+      });
+      tl.eventCallback("onUpdate", () => {
+        console.log("[DEBUG] onUpdate progress:", tl.progress().toFixed(3), "panel xPercent:", gsap.getProperty(panelRef.current, "xPercent"));
       });
       tl.play(0);
+      console.log("[DEBUG] tl.play(0) called, progress:", tl.progress(), "duration:", tl.duration());
     } else {
       busyRef.current = false;
     }
@@ -426,14 +433,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               className="sm-logo select-none rounded-full border border-border bg-background/80 backdrop-blur-md px-4 py-2 text-sm font-semibold tracking-tight text-foreground no-underline"
               aria-label="Home"
             >
-              {logoText.endsWith("dev") ? (
-                <>
-                  {logoText.slice(0, -3)}
-                  <span style={{ color: "var(--sm-accent, #542e7b)" }}>dev</span>
-                </>
-              ) : (
-                logoText
-              )}
+              {logoText}
             </Link>
             {headerExtra}
           </div>
