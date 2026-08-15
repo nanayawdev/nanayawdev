@@ -48,3 +48,6 @@ mcp.json
 
 # docker
 docker-compose.yml
+
+# local-only seed scripts (contain real credentials for local dev)
+scripts/seed-admin.sql
