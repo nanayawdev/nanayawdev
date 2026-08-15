@@ -2,13 +2,13 @@ import LogoLoop from "./logo-loop";
 
 const items = [
   { label: "web development.", muted: false },
-  { label: "React.",           muted: true  },
+  { label: "react.",           muted: true  },
   { label: "mobile apps.",     muted: false },
-  { label: "Next.js.",         muted: true  },
-  { label: "UI/UX design.",    muted: false },
-  { label: "TypeScript.",      muted: true  },
+  { label: "next.js.",         muted: true  },
+  { label: "ui/ux design.",    muted: false },
+  { label: "typescript.",      muted: true  },
   { label: "brand identity.",  muted: false },
-  { label: "Node.js.",         muted: true  },
+  { label: "node.js.",         muted: true  },
   { label: "full-stack.",      muted: false },
   { label: "product design.",  muted: true  },
 ];
