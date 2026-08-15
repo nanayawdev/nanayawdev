@@ -17,7 +17,7 @@ const tickerItems = items.map(({ label, muted }) => ({
   node: (
     <span className="flex items-center">
       <span
-        className={`text-[clamp(2rem,4vw,3rem)] font-bold leading-none tracking-tight whitespace-nowrap ${
+        className={`text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.2] tracking-tight whitespace-nowrap ${
           muted ? "text-foreground/20" : "text-foreground"
         }`}
       >
@@ -29,7 +29,7 @@ const tickerItems = items.map(({ label, muted }) => ({
 
 export function TechTicker() {
   return (
-    <div className="w-full border-y border-border py-8 overflow-hidden">
+    <div className="w-full border-y border-border py-8 overflow-x-hidden">
       <LogoLoop
         logos={tickerItems}
         speed={40}

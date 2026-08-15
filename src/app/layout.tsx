@@ -6,20 +6,20 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 
-const circular = localFont({
+const gellix = localFont({
   src: [
     {
-      path: "../../public/fonts/circular/CircularStd-Book.woff2",
+      path: "../../public/fonts/gellix/Gellix-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../public/fonts/circular/CircularStd-Book.woff",
+      path: "../../public/fonts/gellix/Gellix-Regular.woff",
       weight: "400",
       style: "normal",
     },
   ],
-  variable: "--font-circular",
+  variable: "--font-gellix",
 });
 
 const ragick = localFont({
@@ -135,7 +135,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${circular.variable} ${ragick.variable} antialiased`}>
+      <body className={`${gellix.variable} ${ragick.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -2,12 +2,11 @@ import { StructuredData } from "@/components/structured-data";
 import { TechTicker } from "@/components/tech-ticker";
 import { Services } from "@/components/services";
 import { LatestWork } from "@/components/latest-work";
-import { WhyUs } from "@/components/why-us";
 import { OurProcesses } from "@/components/our-processes";
 import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
-import { Hero } from "@/components/hero";
+import { AboutSection } from "@/components/about-section";
 
 export const metadata: Metadata = {
   title: "nanayawdev - Software Engineer",
@@ -23,11 +22,10 @@ export default function Home() {
   return (
     <>
       <StructuredData />
-      <Hero />
+      <AboutSection />
       <TechTicker />
       <Services />
       <LatestWork />
-      <WhyUs />
       <OurProcesses />
       <FAQ />
       <MainCTA />

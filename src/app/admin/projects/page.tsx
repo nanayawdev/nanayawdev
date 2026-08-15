@@ -112,11 +112,16 @@ export default function AdminProjectsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setError("");
     const form = new FormData();
     form.append("file", file);
     const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
     const data = await res.json();
-    if (res.ok) setEditing((p) => ({ ...p, cover_image: data.url }));
+    if (res.ok) {
+      setEditing((p) => ({ ...p, cover_image: data.url }));
+    } else {
+      setError(data.error ?? "Upload failed");
+    }
     setUploading(false);
     e.target.value = "";
   }

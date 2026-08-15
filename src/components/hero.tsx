@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 
 export function Hero() {
@@ -57,11 +57,11 @@ export function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <Badge variant="default" className="text-[9px] rounded-full px-2 py-0.5">
-                YES!
-              </Badge>
-              <span>I&apos;m a developer and creative</span>
-              <ArrowRight className="w-3 h-3" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              <span>nanayawdev — available for new projects</span>
             </motion.div>
           </div>
 
@@ -77,13 +77,35 @@ export function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            className="text-sm sm:text-base lg:text-lg font-light leading-relaxed opacity-90 max-w-2xl mx-auto"
+            className="text-sm sm:text-base lg:text-lg font-light leading-relaxed opacity-90 max-w-2xl mx-auto mb-8 sm:mb-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
             I help startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.
           </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.55 }}
+          >
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-medium rounded-full transition-transform hover:scale-[1.03]"
+            >
+              View My Work
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href="/start"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-foreground px-6 py-3 text-sm font-medium rounded-full transition-colors hover:bg-white/20"
+            >
+              Get In Touch
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

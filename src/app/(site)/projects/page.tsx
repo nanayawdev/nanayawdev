@@ -7,6 +7,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useCallback, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -141,10 +142,8 @@ export default function Projects() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, delay: index * 0.04 }}
               >
-                <a
-                  href={project.client_url ?? "#"}
-                  target={project.client_url ? "_blank" : undefined}
-                  rel="noopener noreferrer"
+                <Link
+                  href={`/projects/${project.slug}`}
                   className="group flex items-center gap-6 lg:gap-10 py-7 lg:py-9"
                   onMouseEnter={() => setHoveredId(project.id)}
                   onMouseLeave={() => setHoveredId(null)}
@@ -178,7 +177,7 @@ export default function Projects() {
                       <ArrowUpRight className="w-3.5 h-3.5 text-foreground" />
                     </div>
                   </div>
-                </a>
+                </Link>
               </motion.div>
             ))}
           </AnimatePresence>

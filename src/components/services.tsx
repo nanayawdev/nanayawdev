@@ -14,7 +14,7 @@ interface Service {
   cover_image: string | null;
 }
 
-export function Services() {
+export function Services({ showHeading = true }: { showHeading?: boolean }) {
   const [services, setServices] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -28,15 +28,28 @@ export function Services() {
     <section className="py-16 lg:py-28 bg-background">
       <div className="max-w-7xl mx-auto px-8">
 
-        <motion.p
-          className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-6"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          What I Do
-        </motion.p>
+        {showHeading && (
+          <div className="mb-12">
+            <motion.p
+              className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-3"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              What I Do
+            </motion.p>
+            <motion.h2
+              className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              viewport={{ once: true }}
+            >
+              My Services
+            </motion.h2>
+          </div>
+        )}
 
         <div className="divide-y divide-border">
           {services.map((service, index) => (

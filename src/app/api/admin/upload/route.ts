@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromRequest } from "@/lib/auth";
-import { uploadToR2 } from "@/lib/r2";
+import { uploadImage } from "@/lib/storage";
 
 export const runtime = "nodejs";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
 
-/** POST /api/admin/upload — upload a cover image to R2 */
+/** POST /api/admin/upload — upload a cover image to object storage */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const buffer = Buffer.from(await file.arrayBuffer());
-    const url = await uploadToR2(buffer, file.name, file.type);
+    const url = await uploadImage(buffer, file.name, file.type);
     return NextResponse.json({ success: true, url });
   } catch (err) {
     console.error("[upload POST]", err);

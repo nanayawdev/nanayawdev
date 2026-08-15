@@ -13,18 +13,18 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-24">
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52 pb-4">
         <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
           Services
         </p>
         <h1 className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground mb-6">
           My Services
         </h1>
-        <p className="text-muted-foreground text-lg max-w-xl mb-20">
+        <p className="text-muted-foreground text-lg max-w-xl">
           Comprehensive digital solutions to help African startups and brands go global through design, development, and storytelling.
         </p>
       </div>
-      <Services />
+      <Services showHeading={false} />
       <LatestWork />
       <WhyUs />
       <FAQ />

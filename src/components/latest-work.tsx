@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface Project {
   id: string;
@@ -16,18 +16,20 @@ interface Project {
   slug: string;
 }
 
+const PREVIEW_W = 380;
+const PREVIEW_H = 260;
+
 function ProjectRow({
   project,
   index,
-  onPreview,
+  onHoverStart,
+  onHoverEnd,
 }: {
   project: Project;
   index: number;
-  onPreview: () => void;
+  onHoverStart: () => void;
+  onHoverEnd: () => void;
 }) {
-  const href = project.client_url ?? `/projects`;
-  const isExternal = href.startsWith("http");
-
   return (
     <motion.div
       className="group border-t border-border last:border-b"
@@ -35,12 +37,11 @@ function ProjectRow({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.08 }}
       viewport={{ once: true }}
-      onMouseEnter={onPreview}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
     >
       <Link
-        href={href}
-        target={isExternal ? "_blank" : undefined}
-        rel={isExternal ? "noopener noreferrer" : undefined}
+        href={`/projects/${project.slug}`}
         className="grid gap-6 py-7 transition-colors duration-300 hover:bg-muted/30 md:grid-cols-[4rem_1fr_0.9fr_auto] md:items-center md:px-4 lg:py-9"
       >
         <span className="text-xs text-muted-foreground/50 tabular-nums">
@@ -68,44 +69,9 @@ function ProjectRow({
   );
 }
 
-function ProjectPreview({ project }: { project: Project }) {
-  return (
-    <motion.div
-      key={project.id}
-      className="sticky top-28 hidden overflow-hidden border border-border bg-muted lg:block"
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-    >
-      <div className="relative aspect-[4/5]">
-        {project.cover_image ? (
-          <Image
-            src={project.cover_image}
-            alt={project.title}
-            fill
-            sizes="33vw"
-            className="object-cover grayscale transition duration-700 hover:grayscale-0"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-muted" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-white/60">
-            Current Preview
-          </p>
-          <h3 className="text-3xl font-semibold leading-none tracking-[-0.045em] text-white">
-            {project.title}
-          </h3>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export function LatestWork() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/projects")
@@ -113,17 +79,48 @@ export function LatestWork() {
       .then((d) => {
         const list: Project[] = (d.projects ?? []).slice(0, 4);
         setProjects(list);
-        if (list.length > 0) setActiveProject(list[0]);
       });
   }, []);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.5 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.5 });
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      mouseX.set(e.clientX + 24);
+      mouseY.set(e.clientY - PREVIEW_H / 2);
+    },
+    [mouseX, mouseY]
+  );
+
+  const hoveredProject = projects.find((p) => p.id === hoveredId);
 
   if (projects.length === 0) return null;
 
   return (
-    <section className="border-t border-border bg-background py-16 lg:py-28">
+    <section className="border-t border-border bg-background py-16 lg:py-28" onMouseMove={handleMouseMove}>
+
+      {/* Floating image preview — follows cursor */}
+      <AnimatePresence>
+        {hoveredProject?.cover_image && (
+          <motion.div
+            className="fixed top-0 left-0 z-50 pointer-events-none overflow-hidden"
+            style={{ width: PREVIEW_W, height: PREVIEW_H, x: springX, y: springY }}
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image src={hoveredProject.cover_image} alt={hoveredProject.title} fill className="object-cover" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto px-8">
 
-        <div className="mb-12 grid grid-cols-1 gap-8 border-b border-border pb-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <motion.p
               className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-3"
@@ -164,19 +161,16 @@ export function LatestWork() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_420px]">
-          <div>
-            {projects.map((project, index) => (
-              <ProjectRow
-                key={project.id}
-                project={project}
-                index={index}
-                onPreview={() => setActiveProject(project)}
-              />
-            ))}
-          </div>
-
-          {activeProject && <ProjectPreview project={activeProject} />}
+        <div>
+          {projects.map((project, index) => (
+            <ProjectRow
+              key={project.id}
+              project={project}
+              index={index}
+              onHoverStart={() => setHoveredId(project.id)}
+              onHoverEnd={() => setHoveredId(null)}
+            />
+          ))}
         </div>
       </div>
     </section>
