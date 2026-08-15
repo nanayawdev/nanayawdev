@@ -60,7 +60,7 @@ export default function ProjectDetail() {
             <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
               {project.category}{project.year ? ` · ${project.year}` : ""}
             </p>
-            <h1 className="font-display text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-4">
+            <h1 className="font-display text-5xl lg:text-8xl font-semibold text-foreground leading-none tracking-tight mb-4">
               {project.title}
             </h1>
             {project.client_name && (

@@ -47,7 +47,7 @@ export default function About() {
               About Me
             </motion.p>
             <motion.h1
-              className="font-display max-w-xl overflow-visible text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground mb-6"
+              className="font-display max-w-xl overflow-visible text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-foreground mb-6"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.05 }}
@@ -149,7 +149,7 @@ export default function About() {
             How I Got Here
           </motion.p>
           <motion.h2
-            className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight mb-14"
+            className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight mb-14"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}

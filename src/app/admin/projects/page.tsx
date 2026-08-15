@@ -383,7 +383,7 @@ export default function AdminProjectsPage() {
               <p className="text-[0.65rem] text-muted-foreground uppercase tracking-widest mt-0.5">
                 {p.category} · {p.year ?? "—"}
                 {p.platforms?.length > 0 && <span className="ml-2 text-muted-foreground/70">{p.platforms.join(" · ")}</span>}
-                {p.featured && <span className="ml-2 text-[#FD4912]">Featured</span>}
+                {p.featured && <span className="ml-2 text-[#542e7b]">Featured</span>}
               </p>
             </div>
             <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border ${p.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>

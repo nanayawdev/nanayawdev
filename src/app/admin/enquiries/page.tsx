@@ -47,7 +47,7 @@ export default function EnquiriesPage() {
   }
 
   const statusColor: Record<string, string> = {
-    new:     "bg-[#FD4912] text-white",
+    new:     "bg-[#542e7b] text-white",
     read:    "bg-muted text-foreground",
     replied: "bg-foreground text-background",
   };
@@ -198,7 +198,7 @@ export default function EnquiriesPage() {
                     } catch { setSmsResult("error"); }
                     finally { setSmsSending(false); }
                   }}
-                  className="bg-[#FD4912] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="bg-[#542e7b] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {smsSending ? "Sending…" : "Send SMS"}
                 </button>

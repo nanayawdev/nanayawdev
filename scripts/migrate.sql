@@ -158,6 +158,20 @@ CREATE TABLE IF NOT EXISTS team_members (
 
 CREATE INDEX IF NOT EXISTS idx_team_members_published ON team_members(published);
 
+CREATE TABLE IF NOT EXISTS testimonials (
+  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  quote        TEXT NOT NULL,
+  author_name  TEXT NOT NULL,
+  author_role  TEXT NOT NULL DEFAULT '',
+  avatar       TEXT,
+  published    BOOLEAN NOT NULL DEFAULT FALSE,
+  sort_order   INTEGER NOT NULL DEFAULT 0,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_testimonials_published ON testimonials(published);
+
 CREATE TABLE IF NOT EXISTS admin_users (
   id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username       TEXT NOT NULL UNIQUE,

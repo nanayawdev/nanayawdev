@@ -59,7 +59,7 @@ export default function CaseStudyDetail() {
             <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
               {study.category}{study.year ? ` · ${study.year}` : ""}
             </p>
-            <h1 className="font-display text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-4">{study.client}</h1>
+            <h1 className="font-display text-5xl lg:text-8xl font-semibold text-foreground leading-none tracking-tight mb-4">{study.client}</h1>
             <p className="text-xl text-muted-foreground max-w-xl">{study.tagline}</p>
           </div>
           {study.client_url && (

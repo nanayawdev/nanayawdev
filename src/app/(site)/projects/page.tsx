@@ -152,7 +152,7 @@ export default function Projects() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <motion.h2
-                    className="font-display flex-1 text-3xl lg:text-5xl font-bold text-foreground leading-none tracking-tight transition-colors duration-200 group-hover:text-muted-foreground"
+                    className="font-display flex-1 text-3xl lg:text-5xl font-semibold text-foreground leading-none tracking-tight transition-colors duration-200 group-hover:text-muted-foreground"
                     animate={{ x: hoveredId === project.id ? 8 : 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >

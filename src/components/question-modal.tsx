@@ -109,7 +109,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
                   transition={{ duration: 0.3 }}
                   className="py-8 text-center"
                 >
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#FD4912] mb-3">
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#542e7b] mb-3">
                     Message received
                   </p>
                   <p className="text-base font-semibold text-foreground mb-2">
@@ -182,7 +182,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-[#FD4912] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                    className="bg-[#542e7b] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                   >
                     {loading ? "Sending…" : "Send Question"}
                   </button>

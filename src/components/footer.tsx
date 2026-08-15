@@ -73,7 +73,7 @@ export function Footer() {
           className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-foreground"
           aria-label="nanayawdev home"
         >
-          nanayaw<span className="text-[#FD4912]">dev</span>
+          nanayaw<span className="text-[#542e7b]">.dev</span>
         </Link>
       </div>
 
@@ -87,7 +87,7 @@ export function Footer() {
               Email address
             </label>
             {subState === "done" ? (
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#FD4912]">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#542e7b]">
                 You&apos;re subscribed!
               </p>
             ) : (

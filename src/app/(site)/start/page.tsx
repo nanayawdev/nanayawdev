@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const STEPS = [
   { number: "01", label: "About you" },
@@ -67,9 +68,18 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
 }
 
 export default function StartPage() {
+  return (
+    <Suspense fallback={null}>
+      <StartPageInner />
+    </Suspense>
+  );
+}
+
+function StartPageInner() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
-  const [form, setForm] = useState<Form>(empty);
+  const [form, setForm] = useState<Form>(() => ({ ...empty, email: searchParams.get("email") ?? "" }));
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -149,9 +159,9 @@ export default function StartPage() {
             cDistance={2.4}
             cPolarAngle={95}
             cameraZoom={1}
-            color1="#ff6a1a"
-            color2="#c73c00"
-            color3="#FD4912"
+            color1="#9b5de5"
+            color2="#2d1b4e"
+            color3="#542e7b"
             envPreset="city"
             grain="off"
             lightType="3d"
@@ -191,7 +201,7 @@ export default function StartPage() {
             <p className="text-white/50 text-sm font-medium uppercase tracking-widest mb-4">
               Start a Project
             </p>
-            <h1 className="font-display text-4xl xl:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+            <h1 className="font-display text-4xl xl:text-5xl font-semibold text-white leading-tight tracking-tight mb-6">
               Let&apos;s build
               <br />
               something

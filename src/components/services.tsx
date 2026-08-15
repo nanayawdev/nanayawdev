@@ -86,7 +86,7 @@ export function Services({ showHeading = true }: { showHeading?: boolean }) {
                   </span>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight mb-0">
+                    <h3 className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight mb-0">
                       {service.title}
                     </h3>
 

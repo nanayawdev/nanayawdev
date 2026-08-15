@@ -231,7 +231,7 @@ export function ChatBubble() {
                 <button
                   onClick={requestOtp}
                   disabled={loading || !phone.trim() || !name.trim()}
-                  className="bg-[#FD4912] text-white py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="bg-[#542e7b] text-white py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {loading ? "Sending…" : "Send Code"}
                 </button>

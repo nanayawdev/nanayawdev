@@ -3,6 +3,7 @@ import { TechTicker } from "@/components/tech-ticker";
 import { Services } from "@/components/services";
 import { LatestWork } from "@/components/latest-work";
 import { OurProcesses } from "@/components/our-processes";
+import { TestimonialsSection } from "@/components/testimonials-section";
 import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
@@ -27,6 +28,7 @@ export default function Home() {
       <Services />
       <LatestWork />
       <OurProcesses />
+      <TestimonialsSection />
       <FAQ />
       <MainCTA />
     </>

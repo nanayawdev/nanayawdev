@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { FaqCtaCard } from "@/components/faq-cta-card";
 
 const faqData = [
   {
@@ -60,7 +59,7 @@ export function FAQ() {
               FAQ
             </motion.p>
             <motion.h2
-              className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05 }}
@@ -79,15 +78,6 @@ export function FAQ() {
             >
               Can&apos;t find what you&apos;re looking for? Drop me a message and I&apos;ll get back to you within 24 hours.
             </motion.p>
-            <motion.div
-              className="mt-10"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              viewport={{ once: true }}
-            >
-              <FaqCtaCard />
-            </motion.div>
           </div>
 
           {/* Right — accordion */}

@@ -22,9 +22,9 @@ export function Hero() {
           cDistance={2.4}
           cPolarAngle={95}
           cameraZoom={1}
-          color1="#ff6a1a"
-          color2="#c73c00"
-          color3="#FD4912"
+          color1="#9b5de5"
+          color2="#2d1b4e"
+          color3="#542e7b"
           envPreset="city"
           grain="off"
           lightType="3d"
@@ -67,7 +67,7 @@ export function Hero() {
 
           {/* Main Title */}
           <motion.h1
-            className="font-display text-5xl sm:text-6xl lg:text-8xl font-bold tracking-[-3.5px] mb-6 sm:mb-8 leading-none"
+            className="font-display text-5xl sm:text-6xl lg:text-8xl font-semibold tracking-[-3.5px] mb-6 sm:mb-8 leading-none"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}

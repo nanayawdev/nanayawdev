@@ -429,7 +429,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               {logoText.endsWith("dev") ? (
                 <>
                   {logoText.slice(0, -3)}
-                  <span style={{ color: "var(--sm-accent, #FD4912)" }}>dev</span>
+                  <span style={{ color: "var(--sm-accent, #542e7b)" }}>dev</span>
                 </>
               ) : (
                 logoText

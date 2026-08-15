@@ -19,6 +19,7 @@ import {
   BookOpen,
   Layers,
   Users,
+  Quote,
 } from "lucide-react";
 
 const NAV = [
@@ -32,6 +33,7 @@ const NAV = [
   { href: "/admin/case-studies",  label: "Case Studies",  icon: BookOpen },
   { href: "/admin/services",      label: "Services",      icon: Layers },
   { href: "/admin/team",          label: "Team",          icon: Users },
+  { href: "/admin/testimonials",  label: "Testimonials",  icon: Quote },
 ];
 
 const PAGE_TITLES: Record<string, string> = {
@@ -45,6 +47,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/admin/case-studies":  "Case Studies",
   "/admin/services":      "Services",
   "/admin/team":          "Team",
+  "/admin/testimonials":  "Testimonials",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

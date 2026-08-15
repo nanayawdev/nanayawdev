@@ -43,7 +43,7 @@ export function WhyUs() {
               Why Me
             </motion.p>
             <motion.h2
-              className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05 }}

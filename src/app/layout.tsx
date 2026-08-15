@@ -22,20 +22,20 @@ const gellix = localFont({
   variable: "--font-gellix",
 });
 
-const ragick = localFont({
+const gellixSemibold = localFont({
   src: [
     {
-      path: "../../public/fonts/ragick/Ragick-Regular.woff2",
-      weight: "400",
+      path: "../../public/fonts/gellix/Gellix-SemiBold.woff2",
+      weight: "600",
       style: "normal",
     },
     {
-      path: "../../public/fonts/ragick/Ragick-Regular.woff",
-      weight: "400",
+      path: "../../public/fonts/gellix/Gellix-SemiBold.woff",
+      weight: "600",
       style: "normal",
     },
   ],
-  variable: "--font-ragick",
+  variable: "--font-gellix-semibold",
 });
 
 export const metadata: Metadata = {
@@ -135,7 +135,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${gellix.variable} ${ragick.variable} antialiased`}>
+      <body className={`${gellix.variable} ${gellixSemibold.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

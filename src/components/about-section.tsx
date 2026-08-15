@@ -8,7 +8,7 @@ export function AboutSection() {
   return (
     <section id="about" className="border-t border-border bg-background">
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-52">
+      <div className="max-w-7xl mx-auto px-8 pt-40 lg:pt-42">
         <motion.p
           className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
           initial={{ opacity: 0, y: 10 }}
@@ -20,7 +20,7 @@ export function AboutSection() {
         </motion.p>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <motion.h2
-            className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+            className="font-display text-4xl lg:text-6xl font-semibold text-foreground leading-none tracking-tight"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
@@ -69,7 +69,7 @@ export function AboutSection() {
             baseRotation={5}
             blurStrength={13}
             containerClassName="my-0"
-            textClassName="tracking-tight"
+            textClassName="tracking-tight !leading-[1.2]"
           >
             I&apos;m a designer, engineer, and strategist rolled into one. I move fast, communicate clearly, and I&apos;m obsessive about quality. My clients don&apos;t come back because I&apos;m cheap - they come back because I make them look good and their products actually work.
           </ScrollReveal>

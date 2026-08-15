@@ -53,7 +53,7 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
       Underline,
       Typography,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-[#FD4912] underline" } }),
+      Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-[#542e7b] underline" } }),
       Image.configure({ HTMLAttributes: { class: "max-w-full rounded-sm my-6" } }),
       Placeholder.configure({ placeholder: "Write your article here…" }),
     ],

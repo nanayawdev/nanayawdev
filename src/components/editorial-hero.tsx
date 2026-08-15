@@ -14,7 +14,7 @@ export function EditorialHero() {
           transition={{ duration: 0.7, delay: 0.05 }}
         >
           I&apos;m{" "}
-          <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
+          <span className="inline-block bg-gradient-to-r from-[#9b5de5] via-[#542e7b] to-[#2d1b4e] bg-clip-text pr-[0.06em] text-transparent">
             an engineer
           </span>
           <br />
