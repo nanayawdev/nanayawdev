@@ -264,7 +264,7 @@ export default function AdminBlogPage() {
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                   {uploading ? "Uploading…" : "Click to upload"}
                 </p>
-                <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF — max 5 MB</p>
+                <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF — max 4 MB</p>
               </div>
             )}
 

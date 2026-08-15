@@ -58,8 +58,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#cdf68c] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#cdf68c]" />
               </span>
               <span>nanayawdev — available for new projects</span>
             </motion.div>

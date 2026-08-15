@@ -198,6 +198,7 @@ interface CurvedInputProps {
   buttonColor?: string;
   buttonTextColor?: string;
   iconColor?: string;
+  iconGlyphColor?: string;
   shadowSize?: ShadowSize;
   shadowColor?: string;
   showButton?: boolean;
@@ -231,6 +232,7 @@ const CurvedInput = ({
   buttonColor,
   buttonTextColor,
   iconColor,
+  iconGlyphColor = '#ffffff',
   shadowSize = 'md',
   shadowColor,
   showButton = true,
@@ -491,14 +493,14 @@ const CurvedInput = ({
                   height={eh}
                   rx={1.4}
                   fill="none"
-                  stroke="#ffffff"
+                  stroke={iconGlyphColor}
                   strokeWidth={sw}
                   strokeLinejoin="round"
                 />
                 <path
                   d={`M ${round2(-ew / 2)} ${round2(-eh / 2 + sw * 0.4)} L 0 ${round2(eh * 0.14)} L ${round2(ew / 2)} ${round2(-eh / 2 + sw * 0.4)}`}
                   fill="none"
-                  stroke="#ffffff"
+                  stroke={iconGlyphColor}
                   strokeWidth={sw}
                   strokeLinejoin="round"
                   strokeLinecap="round"

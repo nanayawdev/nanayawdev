@@ -68,14 +68,14 @@ export default function About() {
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.div
-                className="inline-flex items-center gap-2 border border-border bg-muted/40 text-foreground px-3 py-1.5 text-xs font-medium rounded-full"
+                className="inline-flex items-center gap-2 border border-[#0a291a]/15 bg-[#cdf68c]/25 text-[#0a291a] px-3 py-1.5 text-xs font-medium rounded-full"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0a291a] opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0a291a]" />
                 </span>
                 <span>Available for new projects</span>
               </motion.div>

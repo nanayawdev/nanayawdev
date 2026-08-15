@@ -45,6 +45,8 @@ export function MainCTA() {
             theme={resolvedTheme === "dark" ? "dark" : "light"}
             buttonColor="#cdf68c"
             buttonTextColor="#0a291a"
+            iconColor="#cdf68c"
+            iconGlyphColor="#0a291a"
             width="100%"
             height={64}
             bend={22}
