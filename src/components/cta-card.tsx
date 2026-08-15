@@ -9,7 +9,7 @@ export function CTACard() {
           Ready to build something great?
         </h3>
         <p className="text-sm leading-relaxed text-background/60">
-          Tell us about your project and we&apos;ll get back within 24 hours.
+          Tell me about your project and I&apos;ll get back within 24 hours.
         </p>
       </div>
       <div className="flex items-center gap-3">

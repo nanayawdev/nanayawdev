@@ -100,7 +100,7 @@ export default function BriefPage() {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-2">Brief Received!</h2>
           <p className="text-muted-foreground mb-6">
-            Thank you for the detailed brief. We&apos;ll review it and get back to you within 24 hours with a comprehensive proposal and quotation.
+            Thank you for the detailed brief. I&apos;ll review it and get back to you within 24 hours with a comprehensive proposal and quotation.
           </p>
           <Link href="/" className="text-primary hover:text-primary/80 font-medium">
             Return to Home

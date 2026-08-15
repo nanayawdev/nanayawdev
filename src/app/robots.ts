@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://arssent.com/sitemap.xml',
+    sitemap: 'https://nanayawdev.com/sitemap.xml',
   }
 }

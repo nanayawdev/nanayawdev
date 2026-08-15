@@ -43,12 +43,12 @@ export function CookieConsent() {
 
             {/* Body Text */}
             <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-              We use cookies to personalize content, run ads, and analyze traffic.{" "}
-              <Link 
-                href="/privacy" 
+              I use cookies to personalize content, run ads, and analyze traffic.{" "}
+              <Link
+                href="/privacy"
                 className="text-primary hover:text-primary/80 underline transition-colors"
               >
-                Read our Privacy Policy
+                Read my Privacy Policy
               </Link>
               .
             </p>

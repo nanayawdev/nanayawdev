@@ -78,7 +78,7 @@ export function MainCTA() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-end">
           {/* Headline */}
           <motion.h2
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.9] tracking-tight"
+            className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.9] tracking-tight"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -104,9 +104,9 @@ export function MainCTA() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Tell us what you&apos;re building.
+              Tell me what you&apos;re building.
               <br className="hidden lg:block" />
-              We&apos;ll handle the rest.
+              I&apos;ll handle the rest.
             </motion.p>
 
             <motion.div
@@ -124,7 +124,7 @@ export function MainCTA() {
                 href="/projects"
                 className="group text-white/50 hover:text-white transition-colors text-sm font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white flex items-center gap-1"
               >
-                View our work
+                View my work
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </motion.div>

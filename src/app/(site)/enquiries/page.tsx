@@ -49,7 +49,7 @@ export default function EnquiriesPage() {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-2">Enquiry Sent!</h2>
           <p className="text-muted-foreground mb-6">
-            Thank you for your enquiry. We&apos;ll get back to you within 24 hours with a custom quotation.
+            Thank you for your enquiry. I&apos;ll get back to you within 24 hours with a custom quotation.
           </p>
           <Link href="/" className="text-primary hover:text-primary/80 font-medium">
             Return to Home
@@ -70,7 +70,7 @@ export default function EnquiriesPage() {
             </Link>
             <div>
               <h1 className="text-3xl font-bold text-foreground">Make an Enquiry</h1>
-              <p className="text-muted-foreground">Tell us about your project and we&apos;ll provide a custom quotation</p>
+              <p className="text-muted-foreground">Tell me about your project and I&apos;ll provide a custom quotation</p>
             </div>
           </div>
         </div>

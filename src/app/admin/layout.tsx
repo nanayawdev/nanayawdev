@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Image src="/logo.png" alt="D&C" width={28} height={28} className="object-contain" />
           </div>
           <div>
-            <p className="text-xs font-bold leading-none text-foreground">Arssent</p>
+            <p className="text-xs font-bold leading-none text-foreground">nanayawdev</p>
             <p className="mt-0.5 text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground">Admin Panel</p>
           </div>
         </div>

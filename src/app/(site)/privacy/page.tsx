@@ -7,42 +7,42 @@ const sections = [
   {
     id: "introduction",
     title: "Introduction",
-    content: `Arssent Technologies Limited ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect when you visit our website or engage our services, how we use it, and your rights regarding it. By using our site or services, you agree to the practices described here.`,
+    content: `nanayawdev ("I", "me", or "my") is committed to protecting your personal information. This Privacy Policy explains what data I collect when you visit my website or engage my services, how I use it, and your rights regarding it. By using my site or services, you agree to the practices described here.`,
   },
   {
     id: "information-we-collect",
-    title: "Information We Collect",
-    content: `We collect information you give us directly — such as your name, email address, company name, and project details when you submit our contact or project brief form. We also collect information automatically when you visit our site, including your IP address, browser type, pages visited, and time spent. This is collected via cookies and standard server logs.`,
+    title: "Information I Collect",
+    content: `I collect information you give me directly — such as your name, email address, company name, and project details when you submit my contact or project brief form. I also collect information automatically when you visit my site, including your IP address, browser type, pages visited, and time spent. This is collected via cookies and standard server logs.`,
   },
   {
     id: "how-we-use-it",
-    title: "How We Use It",
-    content: `We use your information to respond to enquiries, prepare project proposals, deliver our services, and send relevant updates about your project. We do not use your data for advertising purposes or sell it to third parties. We may occasionally send you information about our work if you have opted in, and you can unsubscribe at any time.`,
+    title: "How I Use It",
+    content: `I use your information to respond to enquiries, prepare project proposals, deliver my services, and send relevant updates about your project. I do not use your data for advertising purposes or sell it to third parties. I may occasionally send you information about my work if you have opted in, and you can unsubscribe at any time.`,
   },
   {
     id: "data-sharing",
     title: "Data Sharing",
-    content: `We do not sell, rent, or trade your personal information. We may share data with trusted service providers who assist in running our business — such as cloud hosting, email delivery, and analytics — under strict confidentiality agreements. We may also disclose information when required by law or to protect our legal rights.`,
+    content: `I do not sell, rent, or trade your personal information. I may share data with trusted service providers who assist in running my business — such as cloud hosting, email delivery, and analytics — under strict confidentiality agreements. I may also disclose information when required by law or to protect my legal rights.`,
   },
   {
     id: "data-security",
     title: "Data Security",
-    content: `We take reasonable technical and organisational measures to protect your data against unauthorised access, alteration, or disclosure. Our website uses HTTPS encryption. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.`,
+    content: `I take reasonable technical and organisational measures to protect your data against unauthorised access, alteration, or disclosure. My website uses HTTPS encryption. However, no method of transmission over the internet is 100% secure, and I cannot guarantee absolute security.`,
   },
   {
     id: "your-rights",
     title: "Your Rights",
-    content: `You have the right to access, correct, or delete the personal information we hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact us at hello@arssent.com. We will respond within 30 days.`,
+    content: `You have the right to access, correct, or delete the personal information I hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact me at hello@nanayawdev.com. I will respond within 30 days.`,
   },
   {
     id: "cookies",
     title: "Cookies",
-    content: `Our website uses cookies to understand how visitors interact with our content. These are small text files stored on your device. We use strictly necessary cookies (required for the site to function) and analytics cookies (to understand traffic patterns). You can disable cookies in your browser settings, though this may affect site functionality.`,
+    content: `My website uses cookies to understand how visitors interact with my content. These are small text files stored on your device. I use strictly necessary cookies (required for the site to function) and analytics cookies (to understand traffic patterns). You can disable cookies in your browser settings, though this may affect site functionality.`,
   },
   {
     id: "contact",
-    title: "Contact Us",
-    content: `If you have any questions about this Privacy Policy or how we handle your data, please contact us at hello@arssent.com. We are based in Accra, Ghana, and are happy to address any concerns you may have.`,
+    title: "Contact",
+    content: `If you have any questions about this Privacy Policy or how I handle your data, please contact me at hello@nanayawdev.com. I am based in Accra, Ghana, and am happy to address any concerns you may have.`,
   },
 ];
 
@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
         {/* Header */}
         <div className="mb-16 pb-12 border-b border-border">
           <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">Legal</p>
-          <h1 className="text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-4">
+          <h1 className="font-display text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-4">
             Privacy Policy
           </h1>
           <p className="text-sm text-muted-foreground">

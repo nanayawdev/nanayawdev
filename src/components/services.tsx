@@ -35,7 +35,7 @@ export function Services() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          What We Do
+          What I Do
         </motion.p>
 
         <div className="divide-y divide-border">
@@ -73,7 +73,7 @@ export function Services() {
                   </span>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight mb-0">
+                    <h3 className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight mb-0">
                       {service.title}
                     </h3>
 

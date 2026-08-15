@@ -240,7 +240,7 @@ export default function AdminCaseStudiesPage() {
           {/* Narrative fields */}
           {([
             { key: "problem",         label: "The Problem" },
-            { key: "approach",        label: "Our Approach" },
+            { key: "approach",        label: "My Approach" },
             { key: "result",          label: "Results (short)" },
             { key: "result_headline", label: "Result Headline" },
             { key: "result_body",     label: "Result Body" },

@@ -84,7 +84,7 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Our Work
+          My Work
         </motion.p>
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
@@ -153,7 +153,7 @@ export default function Projects() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <motion.h2
-                    className="flex-1 text-3xl lg:text-5xl font-bold text-foreground leading-none tracking-tight transition-colors duration-200 group-hover:text-muted-foreground"
+                    className="font-display flex-1 text-3xl lg:text-5xl font-bold text-foreground leading-none tracking-tight transition-colors duration-200 group-hover:text-muted-foreground"
                     animate={{ x: hoveredId === project.id ? 8 : 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >

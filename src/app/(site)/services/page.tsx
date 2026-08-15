@@ -6,8 +6,8 @@ import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 
 export const metadata: Metadata = {
-  title: "Services - Arssent",
-  description: "Explore our comprehensive digital services including web development, UI/UX design, mobile apps, brand identity, and more. Helping African startups go global.",
+  title: "Services - nanayawdev",
+  description: "Explore my comprehensive digital services including web development, UI/UX design, mobile apps, brand identity, and more. Helping startups go global.",
 };
 
 export default function ServicesPage() {
@@ -18,7 +18,7 @@ export default function ServicesPage() {
           Services
         </p>
         <h1 className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground mb-6">
-          Our Services
+          My Services
         </h1>
         <p className="text-muted-foreground text-lg max-w-xl mb-20">
           Comprehensive digital solutions to help African startups and brands go global through design, development, and storytelling.

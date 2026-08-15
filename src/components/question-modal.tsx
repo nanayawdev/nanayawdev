@@ -113,7 +113,7 @@ export function QuestionModal({ open, onClose }: QuestionModalProps) {
                     Message received
                   </p>
                   <p className="text-base font-semibold text-foreground mb-2">
-                    We&apos;ll get back to you within 24 hours.
+                    I&apos;ll get back to you within 24 hours.
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Keep an eye on your inbox.

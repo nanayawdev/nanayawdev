@@ -7,16 +7,16 @@ import { ArrowRight, Check, Twitter, Linkedin, Github, Instagram } from "lucide-
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
 const details = [
-  { label: "Email", value: "hello@arssent.com", href: "mailto:hello@arssent.com" },
+  { label: "Email", value: "hello@nanayawdev.com", href: "mailto:hello@nanayawdev.com" },
   { label: "Location", value: "Accra, Ghana", href: null },
   { label: "Response time", value: "Within 24 hours", href: null },
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/arssent" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/arssent" },
-  { icon: Github, label: "GitHub", href: "https://github.com/arssent" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/arssent" },
+  { icon: Twitter, label: "Twitter", href: "https://twitter.com/nanayawdev" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/nanayawdev" },
+  { icon: Github, label: "GitHub", href: "https://github.com/nanayawdev" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/nanayawdev" },
 ];
 
 type Form = { name: string; email: string; subject: string; message: string };
@@ -87,7 +87,7 @@ export default function Contact() {
             </motion.p>
 
             <motion.h1
-              className="text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-8"
+              className="font-display text-5xl lg:text-7xl font-bold text-foreground leading-none tracking-tight mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
@@ -105,8 +105,8 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Whether you have a fully formed brief or just the seed of an idea, we&apos;d love
-              to hear from you. Drop us a message and we&apos;ll get back to you within a day.
+              Whether you have a fully formed brief or just the seed of an idea, I&apos;d love
+              to hear from you. Drop me a message and I&apos;ll get back to you within a day.
             </motion.p>
 
             {/* Socials */}
@@ -153,7 +153,7 @@ export default function Contact() {
                     Message sent, {form.name.split(" ")[0]}.
                   </h3>
                   <p className="text-muted-foreground text-base max-w-xs leading-relaxed">
-                    We&apos;ll get back to you at{" "}
+                    I&apos;ll get back to you at{" "}
                     <span className="text-foreground font-medium">{form.email}</span> within
                     24 hours.
                   </p>
@@ -203,7 +203,7 @@ export default function Contact() {
                     <textarea
                       value={form.message}
                       onChange={set("message")}
-                      placeholder="Tell us what's on your mind…"
+                      placeholder="Tell me what's on your mind…"
                       rows={6}
                       className={`${inputClass} resize-none`}
                     />

@@ -38,7 +38,7 @@ export function TechTicker() {
         gap={80}
         pauseOnHover={false}
         fadeOut={false}
-        ariaLabel="What we do"
+        ariaLabel="What I do"
       />
     </div>
   );

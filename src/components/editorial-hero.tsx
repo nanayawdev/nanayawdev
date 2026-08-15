@@ -13,9 +13,9 @@ export function EditorialHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
         >
-          We&apos;re{" "}
+          I&apos;m{" "}
           <span className="inline-block bg-gradient-to-r from-[#ff6a1a] via-[#FD4912] to-[#c73c00] bg-clip-text pr-[0.06em] text-transparent">
-            engineers
+            an engineer
           </span>
           <br />
           <span className="text-muted-foreground">who give a damn.</span>
@@ -30,7 +30,7 @@ export function EditorialHero() {
       >
         <Image
           src="/hero6.webp"
-          alt="Arssent digital studio"
+          alt="nanayawdev digital studio"
           fill
           priority
           sizes="100vw"

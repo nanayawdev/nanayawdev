@@ -22,16 +22,30 @@ const circular = localFont({
   variable: "--font-circular",
 });
 
+const ragick = localFont({
+  src: [
+    {
+      path: "../../public/fonts/ragick/Ragick-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ragick/Ragick-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-ragick",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Arssent - Software Development Agency",
-    template: "%s | Arssent"
+    default: "nanayawdev - Software Engineer",
+    template: "%s | nanayawdev"
   },
-  description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
+  description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.",
   keywords: [
-    "digital agency",
-    "African startups",
-    "brand development",
+    "software engineer",
     "web design",
     "mobile apps",
     "UI/UX design",
@@ -41,43 +55,43 @@ export const metadata: Metadata = {
     "e-commerce",
     "corporate websites",
     "digital platforms",
-    "African brands",
-    "global expansion"
+    "portfolio",
+    "freelance developer"
   ],
-  authors: [{ name: "Arssent Team" }],
-  creator: "Arssent",
-  publisher: "Arssent",
+  authors: [{ name: "nanayawdev" }],
+  creator: "nanayawdev",
+  publisher: "nanayawdev",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://arssent.com"),
+  metadataBase: new URL("https://nanayawdev.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://arssent.com",
-    title: "Arssent - Software Development Agency",
-    description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
-    siteName: "Arssent",
+    url: "https://nanayawdev.com",
+    title: "nanayawdev - Software Engineer",
+    description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.",
+    siteName: "nanayawdev",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Arssent - Software Development Agency",
+        alt: "nanayawdev - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arssent - Software Development Agency",
-    description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
+    title: "nanayawdev - Software Engineer",
+    description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling.",
     images: ["/og-image.jpg"],
-    creator: "@arssent",
+    creator: "@nanayawdev",
   },
   robots: {
     index: true,
@@ -121,7 +135,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${circular.variable} antialiased`}>
+      <body className={`${circular.variable} ${ragick.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

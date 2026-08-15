@@ -155,7 +155,7 @@ export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
                   {submitted ? "Done" : `Step ${step + 1} of 3`}
                 </p>
                 <h2 className="text-lg font-bold text-foreground">
-                  {submitted ? "We'll be in touch" : STEPS[step]}
+                  {submitted ? "I'll be in touch" : STEPS[step]}
                 </h2>
               </div>
               <button
@@ -182,7 +182,7 @@ export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
                     </div>
                     <h3 className="text-2xl font-bold text-foreground mb-3">Got it, {form.name.split(" ")[0]}.</h3>
                     <p className="text-muted-foreground text-base max-w-xs leading-relaxed">
-                      We&apos;ve received your brief and will get back to you at <span className="text-foreground font-medium">{form.email}</span> within 24 hours.
+                      I&apos;ve received your brief and will get back to you at <span className="text-foreground font-medium">{form.email}</span> within 24 hours.
                     </p>
                   </motion.div>
                 ) : (
@@ -200,7 +200,7 @@ export function InquireBriefModal({ isOpen, onClose }: InquireBriefModalProps) {
                     {step === 0 && (
                       <>
                         <p className="text-muted-foreground text-sm leading-relaxed">
-                          Let&apos;s start with the basics. We just need enough to know who we&apos;re talking to.
+                          Let&apos;s start with the basics. I just need enough to know who I&apos;m talking to.
                         </p>
                         <Field label="Full name" error={errors.name}>
                           <Input value={form.name} onChange={set("name")} placeholder="Jane Mensah" />

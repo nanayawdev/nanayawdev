@@ -6,7 +6,7 @@ import { Phone, X, Send, Minus } from "lucide-react";
 type Stage = "idle" | "phone" | "otp" | "chat" | "closed";
 type Message = { id: string; sender: "agent" | "user"; body: string; created_at: string };
 
-const STORAGE_KEY = "arssent_chat_session";
+const STORAGE_KEY = "nanayawdev_chat_session";
 
 interface PersistedSession {
   sessionId: string;
@@ -174,7 +174,7 @@ export function ChatBubble() {
           <div className="flex items-center justify-between border-b border-border px-4 py-3 shrink-0">
             <div>
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
-                Arssent
+                nanayawdev
               </p>
               <p className="text-[0.6rem] text-muted-foreground">Support Chat</p>
             </div>
@@ -196,7 +196,7 @@ export function ChatBubble() {
               <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
                 <p className="text-sm font-semibold text-foreground">Start a live chat</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Enter your phone number and we&apos;ll send you a one-time code to begin.
+                  Enter your phone number and I&apos;ll send you a one-time code to begin.
                 </p>
                 <button
                   onClick={() => setStage("phone")}

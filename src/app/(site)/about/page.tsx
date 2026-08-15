@@ -7,20 +7,20 @@ import { TeamSection } from "@/components/team-section";
 
 const values = [
   {
-    title: "African-First, Globally Minded",
-    description: "We build from a deep understanding of African markets while holding ourselves to the highest international standards. Local insight, global ambition.",
+    title: "Locally Rooted, Globally Minded",
+    description: "I build from a deep understanding of the markets I work in while holding myself to the highest international standards. Local insight, global ambition.",
   },
   {
     title: "Craft Over Shortcuts",
-    description: "We don't use templates. Every pixel, every line of code, every word is deliberate. We'd rather take the extra day to get it right than ship something we're not proud of.",
+    description: "I don't use templates. Every pixel, every line of code, every word is deliberate. I'd rather take the extra day to get it right than ship something I'm not proud of.",
   },
   {
     title: "Partnerships, Not Transactions",
-    description: "We measure success by whether your business grows — not by whether we delivered files. Our best clients have been with us for years, not weeks.",
+    description: "I measure success by whether your business grows — not by whether I delivered files. My best clients have been with me for years, not weeks.",
   },
   {
     title: "Radical Transparency",
-    description: "Honest timelines, honest pricing, honest feedback. If something isn't working, we'll tell you before you have to ask.",
+    description: "Honest timelines, honest pricing, honest feedback. If something isn't working, I'll tell you before you have to ask.",
   },
 ];
 
@@ -36,15 +36,15 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          About Us
+          About Me
         </motion.p>
         <motion.h1
-          className="max-w-5xl overflow-visible text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em] text-foreground"
+          className="font-display max-w-5xl overflow-visible text-[clamp(4rem,10vw,9rem)] font-bold leading-[0.85] tracking-[-0.07em] text-foreground"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
         >
-          We Design. We Build. We Make it Matter.
+          I Design. I Build. I Make it Matter.
         </motion.h1>
       </section>
 
@@ -60,7 +60,7 @@ export default function About() {
         >
           <Image
             src="/hero6.webp"
-            alt="Arssent Technologies"
+            alt="nanayawdev"
             fill
             priority
             sizes="100vw"
@@ -80,7 +80,7 @@ export default function About() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                Arssent was built on one belief: African brands deserve world-class digital experiences, built by people who understand the market from the inside.
+                nanayawdev was built on one belief: brands deserve world-class digital experiences, built by someone who understands the market from the inside.
               </motion.p>
               <motion.p
                 className="text-muted-foreground text-lg leading-relaxed"
@@ -89,7 +89,7 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                We&apos;re a small team of designers, engineers, and strategists. We move fast, communicate clearly, and we&apos;re obsessive about quality. Our clients don&apos;t come back because we&apos;re cheap — they come back because we make them look good and their products actually work.
+                I&apos;m a designer, engineer, and strategist rolled into one. I move fast, communicate clearly, and I&apos;m obsessive about quality. My clients don&apos;t come back because I&apos;m cheap — they come back because I make them look good and their products actually work.
               </motion.p>
               <div className="mt-10">
                 <CTACard />

@@ -10,11 +10,11 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/hero";
 
 export const metadata: Metadata = {
-  title: "Arssent - Software Development Agency",
-  description: "A digital agency helping African startups and brands go global through design, development, and storytelling. We empower African brands with world-class digital experiences.",
+  title: "nanayawdev - Software Engineer",
+  description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.",
   openGraph: {
-    title: "Arssent - Software Development Agency",
-    description: "A digital agency helping African startups and brands go global through design, development, and storytelling.",
+    title: "nanayawdev - Software Engineer",
+    description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling.",
     type: "website",
   },
 };

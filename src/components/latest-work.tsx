@@ -132,7 +132,7 @@ export function LatestWork() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Our Work
+              My Work
             </motion.p>
             <motion.h2
               className="max-w-3xl text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"

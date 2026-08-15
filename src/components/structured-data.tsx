@@ -1,40 +1,23 @@
 export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Arssent Technologies Limited",
-    "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
-    "url": "https://arssent.com",
-    "logo": "https://arssent.com/logo.png",
+    "@type": "Person",
+    "name": "nanayawdev",
+    "description": "Software engineer building design-driven web and mobile products.",
+    "url": "https://nanayawdev.com",
+    "image": "https://nanayawdev.com/logo.png",
     "sameAs": [
-      "https://twitter.com/arssent",
-      "https://linkedin.com/company/arssent"
+      "https://twitter.com/nanayawdev",
+      "https://linkedin.com/in/nanayawdev",
+      "https://github.com/nanayawdev",
+      "https://instagram.com/nanayawdev"
     ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "Africa"
-    },
-    "service": [
-      {
-        "@type": "Service",
-        "name": "Web Design & Development",
-        "description": "Website design & development for corporate, e-commerce, and startup businesses"
-      },
-      {
-        "@type": "Service", 
-        "name": "Brand Identity & Design Systems",
-        "description": "Complete brand identity and design system development"
-      },
-      {
-        "@type": "Service",
-        "name": "Mobile App Development",
-        "description": "Mobile app prototypes and full development"
-      },
-      {
-        "@type": "Service",
-        "name": "UI/UX Design",
-        "description": "User interface and user experience design services"
-      }
+    "jobTitle": "Software Engineer",
+    "knowsAbout": [
+      "Web Development",
+      "Mobile App Development",
+      "UI/UX Design",
+      "Brand Identity & Design Systems"
     ]
   };
 

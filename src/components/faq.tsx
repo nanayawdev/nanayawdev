@@ -9,32 +9,32 @@ const faqData = [
   {
     id: 1,
     question: "What services do you offer?",
-    answer: "We cover the full digital stack — brand identity, web design and development, mobile apps, and digital marketing. Most clients come to us for one thing and stay for everything else.",
+    answer: "I cover the full digital stack — brand identity, web design and development, mobile apps, and digital marketing. Most clients come to me for one thing and stay for everything else.",
   },
   {
     id: 2,
     question: "Do you work with international clients?",
-    answer: "Yes. While we specialise in African markets, we work with founders and brands worldwide. Our edge is combining local cultural depth with international design and engineering standards.",
+    answer: "Yes. I work with founders and brands worldwide. My edge is combining local cultural depth with international design and engineering standards.",
   },
   {
     id: 3,
     question: "How long does a typical project take?",
-    answer: "A brand identity takes 2–3 weeks. A web project is typically 4–8 weeks depending on complexity. Mobile apps run 8–16 weeks. We'll give you a precise timeline before anything starts.",
+    answer: "A brand identity takes 2–3 weeks. A web project is typically 4–8 weeks depending on complexity. Mobile apps run 8–16 weeks. I'll give you a precise timeline before anything starts.",
   },
   {
     id: 4,
     question: "Do you offer post-launch support?",
-    answer: "Always. We offer retainer-based maintenance covering updates, performance monitoring, security patches, and ongoing feature work. We don't disappear after launch.",
+    answer: "Always. I offer retainer-based maintenance covering updates, performance monitoring, security patches, and ongoing feature work. I don't disappear after launch.",
   },
   {
     id: 5,
     question: "What makes you different from other agencies?",
-    answer: "We're builders first. Every person on our team who touches your project can design and develop — no disconnected handoffs. And we actually care whether your product succeeds, not just whether we shipped it.",
+    answer: "I'm a builder first. I design and develop everything myself — no disconnected handoffs. And I actually care whether your product succeeds, not just whether I shipped it.",
   },
   {
     id: 6,
-    question: "How do we get started?",
-    answer: "Hit the Let's Talk button, fill in a brief, and we'll set up a discovery call within 48 hours. From there we scope the project, agree on timelines and pricing, and kick off.",
+    question: "How do I get started?",
+    answer: "Hit the Let's Talk button, fill in a brief, and I'll set up a discovery call within 48 hours. From there I scope the project, agree on timelines and pricing, and kick off.",
   },
 ];
 
@@ -60,7 +60,7 @@ export function FAQ() {
               FAQ
             </motion.p>
             <motion.h2
-              className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05 }}
@@ -77,7 +77,7 @@ export function FAQ() {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              Can&apos;t find what you&apos;re looking for? Drop us a message and we&apos;ll get back to you within 24 hours.
+              Can&apos;t find what you&apos;re looking for? Drop me a message and I&apos;ll get back to you within 24 hours.
             </motion.p>
             <motion.div
               className="mt-10"

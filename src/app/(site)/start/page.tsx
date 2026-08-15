@@ -92,7 +92,7 @@ export default function StartPage() {
     }
     if (step === 1) {
       if (form.services.length === 0) e.services = "Select at least one service";
-      if (!form.description.trim()) e.description = "Tell us about your project";
+      if (!form.description.trim()) e.description = "Tell me about your project";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -118,7 +118,7 @@ export default function StartPage() {
           phone: form.phone || undefined,
           company: form.company,
           budget: form.budget,
-          message: `Services: ${form.services.join(", ")}\n\nTimeline: ${form.timeline}\n\nHow they found us: ${form.source}\n\n${form.description}`,
+          message: `Services: ${form.services.join(", ")}\n\nTimeline: ${form.timeline}\n\nHow they found me: ${form.source}\n\n${form.description}`,
         }),
       });
       if (!res.ok) throw new Error("Failed");
@@ -182,7 +182,7 @@ export default function StartPage() {
           {/* Logo */}
           <Link href="/">
             <div className="w-10 h-10 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="Arssent" width={40} height={40} className="w-full h-full object-contain" />
+              <Image src="/logo.png" alt="nanayawdev" width={40} height={40} className="w-full h-full object-contain" />
             </div>
           </Link>
 
@@ -191,7 +191,7 @@ export default function StartPage() {
             <p className="text-white/50 text-sm font-medium uppercase tracking-widest mb-4">
               Start a Project
             </p>
-            <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
+            <h1 className="font-display text-4xl xl:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
               Let&apos;s build
               <br />
               something
@@ -199,7 +199,7 @@ export default function StartPage() {
               great together.
             </h1>
             <p className="text-white/60 text-base leading-relaxed max-w-xs">
-              Fill in the brief and we&apos;ll come back to you within 24 hours with a proposal.
+              Fill in the brief and I&apos;ll come back to you within 24 hours with a proposal.
             </p>
           </div>
 
@@ -255,7 +255,7 @@ export default function StartPage() {
         <div className="lg:hidden px-8 pt-8 pb-4">
           <Link href="/">
             <div className="w-9 h-9 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="Arssent" width={36} height={36} className="w-full h-full object-contain" />
+              <Image src="/logo.png" alt="nanayawdev" width={36} height={36} className="w-full h-full object-contain" />
             </div>
           </Link>
         </div>
@@ -278,7 +278,7 @@ export default function StartPage() {
                   Got it, {form.name.split(" ")[0]}.
                 </h2>
                 <p className="text-muted-foreground text-base leading-relaxed mb-8 max-w-sm mx-auto">
-                  We&apos;ve received your brief and will get back to you at{" "}
+                  I&apos;ve received your brief and will get back to you at{" "}
                   <span className="text-foreground font-medium">{form.email}</span> within 24 hours.
                 </p>
                 <Link
@@ -304,7 +304,7 @@ export default function StartPage() {
                     Step {step + 1} of 3
                   </p>
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
-                    {step === 0 && "First, tell us about yourself."}
+                    {step === 0 && "First, tell me about yourself."}
                     {step === 1 && "What are you building?"}
                     {step === 2 && "Almost there."}
                   </h2>
@@ -343,7 +343,7 @@ export default function StartPage() {
                           ))}
                         </div>
                       </Field>
-                      <Field label="Tell us about your project" error={errors.description}>
+                      <Field label="Tell me about your project" error={errors.description}>
                         <textarea
                           value={form.description}
                           onChange={(e) => set("description")(e.target.value)}
@@ -372,7 +372,7 @@ export default function StartPage() {
                           ))}
                         </div>
                       </Field>
-                      <Field label="How did you hear about us?">
+                      <Field label="How did you hear about me?">
                         <div className="flex flex-wrap gap-2 mt-1">
                           {SOURCES.map((s) => (
                             <Chip key={s} label={s} active={form.source === s} onClick={() => set("source")(s)} />

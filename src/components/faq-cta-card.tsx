@@ -15,7 +15,7 @@ export function FaqCtaCard() {
             Still have questions?
           </h3>
           <p className="text-sm leading-relaxed text-background/60">
-            Drop us your question and we&apos;ll get back within 24 hours.
+            Drop me your question and I&apos;ll get back within 24 hours.
           </p>
         </div>
         <div className="flex items-center gap-3">

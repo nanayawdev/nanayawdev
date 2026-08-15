@@ -4,24 +4,24 @@ import { motion } from "framer-motion";
 
 const reasons = [
   {
-    title: "African-First Design",
-    description: "We understand African markets deeply — we build experiences that feel local, travel globally, and speak to your audience in a way generic agencies never will.",
+    title: "Locally Rooted Design",
+    description: "I understand the markets I build for deeply — I create experiences that feel local, travel globally, and speak to your audience in a way generic agencies never will.",
   },
   {
-    title: "Full-Stack, One Team",
-    description: "Brand identity, web, mobile, marketing — all under one roof. No handoff gaps, no blame games. One team owns the entire outcome.",
+    title: "Full-Stack, One Person",
+    description: "Brand identity, web, mobile, marketing — all under one roof. No handoff gaps, no blame games. One person owns the entire outcome.",
   },
   {
     title: "Startup Speed",
-    description: "We move at the pace of ambitious founders. Fast iterations, direct communication, and zero corporate overhead between you and the people building your product.",
+    description: "I move at the pace of ambitious founders. Fast iterations, direct communication, and zero corporate overhead between you and the person building your product.",
   },
   {
     title: "Global Ambition",
-    description: "We've helped African brands compete on the world stage. We know what it takes to go from local to international and we build with that goal from day one.",
+    description: "I've helped brands compete on the world stage. I know what it takes to go from local to international and I build with that goal from day one.",
   },
   {
     title: "Results, Not Deliverables",
-    description: "We don't hand you files and disappear. We care about whether your product grows, converts, and stands out — and we measure our work against that.",
+    description: "I don't hand you files and disappear. I care about whether your product grows, converts, and stands out — and I measure my work against that.",
   },
 ];
 
@@ -40,10 +40,10 @@ export function WhyUs() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Why Us
+              Why Me
             </motion.p>
             <motion.h2
-              className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+              className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05 }}
@@ -51,7 +51,7 @@ export function WhyUs() {
             >
               Why You&apos;ll
               <br />
-              Love Us
+              Love Working With Me
             </motion.h2>
             <motion.p
               className="mt-6 text-muted-foreground text-base leading-relaxed max-w-xs"
@@ -60,7 +60,7 @@ export function WhyUs() {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              We&apos;re not your average agency. Here&apos;s what makes working with us different.
+              I&apos;m not your average agency. Here&apos;s what makes working with me different.
             </motion.p>
           </div>
 

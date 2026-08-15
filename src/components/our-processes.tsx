@@ -6,27 +6,27 @@ const processes = [
   {
     id: 1,
     title: "Discovery",
-    description: "We dig into your brand, goals, and audience so every decision we make is grounded in what actually matters for your business.",
+    description: "I dig into your brand, goals, and audience so every decision I make is grounded in what actually matters for your business.",
   },
   {
     id: 2,
     title: "Strategy",
-    description: "We map out the full scope — architecture, tech stack, design direction — before a single pixel or line of code is touched.",
+    description: "I map out the full scope — architecture, tech stack, design direction — before a single pixel or line of code is touched.",
   },
   {
     id: 3,
     title: "Design & Build",
-    description: "Our designers and engineers work in parallel, moving fast without cutting corners, keeping you in the loop with regular previews.",
+    description: "I design and engineer in parallel, moving fast without cutting corners, keeping you in the loop with regular previews.",
   },
   {
     id: 4,
     title: "Review & Refine",
-    description: "You give feedback, we listen and iterate until every detail is right — no rushed sign-offs, no compromises on quality.",
+    description: "You give feedback, I listen and iterate until every detail is right — no rushed sign-offs, no compromises on quality.",
   },
   {
     id: 5,
     title: "Launch & Support",
-    description: "We ship it, watch it land, and stay close after go-live to handle anything that comes up as real users start rolling in.",
+    description: "I ship it, watch it land, and stay close after go-live to handle anything that comes up as real users start rolling in.",
   },
 ];
 
@@ -44,16 +44,16 @@ export function OurProcesses() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            How We Work
+            How I Work
           </motion.p>
           <motion.h2
-            className="text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
+            className="font-display text-4xl lg:text-6xl font-bold text-foreground leading-none tracking-tight"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
             viewport={{ once: true }}
           >
-            Our Process
+            My Process
           </motion.h2>
         </div>
 

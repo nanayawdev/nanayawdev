@@ -49,7 +49,7 @@ export default function ServiceDetail() {
       {/* Hero */}
       <div className="max-w-7xl mx-auto px-8 mb-10">
         <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">Service</p>
-        <h1 className="text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-4">
+        <h1 className="font-display text-5xl lg:text-8xl font-bold text-foreground leading-none tracking-tight mb-4">
           {service.title}
         </h1>
         {service.tagline && (

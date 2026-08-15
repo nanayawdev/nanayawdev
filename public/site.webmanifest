@@ -1,7 +1,7 @@
 {
-  "name": "Arssent - Software Development Agency",
-  "short_name": "Arssent",
-  "description": "A digital agency helping African startups and brands go global through design, development, and storytelling.",
+  "name": "nanayawdev - Software Engineer",
+  "short_name": "nanayawdev",
+  "description": "Personal portfolio of a software engineer helping startups and brands go global through design, development, and storytelling.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -48,21 +48,21 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Arssent Desktop View"
+      "label": "nanayawdev Desktop View"
     },
     {
-      "src": "/screenshot-mobile.png", 
+      "src": "/screenshot-mobile.png",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Arssent Mobile View"
+      "label": "nanayawdev Mobile View"
     }
   ],
   "shortcuts": [
     {
-      "name": "Our Services",
+      "name": "Services",
       "short_name": "Services",
-      "description": "View our development and creative services",
+      "description": "View my development and creative services",
       "url": "/services",
       "icons": [
         {
@@ -73,8 +73,8 @@
     },
     {
       "name": "Portfolio",
-      "short_name": "Portfolio", 
-      "description": "View our latest projects and case studies",
+      "short_name": "Portfolio",
+      "description": "View my latest projects and case studies",
       "url": "/portfolio",
       "icons": [
         {
@@ -84,9 +84,9 @@
       ]
     },
     {
-      "name": "Contact Us",
+      "name": "Contact",
       "short_name": "Contact",
-      "description": "Get in touch with our team",
+      "description": "Get in touch with me",
       "url": "/contact",
       "icons": [
         {

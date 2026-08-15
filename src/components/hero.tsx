@@ -60,19 +60,19 @@ export function Hero() {
               <Badge variant="default" className="text-[9px] rounded-full px-2 py-0.5">
                 YES!
               </Badge>
-              <span>We&apos;re developers and creatives</span>
+              <span>I&apos;m a developer and creative</span>
               <ArrowRight className="w-3 h-3" />
             </motion.div>
           </div>
 
           {/* Main Title */}
           <motion.h1
-            className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-[-3.5px] mb-6 sm:mb-8 leading-none"
+            className="font-display text-5xl sm:text-6xl lg:text-8xl font-bold tracking-[-3.5px] mb-6 sm:mb-8 leading-none"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            We Design. We Build. We Make it Matter.
+            I Design. I Build. I Make it Matter.
           </motion.h1>
 
           {/* Subtitle */}
@@ -82,7 +82,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            A digital agency helping startups and brands go global through design, development, and storytelling. We empower brands with world-class digital experiences.
+            I help startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.
           </motion.p>
         </div>
       </div>
