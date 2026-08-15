@@ -158,9 +158,9 @@ function StartPageInner() {
             cDistance={2.4}
             cPolarAngle={95}
             cameraZoom={1}
-            color1="#9b5de5"
-            color2="#2d1b4e"
-            color3="#542e7b"
+            color1="#cdf68c"
+            color2="#0a291a"
+            color3="#0a291a"
             envPreset="city"
             grain="off"
             lightType="3d"
@@ -194,7 +194,7 @@ function StartPageInner() {
             className="inline-block text-lg font-semibold tracking-tight text-white"
             aria-label="nanayawdev home"
           >
-            nanayaw<span className="text-[#9b5de5]">dev</span>
+            nanayaw<span className="text-[#cdf68c]">dev</span>
           </Link>
 
           {/* Heading */}
@@ -269,7 +269,7 @@ function StartPageInner() {
             className="inline-block text-base font-semibold tracking-tight text-foreground"
             aria-label="nanayawdev home"
           >
-            nanayaw<span className="text-[#542e7b]">dev</span>
+            nanayaw<span className="text-[#0a291a]">dev</span>
           </Link>
         </div>
 

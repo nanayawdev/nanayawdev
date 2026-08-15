@@ -38,8 +38,8 @@ export function Navbar() {
       menuButtonColor="var(--foreground)"
       openMenuButtonColor="var(--foreground)"
       changeMenuColorOnOpen={false}
-      colors={["#9b5de5", "#2d1b4e"]}
-      accentColor="#542e7b"
+      colors={["#cdf68c", "#0a291a"]}
+      accentColor="#0a291a"
       isFixed
     />
   );

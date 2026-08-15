@@ -373,7 +373,7 @@ export default function AdminBlogPage() {
               <p className="text-sm font-semibold text-foreground leading-snug">{post.title}</p>
               <p className="text-[0.6rem] text-muted-foreground mt-0.5">
                 {new Date(post.created_at).toLocaleDateString()} · {post.author}
-                {post.featured && <span className="ml-2 text-[#542e7b]">★ Featured</span>}
+                {post.featured && <span className="ml-2 text-[#0a291a]">★ Featured</span>}
               </p>
             </div>
             <p className="text-xs text-muted-foreground">{post.category}</p>

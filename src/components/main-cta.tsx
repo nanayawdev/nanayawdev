@@ -43,7 +43,8 @@ export function MainCTA() {
             buttonText="Start a Project"
             type="email"
             theme={resolvedTheme === "dark" ? "dark" : "light"}
-            buttonColor="#542e7b"
+            buttonColor="#cdf68c"
+            buttonTextColor="#0a291a"
             width="100%"
             height={64}
             bend={22}

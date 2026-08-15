@@ -74,9 +74,9 @@ export function TestimonialsSection() {
             fontWeight={600}
             letterSpacing={-1}
             uppercase={false}
-            color="#ffffff"
+            color="#0a291a"
             ribbon
-            ribbonColor="#542e7b"
+            ribbonColor="#cdf68c"
             ribbonWidth={110}
             pauseOnHover
             style={{ fontFamily: "var(--font-display)" }}
@@ -129,14 +129,14 @@ export function TestimonialsSection() {
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="flex h-11 w-11 items-center justify-center bg-[#542e7b] text-white transition-opacity hover:opacity-90"
+            className="flex h-11 w-11 items-center justify-center bg-[#cdf68c] text-[#0a291a] transition-opacity hover:opacity-90"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="flex h-11 w-11 items-center justify-center bg-[#542e7b] text-white transition-opacity hover:opacity-90"
+            className="flex h-11 w-11 items-center justify-center bg-[#cdf68c] text-[#0a291a] transition-opacity hover:opacity-90"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

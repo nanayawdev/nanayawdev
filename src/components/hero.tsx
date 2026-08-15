@@ -22,9 +22,9 @@ export function Hero() {
           cDistance={2.4}
           cPolarAngle={95}
           cameraZoom={1}
-          color1="#9b5de5"
-          color2="#2d1b4e"
-          color3="#542e7b"
+          color1="#cdf68c"
+          color2="#0a291a"
+          color3="#0a291a"
           envPreset="city"
           grain="off"
           lightType="3d"

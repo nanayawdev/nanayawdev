@@ -47,7 +47,7 @@ function ProcessStep({
       <div className="flex flex-col items-center shrink-0">
         <div
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-semibold tabular-nums transition-colors duration-500 ${
-            inView ? "border-[#542e7b] bg-[#542e7b] text-white" : "border-border text-foreground"
+            inView ? "border-[#cdf68c] bg-[#cdf68c] text-[#0a291a]" : "border-border text-foreground"
           }`}
         >
           {String(process.id).padStart(2, "0")}
@@ -55,7 +55,7 @@ function ProcessStep({
         {!isLast && (
           <div className="relative mt-2 w-px flex-1 bg-border">
             <motion.div
-              className="absolute inset-x-0 top-0 w-px origin-top bg-[#542e7b]"
+              className="absolute inset-x-0 top-0 w-px origin-top bg-[#0a291a]"
               initial={{ scaleY: 0 }}
               animate={{ scaleY: inView ? 1 : 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}

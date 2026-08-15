@@ -67,13 +67,13 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
-      <div className="border-b border-border bg-[#542e7b] px-4 py-6 sm:px-6 lg:px-8">
+      <div className="border-b border-border bg-[#0a291a] px-4 py-6 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="block text-center text-[clamp(2.25rem,10vw,13.5rem)] font-semibold leading-[0.8] tracking-[-0.09em] text-white"
           aria-label="nanayawdev home"
         >
-          nanayaw.dev
+          nanayaw<span className="text-[#cdf68c]">.dev</span>
         </Link>
       </div>
 
@@ -87,7 +87,7 @@ export function Footer() {
               Email address
             </label>
             {subState === "done" ? (
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#542e7b]">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#0a291a]">
                 You&apos;re subscribed!
               </p>
             ) : (

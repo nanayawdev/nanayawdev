@@ -306,7 +306,7 @@ export default function AdminCaseStudiesPage() {
               <p className="text-sm font-semibold text-foreground truncate">{cs.client}</p>
               <p className="text-[0.65rem] text-muted-foreground uppercase tracking-widest mt-0.5">
                 {cs.category} · {cs.year ?? "—"}
-                {cs.featured && <span className="ml-2 text-[#542e7b]">Featured</span>}
+                {cs.featured && <span className="ml-2 text-[#0a291a]">Featured</span>}
               </p>
             </div>
             <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border ${cs.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>

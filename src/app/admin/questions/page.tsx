@@ -174,7 +174,7 @@ export default function QuestionsPage() {
                     } catch { setSmsResult("error"); }
                     finally { setSmsSending(false); }
                   }}
-                  className="bg-[#542e7b] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="bg-[#cdf68c] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#0a291a] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {smsSending ? "Sending…" : "Send SMS"}
                 </button>
