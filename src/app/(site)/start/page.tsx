@@ -4,7 +4,6 @@ import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -190,10 +189,12 @@ function StartPageInner() {
         {/* Content */}
         <div className="relative z-20 flex flex-col justify-between h-full">
           {/* Logo */}
-          <Link href="/">
-            <div className="w-10 h-10 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="nanayawdev" width={40} height={40} className="w-full h-full object-contain" />
-            </div>
+          <Link
+            href="/"
+            className="inline-block text-lg font-semibold tracking-tight text-white"
+            aria-label="nanayawdev home"
+          >
+            nanayaw<span className="text-[#9b5de5]">dev</span>
           </Link>
 
           {/* Heading */}
@@ -263,10 +264,12 @@ function StartPageInner() {
 
         {/* Mobile logo */}
         <div className="lg:hidden px-8 pt-8 pb-4">
-          <Link href="/">
-            <div className="w-9 h-9 rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="nanayawdev" width={36} height={36} className="w-full h-full object-contain" />
-            </div>
+          <Link
+            href="/"
+            className="inline-block text-base font-semibold tracking-tight text-foreground"
+            aria-label="nanayawdev home"
+          >
+            nanayaw<span className="text-[#542e7b]">dev</span>
           </Link>
         </div>
 
