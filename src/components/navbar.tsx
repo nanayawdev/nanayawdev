@@ -39,7 +39,7 @@ export function Navbar() {
       openMenuButtonColor="var(--foreground)"
       changeMenuColorOnOpen={false}
       colors={["#cdf68c", "#0a291a"]}
-      accentColor="#0a291a"
+      accentColor="#cdf68c"
       isFixed
     />
   );
