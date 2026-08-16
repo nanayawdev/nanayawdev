@@ -138,8 +138,8 @@ export default function RootLayout({
       <body className={`${gellix.variable} ${gellixSemibold.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           {children}

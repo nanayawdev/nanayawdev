@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { StaggeredMenu } from "@/components/StaggeredMenu";
 
 const navigationItems = [
@@ -34,7 +33,6 @@ export function Navbar() {
       displaySocials
       displayItemNumbering
       logoText="nanayaw.dev"
-      headerExtra={<ThemeToggle />}
       menuButtonColor="var(--foreground)"
       openMenuButtonColor="var(--foreground)"
       changeMenuColorOnOpen={false}
