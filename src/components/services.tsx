@@ -46,7 +46,9 @@ export function Services({ showHeading = true }: { showHeading?: boolean }) {
               transition={{ duration: 0.55, delay: 0.05 }}
               viewport={{ once: true }}
             >
-              My Services
+              My 
+              <br />
+              Services
             </motion.h2>
           </div>
         )}
