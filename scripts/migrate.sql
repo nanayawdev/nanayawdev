@@ -74,6 +74,27 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 CREATE INDEX IF NOT EXISTS idx_blog_posts_slug      ON blog_posts(slug);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(published);
 
+CREATE TABLE IF NOT EXISTS component_resources (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug          TEXT NOT NULL UNIQUE,
+  title         TEXT NOT NULL,
+  description   TEXT NOT NULL,
+  prompt        TEXT NOT NULL,
+  category      TEXT NOT NULL DEFAULT 'General',
+  cover_image   TEXT,
+  files         JSONB NOT NULL DEFAULT '[]',
+  featured      BOOLEAN NOT NULL DEFAULT FALSE,
+  published     BOOLEAN NOT NULL DEFAULT FALSE,
+  author        TEXT NOT NULL DEFAULT 'nanayawdev',
+  published_at  TIMESTAMPTZ,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_component_resources_slug      ON component_resources(slug);
+CREATE INDEX IF NOT EXISTS idx_component_resources_published ON component_resources(published);
+CREATE INDEX IF NOT EXISTS idx_component_resources_category  ON component_resources(category);
+
 CREATE TABLE IF NOT EXISTS projects (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug         TEXT NOT NULL UNIQUE,

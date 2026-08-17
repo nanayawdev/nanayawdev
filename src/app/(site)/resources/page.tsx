@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface Post {
@@ -19,22 +19,49 @@ interface Post {
   created_at: string;
 }
 
+interface ComponentResource {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  cover_image: string | null;
+  files: { name: string; url: string; size: number }[];
+  featured: boolean;
+  author: string;
+  published_at: string | null;
+  created_at: string;
+}
+
 const PER_PAGE = 6;
+type Tab = "articles" | "components";
 
 export default function ResourcesPage() {
+  const [tab, setTab]       = useState<Tab>("articles");
   const [posts, setPosts]   = useState<Post[]>([]);
   const [page, setPage]     = useState(1);
+
+  const [components, setComponents]           = useState<ComponentResource[]>([]);
+  const [componentCategory, setComponentCategory] = useState<string>("All");
 
   useEffect(() => {
     fetch("/api/blog")
       .then((r) => r.json())
       .then((d) => setPosts(d.posts ?? []));
+    fetch("/api/components")
+      .then((r) => r.json())
+      .then((d) => setComponents(d.components ?? []));
   }, []);
 
   const featured   = posts.find((p) => p.featured) ?? posts[0] ?? null;
   const rest       = posts.filter((p) => p !== featured);
   const totalPages = Math.ceil(rest.length / PER_PAGE);
   const paginated  = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  const componentCategories = ["All", ...Array.from(new Set(components.map((c) => c.category)))];
+  const filteredComponents  = componentCategory === "All"
+    ? components
+    : components.filter((c) => c.category === componentCategory);
 
   return (
     <div className="min-h-screen bg-background">
@@ -57,6 +84,34 @@ export default function ResourcesPage() {
         >
           Insights &amp; Ideas
         </motion.h1>
+
+        {/* Tabs */}
+        <motion.div
+          className="flex items-center gap-2 mb-16"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {([
+            ["articles", "Articles"],
+            ["components", "Components"],
+          ] as [Tab, string][]).map(([value, label]) => (
+            <button
+              key={value}
+              onClick={() => setTab(value)}
+              className={`px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-colors ${
+                tab === value
+                  ? "border border-foreground bg-foreground text-background"
+                  : "border border-border text-foreground hover:bg-muted"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </motion.div>
+
+        {tab === "articles" && (
+        <>
 
         {/* Empty state */}
         {posts.length === 0 && (
@@ -197,6 +252,87 @@ export default function ResourcesPage() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
+        )}
+
+        </>
+        )}
+
+        {tab === "components" && (
+        <>
+
+          {/* Empty state */}
+          {components.length === 0 && (
+            <p className="text-muted-foreground text-base mb-16">No components shared yet — check back soon.</p>
+          )}
+
+          {/* Category filter */}
+          {components.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mb-10">
+              {componentCategories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setComponentCategory(c)}
+                  className={`px-4 py-2 text-[0.6rem] font-semibold uppercase tracking-[0.18em] transition-colors ${
+                    componentCategory === c
+                      ? "border border-foreground bg-foreground text-background"
+                      : "border border-border text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredComponents.map((c, index) => (
+              <motion.div
+                key={c.slug}
+                className="bg-background"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.07 }}
+              >
+                <Link href={`/resources/components/${c.slug}`} className="group flex h-full flex-col overflow-hidden border border-border">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                    {c.cover_image ? (
+                      <Image
+                        src={c.cover_image}
+                        alt={c.title}
+                        fill
+                        className="object-cover transition duration-700 group-hover:grayscale"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <FileIcon className="h-8 w-8" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col justify-between p-5">
+                    <div>
+                      <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                        {c.category}
+                      </p>
+                      <h3 className="text-lg font-bold leading-snug text-foreground mb-2">{c.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{c.description}</p>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between">
+                      <span className="text-[0.6rem] uppercase tracking-widest text-muted-foreground">
+                        {c.files?.length ?? 0} file{c.files?.length === 1 ? "" : "s"}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
+                        View
+                        <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+        </>
         )}
 
       </div>

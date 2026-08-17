@@ -14,12 +14,13 @@ const client = new S3Client({
   },
 });
 
-export async function uploadImage(
+export async function uploadFile(
   buffer: Buffer,
   filename: string,
-  contentType: string
+  contentType: string,
+  folder = "uploads"
 ): Promise<string> {
-  const key = `blog/${Date.now()}-${filename.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+  const key = `${folder}/${Date.now()}-${filename.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
 
   await client.send(
     new PutObjectCommand({
@@ -31,4 +32,12 @@ export async function uploadImage(
   );
 
   return `${process.env.S3_PUBLIC_URL!}/${key}`;
+}
+
+export async function uploadImage(
+  buffer: Buffer,
+  filename: string,
+  contentType: string
+): Promise<string> {
+  return uploadFile(buffer, filename, contentType, "blog");
 }

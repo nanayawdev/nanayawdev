@@ -15,6 +15,7 @@ import {
   Layers,
   Users,
   Quote,
+  Blocks,
 } from "lucide-react";
 import {
   Sidebar,
@@ -46,6 +47,7 @@ const NAV_GROUPS = [
     label: "Content",
     items: [
       { href: "/admin/blog", label: "Blog", icon: PenLine },
+      { href: "/admin/components", label: "Components", icon: Blocks },
       { href: "/admin/projects", label: "Projects", icon: FolderKanban },
       { href: "/admin/case-studies", label: "Case Studies", icon: BookOpen },
       { href: "/admin/services", label: "Services", icon: Layers },
