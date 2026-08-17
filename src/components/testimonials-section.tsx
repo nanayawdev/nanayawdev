@@ -64,7 +64,7 @@ export function TestimonialsSection() {
       >
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2">
           <TextLoop
-            text="Don't take our word for it"
+            text="Don't take my word for it"
             shape="wave"
             speed={45}
             direction="forward"
