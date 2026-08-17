@@ -21,11 +21,20 @@ interface Post {
 }
 
 const EMPTY: Omit<Post, "id" | "slug" | "published_at" | "created_at"> = {
-  title: "", excerpt: "", body: "", category: "General",
+  title: "", excerpt: "", body: "", category: "Software Engineering",
   cover_image: "", featured: false, published: false, author: "nanayawdev",
 };
 
-const CATEGORIES = ["General", "Design", "Development", "Branding", "Marketing", "Case Study"];
+const CATEGORIES = [
+  "Software Engineering",
+  "System Design",
+  "Product Engineering",
+  "Web Development",
+  "Fintech & Payments",
+  "African Tech",
+  "AI & Technology",
+  "UX & Product Design",
+];
 
 export default function AdminBlogPage() {
   const [posts, setPosts]           = useState<Post[]>([]);
@@ -215,7 +224,7 @@ export default function AdminBlogPage() {
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
               <select
-                value={editing.category ?? "General"}
+                value={editing.category ?? "Software Engineering"}
                 onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
                 className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none"
               >
