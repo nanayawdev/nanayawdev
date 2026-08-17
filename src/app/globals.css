@@ -176,6 +176,52 @@
   }
 }
 
+/* ── Admin dashboard theme (scoped) ─────────────────────────────
+   Brand-green tokens per DESIGN-SYSTEM.md, layered on top of the
+   site-wide neutral palette. Scoped to .admin-theme so the public
+   site keeps its own orange/sharp-corner language untouched. Site
+   is force-dark (see app/layout.tsx), so only dark-mode values
+   from the spec are used here. */
+.admin-theme {
+  --background: #131313;
+  --foreground: oklch(0.985 0 0);
+  --card: #161616;
+  --card-foreground: oklch(0.985 0 0);
+  --popover: #161616;
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.469 0.124 155);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: #1d1d1d;
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: #1d1d1d;
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: #1d1d1d;
+  --accent-foreground: oklch(0.985 0 0);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.826 0.113 161);
+  --sidebar: #161616;
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.469 0.124 155);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: #1d1d1d;
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.826 0.113 161);
+
+  --brand: #097c4f;
+  --brand-border: #1a9e67;
+  --brand-foreground: #ffffff;
+  --brand-hover: #0a8f5c;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ── Rich text / article body styles ────────────────────────── */
 .prose-custom h1 {
   @apply text-4xl font-bold tracking-tight text-foreground mt-12 mb-4 leading-tight;

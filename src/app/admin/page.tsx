@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { FileText, HelpCircle, Mail, MessageSquare } from "lucide-react";
+import { PageHeader } from "@/components/admin/page-header";
+import { MetricCard } from "@/components/admin/metric-card";
 
 interface Stats {
   enquiries: number;
@@ -36,32 +38,19 @@ export default function AdminDashboard() {
   };
 
   const cards = [
-    { label: "Enquiries",       value: stats.enquiries,   icon: FileText,       href: "/admin/enquiries" },
-    { label: "FAQ Questions",   value: stats.questions,   icon: HelpCircle,     href: "/admin/questions" },
-    { label: "Subscribers",     value: stats.subscribers, icon: Mail,           href: "/admin/newsletter" },
-    { label: "Active Chats",    value: stats.activeChats, icon: MessageSquare,  href: "/admin/chat" },
+    { label: "Enquiries",     value: stats.enquiries,   icon: FileText,      href: "/admin/enquiries" },
+    { label: "FAQ Questions", value: stats.questions,   icon: HelpCircle,    href: "/admin/questions" },
+    { label: "Subscribers",   value: stats.subscribers, icon: Mail,          href: "/admin/newsletter" },
+    { label: "Active Chats",  value: stats.activeChats, icon: MessageSquare, href: "/admin/chat" },
   ];
 
   return (
-    <div>
-      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
-        Overview
-      </p>
-      <h1 className="text-3xl font-bold text-foreground mb-10">Dashboard</h1>
+    <div className="space-y-6">
+      <PageHeader eyebrow="Overview" title="Dashboard" description="Your site at a glance." />
 
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        {cards.map(({ label, value, icon: Icon, href }) => (
-          <a
-            key={label}
-            href={href}
-            className="border border-border p-6 hover:bg-muted/30 transition-colors"
-          >
-            <Icon className="h-5 w-5 text-muted-foreground mb-4" />
-            <p className="text-3xl font-bold text-foreground">{value}</p>
-            <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              {label}
-            </p>
-          </a>
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {cards.map(({ label, value, icon, href }) => (
+          <MetricCard key={label} label={label} value={value} icon={icon} href={href} />
         ))}
       </div>
     </div>
