@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   excerpt      TEXT NOT NULL,
   body         TEXT NOT NULL,
   category     TEXT NOT NULL DEFAULT 'Software Engineering',
+  tags         TEXT[] NOT NULL DEFAULT '{}',
   cover_image  TEXT,
   featured     BOOLEAN NOT NULL DEFAULT FALSE,
   published    BOOLEAN NOT NULL DEFAULT FALSE,

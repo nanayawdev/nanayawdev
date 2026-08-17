@@ -9,7 +9,7 @@ export async function GET(
   try {
     const { slug } = await params;
     const { rows } = await pool.query(
-      `SELECT id::text, slug, title, excerpt, body, category, cover_image, featured, author, published_at, created_at
+      `SELECT id::text, slug, title, excerpt, body, category, tags, cover_image, featured, author, published_at, created_at
        FROM blog_posts
        WHERE slug = $1 AND published = TRUE`,
       [slug]

@@ -9,7 +9,7 @@ import { CTACard } from "@/components/cta-card";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
-  body: string; category: string; cover_image: string | null;
+  body: string; category: string; tags: string[]; cover_image: string | null;
   featured: boolean; author: string;
   published_at: string | null; created_at: string;
 }
@@ -90,6 +90,18 @@ export default function ResourceDetail() {
                 {post.category}
               </span>
             </div>
+            {post.tags?.length > 0 && (
+              <div>
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">Tags</p>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((t) => (
+                    <span key={t} className="inline-block border border-border px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             <CTACard />
           </div>
 

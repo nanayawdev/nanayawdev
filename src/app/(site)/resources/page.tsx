@@ -12,6 +12,7 @@ interface Post {
   title: string;
   excerpt: string;
   category: string;
+  tags: string[];
   cover_image: string | null;
   featured: boolean;
   author: string;
@@ -154,7 +155,7 @@ export default function ResourcesPage() {
               <div className="absolute bottom-0 left-0 right-0 p-8 flex items-end justify-between gap-6">
                 <div>
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">
-                    {new Date(featured.published_at ?? featured.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
+                    {featured.category} · {new Date(featured.published_at ?? featured.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
                   </p>
                   <h2 className="text-2xl lg:text-4xl font-bold leading-snug text-background max-w-2xl mb-4">
                     {featured.title}
@@ -200,9 +201,18 @@ export default function ResourcesPage() {
                   <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-2">
-                      {new Date(post.published_at ?? post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                      {post.category} · {new Date(post.published_at ?? post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                     </p>
                     <h3 className="text-lg font-bold leading-snug text-background mb-4">{post.title}</h3>
+                    {post.tags?.length > 0 && (
+                      <div className="mb-4 flex flex-wrap gap-1.5">
+                        {post.tags.slice(0, 3).map((t) => (
+                          <span key={t} className="border border-background/30 px-2 py-0.5 text-[0.6rem] uppercase tracking-wider text-background/80">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background">
                       Read More
                       <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />

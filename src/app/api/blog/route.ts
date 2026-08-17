@@ -5,7 +5,7 @@ import pool from "@/lib/db";
 export async function GET() {
   try {
     const { rows } = await pool.query(
-      `SELECT id::text, slug, title, excerpt, category, cover_image, featured, author, published_at, created_at
+      `SELECT id::text, slug, title, excerpt, category, tags, cover_image, featured, author, published_at, created_at
        FROM blog_posts
        WHERE published = TRUE
        ORDER BY COALESCE(published_at, created_at) DESC`

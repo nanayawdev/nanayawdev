@@ -12,6 +12,7 @@ interface Post {
   excerpt: string;
   body: string;
   category: string;
+  tags: string[];
   cover_image: string;
   featured: boolean;
   published: boolean;
@@ -21,7 +22,7 @@ interface Post {
 }
 
 const EMPTY: Omit<Post, "id" | "slug" | "published_at" | "created_at"> = {
-  title: "", excerpt: "", body: "", category: "Software Engineering",
+  title: "", excerpt: "", body: "", category: "Software Engineering", tags: [],
   cover_image: "", featured: false, published: false, author: "nanayawdev",
 };
 
@@ -39,6 +40,7 @@ const CATEGORIES = [
 export default function AdminBlogPage() {
   const [posts, setPosts]           = useState<Post[]>([]);
   const [editing, setEditing]       = useState<Partial<Post> | null>(null);
+  const [tagsInput, setTagsInput]   = useState("");
   const [isNew, setIsNew]           = useState(false);
   const [saving, setSaving]         = useState(false);
   const [error, setError]           = useState("");
@@ -60,6 +62,7 @@ export default function AdminBlogPage() {
 
   function openNew() {
     setEditing({ ...EMPTY });
+    setTagsInput("");
     setIsNew(true);
     setError("");
   }
@@ -68,6 +71,7 @@ export default function AdminBlogPage() {
     const res = await fetch(`/api/admin/blog/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
     const data = await res.json();
     setEditing(data.post);
+    setTagsInput((data.post.tags ?? []).join(", "));
     setIsNew(false);
     setError("");
   }
@@ -76,12 +80,13 @@ export default function AdminBlogPage() {
     if (!editing) return;
     setSaving(true); setError("");
     try {
+      const tags = tagsInput.split(",").map((t) => t.trim()).filter(Boolean);
       const url    = isNew ? "/api/admin/blog" : `/api/admin/blog/${editing.id}`;
       const method = isNew ? "POST" : "PATCH";
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
-        body: JSON.stringify(editing),
+        body: JSON.stringify({ ...editing, tags }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? "Save failed"); return; }
@@ -240,6 +245,20 @@ export default function AdminBlogPage() {
                 className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               />
             </div>
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Tags <span className="normal-case font-normal text-muted-foreground/70">(comma-separated, for SEO)</span>
+            </label>
+            <input
+              type="text"
+              value={tagsInput}
+              onChange={(e) => setTagsInput(e.target.value)}
+              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+              placeholder="e.g. nextjs, postgres, multi-tenancy"
+            />
           </div>
 
           {/* Cover image upload */}
