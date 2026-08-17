@@ -27,10 +27,15 @@ export default function ResourceDetail() {
       .then((data) => {
         if (!data) return;
         setPost(data.post);
-        // fetch related (same category, different slug)
+        // fetch related — prioritize same category, fall back to others
         fetch("/api/blog")
           .then((r) => r.json())
-          .then((d) => setRelated((d.posts ?? []).filter((p: Post) => p.slug !== slug).slice(0, 2)));
+          .then((d) => {
+            const others = (d.posts ?? []).filter((p: Post) => p.slug !== slug);
+            const sameCategory = others.filter((p: Post) => p.category === data.post.category);
+            const rest = others.filter((p: Post) => p.category !== data.post.category);
+            setRelated([...sameCategory, ...rest].slice(0, 2));
+          });
         setLoading(false);
       });
   }, [slug]);
@@ -86,9 +91,12 @@ export default function ResourceDetail() {
             </div>
             <div>
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">Category</p>
-              <span className="inline-block border border-border px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
+              <Link
+                href={`/resources?category=${encodeURIComponent(post.category)}`}
+                className="inline-block border border-border px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
+              >
                 {post.category}
-              </span>
+              </Link>
             </div>
             {post.tags?.length > 0 && (
               <div>

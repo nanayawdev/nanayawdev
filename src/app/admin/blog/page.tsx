@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X } from "lucide-react";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Post {
   id: string;
@@ -228,13 +230,17 @@ export default function AdminBlogPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
-              <select
+              <Select
                 value={editing.category ?? "Software Engineering"}
-                onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none"
+                onValueChange={(value) => setEditing((p) => ({ ...p, category: value }))}
               >
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
+                <SelectTrigger className="w-full rounded-none border-border px-4 py-2.5 text-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Author</label>
@@ -323,20 +329,16 @@ export default function AdminBlogPage() {
           {/* Toggles */}
           <div className="flex items-center gap-6">
             <label className="flex items-center gap-2.5 cursor-pointer">
-              <input
-                type="checkbox"
+              <Checkbox
                 checked={editing.featured ?? false}
-                onChange={(e) => setEditing((p) => ({ ...p, featured: e.target.checked }))}
-                className="h-4 w-4 accent-foreground"
+                onCheckedChange={(checked) => setEditing((p) => ({ ...p, featured: checked === true }))}
               />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Featured Post</span>
             </label>
             <label className="flex items-center gap-2.5 cursor-pointer">
-              <input
-                type="checkbox"
+              <Checkbox
                 checked={editing.published ?? false}
-                onChange={(e) => setEditing((p) => ({ ...p, published: e.target.checked }))}
-                className="h-4 w-4 accent-foreground"
+                onCheckedChange={(checked) => setEditing((p) => ({ ...p, published: checked === true }))}
               />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Publish Now</span>
             </label>

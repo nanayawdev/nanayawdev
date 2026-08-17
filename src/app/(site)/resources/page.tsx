@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, FileIcon } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight, FileIcon, Search, X } from "lucide-react";
+import { useState, useEffect, useCallback, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Post {
   id: string;
@@ -38,9 +39,26 @@ const PER_PAGE = 6;
 type Tab = "articles" | "components";
 
 export default function ResourcesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <ResourcesPageInner />
+    </Suspense>
+  );
+}
+
+function ResourcesPageInner() {
+  const router       = useRouter();
+  const searchParams = useSearchParams();
+
   const [tab, setTab]       = useState<Tab>("articles");
   const [posts, setPosts]   = useState<Post[]>([]);
   const [page, setPage]     = useState(1);
+  const [postCategory, setPostCategory] = useState<string>(searchParams.get("category") ?? "All");
+
+  const [query, setQuery]             = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [searchResults, setSearchResults]   = useState<Post[] | null>(null);
+  const [searching, setSearching]     = useState(false);
 
   const [components, setComponents]           = useState<ComponentResource[]>([]);
   const [componentCategory, setComponentCategory] = useState<string>("All");
@@ -54,10 +72,38 @@ export default function ResourcesPage() {
       .then((d) => setComponents(d.components ?? []));
   }, []);
 
-  const featured   = posts.find((p) => p.featured) ?? posts[0] ?? null;
-  const rest       = posts.filter((p) => p !== featured);
+  // debounce search input
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedQuery(query.trim()), 300);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  useEffect(() => {
+    if (!debouncedQuery) { setSearchResults(null); return; }
+    setSearching(true);
+    fetch(`/api/blog/search?q=${encodeURIComponent(debouncedQuery)}`)
+      .then((r) => r.json())
+      .then((d) => setSearchResults(d.posts ?? []))
+      .finally(() => setSearching(false));
+  }, [debouncedQuery]);
+
+  const setCategoryInUrl = useCallback((category: string) => {
+    setPostCategory(category);
+    setPage(1);
+    const params = new URLSearchParams(searchParams.toString());
+    if (category === "All") params.delete("category");
+    else params.set("category", category);
+    router.replace(params.size > 0 ? `/resources?${params.toString()}` : "/resources", { scroll: false });
+  }, [router, searchParams]);
+
+  const postCategories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
+  const filteredPosts  = postCategory === "All" ? posts : posts.filter((p) => p.category === postCategory);
+  const featured   = filteredPosts.find((p) => p.featured) ?? filteredPosts[0] ?? null;
+  const rest       = filteredPosts.filter((p) => p !== featured);
   const totalPages = Math.ceil(rest.length / PER_PAGE);
   const paginated  = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  const isSearching = debouncedQuery.length > 0;
 
   const componentCategories = ["All", ...Array.from(new Set(components.map((c) => c.category)))];
   const filteredComponents  = componentCategory === "All"
@@ -119,8 +165,91 @@ export default function ResourcesPage() {
           <p className="text-muted-foreground text-base mb-16">No articles published yet — check back soon.</p>
         )}
 
-        {/* Featured post */}
-        {featured && (
+        {posts.length > 0 && (
+          <>
+            {/* Search */}
+            <div className="relative mb-6 max-w-md">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search articles…"
+                className="w-full border border-border bg-background py-3 pl-11 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-foreground"
+              />
+              {query && (
+                <button
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Category filter */}
+            {!isSearching && postCategories.length > 1 && (
+              <div className="flex flex-wrap items-center gap-2 mb-10">
+                {postCategories.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setCategoryInUrl(c)}
+                    className={`px-4 py-2 text-[0.6rem] font-semibold uppercase tracking-[0.18em] transition-colors ${
+                      postCategory === c
+                        ? "border border-foreground bg-foreground text-background"
+                        : "border border-border text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Search results */}
+        {isSearching && (
+          <div className="mb-16">
+            <p className="mb-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              {searching ? "Searching…" : `${searchResults?.length ?? 0} result${searchResults?.length === 1 ? "" : "s"} for "${debouncedQuery}"`}
+            </p>
+            {!searching && searchResults?.length === 0 && (
+              <p className="text-muted-foreground text-base">No articles matched your search.</p>
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(searchResults ?? []).map((post) => (
+                <Link key={post.slug} href={`/resources/${post.slug}`} className="group block h-full">
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
+                    {post.cover_image && (
+                      <Image
+                        src={post.cover_image}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition duration-700 group-hover:grayscale"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/10 transition-colors duration-500" />
+                    <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-2">
+                        {post.category}
+                      </p>
+                      <h3 className="text-lg font-bold leading-snug text-background mb-4">{post.title}</h3>
+                      <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background">
+                        Read More
+                        <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!isSearching && featured && (
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -178,6 +307,7 @@ export default function ResourcesPage() {
         )}
 
         {/* Grid */}
+        {!isSearching && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {paginated.map((post, index) => (
             <motion.div
@@ -223,9 +353,10 @@ export default function ResourcesPage() {
             </motion.div>
           ))}
         </div>
+        )}
 
         {/* Pagination */}
-        {totalPages > 1 && (
+        {!isSearching && totalPages > 1 && (
           <div className="mt-16 flex items-center justify-center gap-2">
             {/* Prev */}
             <button
