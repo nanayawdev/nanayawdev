@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, FileIcon, Search, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, FileIcon, Search, X } from "lucide-react";
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -35,7 +35,7 @@ interface ComponentResource {
   created_at: string;
 }
 
-const PER_PAGE = 6;
+const PER_PAGE = 8;
 type Tab = "articles" | "components";
 
 export default function ResourcesPage() {
@@ -98,12 +98,12 @@ function ResourcesPageInner() {
 
   const postCategories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
   const filteredPosts  = postCategory === "All" ? posts : posts.filter((p) => p.category === postCategory);
-  const featured   = filteredPosts.find((p) => p.featured) ?? filteredPosts[0] ?? null;
-  const rest       = filteredPosts.filter((p) => p !== featured);
-  const totalPages = Math.ceil(rest.length / PER_PAGE);
-  const paginated  = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const totalPages = Math.ceil(filteredPosts.length / PER_PAGE);
+  const paginated  = filteredPosts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const isSearching = debouncedQuery.length > 0;
+  const isSearching   = debouncedQuery.length > 0;
+  const displayedPosts = isSearching ? (searchResults ?? []) : paginated;
+  const indexOffset    = isSearching ? 0 : (page - 1) * PER_PAGE;
 
   const componentCategories = ["All", ...Array.from(new Set(components.map((c) => c.category)))];
   const filteredComponents  = componentCategory === "All"
@@ -209,151 +209,75 @@ function ResourcesPageInner() {
           </>
         )}
 
-        {/* Search results */}
+        {/* Search status */}
         {isSearching && (
-          <div className="mb-16">
-            <p className="mb-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              {searching ? "Searching…" : `${searchResults?.length ?? 0} result${searchResults?.length === 1 ? "" : "s"} for "${debouncedQuery}"`}
-            </p>
-            {!searching && searchResults?.length === 0 && (
-              <p className="text-muted-foreground text-base">No articles matched your search.</p>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(searchResults ?? []).map((post) => (
-                <Link key={post.slug} href={`/resources/${post.slug}`} className="group block h-full">
-                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
-                    {post.cover_image && (
-                      <Image
-                        src={post.cover_image}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition duration-700 group-hover:grayscale"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/10 transition-colors duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-2">
-                        {post.category}
-                      </p>
-                      <h3 className="text-lg font-bold leading-snug text-background mb-4">{post.title}</h3>
-                      <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background">
-                        Read More
-                        <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <p className="mb-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            {searching ? "Searching…" : `${searchResults?.length ?? 0} result${searchResults?.length === 1 ? "" : "s"} for "${debouncedQuery}"`}
+          </p>
+        )}
+        {isSearching && !searching && searchResults?.length === 0 && (
+          <p className="text-muted-foreground text-base mb-16">No articles matched your search.</p>
         )}
 
-        {!isSearching && featured && (
-          <motion.div
-            className="mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Link href={`/resources/${featured.slug}`} className="group relative block overflow-hidden border border-border">
-              {/* Image */}
-              <div className="relative w-full aspect-[16/7] overflow-hidden bg-muted">
-                {featured.cover_image && (
-                  <Image
-                    src={featured.cover_image}
-                    alt={featured.title}
-                    fill
-                    className="object-cover transition duration-700 group-hover:grayscale"
-                    priority
-                  />
-                )}
-                <div className="absolute inset-0 bg-foreground/40" />
-              </div>
-
-              {/* Featured badge */}
-              {featured.featured && (
-                <div className="absolute top-5 left-5">
-                  <span className="bg-background px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-foreground">
-                    Featured
-                  </span>
-                </div>
-              )}
-
-              {/* Content overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 flex items-end justify-between gap-6">
-                <div>
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">
-                    {featured.category} · {new Date(featured.published_at ?? featured.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
-                  </p>
-                  <h2 className="text-2xl lg:text-4xl font-bold leading-snug text-background max-w-2xl mb-4">
-                    {featured.title}
-                  </h2>
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 bg-muted-foreground/30 flex items-center justify-center text-[0.6rem] font-bold text-background">
-                      {featured.author.split(" ").map((n: string) => n[0]).join("")}
-                    </div>
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background leading-none">
-                      {featured.author}
-                    </p>
-                  </div>
-                </div>
-                <span className="shrink-0 border border-background/40 px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background transition-colors group-hover:bg-background group-hover:text-foreground">
-                  Read More
-                </span>
-              </div>
-            </Link>
-          </motion.div>
-        )}
-
-        {/* Grid */}
-        {!isSearching && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {paginated.map((post, index) => (
+        {/* Editorial list */}
+        <div className="divide-y divide-border">
+          {displayedPosts.map((post, i) => (
             <motion.div
               key={post.slug}
-              className="bg-background"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 + index * 0.07 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: Math.min(i, 6) * 0.06 }}
+              viewport={{ once: true }}
             >
-              <Link href={`/resources/${post.slug}`} className="group block h-full">
-                <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
-                  {post.cover_image && (
-                    <Image
-                      src={post.cover_image}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition duration-700 group-hover:grayscale"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/10 transition-colors duration-500" />
-                  <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background/60 mb-2">
-                      {post.category} · {new Date(post.published_at ?? post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
-                    </p>
-                    <h3 className="text-lg font-bold leading-snug text-background mb-4">{post.title}</h3>
-                    {post.tags?.length > 0 && (
-                      <div className="mb-4 flex flex-wrap gap-1.5">
-                        {post.tags.slice(0, 3).map((t) => (
-                          <span key={t} className="border border-background/30 px-2 py-0.5 text-[0.6rem] uppercase tracking-wider text-background/80">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background">
-                      Read More
-                      <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
-                    </span>
+              <Link href={`/resources/${post.slug}`} className="group flex items-center gap-6 py-8 lg:gap-8 lg:py-10">
+                <span className="w-6 shrink-0 text-sm font-medium tabular-nums text-muted-foreground/40 lg:w-8">
+                  {String(indexOffset + i + 1).padStart(2, "0")}
+                </span>
+
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3">
+                    <h2 className="text-2xl font-bold leading-tight text-foreground transition-colors duration-200 group-hover:text-muted-foreground lg:text-4xl">
+                      {post.title}
+                    </h2>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="w-fit rounded-full border border-border px-3 py-0.5 text-sm text-muted-foreground">
+                        {post.category}
+                      </span>
+                      {post.featured && (
+                        <span className="w-fit bg-foreground px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-background">
+                          Featured
+                        </span>
+                      )}
+                    </div>
                   </div>
+                  <p className="max-w-2xl text-base text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                  {post.tags?.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {post.tags.slice(0, 4).map((t) => (
+                        <span key={t} className="text-[0.65rem] uppercase tracking-wider text-muted-foreground/60">
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {post.cover_image && (
+                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 lg:h-20 lg:w-32">
+                    <Image src={post.cover_image} alt={post.title} fill className="object-cover" />
+                  </div>
+                )}
+
+                <div className="hidden shrink-0 flex-col items-end gap-2 lg:flex">
+                  <span className="text-sm text-muted-foreground/50">
+                    {new Date(post.published_at ?? post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                  </span>
+                  <ArrowUpRight className="h-5 w-5 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
-        )}
 
         {/* Pagination */}
         {!isSearching && totalPages > 1 && (
