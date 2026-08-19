@@ -1,0 +1,3 @@
+# app-ads.txt — authorizes ad sellers for apps published under this
+# developer website, per the IAB Tech Lab spec.
+google.com, pub-4938942860325560, DIRECT, f08c47fec0942fa0
