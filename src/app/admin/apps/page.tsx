@@ -28,7 +28,7 @@ const EMPTY: Omit<App, "id" | "slug" | "created_at"> = {
   featured: false, published: false, sort_order: 0,
 };
 
-const CATEGORIES = ["Utility", "Productivity", "Reference", "Entertainment", "Education", "Lifestyle", "Other"];
+const CATEGORIES = ["Utility", "Productivity", "Reference", "Entertainment", "Music", "Education", "Lifestyle", "Other"];
 
 export default function AdminAppsPage() {
   const [apps, setApps]           = useState<App[]>([]);

@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Apple, ExternalLink, Globe, PlayCircle } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 interface App {
   id: string;
@@ -100,7 +101,7 @@ export default function AppsPage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 border border-border px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-foreground transition-colors hover:bg-muted"
                   >
-                    <PlayCircle className="h-3.5 w-3.5" /> Play Store
+                    <Image src="/googleplay.svg" alt="" width={14} height={14} /> Play Store
                   </a>
                 )}
                 {app.app_store_url && (
@@ -110,7 +111,7 @@ export default function AppsPage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 border border-border px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-foreground transition-colors hover:bg-muted"
                   >
-                    <Apple className="h-3.5 w-3.5" /> App Store
+                    <Image src="/appstore.svg" alt="" width={14} height={14} /> App Store
                   </a>
                 )}
                 {app.website_url && (
@@ -120,7 +121,7 @@ export default function AppsPage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 border border-border px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-foreground transition-colors hover:bg-muted"
                   >
-                    <Globe className="h-3.5 w-3.5" /> Website
+                    <Image src="/chrome.svg" alt="" width={14} height={14} /> Website
                   </a>
                 )}
                 {!app.play_store_url && !app.app_store_url && !app.website_url && (
