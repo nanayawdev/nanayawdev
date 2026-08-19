@@ -5,6 +5,8 @@ import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUp, Facebook, Link2, Linkedin, Twitter, Check } from "lucide-react";
+import { AdSlot } from "@/components/ad-slot";
+import { splitHtmlForAd } from "@/lib/ad-utils";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
@@ -66,6 +68,8 @@ export default function ResourceDetail() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
+
+  const [bodyFirstHalf, bodySecondHalf] = splitHtmlForAd(post.body);
 
   return (
     <div className="min-h-screen bg-background">
@@ -157,6 +161,11 @@ export default function ResourceDetail() {
             </div>
           )}
 
+          {/* Display ad — below the hero, above the body */}
+          <div className="mx-auto mt-10 max-w-3xl">
+            <AdSlot format="auto" className="min-h-[100px]" />
+          </div>
+
           {/* Sidebar + body */}
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 py-16 lg:grid-cols-[220px_1fr] lg:py-20">
 
@@ -178,12 +187,22 @@ export default function ResourceDetail() {
                     </Link>
                   ))}
                 </div>
+
+                {/* Sidebar display ad */}
+                <AdSlot format="auto" className="mt-8 min-h-[250px]" />
               </aside>
             )}
 
             {/* Body */}
             <div className="order-1 min-w-0 lg:order-2">
-              <div className="prose-custom prose-dropcap" dangerouslySetInnerHTML={{ __html: post.body }} />
+              <div className="prose-custom prose-dropcap" dangerouslySetInnerHTML={{ __html: bodyFirstHalf }} />
+
+              {/* In-article ad — injected mid-post for longer articles */}
+              {bodySecondHalf && <AdSlot format="in-article" className="my-8" />}
+
+              {bodySecondHalf && (
+                <div className="prose-custom" dangerouslySetInnerHTML={{ __html: bodySecondHalf }} />
+              )}
 
               {/* Tags */}
               {post.tags?.length > 0 && (
@@ -195,6 +214,9 @@ export default function ResourceDetail() {
                   ))}
                 </div>
               )}
+
+              {/* Matched content — native recirculation unit */}
+              <AdSlot format="matched-content" className="mt-14 min-h-[300px]" />
             </div>
           </div>
         </div>
