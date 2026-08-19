@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FileText, HelpCircle, Mail, MessageSquare } from "lucide-react";
 import { PageHeader } from "@/components/admin/page-header";
 import { MetricCard } from "@/components/admin/metric-card";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Stats {
   enquiries: number;
@@ -15,8 +16,7 @@ interface Stats {
 function useAdminFetch<T>(url: string, key: string): T | null {
   const [data, setData] = useState<T | null>(null);
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+    adminFetch(url)
       .then((r) => r.json())
       .then((d) => setData(d[key]))
       .catch(() => {});
