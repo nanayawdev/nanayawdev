@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUp, ArrowUpRight } from "lucide-react";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
@@ -19,6 +19,13 @@ export default function ResourceDetail() {
   const [post, setPost]       = useState<Post | null>(null);
   const [related, setRelated] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     fetch(`/api/blog/${slug}`)
@@ -134,6 +141,17 @@ export default function ResourceDetail() {
           </div>
         </div>
       )}
+
+      {/* Back to top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+        className={`fixed bottom-6 left-6 z-50 flex h-10 w-10 items-center justify-center border border-border bg-background text-foreground transition-all duration-300 hover:bg-muted ${
+          showBackToTop ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
+        }`}
+      >
+        <ArrowUp className="h-4 w-4" />
+      </button>
 
     </div>
   );
