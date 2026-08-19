@@ -235,6 +235,14 @@
 .prose-custom p {
   @apply text-lg text-foreground leading-relaxed mb-5;
 }
+.prose-dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-weight: 700;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  padding-top: 0.08em;
+  font-size: 4.5rem;
+}
 .prose-custom strong {
   @apply font-semibold text-foreground;
 }

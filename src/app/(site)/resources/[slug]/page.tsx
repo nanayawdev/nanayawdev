@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUp, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUp, Facebook, Link2, Linkedin, Twitter, Check } from "lucide-react";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
@@ -13,6 +13,7 @@ interface Post {
   published_at: string | null; created_at: string;
 }
 
+const SITE_URL = "https://nanayawdev.com";
 
 export default function ResourceDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -20,6 +21,7 @@ export default function ResourceDetail() {
   const [related, setRelated] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [copied, setCopied]   = useState(false);
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 600);
@@ -40,7 +42,7 @@ export default function ResourceDetail() {
             const others = (d.posts ?? []).filter((p: Post) => p.slug !== slug);
             const sameCategory = others.filter((p: Post) => p.category === data.post.category);
             const rest = others.filter((p: Post) => p.category !== data.post.category);
-            setRelated([...sameCategory, ...rest].slice(0, 2));
+            setRelated([...sameCategory, ...rest].slice(0, 4));
           });
         setLoading(false);
       });
@@ -52,95 +54,151 @@ export default function ResourceDetail() {
   const dateStr = new Date(post.published_at ?? post.created_at)
     .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
+  const pageUrl = `${SITE_URL}/resources/${slug}`;
+  const shareLinks = [
+    { icon: Twitter, label: "Share on X", href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}` },
+    { icon: Linkedin, label: "Share on LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}` },
+    { icon: Facebook, label: "Share on Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}` },
+  ];
+
+  function copyLink() {
+    navigator.clipboard.writeText(pageUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
   return (
     <div className="min-h-screen bg-background">
 
-      {/* Cover image — full-bleed hero, only when present */}
-      {post.cover_image && (
-        <div className="relative mt-16 aspect-[21/9] max-h-[320px] w-full overflow-hidden lg:mt-20">
-          <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
+      <div className="mx-auto flex max-w-6xl gap-6 px-8 pt-32 lg:pt-40">
+
+        {/* Share rail */}
+        <div className="hidden shrink-0 lg:sticky lg:top-40 lg:flex lg:h-fit lg:w-12 lg:flex-col lg:items-center lg:gap-3">
+          {shareLinks.map(({ icon: Icon, label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="flex h-10 w-10 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <Icon className="h-4 w-4" />
+            </a>
+          ))}
+          <button
+            onClick={copyLink}
+            aria-label="Copy link"
+            className="flex h-10 w-10 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
+          </button>
         </div>
-      )}
 
-      <div className={`mx-auto max-w-3xl px-8 pb-24 ${post.cover_image ? "pt-10" : "pt-32 lg:pt-40"}`}>
+        <div className="min-w-0 flex-1">
 
-        {/* Back */}
-        <Link href="/resources" className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> All Resources
-        </Link>
-
-        {/* Meta */}
-        <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
-            {post.category}
+          {/* Back */}
+          <Link href="/resources" className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" /> All Resources
           </Link>
-          {" · "}{dateStr}
-        </p>
 
-        {/* Title */}
-        <h1 className="mb-6 text-[clamp(2.25rem,5vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em] text-foreground">
-          {post.title}
-        </h1>
-
-        {/* Excerpt / dek */}
-        <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
-
-        {/* Author */}
-        <div className="mb-10 flex items-center gap-3 border-y border-border py-5">
-          <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
-            {post.author.split(" ").map((n) => n[0]).join("")}
-          </div>
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">{post.author}</p>
-        </div>
-
-        {/* Body */}
-        <div className="prose-custom" dangerouslySetInnerHTML={{ __html: post.body }} />
-
-        {/* Tags */}
-        {post.tags?.length > 0 && (
-          <div className="mt-14 flex flex-wrap gap-2 border-t border-border pt-8">
-            {post.tags.map((t) => (
-              <span key={t} className="text-[0.7rem] uppercase tracking-wider text-muted-foreground/60">
-                #{t}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Related */}
-      {related.length > 0 && (
-        <div className="border-t border-border">
-          <div className="mx-auto max-w-3xl px-8 py-16 lg:py-20">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold tracking-tight text-foreground">Related resources</h2>
-              <Link href="/resources" className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:text-muted-foreground">
-                View All
+          {/* Hero — centered */}
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
+                {post.category}
               </Link>
+              {" · "}{dateStr}
+            </p>
+
+            <h1 className="mb-6 text-[clamp(2.25rem,5vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em] text-foreground">
+              {post.title}
+            </h1>
+
+            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+
+            <div className="mb-12 flex items-center justify-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
+                {post.author.split(" ").map((n) => n[0]).join("")}
+              </div>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">
+                By {post.author}
+              </p>
             </div>
-            <div className="divide-y divide-border">
-              {related.map((r) => (
-                <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex items-center gap-4 py-6 sm:gap-6">
-                  <div className="min-w-0 flex-1">
-                    <p className="mb-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                      {r.category}
-                    </p>
-                    <p className="text-lg font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-muted-foreground">
-                      {r.title}
-                    </p>
-                  </div>
-                  {r.cover_image && (
-                    <div className="relative hidden w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:block">
-                      <Image src={r.cover_image} alt={r.title} fill className="object-cover" />
-                    </div>
-                  )}
-                  <ArrowUpRight className="hidden h-5 w-5 shrink-0 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 sm:block" />
-                </Link>
+
+            {/* Mobile share row */}
+            <div className="mb-12 flex items-center justify-center gap-3 lg:hidden">
+              {shareLinks.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
               ))}
+              <button
+                onClick={copyLink}
+                aria-label="Copy link"
+                className="flex h-9 w-9 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Cover image */}
+          {post.cover_image && (
+            <div className="relative mx-auto aspect-[16/9] w-full max-w-4xl overflow-hidden">
+              <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
+            </div>
+          )}
+
+          {/* Sidebar + body */}
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 py-16 lg:grid-cols-[220px_1fr] lg:py-20">
+
+            {/* More resources */}
+            {related.length > 0 && (
+              <aside className="order-2 lg:order-1 lg:sticky lg:top-40 lg:h-fit">
+                <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">More Resources</p>
+                <div className="space-y-5">
+                  {related.map((r) => (
+                    <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex gap-3">
+                      {r.cover_image && (
+                        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-sm opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+                          <Image src={r.cover_image} alt={r.title} fill className="object-cover" />
+                        </div>
+                      )}
+                      <p className="text-sm font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-muted-foreground">
+                        {r.title}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </aside>
+            )}
+
+            {/* Body */}
+            <div className="order-1 min-w-0 lg:order-2">
+              <div className="prose-custom prose-dropcap" dangerouslySetInnerHTML={{ __html: post.body }} />
+
+              {/* Tags */}
+              {post.tags?.length > 0 && (
+                <div className="mt-14 flex flex-wrap gap-2 border-t border-border pt-8">
+                  {post.tags.map((t) => (
+                    <span key={t} className="text-[0.7rem] uppercase tracking-wider text-muted-foreground/60">
+                      #{t}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Back to top */}
       <button
