@@ -50,12 +50,12 @@ export default function ResourceDetail() {
 
       {/* Cover image — full-bleed hero, only when present */}
       {post.cover_image && (
-        <div className="relative mt-20 aspect-[21/9] max-h-[420px] w-full overflow-hidden lg:mt-24">
+        <div className="relative mt-16 aspect-[21/9] max-h-[320px] w-full overflow-hidden lg:mt-20">
           <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
 
-      <div className={`mx-auto max-w-3xl px-8 pb-24 ${post.cover_image ? "pt-12" : "pt-32 lg:pt-40"}`}>
+      <div className={`mx-auto max-w-3xl px-8 pb-24 ${post.cover_image ? "pt-10" : "pt-32 lg:pt-40"}`}>
 
         {/* Back */}
         <Link href="/resources" className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
