@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface TeamMember {
   id: string;
@@ -37,11 +38,9 @@ export default function AdminTeamPage() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef              = useRef<HTMLInputElement>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
     try {
-      const res = await fetch("/api/admin/team", { headers: { Authorization: `Bearer ${token()}` } });
+      const res = await adminFetch("/api/admin/team");
       if (!res.ok) return;
       const data = await res.json();
       setMembers(data.members ?? []);
@@ -56,7 +55,7 @@ export default function AdminTeamPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/team/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/team/${id}`);
     const data = await res.json();
     setEditing(data.member); setIsNew(false); setError("");
   }
@@ -67,9 +66,9 @@ export default function AdminTeamPage() {
     const payload = asDraft ? { ...editing, published: false } : editing;
     const method = isNew ? "POST" : "PUT";
     const url    = isNew ? "/api/admin/team" : `/api/admin/team/${editing.id}`;
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await res.json();
@@ -78,9 +77,9 @@ export default function AdminTeamPage() {
   }
 
   async function togglePublish(m: TeamMember) {
-    await fetch(`/api/admin/team/${m.id}`, {
+    await adminFetch(`/api/admin/team/${m.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !m.published }),
     });
     await load();
@@ -88,7 +87,7 @@ export default function AdminTeamPage() {
 
   async function deleteMember(id: string) {
     setDeleting(id); setConfirmDeleteId(null);
-    await fetch(`/api/admin/team/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token()}` } });
+    await adminFetch(`/api/admin/team/${id}`, { method: "DELETE" });
     await load(); setDeleting(null);
   }
 
@@ -97,7 +96,7 @@ export default function AdminTeamPage() {
     setUploading(true);
     setError("");
     const form = new FormData(); form.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+    const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
     const data = await res.json();
     if (res.ok) {
       setEditing((p) => ({ ...p, photo: data.url }));

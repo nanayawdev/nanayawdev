@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { RichTextEditor } from "@/components/rich-text-editor";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Service {
   id: string;
@@ -37,11 +38,9 @@ export default function AdminServicesPage() {
   const [tagInput, setTagInput]   = useState("");
   const fileInputRef              = useRef<HTMLInputElement>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
     try {
-      const res = await fetch("/api/admin/services", { headers: { Authorization: `Bearer ${token()}` } });
+      const res = await adminFetch("/api/admin/services");
       if (!res.ok) return;
       const data = await res.json();
       setServices(data.services ?? []);
@@ -56,7 +55,7 @@ export default function AdminServicesPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/services/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/services/${id}`);
     const data = await res.json();
     setEditing(data.service); setIsNew(false); setError(""); setTagInput("");
   }
@@ -67,9 +66,9 @@ export default function AdminServicesPage() {
     const payload = asDraft ? { ...editing, published: false } : editing;
     const method = isNew ? "POST" : "PUT";
     const url    = isNew ? "/api/admin/services" : `/api/admin/services/${editing.id}`;
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await res.json();
@@ -78,9 +77,9 @@ export default function AdminServicesPage() {
   }
 
   async function togglePublish(s: Service) {
-    await fetch(`/api/admin/services/${s.id}`, {
+    await adminFetch(`/api/admin/services/${s.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !s.published }),
     });
     await load();
@@ -88,7 +87,7 @@ export default function AdminServicesPage() {
 
   async function deleteService(id: string) {
     setDeleting(id); setConfirmDeleteId(null);
-    await fetch(`/api/admin/services/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token()}` } });
+    await adminFetch(`/api/admin/services/${id}`, { method: "DELETE" });
     await load(); setDeleting(null);
   }
 
@@ -97,7 +96,7 @@ export default function AdminServicesPage() {
     setUploading(true);
     setError("");
     const form = new FormData(); form.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+    const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
     const data = await res.json();
     if (res.ok) {
       setEditing((p) => ({ ...p, cover_image: data.url }));
@@ -182,7 +181,7 @@ export default function AdminServicesPage() {
               onChange={(val) => setEditing((p) => ({ ...p, body: val }))}
               onImageUpload={async (file) => {
                 const form = new FormData(); form.append("file", file);
-                const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+                const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
                 const data = await res.json();
                 return res.ok ? data.url : "";
               }}

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical, User } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Testimonial {
   id: string;
@@ -31,11 +32,9 @@ export default function AdminTestimonialsPage() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef              = useRef<HTMLInputElement>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
     try {
-      const res = await fetch("/api/admin/testimonials", { headers: { Authorization: `Bearer ${token()}` } });
+      const res = await adminFetch("/api/admin/testimonials");
       if (!res.ok) return;
       const data = await res.json();
       setTestimonials(data.testimonials ?? []);
@@ -50,7 +49,7 @@ export default function AdminTestimonialsPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/testimonials/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/testimonials/${id}`);
     const data = await res.json();
     setEditing(data.testimonial); setIsNew(false); setError("");
   }
@@ -61,9 +60,9 @@ export default function AdminTestimonialsPage() {
     const payload = asDraft ? { ...editing, published: false } : editing;
     const method = isNew ? "POST" : "PUT";
     const url    = isNew ? "/api/admin/testimonials" : `/api/admin/testimonials/${editing.id}`;
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await res.json();
@@ -72,9 +71,9 @@ export default function AdminTestimonialsPage() {
   }
 
   async function togglePublish(t: Testimonial) {
-    await fetch(`/api/admin/testimonials/${t.id}`, {
+    await adminFetch(`/api/admin/testimonials/${t.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !t.published }),
     });
     await load();
@@ -82,7 +81,7 @@ export default function AdminTestimonialsPage() {
 
   async function deleteTestimonial(id: string) {
     setDeleting(id); setConfirmDeleteId(null);
-    await fetch(`/api/admin/testimonials/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token()}` } });
+    await adminFetch(`/api/admin/testimonials/${id}`, { method: "DELETE" });
     await load(); setDeleting(null);
   }
 
@@ -91,7 +90,7 @@ export default function AdminTestimonialsPage() {
     setUploading(true);
     setError("");
     const form = new FormData(); form.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+    const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
     const data = await res.json();
     if (res.ok) {
       setEditing((p) => ({ ...p, avatar: data.url }));
