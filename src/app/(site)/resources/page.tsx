@@ -236,7 +236,7 @@ function ResourcesPageInner() {
 
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3">
-                    <h2 className="text-2xl font-bold leading-tight text-foreground transition-colors duration-200 group-hover:text-muted-foreground lg:text-4xl">
+                    <h2 className="text-2xl font-bold leading-tight text-foreground transition-colors duration-200 group-hover:text-[#cdf68c] lg:text-4xl">
                       {post.title}
                     </h2>
                     {post.featured && (

@@ -172,7 +172,7 @@ export default function ResourceDetail() {
                           <Image src={r.cover_image} alt={r.title} fill className="object-cover" />
                         </div>
                       )}
-                      <p className="text-sm font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-muted-foreground">
+                      <p className="text-sm font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-[#cdf68c]">
                         {r.title}
                       </p>
                     </Link>
