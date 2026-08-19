@@ -258,15 +258,12 @@ function ResourcesPageInner() {
                 </div>
 
                 {post.cover_image && (
-                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 lg:h-20 lg:w-32">
+                  <div className="relative w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 lg:w-32">
                     <Image src={post.cover_image} alt={post.title} fill className="object-cover" />
                   </div>
                 )}
 
-                <div className="hidden shrink-0 flex-col items-end gap-2 lg:flex">
-                  <span className="text-sm text-muted-foreground/50">
-                    {new Date(post.published_at ?? post.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
-                  </span>
+                <div className="hidden shrink-0 items-center lg:flex">
                   <ArrowUpRight className="h-5 w-5 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
                 </div>
               </Link>
