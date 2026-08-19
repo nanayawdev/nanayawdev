@@ -6,6 +6,7 @@ import { RichTextEditor } from "@/components/rich-text-editor";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Post {
   id: string;
@@ -52,10 +53,8 @@ export default function AdminBlogPage() {
   const fileInputRef                = useRef<HTMLInputElement>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
-    const res = await fetch("/api/admin/blog", { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch("/api/admin/blog");
     const data = await res.json();
     setPosts(data.posts ?? []);
   }
@@ -70,7 +69,7 @@ export default function AdminBlogPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/blog/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/blog/${id}`);
     const data = await res.json();
     setEditing(data.post);
     setTagsInput((data.post.tags ?? []).join(", "));
@@ -85,9 +84,9 @@ export default function AdminBlogPage() {
       const tags = tagsInput.split(",").map((t) => t.trim()).filter(Boolean);
       const url    = isNew ? "/api/admin/blog" : `/api/admin/blog/${editing.id}`;
       const method = isNew ? "POST" : "PATCH";
-      const res = await fetch(url, {
+      const res = await adminFetch(url, {
         method,
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...editing, tags }),
       });
       const data = await res.json();
@@ -102,9 +101,9 @@ export default function AdminBlogPage() {
   }
 
   async function togglePublish(post: Post) {
-    await fetch(`/api/admin/blog/${post.id}`, {
+    await adminFetch(`/api/admin/blog/${post.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !post.published }),
     });
     await load();
@@ -113,10 +112,7 @@ export default function AdminBlogPage() {
   async function deletePost(id: string) {
     setDeleting(id);
     setConfirmDeleteId(null);
-    await fetch(`/api/admin/blog/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token()}` },
-    });
+    await adminFetch(`/api/admin/blog/${id}`, { method: "DELETE" });
     await load();
     setDeleting(null);
   }
@@ -128,11 +124,7 @@ export default function AdminBlogPage() {
     try {
       const form = new FormData();
       form.append("file", file);
-      const res = await fetch("/api/admin/upload", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token()}` },
-        body: form,
-      });
+      const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
       setEditing((p) => ({ ...p, cover_image: data.url }));
@@ -214,11 +206,7 @@ export default function AdminBlogPage() {
               onImageUpload={async (file) => {
                 const form = new FormData();
                 form.append("file", file);
-                const res = await fetch("/api/admin/upload", {
-                  method: "POST",
-                  headers: { Authorization: `Bearer ${token()}` },
-                  body: form,
-                });
+                const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error ?? "Upload failed");
                 return data.url;
