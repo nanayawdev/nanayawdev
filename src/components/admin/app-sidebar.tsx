@@ -16,6 +16,7 @@ import {
   Users,
   Quote,
   Blocks,
+  Smartphone,
 } from "lucide-react";
 import {
   Sidebar,
@@ -49,6 +50,7 @@ const NAV_GROUPS = [
       { href: "/admin/blog", label: "Blog", icon: PenLine },
       { href: "/admin/components", label: "Components", icon: Blocks },
       { href: "/admin/projects", label: "Projects", icon: FolderKanban },
+      { href: "/admin/apps", label: "Apps", icon: Smartphone },
       { href: "/admin/case-studies", label: "Case Studies", icon: BookOpen },
       { href: "/admin/services", label: "Services", icon: Layers },
       { href: "/admin/team", label: "Team", icon: Users },

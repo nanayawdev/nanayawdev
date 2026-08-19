@@ -194,6 +194,28 @@ CREATE TABLE IF NOT EXISTS testimonials (
 
 CREATE INDEX IF NOT EXISTS idx_testimonials_published ON testimonials(published);
 
+CREATE TABLE IF NOT EXISTS apps (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug            TEXT NOT NULL UNIQUE,
+  name            TEXT NOT NULL,
+  tagline         TEXT NOT NULL DEFAULT '',
+  description     TEXT NOT NULL DEFAULT '',
+  icon_image      TEXT,
+  cover_image     TEXT,
+  category        TEXT NOT NULL DEFAULT 'Utility',
+  play_store_url  TEXT,
+  app_store_url   TEXT,
+  website_url     TEXT,
+  featured        BOOLEAN NOT NULL DEFAULT FALSE,
+  published       BOOLEAN NOT NULL DEFAULT FALSE,
+  sort_order      INTEGER NOT NULL DEFAULT 0,
+  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_apps_slug      ON apps(slug);
+CREATE INDEX IF NOT EXISTS idx_apps_published ON apps(published);
+
 CREATE TABLE IF NOT EXISTS admin_users (
   id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   username       TEXT NOT NULL UNIQUE,

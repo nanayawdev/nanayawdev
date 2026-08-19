@@ -8,6 +8,7 @@ import { ChatBubble } from "@/components/chat-bubble";
 const company = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Apps", href: "/apps" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
 ];
