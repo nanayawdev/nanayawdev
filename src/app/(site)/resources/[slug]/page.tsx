@@ -50,7 +50,7 @@ export default function ResourceDetail() {
 
       {/* Cover image — full-bleed hero, only when present */}
       {post.cover_image && (
-        <div className="relative mt-20 aspect-[21/9] w-full overflow-hidden lg:mt-24">
+        <div className="relative mt-20 aspect-[21/9] max-h-[420px] w-full overflow-hidden lg:mt-24">
           <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
