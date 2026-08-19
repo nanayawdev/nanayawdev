@@ -113,7 +113,7 @@ export default function ResourceDetail() {
             </div>
             <div className="divide-y divide-border">
               {related.map((r) => (
-                <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex items-center gap-6 py-6">
+                <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex items-center gap-4 py-6 sm:gap-6">
                   <div className="min-w-0 flex-1">
                     <p className="mb-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                       {r.category}
@@ -123,11 +123,11 @@ export default function ResourceDetail() {
                     </p>
                   </div>
                   {r.cover_image && (
-                    <div className="relative h-14 w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="relative hidden w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:block">
                       <Image src={r.cover_image} alt={r.title} fill className="object-cover" />
                     </div>
                   )}
-                  <ArrowUpRight className="h-5 w-5 shrink-0 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                  <ArrowUpRight className="hidden h-5 w-5 shrink-0 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 sm:block" />
                 </Link>
               ))}
             </div>

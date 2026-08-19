@@ -60,7 +60,7 @@ export function AboutSection() {
             containerClassName="my-0"
             textClassName="tracking-tight !leading-[1.2]"
           >
-            I&apos;m a designer, engineer, and strategist rolled into one. I move fast, communicate clearly, and I&apos;m obsessive about quality. My clients don&apos;t come back because I&apos;m cheap - they come back because I make them look good and their products actually work.
+            I&apos;m a designer, engineer, and strategist rolled into one. I build digital products that are thoughtful, functional, and built to work. My clients come back because I understand the problem, solve it well, and deliver work they&apos;re proud to put their name behind.
           </ScrollReveal>
         </div>
       </div>

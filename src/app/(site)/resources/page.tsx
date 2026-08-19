@@ -229,8 +229,8 @@ function ResourcesPageInner() {
               transition={{ duration: 0.5, delay: Math.min(i, 6) * 0.06 }}
               viewport={{ once: true }}
             >
-              <Link href={`/resources/${post.slug}`} className="group flex items-center gap-6 py-8 lg:gap-8 lg:py-10">
-                <span className="w-6 shrink-0 text-sm font-medium tabular-nums text-muted-foreground/40 lg:w-8">
+              <Link href={`/resources/${post.slug}`} className="group flex items-center gap-4 py-6 sm:gap-6 sm:py-8 lg:gap-8 lg:py-10">
+                <span className="w-5 shrink-0 text-sm font-medium tabular-nums text-muted-foreground/40 sm:w-6 lg:w-8">
                   {String(indexOffset + i + 1).padStart(2, "0")}
                 </span>
 
@@ -258,7 +258,7 @@ function ResourcesPageInner() {
                 </div>
 
                 {post.cover_image && (
-                  <div className="relative w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 lg:w-32">
+                  <div className="relative hidden w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:block lg:w-32">
                     <Image src={post.cover_image} alt={post.title} fill className="object-cover" />
                   </div>
                 )}
