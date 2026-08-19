@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
@@ -48,106 +48,86 @@ export default function ResourceDetail() {
   return (
     <div className="min-h-screen bg-background">
 
-      {/* Back */}
-      <div className="max-w-7xl mx-auto px-8 pt-32 lg:pt-36 mb-10">
-        <Link href="/resources" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-4 h-4" /> All Resources
-        </Link>
-      </div>
-
-      {/* Hero */}
-      <div className="max-w-7xl mx-auto px-8 mb-10">
-        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-4">
-          {post.category} · {dateStr}
-        </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.9] tracking-[-0.05em] text-foreground mb-6">
-          {post.title}
-        </h1>
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 bg-muted flex items-center justify-center text-[0.6rem] font-bold text-foreground border border-border">
-            {post.author.split(" ").map((n) => n[0]).join("")}
-          </div>
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">{post.author}</p>
-        </div>
-      </div>
-
-      {/* Cover image */}
+      {/* Cover image — full-bleed hero, only when present */}
       {post.cover_image && (
-        <div className="relative w-full aspect-[16/7] overflow-hidden mb-16">
+        <div className="relative mt-20 aspect-[21/9] w-full overflow-hidden lg:mt-24">
           <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-8 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-16 lg:gap-24 items-start">
+      <div className={`mx-auto max-w-3xl px-8 pb-24 ${post.cover_image ? "pt-12" : "pt-32 lg:pt-40"}`}>
 
-          {/* Sidebar */}
-          <div className="lg:sticky lg:top-32 h-fit space-y-10">
-            <div>
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-4">About this article</p>
-              <p className="text-base text-muted-foreground leading-relaxed">{post.excerpt}</p>
-            </div>
-            <div>
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">Category</p>
-              <Link
-                href={`/resources?category=${encodeURIComponent(post.category)}`}
-                className="inline-block border border-border px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
-              >
-                {post.category}
-              </Link>
-            </div>
-            {post.tags?.length > 0 && (
-              <div>
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">Tags</p>
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((t) => (
-                    <span key={t} className="inline-block border border-border px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
+        {/* Back */}
+        <Link href="/resources" className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> All Resources
+        </Link>
+
+        {/* Meta */}
+        <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
+            {post.category}
+          </Link>
+          {" · "}{dateStr}
+        </p>
+
+        {/* Title */}
+        <h1 className="mb-6 text-[clamp(2.25rem,5vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em] text-foreground">
+          {post.title}
+        </h1>
+
+        {/* Excerpt / dek */}
+        <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+
+        {/* Author */}
+        <div className="mb-10 flex items-center gap-3 border-y border-border py-5">
+          <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
+            {post.author.split(" ").map((n) => n[0]).join("")}
           </div>
-
-          {/* Body */}
-          <div
-            className="prose-custom"
-            dangerouslySetInnerHTML={{ __html: post.body }}
-          />
+          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">{post.author}</p>
         </div>
+
+        {/* Body */}
+        <div className="prose-custom" dangerouslySetInnerHTML={{ __html: post.body }} />
+
+        {/* Tags */}
+        {post.tags?.length > 0 && (
+          <div className="mt-14 flex flex-wrap gap-2 border-t border-border pt-8">
+            {post.tags.map((t) => (
+              <span key={t} className="text-[0.7rem] uppercase tracking-wider text-muted-foreground/60">
+                #{t}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Related */}
       {related.length > 0 && (
         <div className="border-t border-border">
-          <div className="max-w-7xl mx-auto px-8 py-16 lg:py-20">
-            <div className="flex items-center justify-between mb-10">
-              <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground">Related resources</h2>
-              <Link href="/resources" className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted">
+          <div className="mx-auto max-w-3xl px-8 py-16 lg:py-20">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">Related resources</h2>
+              <Link href="/resources" className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:text-muted-foreground">
                 View All
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="divide-y divide-border">
               {related.map((r) => (
-                <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex overflow-hidden border border-border bg-muted/30 transition-colors hover:bg-muted/50">
-                  <div className="relative w-2/5 shrink-0 overflow-hidden bg-muted">
-                    {r.cover_image && (
-                      <Image src={r.cover_image} alt={r.title} fill sizes="20vw" className="object-cover grayscale transition duration-500 group-hover:grayscale-0" />
-                    )}
+                <Link key={r.slug} href={`/resources/${r.slug}`} className="group flex items-center gap-6 py-6">
+                  <div className="min-w-0 flex-1">
+                    <p className="mb-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      {r.category}
+                    </p>
+                    <p className="text-lg font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-muted-foreground">
+                      {r.title}
+                    </p>
                   </div>
-                  <div className="flex flex-col justify-between p-6">
-                    <div>
-                      <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                        {r.category} · {new Date(r.published_at ?? r.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
-                      </p>
-                      <p className="text-base font-semibold leading-snug text-foreground">{r.title}</p>
+                  {r.cover_image && (
+                    <div className="relative h-14 w-20 shrink-0 self-stretch overflow-hidden rounded-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+                      <Image src={r.cover_image} alt={r.title} fill className="object-cover" />
                     </div>
-                    <span className="mt-6 inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
-                      Read More <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
-                    </span>
-                  </div>
+                  )}
+                  <ArrowUpRight className="h-5 w-5 shrink-0 translate-x-1 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
                 </Link>
               ))}
             </div>
