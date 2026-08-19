@@ -5,7 +5,6 @@ import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { CTACard } from "@/components/cta-card";
 
 interface Post {
   id: string; slug: string; title: string; excerpt: string;
@@ -110,7 +109,6 @@ export default function ResourceDetail() {
                 </div>
               </div>
             )}
-            <CTACard />
           </div>
 
           {/* Body */}

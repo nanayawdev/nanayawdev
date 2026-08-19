@@ -239,16 +239,11 @@ function ResourcesPageInner() {
                     <h2 className="text-2xl font-bold leading-tight text-foreground transition-colors duration-200 group-hover:text-muted-foreground lg:text-4xl">
                       {post.title}
                     </h2>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="w-fit rounded-full border border-border px-3 py-0.5 text-sm text-muted-foreground">
-                        {post.category}
+                    {post.featured && (
+                      <span className="w-fit bg-foreground px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-background">
+                        Featured
                       </span>
-                      {post.featured && (
-                        <span className="w-fit bg-foreground px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-background">
-                          Featured
-                        </span>
-                      )}
-                    </div>
+                    )}
                   </div>
                   <p className="max-w-2xl text-base text-muted-foreground line-clamp-2">{post.excerpt}</p>
                   {post.tags?.length > 0 && (
