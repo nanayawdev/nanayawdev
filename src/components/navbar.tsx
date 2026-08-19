@@ -8,6 +8,7 @@ const navigationItems = [
   { label: "About", ariaLabel: "Learn about me", link: "/about" },
   { label: "Services", ariaLabel: "View my services", link: "/services" },
   { label: "Projects", ariaLabel: "View my projects", link: "/projects" },
+  { label: "Apps", ariaLabel: "View my apps", link: "/apps" },
   { label: "Resources", ariaLabel: "View resources", link: "/resources" },
   { label: "Start a Project", ariaLabel: "Start a project", link: "/start" },
 ];
