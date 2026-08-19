@@ -36,14 +36,33 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     if (pathname === "/admin/login") { setReady(true); return; }
-    const token = localStorage.getItem("admin_token");
-    if (!token) { router.replace("/admin/login"); return; }
-    // Decode username from JWT payload (middle segment)
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      setUsername(payload.username ?? "Admin");
-    } catch { /* ignore */ }
-    setReady(true);
+
+    function checkToken(): boolean {
+      const token = localStorage.getItem("admin_token");
+      if (!token) { router.replace("/admin/login"); return false; }
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        // exp is seconds since epoch; expired or malformed tokens force a fresh login
+        // instead of silently rendering an "authenticated" shell with no data.
+        if (!payload.exp || Date.now() >= payload.exp * 1000) {
+          localStorage.removeItem("admin_token");
+          router.replace(`/admin/login?next=${encodeURIComponent(pathname)}`);
+          return false;
+        }
+        setUsername(payload.username ?? "Admin");
+        return true;
+      } catch {
+        localStorage.removeItem("admin_token");
+        router.replace("/admin/login");
+        return false;
+      }
+    }
+
+    if (checkToken()) setReady(true);
+
+    // catch expiry while the tab is left open, not just on navigation
+    const interval = setInterval(checkToken, 60_000);
+    return () => clearInterval(interval);
   }, [pathname, router]);
 
   function logout() {
