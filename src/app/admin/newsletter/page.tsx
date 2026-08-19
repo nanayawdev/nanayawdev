@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Subscriber {
   id: number;
@@ -12,18 +13,16 @@ interface Subscriber {
 export default function NewsletterPage() {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   useEffect(() => {
-    fetch("/api/admin/subscribers", { headers: { Authorization: `Bearer ${token()}` } })
+    adminFetch("/api/admin/subscribers")
       .then((r) => r.json())
       .then((d) => setSubscribers(d.subscribers ?? []));
   }, []);
 
   async function toggleActive(s: Subscriber) {
-    const res = await fetch("/api/admin/subscribers", {
+    const res = await adminFetch("/api/admin/subscribers", {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: s.id, active: !s.active }),
     });
     const data = await res.json();

@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function AdminLogin() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <AdminLoginInner />
+    </Suspense>
+  );
+}
+
+function AdminLoginInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError]       = useState("");
@@ -23,7 +32,7 @@ export default function AdminLogin() {
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? "Login failed"); return; }
       localStorage.setItem("admin_token", data.token);
-      router.push("/admin");
+      router.push(searchParams.get("next") ?? "/admin");
     } catch {
       setError("Network error");
     } finally {

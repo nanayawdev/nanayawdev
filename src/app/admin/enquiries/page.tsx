@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Enquiry {
   id: string;
@@ -27,18 +28,16 @@ export default function EnquiriesPage() {
   const [emailSending, setEmailSending] = useState(false);
   const [emailResult, setEmailResult]   = useState<"sent" | "error" | null>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   useEffect(() => {
-    fetch("/api/admin/enquiries", { headers: { Authorization: `Bearer ${token()}` } })
+    adminFetch("/api/admin/enquiries")
       .then((r) => r.json())
       .then((d) => setEnquiries(d.enquiries ?? []));
   }, []);
 
   async function updateStatus(id: string, status: string) {
-    const res = await fetch("/api/admin/enquiries", {
+    const res = await adminFetch("/api/admin/enquiries", {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, status }),
     });
     const data = await res.json();
@@ -153,9 +152,9 @@ export default function EnquiriesPage() {
                 onClick={async () => {
                   setEmailSending(true); setEmailResult(null);
                   try {
-                    const res = await fetch("/api/admin/email", {
+                    const res = await adminFetch("/api/admin/email", {
                       method: "POST",
-                      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+                      headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ to: selected.email, subject: emailSubject, message: emailBody }),
                     });
                     setEmailResult(res.ok ? "sent" : "error");
@@ -188,9 +187,9 @@ export default function EnquiriesPage() {
                   onClick={async () => {
                     setSmsSending(true); setSmsResult(null);
                     try {
-                      const res = await fetch("/api/admin/sms", {
+                      const res = await adminFetch("/api/admin/sms", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ phone: selected.phone, message: smsText }),
                       });
                       setSmsResult(res.ok ? "sent" : "error");

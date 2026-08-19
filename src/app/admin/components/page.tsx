@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, FilePlus, X, FileIcon } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface ComponentFile {
   name: string;
@@ -53,10 +54,8 @@ export default function AdminComponentsPage() {
   const filesInputRef               = useRef<HTMLInputElement>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
-    const res = await fetch("/api/admin/components", { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch("/api/admin/components");
     const data = await res.json();
     setItems(data.components ?? []);
   }
@@ -70,7 +69,7 @@ export default function AdminComponentsPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/components/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/components/${id}`);
     const data = await res.json();
     setEditing(data.component);
     setIsNew(false);
@@ -83,9 +82,9 @@ export default function AdminComponentsPage() {
     try {
       const url    = isNew ? "/api/admin/components" : `/api/admin/components/${editing.id}`;
       const method = isNew ? "POST" : "PATCH";
-      const res = await fetch(url, {
+      const res = await adminFetch(url, {
         method,
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editing),
       });
       const data = await res.json();
@@ -100,9 +99,9 @@ export default function AdminComponentsPage() {
   }
 
   async function togglePublish(item: ComponentResource) {
-    await fetch(`/api/admin/components/${item.id}`, {
+    await adminFetch(`/api/admin/components/${item.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !item.published }),
     });
     await load();
@@ -111,10 +110,7 @@ export default function AdminComponentsPage() {
   async function deleteItem(id: string) {
     setDeleting(id);
     setConfirmDeleteId(null);
-    await fetch(`/api/admin/components/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token()}` },
-    });
+    await adminFetch(`/api/admin/components/${id}`, { method: "DELETE" });
     await load();
     setDeleting(null);
   }
@@ -122,11 +118,7 @@ export default function AdminComponentsPage() {
   async function uploadOne(file: File) {
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch("/api/admin/components/upload", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token()}` },
-      body: form,
-    });
+    const res = await adminFetch("/api/admin/components/upload", { method: "POST", body: form });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error ?? "Upload failed");
     return data as { url: string; name: string; size: number };

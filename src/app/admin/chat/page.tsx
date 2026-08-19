@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Session {
   id: number;
@@ -30,7 +31,7 @@ export default function AdminChatPage() {
 
   // Load sessions
   useEffect(() => {
-    fetch("/api/admin/chat/sessions", { headers: { Authorization: `Bearer ${token()}` } })
+    adminFetch("/api/admin/chat/sessions")
       .then((r) => r.json())
       .then((d) => setSessions(d.sessions ?? []));
   }, []);
@@ -43,9 +44,7 @@ export default function AdminChatPage() {
     esRef.current?.close();
 
     // Fetch history
-    fetch(`/api/chat/sessions/${active.id}/messages`, {
-      headers: { Authorization: `Bearer ${token()}` },
-    })
+    adminFetch(`/api/chat/sessions/${active.id}/messages`)
       .then((r) => r.json())
       .then((d) => setMessages(d.messages ?? []));
 
@@ -80,12 +79,9 @@ export default function AdminChatPage() {
   async function sendMessage() {
     if (!active || !input.trim()) return;
     setSending(true);
-    await fetch(`/api/chat/sessions/${active.id}/messages`, {
+    await adminFetch(`/api/chat/sessions/${active.id}/messages`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token()}`,
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ body: input.trim() }),
     });
     setInput("");
@@ -94,10 +90,7 @@ export default function AdminChatPage() {
 
   async function closeSession() {
     if (!active) return;
-    await fetch(`/api/chat/sessions/${active.id}/close`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token()}` },
-    });
+    await adminFetch(`/api/chat/sessions/${active.id}/close`, { method: "POST" });
     setSessions((prev) =>
       prev.map((s) => (s.id === active.id ? { ...s, status: "closed" } : s))
     );

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Project {
   id: string;
@@ -43,11 +44,9 @@ export default function AdminProjectsPage() {
   const [platformInput, setPlatformInput] = useState("");
   const fileInputRef              = useRef<HTMLInputElement>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
     try {
-      const res = await fetch("/api/admin/projects", { headers: { Authorization: `Bearer ${token()}` } });
+      const res = await adminFetch("/api/admin/projects");
       if (!res.ok) return;
       const data = await res.json();
       setProjects(data.projects ?? []);
@@ -65,7 +64,7 @@ export default function AdminProjectsPage() {
   }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/projects/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/projects/${id}`);
     const data = await res.json();
     setEditing(data.project);
     setIsNew(false);
@@ -80,9 +79,9 @@ export default function AdminProjectsPage() {
     const payload = asDraft ? { ...editing, published: false } : editing;
     const method = isNew ? "POST" : "PUT";
     const url    = isNew ? "/api/admin/projects" : `/api/admin/projects/${editing.id}`;
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await res.json();
@@ -93,9 +92,9 @@ export default function AdminProjectsPage() {
   }
 
   async function togglePublish(p: Project) {
-    await fetch(`/api/admin/projects/${p.id}`, {
+    await adminFetch(`/api/admin/projects/${p.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !p.published }),
     });
     await load();
@@ -103,7 +102,7 @@ export default function AdminProjectsPage() {
 
   async function deleteProject(id: string) {
     setDeleting(id); setConfirmDeleteId(null);
-    await fetch(`/api/admin/projects/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token()}` } });
+    await adminFetch(`/api/admin/projects/${id}`, { method: "DELETE" });
     await load();
     setDeleting(null);
   }
@@ -115,7 +114,7 @@ export default function AdminProjectsPage() {
     setError("");
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+    const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
     const data = await res.json();
     if (res.ok) {
       setEditing((p) => ({ ...p, cover_image: data.url }));

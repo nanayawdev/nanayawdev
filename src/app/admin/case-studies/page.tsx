@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { adminFetch } from "@/lib/admin-fetch";
 
 interface Stat { label: string; value: string; }
 
@@ -49,11 +50,9 @@ export default function AdminCaseStudiesPage() {
   const [serviceInput, setServiceInput] = useState("");
   const fileInputRef                = useRef<HTMLInputElement>(null);
 
-  function token() { return localStorage.getItem("admin_token") ?? ""; }
-
   async function load() {
     try {
-      const res = await fetch("/api/admin/case-studies", { headers: { Authorization: `Bearer ${token()}` } });
+      const res = await adminFetch("/api/admin/case-studies");
       if (!res.ok) return;
       const data = await res.json();
       setStudies(data.case_studies ?? []);
@@ -65,7 +64,7 @@ export default function AdminCaseStudiesPage() {
   function openNew() { setEditing({ ...EMPTY, stats: EMPTY.stats.map((s) => ({ ...s })) }); setIsNew(true); setError(""); setServiceInput(""); }
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/case-studies/${id}`, { headers: { Authorization: `Bearer ${token()}` } });
+    const res = await adminFetch(`/api/admin/case-studies/${id}`);
     const data = await res.json();
     const cs = data.case_study;
     if (typeof cs.stats === "string") cs.stats = JSON.parse(cs.stats);
@@ -78,9 +77,9 @@ export default function AdminCaseStudiesPage() {
     const payload = asDraft ? { ...editing, published: false } : editing;
     const method = isNew ? "POST" : "PUT";
     const url    = isNew ? "/api/admin/case-studies" : `/api/admin/case-studies/${editing.id}`;
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await res.json();
@@ -89,9 +88,9 @@ export default function AdminCaseStudiesPage() {
   }
 
   async function togglePublish(cs: CaseStudy) {
-    await fetch(`/api/admin/case-studies/${cs.id}`, {
+    await adminFetch(`/api/admin/case-studies/${cs.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ published: !cs.published }),
     });
     await load();
@@ -99,7 +98,7 @@ export default function AdminCaseStudiesPage() {
 
   async function deleteStudy(id: string) {
     setDeleting(id); setConfirmDeleteId(null);
-    await fetch(`/api/admin/case-studies/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token()}` } });
+    await adminFetch(`/api/admin/case-studies/${id}`, { method: "DELETE" });
     await load(); setDeleting(null);
   }
 
@@ -108,7 +107,7 @@ export default function AdminCaseStudiesPage() {
     setUploading(true);
     setError("");
     const form = new FormData(); form.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", headers: { Authorization: `Bearer ${token()}` }, body: form });
+    const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
     const data = await res.json();
     if (res.ok) {
       setEditing((p) => ({ ...p, cover_image: data.url }));
