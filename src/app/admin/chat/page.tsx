@@ -104,7 +104,7 @@ export default function AdminChatPage() {
   };
 
   return (
-    <div className="flex gap-0 h-[calc(100vh-4rem)] border border-border">
+    <div className="flex gap-0 h-[calc(100vh-4rem)] max-w-6xl mx-auto border border-border">
       {/* Session list */}
       <div className="w-72 shrink-0 border-r border-border flex flex-col">
         <div className="border-b border-border px-5 py-4">

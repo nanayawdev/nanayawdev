@@ -52,7 +52,7 @@ export default function EnquiriesPage() {
   };
 
   return (
-    <div className="flex gap-6 h-full">
+    <div className="flex gap-6 h-full max-w-6xl mx-auto">
       {/* List */}
       <div className="w-80 shrink-0 border border-border overflow-y-auto">
         <div className="border-b border-border px-5 py-4">

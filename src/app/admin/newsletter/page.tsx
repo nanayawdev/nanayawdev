@@ -33,7 +33,7 @@ export default function NewsletterPage() {
   const inactive = subscribers.filter((s) => !s.active).length;
 
   return (
-    <div>
+    <div className="max-w-6xl mx-auto">
       <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Newsletter</p>
       <h1 className="text-3xl font-bold text-foreground mb-8">Subscribers</h1>
 
