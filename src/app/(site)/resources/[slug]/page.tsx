@@ -70,6 +70,8 @@ export default function ResourceDetail() {
   }
 
   const [bodyFirstHalf, bodySecondHalf] = splitHtmlForAd(post.body);
+  const wordCount = post.body.replace(/<[^>]*>/g, " ").trim().split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.max(1, Math.round(wordCount / 200));
 
   return (
     <div className="min-h-screen bg-background">
@@ -101,13 +103,8 @@ export default function ResourceDetail() {
 
         <div className="min-w-0 flex-1">
 
-          {/* Back */}
-          <Link href="/resources" className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> All Resources
-          </Link>
-
-          {/* Hero — centered */}
-          <div className="mx-auto max-w-3xl text-center">
+          {/* Hero — left-aligned */}
+          <div className="mx-auto max-w-3xl">
             <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
                 {post.category}
@@ -121,17 +118,17 @@ export default function ResourceDetail() {
 
             <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
 
-            <div className="mb-12 flex items-center justify-center gap-3">
+            <div className="mb-12 flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
                 {post.author.split(" ").map((n) => n[0]).join("")}
               </div>
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">
-                By {post.author}
+                By {post.author} · {readingTime} min read
               </p>
             </div>
 
             {/* Mobile share row */}
-            <div className="mb-12 flex items-center justify-center gap-3 lg:hidden">
+            <div className="mb-12 flex items-center gap-3 lg:hidden">
               {shareLinks.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
