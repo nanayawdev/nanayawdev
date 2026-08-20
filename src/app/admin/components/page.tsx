@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, FilePlus, X, FileIcon } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
+import { RowActions } from "@/components/admin/row-actions";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface ComponentFile {
@@ -381,7 +382,7 @@ export default function AdminComponentsPage() {
 
   // ── List ─────────────────────────────────────────────
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Content</p>
@@ -445,30 +446,13 @@ export default function AdminComponentsPage() {
             >
               {item.published ? "Live" : "Draft"}
             </span>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => togglePublish(item)}
-                title={item.published ? "Unpublish" : "Publish"}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {item.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-              <button
-                onClick={() => openEdit(item.id)}
-                title="Edit"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Pencil className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setConfirmDeleteId(item.id)}
-                disabled={deleting === item.id}
-                title="Delete"
-                className="text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-40"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
+            <RowActions
+              actions={[
+                { label: item.published ? "Unpublish" : "Publish", icon: item.published ? EyeOff : Eye, onClick: () => togglePublish(item) },
+                { label: "Edit", icon: Pencil, onClick: () => openEdit(item.id) },
+                { label: "Delete", icon: Trash2, onClick: () => setConfirmDeleteId(item.id), disabled: deleting === item.id, destructive: true },
+              ]}
+            />
           </div>
         ))}
       </div>

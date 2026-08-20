@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical } from "l
 import { ConfirmModal } from "@/components/confirm-modal";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { Spinner } from "@/components/admin/spinner";
+import { RowActions } from "@/components/admin/row-actions";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Service {
@@ -232,7 +233,7 @@ export default function AdminServicesPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
@@ -265,17 +266,13 @@ export default function AdminServicesPage() {
             <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border ${s.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
               {s.published ? "Published" : "Draft"}
             </span>
-            <div className="flex items-center gap-3 shrink-0">
-              <button onClick={() => togglePublish(s)} title={s.published ? "Unpublish" : "Publish"} className="text-muted-foreground hover:text-foreground transition-colors">
-                {s.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-              <button onClick={() => openEdit(s.id)} title="Edit" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Pencil className="h-4 w-4" />
-              </button>
-              <button onClick={() => setConfirmDeleteId(s.id)} disabled={deleting === s.id} title="Delete" className="text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-40">
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
+            <RowActions
+              actions={[
+                { label: s.published ? "Unpublish" : "Publish", icon: s.published ? EyeOff : Eye, onClick: () => togglePublish(s) },
+                { label: "Edit", icon: Pencil, onClick: () => openEdit(s.id) },
+                { label: "Delete", icon: Trash2, onClick: () => setConfirmDeleteId(s.id), disabled: deleting === s.id, destructive: true },
+              ]}
+            />
           </div>
         ))}
       </div>

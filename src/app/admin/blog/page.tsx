@@ -7,6 +7,7 @@ import { ConfirmModal } from "@/components/confirm-modal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Spinner } from "@/components/admin/spinner";
+import { RowActions } from "@/components/admin/row-actions";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Post {
@@ -140,7 +141,7 @@ export default function AdminBlogPage() {
   // ── Editor panel ──────────────────────────────────────────
   if (editing !== null) {
     return (
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
@@ -345,7 +346,7 @@ export default function AdminBlogPage() {
 
   // ── Post list ─────────────────────────────────────────────
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Content</p>
@@ -409,30 +410,13 @@ export default function AdminBlogPage() {
             >
               {post.published ? "Live" : "Draft"}
             </span>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => togglePublish(post)}
-                title={post.published ? "Unpublish" : "Publish"}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {post.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-              <button
-                onClick={() => openEdit(post.id)}
-                title="Edit"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Pencil className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setConfirmDeleteId(post.id)}
-                disabled={deleting === post.id}
-                title="Delete"
-                className="text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-40"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
+            <RowActions
+              actions={[
+                { label: post.published ? "Unpublish" : "Publish", icon: post.published ? EyeOff : Eye, onClick: () => togglePublish(post) },
+                { label: "Edit", icon: Pencil, onClick: () => openEdit(post.id) },
+                { label: "Delete", icon: Trash2, onClick: () => setConfirmDeleteId(post.id), disabled: deleting === post.id, destructive: true },
+              ]}
+            />
           </div>
         ))}
       </div>

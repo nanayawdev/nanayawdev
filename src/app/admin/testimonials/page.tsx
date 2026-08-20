@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical, User } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
+import { RowActions } from "@/components/admin/row-actions";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Testimonial {
@@ -180,7 +181,7 @@ export default function AdminTestimonialsPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Testimonials</h1>
@@ -217,17 +218,13 @@ export default function AdminTestimonialsPage() {
             <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border shrink-0 ${t.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
               {t.published ? "Visible" : "Hidden"}
             </span>
-            <div className="flex items-center gap-3 shrink-0">
-              <button onClick={() => togglePublish(t)} title={t.published ? "Hide" : "Show"} className="text-muted-foreground hover:text-foreground transition-colors">
-                {t.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-              <button onClick={() => openEdit(t.id)} title="Edit" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Pencil className="h-4 w-4" />
-              </button>
-              <button onClick={() => setConfirmDeleteId(t.id)} disabled={deleting === t.id} title="Delete" className="text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-40">
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
+            <RowActions
+              actions={[
+                { label: t.published ? "Hide" : "Show", icon: t.published ? EyeOff : Eye, onClick: () => togglePublish(t) },
+                { label: "Edit", icon: Pencil, onClick: () => openEdit(t.id) },
+                { label: "Delete", icon: Trash2, onClick: () => setConfirmDeleteId(t.id), disabled: deleting === t.id, destructive: true },
+              ]}
+            />
           </div>
         ))}
       </div>
