@@ -116,7 +116,7 @@ export default function ResourceDetail() {
               {post.title}
             </h1>
 
-            <p className="mb-8 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
+            <p className="mb-8 text-xs leading-relaxed text-muted-foreground">{post.excerpt}</p>
 
             <div className="mb-12 flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
