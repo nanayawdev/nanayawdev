@@ -42,7 +42,7 @@ export default function QuestionsPage() {
   }
 
   return (
-    <div className="flex gap-6 h-full max-w-7xl mx-auto">
+    <div className="flex gap-6 h-full">
       {/* List */}
       <div className="w-80 shrink-0 border border-border overflow-y-auto">
         <div className="border-b border-border px-5 py-4">

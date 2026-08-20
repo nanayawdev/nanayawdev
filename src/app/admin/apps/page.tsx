@@ -113,7 +113,7 @@ export default function AdminAppsPage() {
 
   if (editing) {
     return (
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-xl">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New App" : "Edit App"}</h1>
           <div className="flex items-center gap-3">
@@ -221,7 +221,7 @@ export default function AdminAppsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Apps</h1>

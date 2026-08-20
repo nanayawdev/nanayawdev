@@ -114,7 +114,7 @@ export default function AdminTeamPage() {
 
   if (editing) {
     return (
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-xl">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Team Member" : "Edit Team Member"}</h1>
           <div className="flex items-center gap-3">
@@ -221,7 +221,7 @@ export default function AdminTeamPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Team</h1>

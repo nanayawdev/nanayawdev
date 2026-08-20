@@ -136,7 +136,7 @@ export default function AdminCaseStudiesPage() {
   if (editing) {
     const stats = editing.stats ?? [{ label: "", value: "" }, { label: "", value: "" }, { label: "", value: "" }];
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Case Study" : "Edit Case Study"}</h1>
           <div className="flex items-center gap-3">
@@ -278,7 +278,7 @@ export default function AdminCaseStudiesPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Case Studies</h1>

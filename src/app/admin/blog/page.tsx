@@ -141,7 +141,7 @@ export default function AdminBlogPage() {
   // ── Editor panel ──────────────────────────────────────────
   if (editing !== null) {
     return (
-      <div className="max-w-7xl mx-auto">
+      <div>
         <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
@@ -346,7 +346,7 @@ export default function AdminBlogPage() {
 
   // ── Post list ─────────────────────────────────────────────
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Content</p>
