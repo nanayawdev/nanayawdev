@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ConfirmModal } from "@/components/confirm-modal";
+import { LogoutModal } from "@/components/admin/logout-modal";
 import { usePathname, useRouter } from "next/navigation";
 import { Bell, ChevronRight } from "lucide-react";
 import {
@@ -120,11 +120,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </SidebarInset>
       </SidebarProvider>
 
-      <ConfirmModal
+      <LogoutModal
         open={showLogout}
-        title="Sign out?"
-        description="You will be returned to the login screen."
-        confirmLabel="Yes, sign out"
         onConfirm={logout}
         onCancel={() => setShowLogout(false)}
       />
