@@ -23,9 +23,12 @@ interface Props {
   value: string;
   onChange: (html: string) => void;
   onImageUpload: (file: File) => Promise<string>;
+  /** Optional context passed to the AI "write from a prompt" action. */
+  articleTitle?: string;
+  articleCategory?: string;
 }
 
-type AiAction = "continue" | "lengthen" | "refine" | "tone";
+type AiAction = "continue" | "lengthen" | "refine" | "tone" | "generate";
 type AiProvider = "anthropic" | "openai";
 
 const TONES = ["Professional", "Casual", "Persuasive", "Technical", "Friendly"];
@@ -38,6 +41,13 @@ function textToHtml(text: string): string {
     .filter(Boolean)
     .map((p) => `<p>${p.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>`)
     .join("");
+}
+
+/** Strips a ```html ... ``` fence if the model wrapped its HTML output in one. */
+function stripCodeFence(text: string): string {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/^```(?:html)?\n([\s\S]*?)\n```$/);
+  return fenced ? fenced[1].trim() : trimmed;
 }
 
 const ToolBtn = ({
@@ -61,11 +71,13 @@ const ToolBtn = ({
   </button>
 );
 
-export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
+export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, articleCategory }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const aiMenuRef = useRef<HTMLDivElement>(null);
   const [aiMenuOpen, setAiMenuOpen] = useState(false);
   const [toneMenuOpen, setToneMenuOpen] = useState(false);
+  const [generateOpen, setGenerateOpen] = useState(false);
+  const [generateBrief, setGenerateBrief] = useState("");
   const [aiBusy, setAiBusy] = useState(false);
   const [aiError, setAiError] = useState("");
   const [provider, setProvider] = useState<AiProvider>(() =>
@@ -77,12 +89,17 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
     localStorage.setItem("ai_provider", p);
   }
 
+  function closeAiMenu() {
+    setAiMenuOpen(false);
+    setToneMenuOpen(false);
+    setGenerateOpen(false);
+  }
+
   useEffect(() => {
     if (!aiMenuOpen) return;
     const onClickAway = (e: MouseEvent) => {
       if (aiMenuRef.current && !aiMenuRef.current.contains(e.target as Node)) {
-        setAiMenuOpen(false);
-        setToneMenuOpen(false);
+        closeAiMenu();
       }
     };
     document.addEventListener("mousedown", onClickAway);
@@ -163,6 +180,45 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
       } else {
         editor.chain().focus().deleteRange({ from, to }).insertContentAt(from, html).run();
       }
+    } catch (e: unknown) {
+      setAiError(e instanceof Error ? e.message : "AI request failed");
+      setTimeout(() => setAiError(""), 4000);
+    } finally {
+      setAiBusy(false);
+    }
+  }
+
+  async function runGenerate() {
+    if (!editor) return;
+    const brief = generateBrief.trim();
+    if (!brief) {
+      setAiError("Describe what you want to write");
+      setTimeout(() => setAiError(""), 2500);
+      return;
+    }
+
+    setAiBusy(true);
+    setAiError("");
+    try {
+      const res = await adminFetch("/api/admin/ai-writing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "generate",
+          provider,
+          text: brief,
+          title: articleTitle,
+          category: articleCategory,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "AI request failed");
+
+      const html = stripCodeFence(data.result);
+      editor.chain().focus("end").insertContent(html).run();
+      setGenerateOpen(false);
+      setGenerateBrief("");
+      setAiMenuOpen(false);
     } catch (e: unknown) {
       setAiError(e instanceof Error ? e.message : "AI request failed");
       setTimeout(() => setAiError(""), 4000);
@@ -279,7 +335,7 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
           <button
             type="button"
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => { setAiMenuOpen((o) => !o); setToneMenuOpen(false); }}
+            onClick={() => { setAiMenuOpen((o) => !o); setToneMenuOpen(false); setGenerateOpen(false); }}
             disabled={aiBusy}
             title="AI writing tools"
             className="flex h-7 items-center gap-1 px-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
@@ -290,56 +346,97 @@ export function RichTextEditor({ value, onChange, onImageUpload }: Props) {
           </button>
 
           {aiMenuOpen && (
-            <div className="absolute left-0 top-full z-20 mt-1 w-52 border border-border bg-background shadow-lg">
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("continue")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
-                Continue writing
-              </button>
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("lengthen")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
-                Make longer <span className="text-muted-foreground/60">(selection)</span>
-              </button>
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("refine")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
-                Refine <span className="text-muted-foreground/60">(selection)</span>
-              </button>
-
-              <div className="relative">
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => setToneMenuOpen((o) => !o)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-xs text-foreground hover:bg-muted"
-                >
-                  <span>Change tone <span className="text-muted-foreground/60">(selection)</span></span>
-                  <ChevronDown className="h-3 w-3" />
-                </button>
-                {toneMenuOpen && (
-                  <div className="absolute left-full top-0 z-20 w-40 border border-border bg-background shadow-lg">
-                    {TONES.map((t) => (
-                      <button key={t} type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("tone", t)} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="border-t border-border px-3 py-2">
-                <p className="mb-1.5 text-[0.6rem] font-semibold uppercase tracking-wider text-muted-foreground">Provider</p>
-                <div className="flex gap-1">
-                  {(["anthropic", "openai"] as const).map((p) => (
+            <div className="absolute left-0 top-full z-20 mt-1 w-64 border border-border bg-background shadow-lg">
+              {generateOpen ? (
+                <div className="p-3">
+                  <p className="mb-1.5 text-[0.6rem] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Describe the article
+                  </p>
+                  <textarea
+                    autoFocus
+                    rows={4}
+                    value={generateBrief}
+                    onChange={(e) => setGenerateBrief(e.target.value)}
+                    placeholder="e.g. A practical guide to setting up prompt caching in the Claude API, aimed at backend devs"
+                    className="mb-2 w-full resize-none border border-border bg-background px-2 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                  />
+                  <div className="flex items-center gap-2">
                     <button
-                      key={p}
+                      type="button"
+                      onClick={runGenerate}
+                      disabled={aiBusy}
+                      className="flex-1 bg-foreground px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-background transition-opacity hover:opacity-90 disabled:opacity-50"
+                    >
+                      {aiBusy ? "Writing…" : "Generate"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setGenerateOpen(false); setGenerateBrief(""); }}
+                      className="border border-border px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-foreground hover:bg-muted"
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => setGenerateOpen(true)} className="block w-full px-3 py-2 text-left text-xs font-medium text-foreground hover:bg-muted">
+                    Write from a prompt…
+                  </button>
+
+                  <div className="my-1 border-t border-border" />
+
+                  <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("continue")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
+                    Continue writing
+                  </button>
+                  <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("lengthen")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
+                    Make longer <span className="text-muted-foreground/60">(selection)</span>
+                  </button>
+                  <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("refine")} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
+                    Refine <span className="text-muted-foreground/60">(selection)</span>
+                  </button>
+
+                  <div className="relative">
+                    <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => setAndPersistProvider(p)}
-                      className={`px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-wider transition-colors ${
-                        provider === p ? "bg-foreground text-background" : "border border-border text-muted-foreground hover:text-foreground"
-                      }`}
+                      onClick={() => setToneMenuOpen((o) => !o)}
+                      className="flex w-full items-center justify-between px-3 py-2 text-left text-xs text-foreground hover:bg-muted"
                     >
-                      {p === "anthropic" ? "Claude" : "OpenAI"}
+                      <span>Change tone <span className="text-muted-foreground/60">(selection)</span></span>
+                      <ChevronDown className="h-3 w-3" />
                     </button>
-                  ))}
-                </div>
-              </div>
+                    {toneMenuOpen && (
+                      <div className="absolute left-full top-0 z-20 w-40 border border-border bg-background shadow-lg">
+                        {TONES.map((t) => (
+                          <button key={t} type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => runAiAction("tone", t)} className="block w-full px-3 py-2 text-left text-xs text-foreground hover:bg-muted">
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t border-border px-3 py-2">
+                    <p className="mb-1.5 text-[0.6rem] font-semibold uppercase tracking-wider text-muted-foreground">Provider</p>
+                    <div className="flex gap-1">
+                      {(["anthropic", "openai"] as const).map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => setAndPersistProvider(p)}
+                          className={`px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-wider transition-colors ${
+                            provider === p ? "bg-foreground text-background" : "border border-border text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {p === "anthropic" ? "Claude" : "OpenAI"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           )}
 

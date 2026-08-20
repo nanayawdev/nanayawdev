@@ -204,6 +204,8 @@ export default function AdminBlogPage() {
             <RichTextEditor
               value={editing.body ?? ""}
               onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
+              articleTitle={editing.title}
+              articleCategory={editing.category}
               onImageUpload={async (file) => {
                 const form = new FormData();
                 form.append("file", file);
