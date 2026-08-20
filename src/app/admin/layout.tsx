@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { LogoutModal } from "@/components/admin/logout-modal";
 import { usePathname, useRouter } from "next/navigation";
-import { Bell, ChevronRight } from "lucide-react";
+import { BellIcon as Bell, CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
 import {
   SidebarInset,
   SidebarProvider,

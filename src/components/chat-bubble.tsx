@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Phone, X, Send, Minus } from "lucide-react";
+import { PhoneIcon as Phone, XIcon as X, PaperPlaneTiltIcon as Send, MinusIcon as Minus } from "@phosphor-icons/react";
 
 type Stage = "idle" | "phone" | "otp" | "chat" | "closed";
 type Message = { id: string; sender: "agent" | "user"; body: string; created_at: string };

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeftIcon as ArrowLeft, ArrowUpRightIcon as ArrowUpRight } from "@phosphor-icons/react";
 import { CTACard } from "@/components/cta-card";
 
 interface Service {

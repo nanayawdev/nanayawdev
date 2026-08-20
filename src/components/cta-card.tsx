@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon as ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export function CTACard() {
   return (
@@ -23,7 +23,7 @@ export function CTACard() {
           href="/case-studies"
           className="flex h-10 w-10 items-center justify-center border border-background/20 text-background transition-colors hover:bg-background/10"
         >
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-4 w-4" weight="duotone" />
         </Link>
       </div>
     </div>

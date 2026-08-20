@@ -3,21 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  FileText,
-  HelpCircle,
-  Mail,
-  MessageSquare,
-  PenLine,
-  FolderKanban,
-  BookOpen,
-  Layers,
-  Users,
-  Quote,
-  Blocks,
-  Smartphone,
-} from "lucide-react";
+import { LayoutIcon as LayoutDashboard, FileTextIcon as FileText, SealQuestionIcon as HelpCircle, EnvelopeSimpleIcon as Mail, ChatTextIcon as MessageSquare, PencilLineIcon as PenLine, KanbanIcon as FolderKanban, BookOpenIcon as BookOpen, StackIcon as Layers, UsersIcon as Users, QuotesIcon as Quote, CubeIcon as Blocks, DeviceMobileIcon as Smartphone } from "@phosphor-icons/react";
 import {
   Sidebar,
   SidebarContent,
@@ -87,7 +73,7 @@ export function AppSidebar() {
                   <SidebarMenuItem key={href}>
                     <SidebarMenuButton asChild isActive={active} tooltip={label}>
                       <Link href={href}>
-                        <Icon strokeWidth={active ? 2 : 1.5} />
+                        <Icon weight="duotone" />
                         <span>{label}</span>
                       </Link>
                     </SidebarMenuButton>

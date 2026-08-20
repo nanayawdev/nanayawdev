@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Globe } from "lucide-react";
+import { GithubLogoIcon as Github, LinkedinLogoIcon as Linkedin, TwitterLogoIcon as Twitter, GlobeIcon as Globe } from "@phosphor-icons/react";
 
 interface TeamMember {
   id: string;

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CheckCircle2, XCircle, Clock } from "lucide-react";
+import { CheckCircleIcon as CheckCircle2, XCircleIcon as XCircle, ClockIcon as Clock } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 type Tone = "success" | "warning" | "danger" | "info" | "neutral" | "brand";
@@ -45,7 +45,7 @@ export function StatusPill({ children, tone, icon = true, className }: StatusPil
         className
       )}
     >
-      {icon && <Icon className="size-3" />}
+      {icon && <Icon className="size-3" weight="duotone" />}
       {children}
     </span>
   );

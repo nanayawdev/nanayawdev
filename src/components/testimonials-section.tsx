@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, User } from "lucide-react";
+import { CaretLeftIcon as ChevronLeft, CaretRightIcon as ChevronRight, UserIcon as User } from "@phosphor-icons/react";
 import TextLoop from "@/components/TextLoop";
 
 interface Testimonial {

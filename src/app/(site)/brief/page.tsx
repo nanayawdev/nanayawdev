@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ArrowLeft, Send, FileText, Upload, Target, Users, Calendar, DollarSign, Link as LinkIcon, Image, File, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ArrowLeftIcon as ArrowLeft, PaperPlaneTiltIcon as Send, FileTextIcon as FileText, UploadIcon as Upload, TargetIcon as Target, UsersIcon as Users, CalendarIcon as Calendar, CurrencyDollarIcon as DollarSign, LinkIcon as LinkIcon, ImageIcon as Image, FileIcon as File, CaretLeftIcon as ChevronLeft, CaretRightIcon as ChevronRight, CheckIcon as Check } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function BriefPage() {

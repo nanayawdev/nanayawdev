@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Big_Shoulders } from "next/font/google";
-import { Sparkle } from "lucide-react";
+import { SparkleIcon as Sparkle } from "@phosphor-icons/react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const bigShoulders = Big_Shoulders({

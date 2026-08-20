@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FileText, HelpCircle, Mail, MessageSquare } from "lucide-react";
+import { FileTextIcon as FileText, SealQuestionIcon as HelpCircle, EnvelopeSimpleIcon as Mail, ChatTextIcon as MessageSquare } from "@phosphor-icons/react";
 import { PageHeader } from "@/components/admin/page-header";
 import { MetricCard } from "@/components/admin/metric-card";
 import { adminFetch } from "@/lib/admin-fetch";

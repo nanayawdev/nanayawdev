@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ArrowSquareOutIcon as ExternalLink } from "@phosphor-icons/react";
 
 interface App {
   id: string;

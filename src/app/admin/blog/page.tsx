@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X } from "lucide-react";
+import { PlusIcon as Plus, PencilIcon as Pencil, TrashIcon as Trash2, EyeIcon as Eye, EyeSlashIcon as EyeOff, ImageIcon as ImagePlus, XIcon as X } from "@phosphor-icons/react";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

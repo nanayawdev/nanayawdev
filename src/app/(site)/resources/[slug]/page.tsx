@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUp, Facebook, Link2, Linkedin, Twitter, Check } from "lucide-react";
+import { ArrowLeftIcon as ArrowLeft, ArrowUpIcon as ArrowUp, FacebookLogoIcon as Facebook, LinkSimpleIcon as Link2, LinkedinLogoIcon as Linkedin, TwitterLogoIcon as Twitter, CheckIcon as Check } from "@phosphor-icons/react";
 import { AdSlot } from "@/components/ad-slot";
 import { WhatsAppModal } from "@/components/whatsapp-modal";
 import { splitHtmlForAd } from "@/lib/ad-utils";

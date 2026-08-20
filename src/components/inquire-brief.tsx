@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { X, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { XIcon as X, ArrowRightIcon as ArrowRight, ArrowLeftIcon as ArrowLeft, CheckIcon as Check } from "@phosphor-icons/react";
 
 interface InquireBriefModalProps {
   isOpen: boolean;

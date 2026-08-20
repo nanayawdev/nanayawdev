@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Check, Copy, Download, FileIcon } from "lucide-react";
+import { ArrowLeftIcon as ArrowLeft, CheckIcon as Check, CopyIcon as Copy, DownloadIcon as Download, FileIcon as FileIcon } from "@phosphor-icons/react";
 import { CTACard } from "@/components/cta-card";
 
 interface ComponentFile {

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { PlusIcon as Plus } from "@phosphor-icons/react";
 
 const faqData = [
   {

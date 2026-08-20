@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react";
+import { CircleNotchIcon as Loader2 } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 const SIZES = {
@@ -15,5 +15,5 @@ export function Spinner({
   size?: keyof typeof SIZES;
   className?: string;
 }) {
-  return <Loader2 className={cn("animate-spin text-muted-foreground", SIZES[size], className)} />;
+  return <Loader2 className={cn("animate-spin text-muted-foreground", SIZES[size], className)} weight="duotone" />;
 }

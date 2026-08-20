@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { ArrowRightIcon as ArrowRight, ArrowLeftIcon as ArrowLeft, CheckIcon as Check } from "@phosphor-icons/react";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

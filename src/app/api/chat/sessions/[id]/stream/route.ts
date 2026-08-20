@@ -5,6 +5,13 @@ import { getChatFromRequest, getAdminFromRequest } from "@/lib/auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// Hard cap on how long a single stream invocation can stay open. Without
+// this, a forgotten/backgrounded browser tab holds a serverless function
+// instance alive indefinitely, polling every 1.5s — which is what was
+// driving up Vercel Fluid Active CPU usage. The client (chat widget) is
+// expected to reconnect on `event: timeout` if the session is still active.
+const MAX_STREAM_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+
 /**
  * GET /api/chat/sessions/[id]/stream
  * Server-Sent Events stream — polls for new messages every 1.5s.
@@ -74,6 +81,7 @@ export async function GET(
             encode(`event: closed\ndata: {}\n\n`);
             clearInterval(poll);
             clearInterval(heartbeat);
+            clearTimeout(maxDuration);
             closed = true;
             controller.close();
           }
@@ -82,10 +90,20 @@ export async function GET(
         }
       }, 1_500);
 
+      const maxDuration = setTimeout(() => {
+        if (closed) return;
+        encode(`event: timeout\ndata: {}\n\n`);
+        closed = true;
+        clearInterval(poll);
+        clearInterval(heartbeat);
+        controller.close();
+      }, MAX_STREAM_DURATION_MS);
+
       req.signal.addEventListener("abort", () => {
         closed = true;
         clearInterval(poll);
         clearInterval(heartbeat);
+        clearTimeout(maxDuration);
         controller.close();
       });
     },

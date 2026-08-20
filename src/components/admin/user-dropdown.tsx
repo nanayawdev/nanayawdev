@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { SignOutIcon as LogOut } from "@phosphor-icons/react";
 import {
   DropdownMenu,
   DropdownMenuContent,

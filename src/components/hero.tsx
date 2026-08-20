@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon as ArrowRight } from "@phosphor-icons/react";
 import Link from "next/link";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { MoreHorizontal } from "lucide-react";
+import { DotsThreeIcon as MoreHorizontal } from "@phosphor-icons/react";
 import {
   DropdownMenu,
   DropdownMenuContent,

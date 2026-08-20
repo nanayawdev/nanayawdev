@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send } from "lucide-react";
+import { PaperPlaneTiltIcon as Send } from "@phosphor-icons/react";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Session {

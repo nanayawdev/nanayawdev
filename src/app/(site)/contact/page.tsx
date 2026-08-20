@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, Twitter, Linkedin, Github, Instagram } from "lucide-react";
+import { ArrowRightIcon as ArrowRight, CheckIcon as Check, TwitterLogoIcon as Twitter, LinkedinLogoIcon as Linkedin, GithubLogoIcon as Github, InstagramLogoIcon as Instagram } from "@phosphor-icons/react";
 
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 

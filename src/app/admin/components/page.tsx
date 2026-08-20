@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, FilePlus, X, FileIcon } from "lucide-react";
+import { PlusIcon as Plus, PencilIcon as Pencil, TrashIcon as Trash2, EyeIcon as Eye, EyeSlashIcon as EyeOff, ImageIcon as ImagePlus, FilePlusIcon as FilePlus, XIcon as X, FileIcon as FileIcon } from "@phosphor-icons/react";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";

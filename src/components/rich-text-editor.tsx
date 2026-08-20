@@ -9,15 +9,7 @@ import Typography from "@tiptap/extension-typography";
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { useEffect, useRef, useState } from "react";
-import {
-  Bold, Italic, UnderlineIcon, Strikethrough,
-  Heading1, Heading2, Heading3,
-  List, ListOrdered, Quote, Minus,
-  AlignLeft, AlignCenter, AlignRight,
-  Link2, ImagePlus, Undo, Redo,
-  Sparkles, ChevronDown, Loader2,
-  ArrowUp, X,
-} from "lucide-react";
+import { TextBIcon as Bold, TextItalicIcon as Italic, TextUnderlineIcon as UnderlineIcon, TextStrikethroughIcon as Strikethrough, TextHOneIcon as Heading1, TextHTwoIcon as Heading2, TextHThreeIcon as Heading3, ListIcon as List, ListNumbersIcon as ListOrdered, QuotesIcon as Quote, MinusIcon as Minus, TextAlignLeftIcon as AlignLeft, TextAlignCenterIcon as AlignCenter, TextAlignRightIcon as AlignRight, LinkSimpleIcon as Link2, ImageIcon as ImagePlus, ArrowUUpLeftIcon as Undo, ArrowUUpRightIcon as Redo, SparkleIcon as Sparkles, CaretDownIcon as ChevronDown, CircleNotchIcon as Loader2, ArrowUpIcon as ArrowUp, XIcon as X } from "@phosphor-icons/react";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Props {

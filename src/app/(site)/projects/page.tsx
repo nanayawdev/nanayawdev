@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useCallback, useEffect } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon as ArrowUpRight } from "@phosphor-icons/react";
 
 interface Project {
   id: string;

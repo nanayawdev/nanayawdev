@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { XIcon as X } from "@phosphor-icons/react";
 
 const INVITE_URL = process.env.NEXT_PUBLIC_WHATSAPP_COMMUNITY_URL;
 const SCROLL_TRIGGER_RATIO = 0.5;

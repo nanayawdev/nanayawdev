@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { XIcon as X } from "@phosphor-icons/react";
 
 interface QuestionModalProps {
   open: boolean;

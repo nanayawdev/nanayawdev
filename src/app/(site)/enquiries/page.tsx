@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ArrowLeft, Send, User, Mail, Phone, MessageCircle } from "lucide-react";
+import { ArrowLeftIcon as ArrowLeft, PaperPlaneTiltIcon as Send, UserIcon as User, EnvelopeSimpleIcon as Mail, PhoneIcon as Phone, ChatCircleIcon as MessageCircle } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function EnquiriesPage() {

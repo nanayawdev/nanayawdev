@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRightIcon as ArrowUpRight, GithubLogoIcon as Github, InstagramLogoIcon as Instagram, LinkedinLogoIcon as Linkedin, EnvelopeSimpleIcon as Mail } from "@phosphor-icons/react";
 import { ChatBubble } from "@/components/chat-bubble";
 
 function TikTokIcon({ className }: { className?: string }) {
