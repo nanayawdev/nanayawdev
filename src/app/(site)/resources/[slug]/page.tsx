@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUp, Facebook, Link2, Linkedin, Twitter, Check } from "lucide-react";
 import { AdSlot } from "@/components/ad-slot";
+import { WhatsAppModal } from "@/components/whatsapp-modal";
 import { splitHtmlForAd } from "@/lib/ad-utils";
 
 interface Post {
@@ -229,6 +230,8 @@ export default function ResourceDetail() {
       >
         <ArrowUp className="h-4 w-4" />
       </button>
+
+      <WhatsAppModal />
 
     </div>
   );
