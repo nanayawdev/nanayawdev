@@ -7,7 +7,7 @@ import { TestimonialsSection } from "@/components/testimonials-section";
 import { FAQ } from "@/components/faq";
 import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
-import { AboutSection } from "@/components/about-section";
+import { NameHero } from "@/components/name-hero";
 
 export const metadata: Metadata = {
   title: "nanayawdev - Software Engineer",
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <StructuredData />
-      <AboutSection />
+      <NameHero />
       <TechTicker />
       <Services />
       <LatestWork />
