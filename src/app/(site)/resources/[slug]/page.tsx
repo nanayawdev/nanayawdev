@@ -104,7 +104,7 @@ export default function ResourceDetail() {
         <div className="min-w-0 flex-1">
 
           {/* Hero — left-aligned */}
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-4xl">
             <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
                 {post.category}
@@ -116,7 +116,7 @@ export default function ResourceDetail() {
               {post.title}
             </h1>
 
-            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+            <p className="mb-8 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
 
             <div className="mb-12 flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center border border-border bg-muted text-[0.6rem] font-bold text-foreground">
