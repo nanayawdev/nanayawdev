@@ -35,31 +35,23 @@ export function CookieConsent() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed bottom-6 left-6 right-6 z-50 max-w-md mx-auto lg:mx-0 lg:max-w-lg"
+          className="fixed bottom-4 left-4 right-4 z-50 max-w-xs mx-auto lg:mx-0"
         >
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-lg backdrop-blur-sm">
-            {/* Header */}
-            <h3 className="text-xl font-bold text-foreground mb-3">
-              Cookie Settings
-            </h3>
-
-            {/* Body Text */}
-            <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-              I use cookies to personalize content, run ads, and analyze traffic.{" "}
+          <div className="bg-card border border-border rounded-xl p-3 shadow-lg backdrop-blur-sm flex items-center gap-2">
+            <p className="text-muted-foreground text-xs leading-snug flex-1">
+              I use cookies.{" "}
               <Link
                 href="/privacy"
                 className="text-primary hover:text-primary/80 underline transition-colors"
               >
-                Read my Privacy Policy
+                Learn more
               </Link>
-              .
             </p>
 
-            {/* Buttons */}
-            <div className="flex gap-3 justify-end">
+            <div className="flex gap-1.5 shrink-0">
               <motion.button
                 onClick={handleReject}
-                className="px-6 py-3 bg-muted text-muted-foreground rounded-lg font-medium hover:bg-muted/80 transition-colors duration-200"
+                className="px-2.5 py-1 bg-muted text-muted-foreground rounded-md text-xs font-medium hover:bg-muted/80 transition-colors duration-200"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -67,7 +59,7 @@ export function CookieConsent() {
               </motion.button>
               <motion.button
                 onClick={handleAccept}
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200"
+                className="px-2.5 py-1 bg-primary text-primary-foreground rounded-md text-xs font-medium hover:bg-primary/90 transition-colors duration-200"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
