@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X, GripVertical } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { RichTextEditor } from "@/components/rich-text-editor";
+import { Spinner } from "@/components/admin/spinner";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Service {
@@ -121,7 +122,7 @@ export default function AdminServicesPage() {
             <button onClick={() => setEditing(null)} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
             <button onClick={() => save(true)} disabled={saving} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
             <button onClick={() => save(false)} disabled={saving} className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
-              {saving ? "Saving…" : isNew ? "Create Service" : "Save Changes"}
+              {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Create Service" : "Save Changes"}
             </button>
           </div>
         </div>

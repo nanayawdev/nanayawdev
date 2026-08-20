@@ -6,6 +6,7 @@ import { RichTextEditor } from "@/components/rich-text-editor";
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Spinner } from "@/components/admin/spinner";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Post {
@@ -140,28 +141,28 @@ export default function AdminBlogPage() {
   if (editing !== null) {
     return (
       <div className="max-w-3xl">
-        <div className="flex items-center justify-between mb-8">
-          <div>
+        <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
               {isNew ? "New Post" : "Edit Post"}
             </p>
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-2xl font-bold text-foreground truncate">
               {isNew ? "Write a new article" : editing.title}
             </h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setEditing(null)}
-              className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors"
+              className="flex-1 border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors sm:flex-none"
             >
               Cancel
             </button>
             <button
               onClick={save}
               disabled={saving}
-              className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex-1 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none"
             >
-              {saving ? "Saving…" : "Save Post"}
+              {saving ? <Spinner size="sm" className="text-background" /> : "Save Post"}
             </button>
           </div>
         </div>

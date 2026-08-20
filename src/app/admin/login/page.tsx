@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Spinner } from "@/components/admin/spinner";
 
 export default function AdminLogin() {
   return (
@@ -81,9 +82,9 @@ function AdminLoginInner() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-foreground text-background py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="flex w-full items-center justify-center bg-foreground text-background py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? <Spinner size="sm" className="text-background" /> : "Sign In"}
           </button>
         </form>
       </div>

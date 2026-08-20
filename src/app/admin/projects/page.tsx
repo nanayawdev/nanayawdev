@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ImagePlus, X } from "lucide-react";
 import { ConfirmModal } from "@/components/confirm-modal";
+import { Spinner } from "@/components/admin/spinner";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Project {
@@ -171,7 +172,7 @@ export default function AdminProjectsPage() {
               Save Draft
             </button>
             <button onClick={() => save(false)} disabled={saving} className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
-              {saving ? "Saving…" : isNew ? "Create Project" : "Save Changes"}
+              {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Create Project" : "Save Changes"}
             </button>
           </div>
         </div>
