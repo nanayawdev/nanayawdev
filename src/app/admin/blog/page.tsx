@@ -140,7 +140,7 @@ export default function AdminBlogPage() {
   // ── Editor panel ──────────────────────────────────────────
   if (editing !== null) {
     return (
-      <div className="max-w-3xl">
+      <div className="max-w-6xl">
         <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
@@ -171,54 +171,57 @@ export default function AdminBlogPage() {
           <p className="mb-6 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-red-500">{error}</p>
         )}
 
-        <div className="space-y-6">
-          {/* Title */}
-          <div>
-            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Title</label>
-            <input
-              type="text"
-              value={editing.title ?? ""}
-              onChange={(e) => setEditing((p) => ({ ...p, title: e.target.value }))}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
-              placeholder="Post title"
-            />
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+          {/* Main — title, excerpt, body */}
+          <div className="min-w-0 space-y-6">
+            {/* Title */}
+            <div>
+              <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Title</label>
+              <input
+                type="text"
+                value={editing.title ?? ""}
+                onChange={(e) => setEditing((p) => ({ ...p, title: e.target.value }))}
+                className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                placeholder="Post title"
+              />
+            </div>
+
+            {/* Excerpt */}
+            <div>
+              <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Excerpt</label>
+              <textarea
+                rows={3}
+                value={editing.excerpt ?? ""}
+                onChange={(e) => setEditing((p) => ({ ...p, excerpt: e.target.value }))}
+                className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                placeholder="Short summary shown in cards…"
+              />
+            </div>
+
+            {/* Body */}
+            <div>
+              <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Body
+              </label>
+              <RichTextEditor
+                value={editing.body ?? ""}
+                onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
+                articleTitle={editing.title}
+                articleCategory={editing.category}
+                onImageUpload={async (file) => {
+                  const form = new FormData();
+                  form.append("file", file);
+                  const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
+                  const data = await res.json();
+                  if (!res.ok) throw new Error(data.error ?? "Upload failed");
+                  return data.url;
+                }}
+              />
+            </div>
           </div>
 
-          {/* Excerpt */}
-          <div>
-            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Excerpt</label>
-            <textarea
-              rows={3}
-              value={editing.excerpt ?? ""}
-              onChange={(e) => setEditing((p) => ({ ...p, excerpt: e.target.value }))}
-              className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
-              placeholder="Short summary shown in cards…"
-            />
-          </div>
-
-          {/* Body */}
-          <div>
-            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Body
-            </label>
-            <RichTextEditor
-              value={editing.body ?? ""}
-              onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
-              articleTitle={editing.title}
-              articleCategory={editing.category}
-              onImageUpload={async (file) => {
-                const form = new FormData();
-                form.append("file", file);
-                const res = await adminFetch("/api/admin/upload", { method: "POST", body: form });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error ?? "Upload failed");
-                return data.url;
-              }}
-            />
-          </div>
-
-          {/* Row — category + author */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Sidebar — category, author, tags, cover image, toggles */}
+          <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
               <Select
@@ -233,6 +236,7 @@ export default function AdminBlogPage() {
                 </SelectContent>
               </Select>
             </div>
+
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Author</label>
               <input
@@ -242,97 +246,97 @@ export default function AdminBlogPage() {
                 className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               />
             </div>
-          </div>
 
-          {/* Tags */}
-          <div>
-            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Tags <span className="normal-case font-normal text-muted-foreground/70">(comma-separated, for SEO)</span>
-            </label>
-            <input
-              type="text"
-              value={tagsInput}
-              onChange={(e) => setTagsInput(e.target.value)}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
-              placeholder="e.g. nextjs, postgres, multi-tenancy"
-            />
-          </div>
-
-          {/* Cover image upload */}
-          <div>
-            <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Cover Image</label>
-
-            {/* Preview */}
-            {editing.cover_image ? (
-              <div className="relative mb-3 border border-border overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={editing.cover_image}
-                  alt="Cover preview"
-                  className="h-48 w-full object-cover"
-                />
-                <button
-                  type="button"
-                  onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))}
-                  className="absolute top-2 right-2 bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
-                  title="Remove image"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            ) : (
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
-              >
-                <ImagePlus className="h-6 w-6" />
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
-                  {uploading ? "Uploading…" : "Click to upload"}
-                </p>
-                <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF — max 4 MB</p>
-              </div>
-            )}
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              className="hidden"
-              onChange={handleImageUpload}
-            />
-
-            {uploadError && (
-              <p className="mt-1 text-[0.6rem] uppercase tracking-widest text-red-500">{uploadError}</p>
-            )}
-
-            {/* Also allow pasting a URL directly */}
-            {!editing.cover_image && (
+            {/* Tags */}
+            <div>
+              <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Tags <span className="normal-case font-normal text-muted-foreground/70">(comma-separated, for SEO)</span>
+              </label>
               <input
                 type="text"
-                value=""
-                onChange={(e) => { if (e.target.value) setEditing((p) => ({ ...p, cover_image: e.target.value })); }}
-                className="w-full border border-border bg-background px-4 py-2 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none"
-                placeholder="…or paste an image URL"
+                value={tagsInput}
+                onChange={(e) => setTagsInput(e.target.value)}
+                className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                placeholder="e.g. nextjs, postgres, multi-tenancy"
               />
-            )}
-          </div>
+            </div>
 
-          {/* Toggles */}
-          <div className="flex items-center gap-6">
-            <label className="flex items-center gap-2.5 cursor-pointer">
-              <Checkbox
-                checked={editing.featured ?? false}
-                onCheckedChange={(checked) => setEditing((p) => ({ ...p, featured: checked === true }))}
+            {/* Cover image upload */}
+            <div>
+              <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Cover Image</label>
+
+              {/* Preview */}
+              {editing.cover_image ? (
+                <div className="relative mb-3 border border-border overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={editing.cover_image}
+                    alt="Cover preview"
+                    className="h-40 w-full object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))}
+                    className="absolute top-2 right-2 bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
+                    title="Remove image"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+                >
+                  <ImagePlus className="h-6 w-6" />
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
+                    {uploading ? "Uploading…" : "Click to upload"}
+                  </p>
+                  <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF — max 4 MB</p>
+                </div>
+              )}
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                className="hidden"
+                onChange={handleImageUpload}
               />
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Featured Post</span>
-            </label>
-            <label className="flex items-center gap-2.5 cursor-pointer">
-              <Checkbox
-                checked={editing.published ?? false}
-                onCheckedChange={(checked) => setEditing((p) => ({ ...p, published: checked === true }))}
-              />
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Publish Now</span>
-            </label>
+
+              {uploadError && (
+                <p className="mt-1 text-[0.6rem] uppercase tracking-widest text-red-500">{uploadError}</p>
+              )}
+
+              {/* Also allow pasting a URL directly */}
+              {!editing.cover_image && (
+                <input
+                  type="text"
+                  value=""
+                  onChange={(e) => { if (e.target.value) setEditing((p) => ({ ...p, cover_image: e.target.value })); }}
+                  className="w-full border border-border bg-background px-4 py-2 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none"
+                  placeholder="…or paste an image URL"
+                />
+              )}
+            </div>
+
+            {/* Toggles */}
+            <div className="flex flex-col gap-3">
+              <label className="flex items-center gap-2.5 cursor-pointer">
+                <Checkbox
+                  checked={editing.featured ?? false}
+                  onCheckedChange={(checked) => setEditing((p) => ({ ...p, featured: checked === true }))}
+                />
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Featured Post</span>
+              </label>
+              <label className="flex items-center gap-2.5 cursor-pointer">
+                <Checkbox
+                  checked={editing.published ?? false}
+                  onCheckedChange={(checked) => setEditing((p) => ({ ...p, published: checked === true }))}
+                />
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Publish Now</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
