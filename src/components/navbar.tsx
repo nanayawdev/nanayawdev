@@ -14,7 +14,7 @@ const navigationItems = [
 ];
 
 const socialItems = [
-  { label: "Twitter", link: "https://twitter.com/nanayawdev" },
+  { label: "TikTok", link: "https://tiktok.com/@nanayawdev" },
   { label: "GitHub", link: "https://github.com/nanayawdev" },
   { label: "LinkedIn", link: "https://linkedin.com/in/nanayawdev" },
   { label: "Instagram", link: "https://instagram.com/nanayawdev" },
