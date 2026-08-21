@@ -5,6 +5,15 @@ import { getAdminFromRequest } from "@/lib/auth";
 
 type Action = "continue" | "lengthen" | "refine" | "tone" | "generate";
 type Provider = "anthropic" | "openai";
+type ContentType =
+  | "engineering-essay"
+  | "technical-deep-dive"
+  | "architecture-system-design"
+  | "product-engineering"
+  | "tutorial"
+  | "industry-analysis"
+  | "case-study"
+  | "opinion";
 
 interface RequestBody {
   action: Action;
@@ -18,7 +27,39 @@ interface RequestBody {
   /** Optional context for "generate" — the post's title/category, if already set. */
   title?: string;
   category?: string;
+  /** Editorial angle for "generate" — defaults to "engineering-essay" if omitted. */
+  contentType?: ContentType;
 }
+
+const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
+  "engineering-essay": "Engineering Essay",
+  "technical-deep-dive": "Technical Deep Dive",
+  "architecture-system-design": "Architecture & System Design",
+  "product-engineering": "Product Engineering",
+  tutorial: "Tutorial",
+  "industry-analysis": "Industry Analysis",
+  "case-study": "Case Study",
+  opinion: "Opinion",
+};
+
+const CONTENT_TYPE_GUIDANCE: Record<ContentType, string> = {
+  "engineering-essay":
+    "Write this as an engineering essay — opinionated and experience-led. Take a clear stance and develop it through reasoning and hard-won lessons rather than an exhaustive survey of the topic.",
+  "technical-deep-dive":
+    "Write this as a technical deep dive — a detailed, precise technical explanation. Prioritize correctness and depth over breadth; go further into mechanics, internals, and edge cases than a typical overview would.",
+  "architecture-system-design":
+    "Write this as an architecture and system design piece — focus on systems-level thinking, the trade-offs between competing approaches, and how components interact at scale.",
+  "product-engineering":
+    "Write this as a product engineering piece — connect engineering decisions to product and business outcomes, and discuss how technical choices shape what users experience and how a team ships.",
+  tutorial:
+    "Write this as a practical, step-by-step tutorial. Prioritize a clear, followable sequence the reader can actually execute, with concrete steps rather than abstract discussion — but keep it in real prose; do not collapse into choppy fragments or listy filler.",
+  "industry-analysis":
+    "Write this as industry analysis — examine the technology or business trend itself: why it's happening, who it affects, and what it signals, rather than how to implement anything specific.",
+  "case-study":
+    "Write this as a case study grounded in a realistic, representative kind of project or system, described in general terms rather than inventing a specific company, client, or metrics that weren't supplied. Focus on the decisions made, the trade-offs weighed, and what it taught.",
+  opinion:
+    "Write this as a strong opinion piece. Take a clear, defensible position and argue for it directly. It's fine to be more provocative and less balanced than the other formats, as long as the reasoning holds up.",
+};
 
 const SYSTEM_PROMPT = `You are a ghostwriter helping edit a software engineer's personal blog. You are given a snippet of an article and an editing instruction. Rewrite or extend the snippet as instructed, matching the article's existing voice and technical register.
 
