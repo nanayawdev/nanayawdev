@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PaperPlaneTiltIcon as Send, PaperclipIcon as Paperclip, FileArrowDownIcon as FileArrowDown } from "@phosphor-icons/react";
+import { ConfirmModal } from "@/components/confirm-modal";
 import { adminFetch } from "@/lib/admin-fetch";
 import { linkify } from "@/lib/linkify";
 
@@ -31,6 +32,8 @@ export default function AdminChatPage() {
   const [sending, setSending]     = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [confirmEnd, setConfirmEnd] = useState(false);
+  const [ending, setEnding]       = useState(false);
   const bottomRef                 = useRef<HTMLDivElement>(null);
   const esRef                     = useRef<EventSource | null>(null);
   const fileInputRef              = useRef<HTMLInputElement>(null);
@@ -129,11 +132,14 @@ export default function AdminChatPage() {
 
   async function closeSession() {
     if (!active) return;
+    setEnding(true);
     await adminFetch(`/api/chat/sessions/${active.id}/close`, { method: "POST" });
     setSessions((prev) =>
       prev.map((s) => (s.id === active.id ? { ...s, status: "closed" } : s))
     );
     setActive((prev) => prev ? { ...prev, status: "closed" } : null);
+    setEnding(false);
+    setConfirmEnd(false);
   }
 
   const statusColor: Record<string, string> = {
@@ -192,7 +198,7 @@ export default function AdminChatPage() {
             </div>
             {active.status !== "closed" && (
               <button
-                onClick={closeSession}
+                onClick={() => setConfirmEnd(true)}
                 className="rounded-full border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
               >
                 End Conversation
@@ -315,6 +321,17 @@ export default function AdminChatPage() {
           Select a session to start chatting
         </div>
       )}
+
+      <ConfirmModal
+        open={confirmEnd}
+        title="End this conversation?"
+        description="The visitor won't be able to send further messages in this chat once it's closed."
+        confirmLabel="End Conversation"
+        destructive
+        loading={ending}
+        onConfirm={closeSession}
+        onCancel={() => setConfirmEnd(false)}
+      />
     </div>
   );
 }

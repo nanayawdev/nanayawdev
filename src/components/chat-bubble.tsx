@@ -58,6 +58,8 @@ export function ChatBubble() {
   const [input, setInput]         = useState("");
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState("");
+  const [confirmEnd, setConfirmEnd] = useState(false);
+  const [ending, setEnding]       = useState(false);
   const bottomRef                 = useRef<HTMLDivElement>(null);
   const esRef                     = useRef<EventSource | null>(null);
 
@@ -155,6 +157,7 @@ export function ChatBubble() {
 
   async function endConversation() {
     if (!token || !sessionId) return;
+    setEnding(true);
     await fetch(`/api/chat/sessions/${sessionId}/close`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -162,6 +165,8 @@ export function ChatBubble() {
     setStage("closed");
     esRef.current?.close();
     clearSession();
+    setEnding(false);
+    setConfirmEnd(false);
   }
 
   function resetChat() {
@@ -199,7 +204,32 @@ export function ChatBubble() {
           </div>
 
           {/* Body */}
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="relative flex-1 flex flex-col overflow-hidden">
+
+            {confirmEnd && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-background/95 px-6 text-center backdrop-blur-sm">
+                <p className="text-sm font-semibold text-foreground">End this conversation?</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  You&apos;ll need to start a new chat if you want to reach out again.
+                </p>
+                <div className="flex w-full items-center gap-2">
+                  <button
+                    onClick={() => setConfirmEnd(false)}
+                    disabled={ending}
+                    className="flex-1 rounded-lg border border-border py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={endConversation}
+                    disabled={ending}
+                    className="flex flex-1 items-center justify-center rounded-lg bg-foreground py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 disabled:opacity-50"
+                  >
+                    {ending ? <Spinner size="sm" className="text-background" /> : "End Conversation"}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Stage: idle, start chat prompt */}
             {stage === "idle" && (
@@ -329,7 +359,7 @@ export function ChatBubble() {
                       </button>
                     </div>
                     <div className="border-t border-border shrink-0">
-                      <button onClick={endConversation} className="w-full py-2 text-[0.6rem] font-semibold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
+                      <button onClick={() => setConfirmEnd(true)} className="w-full py-2 text-[0.6rem] font-semibold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
                         End Conversation
                       </button>
                     </div>
