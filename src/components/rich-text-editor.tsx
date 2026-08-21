@@ -19,14 +19,41 @@ interface Props {
   /** Optional context passed to the AI "write from a prompt" action. */
   articleTitle?: string;
   articleCategory?: string;
-  /** Called with the AI's suggested title/excerpt after a successful "write from a prompt" generation. */
-  onGenerated?: (fields: { title: string; excerpt: string }) => void;
+  /** Called with the AI's suggested fields after a successful "write from a prompt" generation. */
+  onGenerated?: (fields: {
+    title: string;
+    excerpt: string;
+    seoTitle: string;
+    seoDescription: string;
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+  }) => void;
 }
 
 type AiAction = "continue" | "lengthen" | "refine" | "tone" | "generate";
 type AiProvider = "anthropic" | "openai";
+type AiContentType =
+  | "engineering-essay"
+  | "technical-deep-dive"
+  | "architecture-system-design"
+  | "product-engineering"
+  | "tutorial"
+  | "industry-analysis"
+  | "case-study"
+  | "opinion";
 
 const TONES = ["Professional", "Casual", "Persuasive", "Technical", "Friendly"];
+
+const CONTENT_TYPES: { value: AiContentType; label: string }[] = [
+  { value: "engineering-essay", label: "Engineering Essay" },
+  { value: "technical-deep-dive", label: "Technical Deep Dive" },
+  { value: "architecture-system-design", label: "Architecture & System Design" },
+  { value: "product-engineering", label: "Product Engineering" },
+  { value: "tutorial", label: "Tutorial" },
+  { value: "industry-analysis", label: "Industry Analysis" },
+  { value: "case-study", label: "Case Study" },
+  { value: "opinion", label: "Opinion" },
+];
 
 /** Plain text (with \n\n paragraph breaks) -> TipTap-insertable HTML. */
 function textToHtml(text: string): string {
@@ -73,6 +100,9 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
   const [toneMenuOpen, setToneMenuOpen] = useState(false);
   const [generateOpen, setGenerateOpen] = useState(false);
   const [generateBrief, setGenerateBrief] = useState("");
+  const [contentType, setContentType] = useState<AiContentType>(() =>
+    (typeof window !== "undefined" && (localStorage.getItem("ai_content_type") as AiContentType)) || "engineering-essay"
+  );
   const [aiBusy, setAiBusy] = useState(false);
   const [aiError, setAiError] = useState("");
   const [provider, setProvider] = useState<AiProvider>(() =>
@@ -82,6 +112,11 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
   function setAndPersistProvider(p: AiProvider) {
     setProvider(p);
     localStorage.setItem("ai_provider", p);
+  }
+
+  function setAndPersistContentType(c: AiContentType) {
+    setContentType(c);
+    localStorage.setItem("ai_content_type", c);
   }
 
   function closeAiMenu() {

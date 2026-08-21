@@ -437,8 +437,10 @@ function buildPrompt(body: RequestBody): string {
       return `${context ? `Article context:\n${context}\n\n` : ""}Improve the clarity, flow, and grammar of this passage. Keep roughly the same length and meaning:\n\n${text}`;
     case "tone":
       return `${context ? `Article context:\n${context}\n\n` : ""}Rewrite this passage in a ${tone} tone. Keep roughly the same length and meaning:\n\n${text}`;
-    case "generate":
-      return `${title ? `Working title (optional starting point — replace it if you have a better one): ${title}\n` : ""}${category ? `Category: ${category}\n` : ""}TOPIC:\n${text}`;
+    case "generate": {
+      const angle = CONTENT_TYPE_GUIDANCE[contentType ?? "engineering-essay"];
+      return `EDITORIAL ANGLE: ${CONTENT_TYPE_LABELS[contentType ?? "engineering-essay"]}\n${angle}\n\n${title ? `Working title (optional starting point — replace it if you have a better one): ${title}\n` : ""}${category ? `Category: ${category}\n` : ""}TOPIC:\n${text}`;
+    }
   }
 }
 
