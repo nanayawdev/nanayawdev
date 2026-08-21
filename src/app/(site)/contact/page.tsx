@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRightIcon as ArrowRight, CheckIcon as Check, TwitterLogoIcon as Twitter, LinkedinLogoIcon as Linkedin, GithubLogoIcon as Github, InstagramLogoIcon as Instagram } from "@phosphor-icons/react";
+import { ArrowRightIcon as ArrowRight, CheckIcon as Check, TiktokLogoIcon as TiktokLogo, LinkedinLogoIcon as Linkedin, GithubLogoIcon as Github, InstagramLogoIcon as Instagram } from "@phosphor-icons/react";
 
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
@@ -13,10 +13,10 @@ const details = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com/nanayawdev" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/nanayawdev" },
   { icon: Github, label: "GitHub", href: "https://github.com/nanayawdev" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/nanayawdev" },
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/nanayawdev" },
+  { icon: TiktokLogo, label: "TikTok", href: "https://tiktok.com/@nanayawdev" },
 ];
 
 type Form = { name: string; email: string; subject: string; message: string };

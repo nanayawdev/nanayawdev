@@ -2,16 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpRightIcon as ArrowUpRight, GithubLogoIcon as Github, InstagramLogoIcon as Instagram, LinkedinLogoIcon as Linkedin, EnvelopeSimpleIcon as Mail } from "@phosphor-icons/react";
+import { ArrowUpRightIcon as ArrowUpRight, GithubLogoIcon as Github, InstagramLogoIcon as Instagram, LinkedinLogoIcon as Linkedin, TiktokLogoIcon as TikTokIcon, EnvelopeSimpleIcon as Mail } from "@phosphor-icons/react";
 import { ChatBubble } from "@/components/chat-bubble";
-
-function TikTokIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M16.6 5.82c-.9-.98-1.4-2.26-1.4-3.62h-3.14v13.44c0 1.61-1.31 2.92-2.92 2.92a2.92 2.92 0 0 1 0-5.84c.28 0 .55.04.8.11V9.76a6.1 6.1 0 0 0-.8-.05 6.06 6.06 0 1 0 6.06 6.06V8.34a8.9 8.9 0 0 0 5.2 1.66V6.87a5.55 5.55 0 0 1-3.8-1.05z" />
-    </svg>
-  );
-}
 
 const company = [
   { label: "About", href: "/about" },
@@ -29,10 +21,10 @@ const services = [
 ];
 
 const socials = [
-  { icon: TikTokIcon, label: "TikTok", href: "https://tiktok.com/@nanayawdev" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/nanayawdev" },
   { icon: Github, label: "GitHub", href: "https://github.com/nanayawdev" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/nanayawdev" },
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/nanayawdev" },
+  { icon: TikTokIcon, label: "TikTok", href: "https://tiktok.com/@nanayawdev", weight: "duotone" as const },
 ];
 
 const footerColumns = [
@@ -133,16 +125,16 @@ export function Footer() {
           </form>
 
           <div className="mt-8 flex items-center gap-4">
-            {socials.map(({ icon: Icon, label, href }) => (
+            {socials.map(({ icon: Icon, label, href, weight }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4" weight={weight} />
               </a>
             ))}
           </div>

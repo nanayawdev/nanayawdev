@@ -4,13 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Big_Shoulders } from "next/font/google";
-import {
-  ArrowUpRightIcon,
-  CodeIcon,
-  BracketsCurlyIcon,
-  StackIcon,
-  LightningIcon,
-} from "@phosphor-icons/react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const bigShoulders = Big_Shoulders({
@@ -20,10 +14,12 @@ const bigShoulders = Big_Shoulders({
 });
 
 const techStack = [
-  { label: "Golang", icon: CodeIcon },
-  { label: "Next.js", icon: BracketsCurlyIcon },
-  { label: "Laravel", icon: StackIcon },
-  { label: "Swift/Kotlin", icon: LightningIcon },
+  { label: "Golang", src: "/Go_dark.svg", width: 207, height: 78 },
+  { label: "Next.js", src: "/Next.js_wordmark_dark.svg", width: 394, height: 80 },
+  { label: "Laravel", src: "/laravel.svg", width: 256, height: 264 },
+  { label: "Swift", src: "/swift.svg", width: 256, height: 256 },
+  { label: "Kotlin", src: "/kotlin.svg", width: 256, height: 256 },
+  { label: "Django", src: "/django.svg", width: 800, height: 800 },
 ];
 
 export function NameHero() {
@@ -75,8 +71,8 @@ export function NameHero() {
               href="/contact"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
             >
-              Contact Now
-              <ArrowUpRightIcon className="h-4 w-4" weight="bold" />
+              Say Hi!
+              <ArrowUpRightIcon className="h-4 w-4" weight="duotone" />
             </Link>
           </motion.div>
 
@@ -106,11 +102,10 @@ export function NameHero() {
             <p className="mb-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Featured Tech
             </p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {techStack.map(({ label, icon: Icon }) => (
-                <div key={label} className="flex items-center gap-2">
-                  <Icon className="h-4 w-4 shrink-0 text-foreground" weight="duotone" />
-                  <span className="text-sm text-foreground">{label}</span>
+            <div className="grid grid-cols-3 gap-x-6 gap-y-5">
+              {techStack.map(({ label, src, width, height }) => (
+                <div key={label} className="flex items-center">
+                  <Image src={src} alt={label} width={width} height={height} className="h-8 w-auto max-w-[84px] shrink-0" />
                 </div>
               ))}
             </div>
