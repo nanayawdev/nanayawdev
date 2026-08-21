@@ -5,6 +5,7 @@ import { LatestWork } from "@/components/latest-work";
 import { OurProcesses } from "@/components/our-processes";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { FAQ } from "@/components/faq";
+import { LatestInsights } from "@/components/latest-insights";
 import { MainCTA } from "@/components/main-cta";
 import type { Metadata } from "next";
 import { NameHero } from "@/components/name-hero";
@@ -30,6 +31,7 @@ export default function Home() {
       <OurProcesses />
       <TestimonialsSection />
       <FAQ />
+      <LatestInsights />
       <MainCTA />
     </>
   );

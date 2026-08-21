@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRightIcon as ArrowRight, CheckIcon as Check, TiktokLogoIcon as TiktokLogo, LinkedinLogoIcon as Linkedin, GithubLogoIcon as Github, InstagramLogoIcon as Instagram } from "@phosphor-icons/react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
@@ -187,16 +188,19 @@ export default function Contact() {
                   </div>
 
                   <Field label="Subject" error={errors.subject}>
-                    <select
+                    <Select
                       value={form.subject}
-                      onChange={set("subject")}
-                      className={`${inputClass} appearance-none cursor-pointer`}
+                      onValueChange={(value) => setForm((f) => ({ ...f, subject: value }))}
                     >
-                      <option value="" disabled>Select a subject</option>
-                      {subjects.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
+                      <SelectTrigger className={`${inputClass} h-auto`}>
+                        <SelectValue placeholder="Select a subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {subjects.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </Field>
 
                   <Field label="Message" error={errors.message}>

@@ -31,91 +31,73 @@ const processes = [
   },
 ];
 
-function ProcessStep({
+function ProcessCard({
   process,
-  isLast,
+  index,
 }: {
   process: (typeof processes)[number];
-  isLast: boolean;
+  index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const inView = useInView(ref, { once: true, amount: 0.4 });
 
   return (
-    <div ref={ref} className="flex gap-6 lg:gap-8">
-      {/* Rail */}
-      <div className="flex flex-col items-center shrink-0">
-        <div
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-semibold tabular-nums transition-colors duration-500 ${
-            inView ? "border-[#cdf68c] bg-[#cdf68c] text-[#0a291a]" : "border-border text-foreground"
-          }`}
-        >
-          {String(process.id).padStart(2, "0")}
-        </div>
-        {!isLast && (
-          <div className="relative mt-2 w-px flex-1 bg-border">
-            <motion.div
-              className="absolute inset-x-0 top-0 w-px origin-top bg-[#0a291a]"
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: inView ? 1 : 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </div>
-        )}
-      </div>
+    <motion.div
+      ref={ref}
+      className="flex flex-col gap-8 px-6 py-10 lg:gap-14 lg:px-7 lg:py-12"
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+    >
+      <p className="text-sm font-semibold tracking-[0.18em] text-muted-foreground">
+        Step {String(process.id).padStart(2, "0")}
+        <span className="text-[#cdf68c]">.</span>
+      </p>
 
-      {/* Content */}
-      <motion.div
-        className={isLast ? "pb-2" : "pb-14"}
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <h3 className="mb-2 text-xl font-semibold text-foreground lg:text-2xl">
+      <div>
+        <h3 className="mb-3 text-2xl font-bold leading-[1.05] text-foreground">
           {process.title}
         </h3>
-        <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {process.description}
         </p>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
 export function OurProcesses() {
   return (
-    <section className="py-16 lg:py-28 bg-background">
-      <div className="max-w-7xl mx-auto px-8">
-
+    <section className="border-t border-border bg-background py-16 lg:py-28">
+      <div className="mx-auto max-w-7xl px-8">
         {/* Header */}
-        <div className="mb-16 lg:mb-20 max-w-2xl">
-          <motion.p
-            className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            How I Work
-          </motion.p>
+        <div className="mb-16 flex flex-col items-start gap-3 lg:mb-20 lg:flex-row lg:items-end lg:justify-between">
           <motion.h2
             className="text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
+            transition={{ duration: 0.55 }}
             viewport={{ once: true }}
           >
             My Process
           </motion.h2>
+          <motion.p
+            className="text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            (Process)
+          </motion.p>
         </div>
 
-        {/* Timeline */}
-        <div className="max-w-3xl">
+        {/* Steps */}
+        <div className="grid grid-cols-1 divide-y divide-border border-y border-border lg:grid-cols-5 lg:divide-x lg:divide-y-0">
           {processes.map((process, index) => (
-            <ProcessStep key={process.id} process={process} isLast={index === processes.length - 1} />
+            <ProcessCard key={process.id} process={process} index={index} />
           ))}
         </div>
-
       </div>
     </section>
   );
