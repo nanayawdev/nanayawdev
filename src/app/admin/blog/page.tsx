@@ -163,14 +163,14 @@ export default function AdminBlogPage() {
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setEditing(null)}
-              className="flex-1 border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors sm:flex-none"
+              className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors sm:flex-none"
             >
               Cancel
             </button>
             <button
               onClick={save}
               disabled={saving}
-              className="flex-1 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none"
+              className="flex-1 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none"
             >
               {saving ? <Spinner size="sm" className="text-background" /> : "Save Post"}
             </button>
@@ -348,7 +348,7 @@ export default function AdminBlogPage() {
                   <button
                     type="button"
                     onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))}
-                    className="absolute top-2 right-2 bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute top-2 right-2 rounded-full bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
                     title="Remove image"
                   >
                     <X className="h-3.5 w-3.5" />
@@ -424,7 +424,7 @@ export default function AdminBlogPage() {
         </div>
         <button
           onClick={openNew}
-          className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
         >
           <Plus className="h-3.5 w-3.5" />
           New Post

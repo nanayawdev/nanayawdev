@@ -162,7 +162,7 @@ export default function EnquiriesPage() {
                   } catch { setEmailResult("error"); }
                   finally { setEmailSending(false); }
                 }}
-                className="mt-3 bg-foreground text-background px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                className="mt-3 rounded-full bg-foreground text-background px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
               >
                 {emailSending ? "Sending…" : "Send Email"}
               </button>
@@ -197,7 +197,7 @@ export default function EnquiriesPage() {
                     } catch { setSmsResult("error"); }
                     finally { setSmsSending(false); }
                   }}
-                  className="bg-[#cdf68c] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#0a291a] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="rounded-full bg-[#cdf68c] px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#0a291a] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {smsSending ? "Sending…" : "Send SMS"}
                 </button>

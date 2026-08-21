@@ -120,9 +120,9 @@ export default function AdminServicesPage() {
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Service" : "Edit Service"}</h1>
           <div className="flex items-center gap-3">
-            <button onClick={() => setEditing(null)} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
-            <button onClick={() => save(true)} disabled={saving} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
-            <button onClick={() => save(false)} disabled={saving} className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
+            <button onClick={() => setEditing(null)} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
+            <button onClick={() => save(true)} disabled={saving} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
+            <button onClick={() => save(false)} disabled={saving} className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
               {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Create Service" : "Save Changes"}
             </button>
           </div>
@@ -138,13 +138,13 @@ export default function AdminServicesPage() {
               <div className="relative w-full aspect-[16/7] bg-muted overflow-hidden mb-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={editing.cover_image} alt="" className="w-full h-full object-cover" />
-                <button onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))} className="absolute top-2 right-2 bg-background border border-border p-1 hover:bg-muted">
+                <button onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))} className="absolute top-2 right-2 rounded-full bg-background border border-border p-1 hover:bg-muted">
                   <X className="h-3.5 w-3.5" />
                 </button>
               </div>
             ) : (
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
-                className="flex w-full items-center justify-center gap-2 border border-dashed border-border py-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50">
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-dashed border-border py-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50">
                 <ImagePlus className="h-4 w-4" />{uploading ? "Uploading…" : "Upload Image"}
               </button>
             )}
@@ -198,7 +198,7 @@ export default function AdminServicesPage() {
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(); } }}
                 className="flex-1 border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="UX/UI Design… press Enter" />
-              <button type="button" onClick={addTag} className="border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Add</button>
+              <button type="button" onClick={addTag} className="rounded-full border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Add</button>
             </div>
             <div className="flex flex-wrap gap-2">
               {(editing.tags ?? []).map((tag) => (
@@ -239,7 +239,7 @@ export default function AdminServicesPage() {
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-sm text-muted-foreground mt-1">{services.length} total · drag to reorder</p>
         </div>
-        <button onClick={openNew} className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
+        <button onClick={openNew} className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
           <Plus className="h-3.5 w-3.5" /> New Service
         </button>
       </div>

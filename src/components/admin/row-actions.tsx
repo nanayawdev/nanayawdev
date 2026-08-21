@@ -24,7 +24,7 @@ export function RowActions({ actions }: { actions: RowAction[] }) {
         <button
           aria-label="Actions"
           onClick={(e) => e.stopPropagation()}
-          className="flex h-7 w-7 items-center justify-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <MoreHorizontal className="h-4 w-4" />
         </button>

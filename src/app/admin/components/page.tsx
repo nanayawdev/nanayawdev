@@ -180,14 +180,14 @@ export default function AdminComponentsPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setEditing(null)}
-              className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors"
+              className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={save}
               disabled={saving}
-              className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {saving ? <Spinner size="sm" className="text-background" /> : "Save Component"}
             </button>
@@ -275,7 +275,7 @@ export default function AdminComponentsPage() {
                 <button
                   type="button"
                   onClick={() => setEditing((p) => ({ ...p, cover_image: "" }))}
-                  className="absolute top-2 right-2 bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute top-2 right-2 rounded-full bg-background border border-border p-1 text-muted-foreground hover:text-foreground transition-colors"
                   title="Remove image"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -390,7 +390,7 @@ export default function AdminComponentsPage() {
         </div>
         <button
           onClick={openNew}
-          className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
         >
           <Plus className="h-3.5 w-3.5" />
           New Component

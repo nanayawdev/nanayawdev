@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Big_Shoulders } from "next/font/google";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import ScrollReveal from "@/components/ScrollReveal";
+import WarpText from "@/components/WarpText";
 
 const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
@@ -37,15 +38,28 @@ export function NameHero() {
         </motion.p>
 
         <motion.h1
-          className={`${bigShoulders.className} select-none text-[clamp(3.2rem,10vw,7.5rem)] font-black uppercase leading-[0.85] tracking-[-0.02em] text-foreground`}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Designer+
-          <br />
-          Developer
+          <WarpText
+            text={"DESIGNER+\nDEVELOPER"}
+            color="#fafafa"
+            fontWeight={900}
+            fontSize="clamp(3.2rem, 10vw, 7.5rem)"
+            letterSpacing="-0.02em"
+            lineHeight={0.85}
+            warpStrength={0.07}
+            warpScale={1.6}
+            speed={0.5}
+            pointerInfluence={0.4}
+            pointerStrength={0.34}
+            refraction={0.016}
+            ripple
+            className={`${bigShoulders.className} select-none`}
+            style={{ height: "clamp(5.5rem, 17vw, 13rem)" }}
+          />
         </motion.h1>
 
         <div className="mt-16 grid grid-cols-1 items-center gap-10 text-left lg:grid-cols-[1fr_1.1fr_1fr] lg:gap-8">

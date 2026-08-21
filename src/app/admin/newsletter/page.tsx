@@ -67,7 +67,7 @@ export default function NewsletterPage() {
             </p>
             <button
               onClick={() => toggleActive(s)}
-              className={`justify-self-start px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider transition-opacity hover:opacity-80 ${
+              className={`justify-self-start rounded-full px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider transition-opacity hover:opacity-80 ${
                 s.active ? "bg-foreground text-background" : "bg-muted text-muted-foreground border border-border"
               }`}
             >

@@ -149,7 +149,7 @@ export default function AdminChatPage() {
             {active.status !== "closed" && (
               <button
                 onClick={closeSession}
-                className="border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
+                className="rounded-full border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
               >
                 End Conversation
               </button>
@@ -191,7 +191,7 @@ export default function AdminChatPage() {
               <button
                 onClick={sendMessage}
                 disabled={sending || !input.trim()}
-                className="h-full px-5 py-4 bg-foreground text-background transition-opacity hover:opacity-90 disabled:opacity-40"
+                className="h-full rounded-full px-5 py-4 bg-foreground text-background transition-opacity hover:opacity-90 disabled:opacity-40"
               >
                 <Send className="h-4 w-4" />
               </button>

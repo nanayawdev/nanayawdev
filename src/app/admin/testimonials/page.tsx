@@ -108,9 +108,9 @@ export default function AdminTestimonialsPage() {
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Testimonial" : "Edit Testimonial"}</h1>
           <div className="flex items-center gap-3">
-            <button onClick={() => setEditing(null)} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
-            <button onClick={() => save(true)} disabled={saving} className="border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
-            <button onClick={() => save(false)} disabled={saving} className="bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
+            <button onClick={() => setEditing(null)} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
+            <button onClick={() => save(true)} disabled={saving} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
+            <button onClick={() => save(false)} disabled={saving} className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
               {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Add Testimonial" : "Save Changes"}
             </button>
           </div>
@@ -187,7 +187,7 @@ export default function AdminTestimonialsPage() {
           <h1 className="text-2xl font-bold tracking-tight">Testimonials</h1>
           <p className="text-sm text-muted-foreground mt-1">{testimonials.length} testimonials · drag to reorder</p>
         </div>
-        <button onClick={openNew} className="flex items-center gap-2 bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
+        <button onClick={openNew} className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
           <Plus className="h-3.5 w-3.5" /> Add Testimonial
         </button>
       </div>
