@@ -1,37 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRightIcon as ArrowUpRight } from "@phosphor-icons/react";
-import { Big_Shoulders } from "next/font/google";
-
-const bigShoulders = Big_Shoulders({
-  subsets: ["latin"],
-  weight: "900",
-  variable: "--font-big-shoulders",
-});
-
-interface Post {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  cover_image: string | null;
-  published_at: string | null;
-  created_at: string;
-}
-
-function formatDate(post: Post) {
-  return new Date(post.published_at ?? post.created_at)
-    .toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
-    .toUpperCase();
-}
+import { InsightCard, type InsightPost } from "@/components/insight-card";
 
 export function LatestInsights() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<InsightPost[]>([]);
 
   useEffect(() => {
     fetch("/api/blog")
@@ -41,25 +17,29 @@ export function LatestInsights() {
 
   if (posts.length === 0) return null;
 
-  const [featured, ...rest] = posts;
-
   return (
     <section className="bg-background py-16 lg:py-28">
       <div className="mx-auto max-w-7xl px-8">
-        <div className="mb-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <div className="flex items-center gap-3">
-              <motion.h2
-                className={`${bigShoulders.className} select-none text-[clamp(2.5rem,7vw,5.5rem)] font-black uppercase leading-[0.85] tracking-[-0.02em] text-foreground`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-              >
-                Latest Insights
-              </motion.h2>
-              <span className="hidden text-sm text-muted-foreground sm:inline">(Blog)</span>
-            </div>
+        <div className="mb-12 flex flex-col items-start gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex flex-wrap items-end gap-3">
+            <motion.h2
+              className="text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.85] tracking-[-0.08em] text-foreground"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              viewport={{ once: true }}
+            >
+              Latest Insights
+            </motion.h2>
+            <motion.p
+              className="pb-2 text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              (Blog)
+            </motion.p>
           </div>
 
           <Link
@@ -71,69 +51,9 @@ export function LatestInsights() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <Link href={`/resources/${featured.slug}`} className="group relative block h-full min-h-[420px] overflow-hidden rounded-2xl bg-muted">
-              {featured.cover_image && (
-                <Image
-                  src={featured.cover_image}
-                  alt={featured.title}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-
-              <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-black">
-                {featured.category}
-              </span>
-
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70">
-                  {formatDate(featured)}
-                </p>
-                <h3 className="text-2xl font-bold leading-tight text-white">{featured.title}</h3>
-              </div>
-            </Link>
-          </motion.div>
-
-          {rest.map((post, i) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: (i + 1) * 0.08 }}
-              viewport={{ once: true }}
-            >
-              <Link href={`/resources/${post.slug}`} className="group block">
-                <div className="relative h-52 w-full overflow-hidden rounded-2xl bg-muted">
-                  {post.cover_image && (
-                    <Image
-                      src={post.cover_image}
-                      alt={post.title}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  )}
-                  <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-black">
-                    {post.category}
-                  </span>
-                </div>
-
-                <p className="mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                  {formatDate(post)}
-                </p>
-                <h3 className="mt-2 text-xl font-bold leading-tight text-foreground">{post.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
-              </Link>
-            </motion.div>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, i) => (
+            <InsightCard key={post.id} post={post} index={i} />
           ))}
         </div>
       </div>

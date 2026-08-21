@@ -359,7 +359,7 @@ export default function AdminBlogPage() {
                   onClick={() => fileInputRef.current?.click()}
                   className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
                 >
-                  <ImagePlus className="h-6 w-6" />
+                  {uploading ? <Spinner size="lg" /> : <ImagePlus className="h-6 w-6" />}
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                     {uploading ? "Uploading…" : "Click to upload"}
                   </p>
