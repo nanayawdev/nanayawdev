@@ -142,6 +142,8 @@ export default function AdminChatPage() {
     closed:      "bg-muted",
   };
 
+  const files = messages.filter((m) => m.attachment_url);
+
   return (
     <div className="flex gap-0 h-[calc(100vh-4rem)] overflow-hidden rounded-lg border border-border">
       {/* Session list */}
@@ -179,7 +181,8 @@ export default function AdminChatPage() {
 
       {/* Chat area */}
       {active ? (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex min-w-0 overflow-hidden">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
             <div>
@@ -217,6 +220,7 @@ export default function AdminChatPage() {
                       href={m.attachment_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      download={m.attachment_name ?? undefined}
                       className={`mt-2 flex items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-opacity hover:opacity-80 ${
                         m.sender === "agent" ? "border-background/30" : "border-border"
                       }`}
@@ -271,6 +275,40 @@ export default function AdminChatPage() {
               Conversation ended
             </div>
           )}
+        </div>
+
+        {/* Files sidebar */}
+        <div className="w-64 shrink-0 border-l border-border flex flex-col">
+          <div className="border-b border-border px-5 py-4">
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              {files.length} {files.length === 1 ? "File" : "Files"}
+            </p>
+          </div>
+          <div className="flex-1 overflow-y-auto p-3 space-y-2">
+            {files.length === 0 ? (
+              <p className="px-2 py-8 text-center text-xs text-muted-foreground">No files shared yet</p>
+            ) : (
+              files.map((m) => (
+                <a
+                  key={m.id}
+                  href={m.attachment_url!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download={m.attachment_name ?? undefined}
+                  className="flex items-center gap-2.5 rounded-lg border border-border px-3 py-2.5 text-xs transition-colors hover:bg-muted/40"
+                >
+                  <FileArrowDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-medium text-foreground">{m.attachment_name ?? "File"}</p>
+                    <p className="text-[0.6rem] text-muted-foreground">
+                      {m.sender === "agent" ? "You" : "Visitor"} · {new Date(m.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </a>
+              ))
+            )}
+          </div>
+        </div>
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">

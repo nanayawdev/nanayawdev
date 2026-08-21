@@ -298,12 +298,13 @@ export function ChatBubble() {
                             href={msg.attachment_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`mt-1.5 flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 transition-opacity hover:opacity-80 ${
+                            download={msg.attachment_name ?? undefined}
+                            className={`mt-1.5 flex items-center justify-between gap-2 rounded-lg border px-2.5 py-1.5 transition-opacity hover:opacity-80 ${
                               msg.sender === "user" ? "border-background/30" : "border-border"
                             }`}
                           >
-                            <FileArrowDown className="h-3.5 w-3.5 shrink-0" />
-                            <span className="truncate">{msg.attachment_name ?? "Download file"}</span>
+                            <span className="truncate">{msg.attachment_name ?? "File"}</span>
+                            <FileArrowDown className="h-3.5 w-3.5 shrink-0" aria-label="Download" />
                           </a>
                         )}
                       </div>
