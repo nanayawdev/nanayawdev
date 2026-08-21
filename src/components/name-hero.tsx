@@ -50,12 +50,12 @@ export function NameHero() {
             fontSize="clamp(3.6rem, 13vw, 7.5rem)"
             letterSpacing="-0.02em"
             lineHeight={0.85}
-            warpStrength={0.07}
-            warpScale={1.6}
-            speed={0.5}
-            pointerInfluence={0.4}
-            pointerStrength={0.34}
-            refraction={0.016}
+            warpStrength={0.13}
+            warpScale={1.7}
+            speed={0.55}
+            pointerInfluence={0.64}
+            pointerStrength={0.49}
+            refraction={0.024}
             ripple
             className={`${bigShoulders.className} select-none`}
             style={{ height: "clamp(6.5rem, 23vw, 13.5rem)" }}
@@ -99,7 +99,7 @@ export function NameHero() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-full bg-[#cdf68c] px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[#0a291a] transition-opacity hover:opacity-90"
           >
             Say Hi!
             <ArrowUpRightIcon className="h-4 w-4" weight="duotone" />
