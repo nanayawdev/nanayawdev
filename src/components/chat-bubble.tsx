@@ -327,11 +327,11 @@ export function ChatBubble() {
       {/* Trigger button */}
       <button
         onClick={() => { setOpen((v) => !v); setMinimised(false); }}
-        aria-label="Speak to an Agent"
-        className="group flex items-center gap-2.5 border border-border bg-background px-5 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-sm transition-all duration-200 hover:bg-foreground hover:text-background"
+        aria-label="Let's Chat"
+        className="group flex items-center gap-2.5 rounded-full border border-border bg-background px-5 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-sm transition-all duration-200 hover:bg-foreground hover:text-background"
       >
         <Phone className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:rotate-12" />
-        Speak to an Agent
+        Let&apos;s Chat
       </button>
     </div>
   );

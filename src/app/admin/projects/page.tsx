@@ -279,7 +279,7 @@ export default function AdminProjectsPage() {
                   key={pl}
                   type="button"
                   onClick={() => togglePlatform(pl)}
-                  className={`px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] border transition-colors ${
+                  className={`rounded-full px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] border transition-colors ${
                     (editing.platforms ?? []).includes(pl)
                       ? "bg-foreground text-background border-foreground"
                       : "border-border text-muted-foreground hover:bg-muted"
