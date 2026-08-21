@@ -373,6 +373,8 @@ TITLE: [The article title]
 
 EXCERPT: [A compelling 1-2 sentence excerpt for the blog listing]
 
+TAGS: [3-6 short topical tags for the post, comma-separated — e.g. nextjs, postgres, multi-tenancy]
+
 SEO_TITLE: [A search-optimized title, roughly 50-60 characters. Can match TITLE if it already works well for search.]
 
 SEO_DESCRIPTION: [A meta description, roughly 150-160 characters, written to earn a click from a search results page.]
@@ -389,6 +391,7 @@ Do not include commentary about how you wrote the article. Return only the label
 interface GeneratedArticle {
   title: string;
   excerpt: string;
+  tags: string[];
   seoTitle: string;
   seoDescription: string;
   primaryKeyword: string;
@@ -396,20 +399,21 @@ interface GeneratedArticle {
   body: string;
 }
 
-/** Parses the TITLE:/EXCERPT:/SEO_TITLE:/SEO_DESCRIPTION:/PRIMARY_KEYWORD:/SECONDARY_KEYWORDS:/BODY: response from GENERATE_SYSTEM_PROMPT. */
+/** Parses the TITLE:/EXCERPT:/TAGS:/SEO_TITLE:/SEO_DESCRIPTION:/PRIMARY_KEYWORD:/SECONDARY_KEYWORDS:/BODY: response from GENERATE_SYSTEM_PROMPT. */
 function parseGeneratedArticle(raw: string): GeneratedArticle {
   const text = stripCodeFence(raw.trim());
   const match = text.match(
-    /TITLE:\s*([\s\S]*?)\n+EXCERPT:\s*([\s\S]*?)\n+SEO_TITLE:\s*([\s\S]*?)\n+SEO_DESCRIPTION:\s*([\s\S]*?)\n+PRIMARY_KEYWORD:\s*([\s\S]*?)\n+SECONDARY_KEYWORDS:\s*([\s\S]*?)\n+BODY:\s*([\s\S]*)/i
+    /TITLE:\s*([\s\S]*?)\n+EXCERPT:\s*([\s\S]*?)\n+TAGS:\s*([\s\S]*?)\n+SEO_TITLE:\s*([\s\S]*?)\n+SEO_DESCRIPTION:\s*([\s\S]*?)\n+PRIMARY_KEYWORD:\s*([\s\S]*?)\n+SECONDARY_KEYWORDS:\s*([\s\S]*?)\n+BODY:\s*([\s\S]*)/i
   );
   if (!match) {
     // Model didn't follow the format — fall back to treating the whole response as the body.
-    return { title: "", excerpt: "", seoTitle: "", seoDescription: "", primaryKeyword: "", secondaryKeywords: [], body: text };
+    return { title: "", excerpt: "", tags: [], seoTitle: "", seoDescription: "", primaryKeyword: "", secondaryKeywords: [], body: text };
   }
-  const [, title, excerpt, seoTitle, seoDescription, primaryKeyword, secondaryKeywords, body] = match;
+  const [, title, excerpt, tags, seoTitle, seoDescription, primaryKeyword, secondaryKeywords, body] = match;
   return {
     title: title.trim(),
     excerpt: excerpt.trim(),
+    tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
     seoTitle: seoTitle.trim(),
     seoDescription: seoDescription.trim(),
     primaryKeyword: primaryKeyword.trim(),

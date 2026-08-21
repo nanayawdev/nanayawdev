@@ -23,6 +23,7 @@ interface Props {
   onGenerated?: (fields: {
     title: string;
     excerpt: string;
+    tags: string[];
     seoTitle: string;
     seoDescription: string;
     primaryKeyword: string;
@@ -264,6 +265,7 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
         onGenerated?.({
           title: data.title ?? "",
           excerpt: data.excerpt ?? "",
+          tags: data.tags ?? [],
           seoTitle: data.seoTitle ?? "",
           seoDescription: data.seoDescription ?? "",
           primaryKeyword: data.primaryKeyword ?? "",

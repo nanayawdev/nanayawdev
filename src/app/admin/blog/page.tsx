@@ -218,7 +218,7 @@ export default function AdminBlogPage() {
                 onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
                 articleTitle={editing.title}
                 articleCategory={editing.category}
-                onGenerated={({ title, excerpt, seoTitle, seoDescription, primaryKeyword, secondaryKeywords }) => {
+                onGenerated={({ title, excerpt, tags, seoTitle, seoDescription, primaryKeyword, secondaryKeywords }) => {
                   setEditing((p) => ({
                     ...p,
                     title: title || p?.title,
@@ -227,6 +227,7 @@ export default function AdminBlogPage() {
                     seo_description: seoDescription || p?.seo_description,
                     primary_keyword: primaryKeyword || p?.primary_keyword,
                   }));
+                  if (tags.length) setTagsInput(tags.join(", "));
                   if (secondaryKeywords.length) setKeywordsInput(secondaryKeywords.join(", "));
                 }}
                 onImageUpload={async (file) => {
