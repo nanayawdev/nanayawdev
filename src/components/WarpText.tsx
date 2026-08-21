@@ -216,7 +216,7 @@ const buildTextCanvas = ({ container, width, height, dpr, props }: BuildTextCanv
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, width, height);
   ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "alphabetic";
   ctx.fillStyle = props.color;
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
@@ -227,11 +227,25 @@ const buildTextCanvas = ({ container, width, height, dpr, props }: BuildTextCanv
   };
   applyFont();
 
+  // actualBoundingBox* reflects real glyph ink, which for a heavy display
+  // font (all-caps, weight 900) sits well above/below the CSS line-height
+  // box used by `lineHeight * lines.length` alone — using that box to
+  // center the text clipped the caps' tops against the canvas edge.
+  const measureVertical = (line: string) => {
+    const metrics = ctx.measureText(line || " ");
+    return {
+      ascent: metrics.actualBoundingBoxAscent || fontSizePx * 0.75,
+      descent: metrics.actualBoundingBoxDescent || fontSizePx * 0.2,
+    };
+  };
+
   const maxWidth = width * 0.99;
-  const maxHeight = height * 0.96;
+  const maxHeight = height * 0.94;
   const widest = Math.max(...lines.map((line) => measureLine(ctx, line, letterSpacing)), 1);
-  const blockHeight = Math.max(lineHeight * lines.length, 1);
-  const fit = Math.min(1, maxWidth / widest, maxHeight / blockHeight);
+  const firstPass = measureVertical(lines[0]);
+  const lastPass = measureVertical(lines[lines.length - 1]);
+  const blockSpan = Math.max(firstPass.ascent + lineHeight * (lines.length - 1) + lastPass.descent, 1);
+  const fit = Math.min(1, maxWidth / widest, maxHeight / blockSpan);
 
   if (fit < 1) {
     fontSizePx *= fit;
@@ -240,8 +254,12 @@ const buildTextCanvas = ({ container, width, height, dpr, props }: BuildTextCanv
     applyFont();
   }
 
-  const startY = height / 2 - (lineHeight * (lines.length - 1)) / 2;
-  lines.forEach((line, index) => drawLine(ctx, line, width / 2, startY + index * lineHeight, letterSpacing));
+  const first = measureVertical(lines[0]);
+  const last = measureVertical(lines[lines.length - 1]);
+  const span = first.ascent + lineHeight * (lines.length - 1) + last.descent;
+  const baselineStart = (height - span) / 2 + first.ascent;
+
+  lines.forEach((line, index) => drawLine(ctx, line, width / 2, baselineStart + index * lineHeight, letterSpacing));
 
   return canvas;
 };
