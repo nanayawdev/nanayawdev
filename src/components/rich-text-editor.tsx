@@ -19,6 +19,8 @@ interface Props {
   /** Optional context passed to the AI "write from a prompt" action. */
   articleTitle?: string;
   articleCategory?: string;
+  /** Called with the AI's suggested title/excerpt after a successful "write from a prompt" generation. */
+  onGenerated?: (fields: { title: string; excerpt: string }) => void;
 }
 
 type AiAction = "continue" | "lengthen" | "refine" | "tone" | "generate";
@@ -64,7 +66,7 @@ const ToolBtn = ({
   </button>
 );
 
-export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, articleCategory }: Props) {
+export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, articleCategory, onGenerated }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const aiMenuRef = useRef<HTMLDivElement>(null);
   const [aiMenuOpen, setAiMenuOpen] = useState(false);
@@ -220,8 +222,11 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "AI request failed");
 
-      const html = stripCodeFence(data.result);
+      const html = stripCodeFence(data.body ?? "");
       editor.chain().focus("end").insertContent(html).run();
+      if (data.title || data.excerpt) {
+        onGenerated?.({ title: data.title ?? "", excerpt: data.excerpt ?? "" });
+      }
       closeGenerateModal();
     } catch (e: unknown) {
       setAiError(e instanceof Error ? e.message : "AI request failed");
@@ -449,7 +454,7 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
               value={generateBrief}
               onChange={(e) => setGenerateBrief(e.target.value)}
               disabled={aiBusy}
-              placeholder="Describe the article you want to write…"
+              placeholder='Give a topic — e.g. "PostgreSQL vs MySQL for modern SaaS applications"'
               className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-foreground disabled:opacity-60"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); runGenerate(); }

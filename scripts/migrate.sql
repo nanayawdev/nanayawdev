@@ -56,21 +56,31 @@ CREATE INDEX IF NOT EXISTS idx_chat_messages_session ON chat_messages(session_id
 CREATE INDEX IF NOT EXISTS idx_chat_sessions_phone ON chat_sessions(phone);
 
 CREATE TABLE IF NOT EXISTS blog_posts (
-  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  slug         TEXT NOT NULL UNIQUE,
-  title        TEXT NOT NULL,
-  excerpt      TEXT NOT NULL,
-  body         TEXT NOT NULL,
-  category     TEXT NOT NULL DEFAULT 'Software Engineering',
-  tags         TEXT[] NOT NULL DEFAULT '{}',
-  cover_image  TEXT,
-  featured     BOOLEAN NOT NULL DEFAULT FALSE,
-  published    BOOLEAN NOT NULL DEFAULT FALSE,
-  author       TEXT NOT NULL DEFAULT 'Arssent',
-  published_at TIMESTAMPTZ,
-  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug               TEXT NOT NULL UNIQUE,
+  title              TEXT NOT NULL,
+  excerpt            TEXT NOT NULL,
+  body               TEXT NOT NULL,
+  category           TEXT NOT NULL DEFAULT 'Software Engineering',
+  tags               TEXT[] NOT NULL DEFAULT '{}',
+  cover_image        TEXT,
+  featured           BOOLEAN NOT NULL DEFAULT FALSE,
+  published          BOOLEAN NOT NULL DEFAULT FALSE,
+  author             TEXT NOT NULL DEFAULT 'Arssent',
+  seo_title          TEXT,
+  seo_description    TEXT,
+  primary_keyword    TEXT,
+  secondary_keywords TEXT[] NOT NULL DEFAULT '{}',
+  published_at       TIMESTAMPTZ,
+  created_at         TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at         TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Added after the initial table creation — ALTER so it applies to already-provisioned databases too.
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS seo_title          TEXT;
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS seo_description    TEXT;
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS primary_keyword    TEXT;
+ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS secondary_keywords TEXT[] NOT NULL DEFAULT '{}';
 
 CREATE INDEX IF NOT EXISTS idx_blog_posts_slug      ON blog_posts(slug);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(published);

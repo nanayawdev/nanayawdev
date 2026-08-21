@@ -209,6 +209,9 @@ export default function AdminBlogPage() {
                 onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
                 articleTitle={editing.title}
                 articleCategory={editing.category}
+                onGenerated={({ title, excerpt }) =>
+                  setEditing((p) => ({ ...p, title: title || p?.title, excerpt: excerpt || p?.excerpt }))
+                }
                 onImageUpload={async (file) => {
                   const form = new FormData();
                   form.append("file", file);
