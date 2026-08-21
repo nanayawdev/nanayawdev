@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRightIcon as ArrowRight, ArrowLeftIcon as ArrowLeft, CheckIcon as Check } from "@phosphor-icons/react";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -189,12 +190,8 @@ function StartPageInner() {
         {/* Content */}
         <div className="relative z-20 flex flex-col justify-between h-full">
           {/* Logo */}
-          <Link
-            href="/"
-            className="inline-block text-lg font-semibold tracking-tight text-white"
-            aria-label="nanayawdev home"
-          >
-            nanayaw<span className="text-[#cdf68c]">dev</span>
+          <Link href="/" className="inline-block" aria-label="nanayawdev home">
+            <Image src="/nanayawdev-logo.png" alt="nanayawdev" width={512} height={512} className="h-9 w-9" priority />
           </Link>
 
           {/* Heading */}
@@ -264,12 +261,8 @@ function StartPageInner() {
 
         {/* Mobile logo */}
         <div className="lg:hidden px-8 pt-8 pb-4">
-          <Link
-            href="/"
-            className="inline-block text-base font-semibold tracking-tight text-foreground"
-            aria-label="nanayawdev home"
-          >
-            nanayaw<span className="text-[#0a291a]">dev</span>
+          <Link href="/" className="inline-block" aria-label="nanayawdev home">
+            <Image src="/nanayawdev-logo.png" alt="nanayawdev" width={512} height={512} className="h-8 w-8" priority />
           </Link>
         </div>
 
