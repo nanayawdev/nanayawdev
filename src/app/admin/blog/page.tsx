@@ -22,6 +22,10 @@ interface Post {
   featured: boolean;
   published: boolean;
   author: string;
+  seo_title: string;
+  seo_description: string;
+  primary_keyword: string;
+  secondary_keywords: string[];
   published_at: string | null;
   created_at: string;
 }
@@ -29,6 +33,7 @@ interface Post {
 const EMPTY: Omit<Post, "id" | "slug" | "published_at" | "created_at"> = {
   title: "", excerpt: "", body: "", category: "Software Engineering", tags: [],
   cover_image: "", featured: false, published: false, author: "nanayawdev",
+  seo_title: "", seo_description: "", primary_keyword: "", secondary_keywords: [],
 };
 
 const CATEGORIES = [
@@ -46,6 +51,7 @@ export default function AdminBlogPage() {
   const [posts, setPosts]           = useState<Post[]>([]);
   const [editing, setEditing]       = useState<Partial<Post> | null>(null);
   const [tagsInput, setTagsInput]   = useState("");
+  const [keywordsInput, setKeywordsInput] = useState("");
   const [isNew, setIsNew]           = useState(false);
   const [saving, setSaving]         = useState(false);
   const [error, setError]           = useState("");
@@ -66,6 +72,7 @@ export default function AdminBlogPage() {
   function openNew() {
     setEditing({ ...EMPTY });
     setTagsInput("");
+    setKeywordsInput("");
     setIsNew(true);
     setError("");
   }
@@ -75,6 +82,7 @@ export default function AdminBlogPage() {
     const data = await res.json();
     setEditing(data.post);
     setTagsInput((data.post.tags ?? []).join(", "));
+    setKeywordsInput((data.post.secondary_keywords ?? []).join(", "));
     setIsNew(false);
     setError("");
   }
@@ -84,12 +92,13 @@ export default function AdminBlogPage() {
     setSaving(true); setError("");
     try {
       const tags = tagsInput.split(",").map((t) => t.trim()).filter(Boolean);
+      const secondary_keywords = keywordsInput.split(",").map((k) => k.trim()).filter(Boolean);
       const url    = isNew ? "/api/admin/blog" : `/api/admin/blog/${editing.id}`;
       const method = isNew ? "POST" : "PATCH";
       const res = await adminFetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...editing, tags }),
+        body: JSON.stringify({ ...editing, tags, secondary_keywords }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? "Save failed"); return; }
@@ -209,9 +218,17 @@ export default function AdminBlogPage() {
                 onChange={(html) => setEditing((p) => ({ ...p, body: html }))}
                 articleTitle={editing.title}
                 articleCategory={editing.category}
-                onGenerated={({ title, excerpt }) =>
-                  setEditing((p) => ({ ...p, title: title || p?.title, excerpt: excerpt || p?.excerpt }))
-                }
+                onGenerated={({ title, excerpt, seoTitle, seoDescription, primaryKeyword, secondaryKeywords }) => {
+                  setEditing((p) => ({
+                    ...p,
+                    title: title || p?.title,
+                    excerpt: excerpt || p?.excerpt,
+                    seo_title: seoTitle || p?.seo_title,
+                    seo_description: seoDescription || p?.seo_description,
+                    primary_keyword: primaryKeyword || p?.primary_keyword,
+                  }));
+                  if (secondaryKeywords.length) setKeywordsInput(secondaryKeywords.join(", "));
+                }}
                 onImageUpload={async (file) => {
                   const form = new FormData();
                   form.append("file", file);
@@ -263,6 +280,55 @@ export default function AdminBlogPage() {
                 className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="e.g. nextjs, postgres, multi-tenancy"
               />
+            </div>
+
+            {/* SEO */}
+            <div className="space-y-4 border border-border p-4">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">SEO</p>
+
+              <div>
+                <label className="mb-1.5 block text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SEO Title</label>
+                <input
+                  type="text"
+                  value={editing.seo_title ?? ""}
+                  onChange={(e) => setEditing((p) => ({ ...p, seo_title: e.target.value }))}
+                  className="w-full border border-border bg-background px-3 py-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                  placeholder="Defaults to the post title"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SEO Description</label>
+                <textarea
+                  rows={2}
+                  value={editing.seo_description ?? ""}
+                  onChange={(e) => setEditing((p) => ({ ...p, seo_description: e.target.value }))}
+                  className="w-full resize-none border border-border bg-background px-3 py-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                  placeholder="Defaults to the excerpt"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Primary Keyword</label>
+                <input
+                  type="text"
+                  value={editing.primary_keyword ?? ""}
+                  onChange={(e) => setEditing((p) => ({ ...p, primary_keyword: e.target.value }))}
+                  className="w-full border border-border bg-background px-3 py-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Secondary Keywords <span className="normal-case font-normal text-muted-foreground/70">(comma-separated)</span>
+                </label>
+                <input
+                  type="text"
+                  value={keywordsInput}
+                  onChange={(e) => setKeywordsInput(e.target.value)}
+                  className="w-full border border-border bg-background px-3 py-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                />
+              </div>
             </div>
 
             {/* Cover image upload */}

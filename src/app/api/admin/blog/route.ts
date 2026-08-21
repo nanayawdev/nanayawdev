@@ -17,7 +17,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { rows } = await pool.query(
-    `SELECT id::text, slug, title, excerpt, category, tags, cover_image, featured, published, author, published_at, created_at, updated_at
+    `SELECT id::text, slug, title, excerpt, category, tags, cover_image, featured, published, author,
+            seo_title, seo_description, primary_keyword, secondary_keywords, published_at, created_at, updated_at
      FROM blog_posts
      ORDER BY created_at DESC`
   );
@@ -30,7 +31,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const { title, excerpt, body, category, tags, cover_image, featured, published, author } = await req.json();
+    const {
+      title, excerpt, body, category, tags, cover_image, featured, published, author,
+      seo_title, seo_description, primary_keyword, secondary_keywords,
+    } = await req.json();
 
     if (!title || !excerpt || !body) {
       return NextResponse.json({ error: "title, excerpt and body are required" }, { status: 400 });
@@ -40,11 +44,13 @@ export async function POST(req: NextRequest) {
     const published_at = published ? new Date() : null;
 
     const { rows } = await pool.query(
-      `INSERT INTO blog_posts (slug, title, excerpt, body, category, tags, cover_image, featured, published, author, published_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+      `INSERT INTO blog_posts (slug, title, excerpt, body, category, tags, cover_image, featured, published, author,
+                                seo_title, seo_description, primary_keyword, secondary_keywords, published_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
        RETURNING id::text, slug, title, published, created_at`,
       [slug, title, excerpt, body, category ?? "Software Engineering", tags ?? [], cover_image ?? null,
-       featured ?? false, published ?? false, author ?? "nanayawdev", published_at]
+       featured ?? false, published ?? false, author ?? "nanayawdev",
+       seo_title ?? null, seo_description ?? null, primary_keyword ?? null, secondary_keywords ?? [], published_at]
     );
     return NextResponse.json({ success: true, post: rows[0] }, { status: 201 });
   } catch (err: unknown) {

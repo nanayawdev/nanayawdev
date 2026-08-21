@@ -249,6 +249,7 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
         body: JSON.stringify({
           action: "generate",
           provider,
+          contentType,
           text: brief,
           title: articleTitle,
           category: articleCategory,
@@ -260,7 +261,14 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
       const html = stripCodeFence(data.body ?? "");
       editor.chain().focus("end").insertContent(html).run();
       if (data.title || data.excerpt) {
-        onGenerated?.({ title: data.title ?? "", excerpt: data.excerpt ?? "" });
+        onGenerated?.({
+          title: data.title ?? "",
+          excerpt: data.excerpt ?? "",
+          seoTitle: data.seoTitle ?? "",
+          seoDescription: data.seoDescription ?? "",
+          primaryKeyword: data.primaryKeyword ?? "",
+          secondaryKeywords: data.secondaryKeywords ?? [],
+        });
       }
       closeGenerateModal();
     } catch (e: unknown) {
@@ -495,6 +503,24 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); runGenerate(); }
               }}
             />
+
+            <div className="mt-4">
+              <p className="mb-1.5 text-[0.6rem] font-semibold uppercase tracking-wider text-muted-foreground">Editorial angle</p>
+              <div className="flex flex-wrap gap-1">
+                {CONTENT_TYPES.map((c) => (
+                  <button
+                    key={c.value}
+                    type="button"
+                    onClick={() => setAndPersistContentType(c.value)}
+                    className={`rounded-full px-2.5 py-1 text-[0.6rem] font-semibold transition-colors ${
+                      contentType === c.value ? "bg-foreground text-background" : "border border-border text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <div className="mt-4 flex items-center justify-between">
               <div className="flex gap-1">

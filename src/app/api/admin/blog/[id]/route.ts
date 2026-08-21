@@ -12,7 +12,8 @@ export async function GET(
   }
   const { id } = await params;
   const { rows } = await pool.query(
-    `SELECT id::text, slug, title, excerpt, body, category, tags, cover_image, featured, published, author, published_at, created_at
+    `SELECT id::text, slug, title, excerpt, body, category, tags, cover_image, featured, published, author,
+            seo_title, seo_description, primary_keyword, secondary_keywords, published_at, created_at
      FROM blog_posts WHERE id = $1`,
     [id]
   );
@@ -32,7 +33,10 @@ export async function PATCH(
   }
   try {
     const { id } = await params;
-    const { title, excerpt, body, category, tags, cover_image, featured, published, author } = await req.json();
+    const {
+      title, excerpt, body, category, tags, cover_image, featured, published, author,
+      seo_title, seo_description, primary_keyword, secondary_keywords,
+    } = await req.json();
 
     const { rows: current } = await pool.query(
       `SELECT published FROM blog_posts WHERE id = $1`, [id]
@@ -46,20 +50,26 @@ export async function PATCH(
 
     const { rows } = await pool.query(
       `UPDATE blog_posts SET
-         title        = COALESCE($1, title),
-         excerpt      = COALESCE($2, excerpt),
-         body         = COALESCE($3, body),
-         category     = COALESCE($4, category),
-         tags         = COALESCE($5, tags),
-         cover_image  = COALESCE($6, cover_image),
-         featured     = COALESCE($7, featured),
-         published    = COALESCE($8, published),
-         author       = COALESCE($9, author),
-         published_at = COALESCE($10, published_at),
-         updated_at   = NOW()
-       WHERE id = $11
-       RETURNING id::text, slug, title, excerpt, body, category, tags, cover_image, featured, published, author, published_at, updated_at`,
+         title              = COALESCE($1, title),
+         excerpt            = COALESCE($2, excerpt),
+         body               = COALESCE($3, body),
+         category           = COALESCE($4, category),
+         tags               = COALESCE($5, tags),
+         cover_image        = COALESCE($6, cover_image),
+         featured           = COALESCE($7, featured),
+         published          = COALESCE($8, published),
+         author             = COALESCE($9, author),
+         seo_title          = COALESCE($10, seo_title),
+         seo_description    = COALESCE($11, seo_description),
+         primary_keyword    = COALESCE($12, primary_keyword),
+         secondary_keywords = COALESCE($13, secondary_keywords),
+         published_at       = COALESCE($14, published_at),
+         updated_at         = NOW()
+       WHERE id = $15
+       RETURNING id::text, slug, title, excerpt, body, category, tags, cover_image, featured, published, author,
+                 seo_title, seo_description, primary_keyword, secondary_keywords, published_at, updated_at`,
       [title, excerpt, body, category, tags ?? null, cover_image, featured, published, author,
+       seo_title ?? null, seo_description ?? null, primary_keyword ?? null, secondary_keywords ?? null,
        published_at ?? null, id]
     );
     return NextResponse.json({ success: true, post: rows[0] });
