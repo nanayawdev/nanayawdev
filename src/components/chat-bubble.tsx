@@ -166,7 +166,7 @@ export function ChatBubble() {
       {/* Chat panel */}
       {open && (
         <div
-          className={`flex w-[340px] flex-col border border-border bg-background shadow-lg transition-all duration-300 ${
+          className={`flex w-[340px] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-lg transition-all duration-300 ${
             minimised ? "h-0 overflow-hidden" : "h-[460px]"
           }`}
         >
@@ -200,7 +200,7 @@ export function ChatBubble() {
                 </p>
                 <button
                   onClick={() => setStage("phone")}
-                  className="w-full bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90"
+                  className="w-full rounded-full bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90"
                 >
                   Start Chat
                 </button>
@@ -218,20 +218,20 @@ export function ChatBubble() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
-                  className="border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                 />
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+233 XX XXX XXXX"
-                  className="border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                 />
                 {error && <p className="text-[0.6rem] text-red-500 uppercase tracking-widest">{error}</p>}
                 <button
                   onClick={requestOtp}
                   disabled={loading || !phone.trim() || !name.trim()}
-                  className="bg-[#cdf68c] text-[#0a291a] py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="rounded-full bg-[#cdf68c] text-[#0a291a] py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {loading ? "Sending…" : "Send Code"}
                 </button>
@@ -250,13 +250,13 @@ export function ChatBubble() {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                   placeholder="123456"
-                  className="border border-border bg-background px-4 py-2.5 text-sm text-foreground tracking-[0.3em] placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground tracking-[0.3em] placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                 />
                 {error && <p className="text-[0.6rem] text-red-500 uppercase tracking-widest">{error}</p>}
                 <button
                   onClick={verifyOtp}
                   disabled={loading || otp.length < 6}
-                  className="bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="rounded-lg bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {loading ? "Verifying…" : "Verify & Start Chat"}
                 </button>
@@ -300,7 +300,7 @@ export function ChatBubble() {
                         placeholder="Type a message…"
                         className="flex-1 bg-transparent px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none"
                       />
-                      <button onClick={sendMessage} disabled={!input.trim()} aria-label="Send" className="px-3 py-2.5 text-muted-foreground hover:text-foreground disabled:opacity-40">
+                      <button onClick={sendMessage} disabled={!input.trim()} aria-label="Send" className="rounded-lg px-3 py-2.5 text-muted-foreground hover:text-foreground disabled:opacity-40">
                         <Send className="h-3.5 w-3.5" />
                       </button>
                     </div>

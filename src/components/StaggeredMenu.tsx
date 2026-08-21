@@ -3,6 +3,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { ListIcon, XIcon } from "@phosphor-icons/react";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -59,9 +60,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const preLayersRef = useRef<HTMLDivElement | null>(null);
   const preLayerElsRef = useRef<HTMLElement[]>([]);
 
-  const plusHRef = useRef<HTMLSpanElement | null>(null);
-  const plusVRef = useRef<HTMLSpanElement | null>(null);
-  const iconRef = useRef<HTMLSpanElement | null>(null);
+  const menuIconRef = useRef<SVGSVGElement | null>(null);
+  const closeIconRef = useRef<SVGSVGElement | null>(null);
 
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
@@ -249,25 +249,22 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [position]);
 
   const animateIcon = useCallback((opening: boolean) => {
-    const icon = iconRef.current;
-    const h = plusHRef.current;
-    const v = plusVRef.current;
-    if (!icon || !h || !v) return;
+    const menuIcon = menuIconRef.current;
+    const closeIcon = closeIconRef.current;
+    if (!menuIcon || !closeIcon) return;
 
     spinTweenRef.current?.kill();
 
     if (opening) {
-      gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
       spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: "power4.out" } })
-        .to(h, { rotate: 45, duration: 0.5 }, 0)
-        .to(v, { rotate: -45, duration: 0.5 }, 0);
+        .timeline({ defaults: { ease: "power4.out", duration: 0.4 } })
+        .to(menuIcon, { rotate: 90, opacity: 0 }, 0)
+        .fromTo(closeIcon, { rotate: -90, opacity: 0 }, { rotate: 0, opacity: 1 }, 0);
     } else {
       spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: "power3.inOut" } })
-        .to(h, { rotate: 0, duration: 0.35 }, 0)
-        .to(v, { rotate: 90, duration: 0.35 }, 0)
-        .to(icon, { rotate: 0, duration: 0.001 }, 0);
+        .timeline({ defaults: { ease: "power3.inOut", duration: 0.35 } })
+        .to(closeIcon, { rotate: 90, opacity: 0 }, 0)
+        .fromTo(menuIcon, { rotate: -90, opacity: 0 }, { rotate: 0, opacity: 1 }, 0);
     }
   }, []);
 
@@ -433,6 +430,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             onClick={toggleMenu}
             type="button"
           >
+            <span className="sm-icon" aria-hidden="true">
+              <ListIcon ref={menuIconRef} weight="duotone" className="absolute inset-0 h-4 w-4" />
+              <XIcon ref={closeIconRef} weight="duotone" className="absolute inset-0 h-4 w-4 opacity-0" />
+            </span>
             <span
               ref={textWrapRef}
               className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap text-xs font-semibold uppercase tracking-[0.18em]"
@@ -507,9 +508,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
 .sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; background: transparent; pointer-events: none; z-index: 20; }
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
-.sm-scope .sm-icon { position: relative; width: 14px; height: 14px; flex: 0 0 14px; display: inline-flex; align-items: center; justify-content: center; will-change: transform; }
+.sm-scope .sm-icon { position: relative; width: 16px; height: 16px; flex: 0 0 16px; display: inline-flex; align-items: center; justify-content: center; will-change: transform; }
 .sm-scope .sm-panel-itemWrap { position: relative; overflow: hidden; line-height: 1; }
-.sm-scope .sm-icon-line { position: absolute; left: 50%; top: 50%; width: 100%; height: 2px; background: currentColor; border-radius: 2px; transform: translate(-50%, -50%); will-change: transform; }
 .sm-scope .staggered-menu-panel { position: absolute; top: 0; right: 0; width: clamp(280px, 42vw, 460px); height: 100%; background: var(--background); color: var(--foreground); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 6em 2em 2em 2em; overflow-y: auto; z-index: 10; }
 .sm-scope [data-position='left'] .staggered-menu-panel { right: auto; left: 0; border-left: none; border-right: 1px solid var(--border); }
 .sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(280px, 42vw, 460px); pointer-events: none; z-index: 5; }
