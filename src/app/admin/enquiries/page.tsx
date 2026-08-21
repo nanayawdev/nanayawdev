@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Enquiry {
@@ -88,15 +89,16 @@ export default function EnquiriesPage() {
               <h2 className="text-xl font-bold text-foreground">{selected.name}</h2>
               <p className="text-sm text-muted-foreground">{selected.email}</p>
             </div>
-            <select
-              value={selected.status}
-              onChange={(e) => updateStatus(selected.id, e.target.value)}
-              className="rounded-lg border border-border bg-background px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground focus:outline-none"
-            >
-              {STATUS_OPTIONS.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
+            <Select value={selected.status} onValueChange={(value) => updateStatus(selected.id, value)}>
+              <SelectTrigger className="rounded-lg border border-border bg-background px-3 py-2 h-auto text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground focus:outline-none">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {STATUS_OPTIONS.map((s) => (
+                  <SelectItem key={s} value={s}>{s}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-6">

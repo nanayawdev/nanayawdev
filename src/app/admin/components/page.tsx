@@ -6,6 +6,7 @@ import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface ComponentFile {
@@ -242,13 +243,14 @@ export default function AdminComponentsPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
-              <select
-                value={editing.category ?? "General"}
-                onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none"
-              >
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
+              <Select value={editing.category ?? "General"} onValueChange={(value) => setEditing((p) => ({ ...p, category: value }))}>
+                <SelectTrigger className="w-full rounded-lg border border-border bg-background px-4 py-2.5 h-auto text-sm text-foreground focus:outline-none">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Author</label>
@@ -287,7 +289,7 @@ export default function AdminComponentsPage() {
                 onClick={() => coverInputRef.current?.click()}
                 className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
               >
-                <ImagePlus className="h-6 w-6" />
+                {uploadingCover ? <Spinner size="lg" /> : <ImagePlus className="h-6 w-6" />}
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                   {uploadingCover ? "Uploading…" : "Click to upload"}
                 </p>

@@ -60,7 +60,7 @@ export async function GET(
         if (closed) return;
         try {
           const { rows } = await pool.query(
-            `SELECT id::text, sender, body, created_at
+            `SELECT id::text, sender, body, attachment_url, attachment_name, attachment_type, created_at
              FROM chat_messages
              WHERE session_id = $1 AND created_at > $2
              ORDER BY created_at ASC`,

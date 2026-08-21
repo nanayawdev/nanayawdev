@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { LogoutModal } from "@/components/admin/logout-modal";
 import { usePathname, useRouter } from "next/navigation";
-import { BellIcon as Bell, CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
+import { CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
 import {
   SidebarInset,
   SidebarProvider,
@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/admin/app-sidebar";
 import { UserDropdown } from "@/components/admin/user-dropdown";
+import { NotificationDropdown } from "@/components/admin/notification-dropdown";
 
 const PAGE_TITLES: Record<string, string> = {
   "/admin":            "Dashboard",
@@ -104,12 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 View Site ↗
               </a>
-              <button
-                aria-label="Notifications"
-                className="flex size-8 items-center justify-center rounded-full border border-border/60 bg-muted/40 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <Bell className="h-4 w-4" />
-              </button>
+              <NotificationDropdown />
               <UserDropdown username={username} onSignOut={() => setShowLogout(true)} />
             </div>
           </header>

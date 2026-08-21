@@ -9,10 +9,10 @@ export async function POST(
 ) {
   try {
     const { id: sessionId } = await params;
-    const { body } = await req.json();
+    const { body, attachment_url, attachment_name, attachment_type } = await req.json();
 
-    if (!body?.trim()) {
-      return NextResponse.json({ error: "body is required" }, { status: 400 });
+    if (!body?.trim() && !attachment_url) {
+      return NextResponse.json({ error: "body or attachment_url is required" }, { status: 400 });
     }
 
     // Determine sender, either authenticated chat user or admin
@@ -30,10 +30,10 @@ export async function POST(
     const sender = admin ? "agent" : "user";
 
     const { rows } = await pool.query(
-      `INSERT INTO chat_messages (session_id, sender, body)
-       VALUES ($1, $2, $3)
-       RETURNING id, session_id, sender, body, created_at`,
-      [sessionId, sender, body.trim()]
+      `INSERT INTO chat_messages (session_id, sender, body, attachment_url, attachment_name, attachment_type)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, session_id, sender, body, attachment_url, attachment_name, attachment_type, created_at`,
+      [sessionId, sender, body?.trim() ?? "", attachment_url ?? null, attachment_name ?? null, attachment_type ?? null]
     );
 
     return NextResponse.json({ success: true, message: rows[0] }, { status: 201 });
@@ -63,7 +63,7 @@ export async function GET(
     }
 
     const { rows } = await pool.query(
-      `SELECT id, sender, body, created_at
+      `SELECT id, sender, body, attachment_url, attachment_name, attachment_type, created_at
        FROM chat_messages
        WHERE session_id = $1
        ORDER BY created_at ASC`,

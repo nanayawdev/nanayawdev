@@ -134,7 +134,7 @@ export default function AdminTestimonialsPage() {
             ) : (
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
                 className="flex w-20 h-20 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-border text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50">
-                {uploading ? <span className="text-[0.6rem]">…</span> : <><User className="h-4 w-4" /><ImagePlus className="h-3 w-3" /></>}
+                {uploading ? <Spinner size="default" /> : <><User className="h-4 w-4" /><ImagePlus className="h-3 w-3" /></>}
               </button>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />

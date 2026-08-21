@@ -146,7 +146,7 @@ export default function AdminServicesPage() {
             ) : (
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
                 className="flex w-full items-center justify-center gap-2 rounded-full border border-dashed border-border py-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50">
-                <ImagePlus className="h-4 w-4" />{uploading ? "Uploading…" : "Upload Image"}
+                {uploading ? <Spinner size="sm" /> : <ImagePlus className="h-4 w-4" />}{uploading ? "Uploading…" : "Upload Image"}
               </button>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />

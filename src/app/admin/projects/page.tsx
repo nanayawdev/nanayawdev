@@ -6,6 +6,7 @@ import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Project {
@@ -203,7 +204,7 @@ export default function AdminProjectsPage() {
                 disabled={uploading}
                 className="flex w-full items-center justify-center gap-2 rounded-full border border-dashed border-border py-8 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50"
               >
-                <ImagePlus className="h-4 w-4" />
+                {uploading ? <Spinner size="sm" /> : <ImagePlus className="h-4 w-4" />}
                 {uploading ? "Uploading…" : "Upload Image"}
               </button>
             )}
@@ -234,12 +235,14 @@ export default function AdminProjectsPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
-              <select
-                value={editing.category ?? "Web"} onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
-              >
-                {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-              </select>
+              <Select value={editing.category ?? "Web"} onValueChange={(value) => setEditing((p) => ({ ...p, category: value }))}>
+                <SelectTrigger className="w-full rounded-lg border border-border bg-background px-4 py-2.5 h-auto text-sm focus:outline-none focus:ring-1 focus:ring-foreground">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Year</label>

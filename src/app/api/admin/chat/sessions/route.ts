@@ -11,8 +11,8 @@ export async function GET(req: NextRequest) {
   const status = searchParams.get("status"); // optional filter: active | closed | pending_otp
 
   const query = status
-    ? `SELECT id, phone, status, created_at FROM chat_sessions WHERE status = $1 ORDER BY created_at DESC`
-    : `SELECT id, phone, status, created_at FROM chat_sessions ORDER BY created_at DESC`;
+    ? `SELECT id, phone, visitor_name, status, created_at FROM chat_sessions WHERE status = $1 ORDER BY created_at DESC`
+    : `SELECT id, phone, visitor_name, status, created_at FROM chat_sessions ORDER BY created_at DESC`;
 
   const { rows } = await pool.query(query, status ? [status] : []);
   return NextResponse.json({ sessions: rows });

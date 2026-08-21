@@ -6,6 +6,7 @@ import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface App {
@@ -143,8 +144,8 @@ export default function AdminAppsPage() {
             ) : (
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
                 className="flex w-24 h-24 items-center justify-center gap-2 border border-dashed border-border text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 flex-col rounded-2xl">
-                <ImagePlus className="h-5 w-5" />
-                {uploading ? "…" : "Icon"}
+                {uploading ? <Spinner size="default" /> : <ImagePlus className="h-5 w-5" />}
+                {uploading ? "Uploading…" : "Icon"}
               </button>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleIconUpload} />
@@ -160,10 +161,14 @@ export default function AdminAppsPage() {
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
-              <select value={editing.category ?? "Utility"} onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground">
-                {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-              </select>
+              <Select value={editing.category ?? "Utility"} onValueChange={(value) => setEditing((p) => ({ ...p, category: value }))}>
+                <SelectTrigger className="w-full rounded-lg border border-border bg-background px-4 py-2.5 h-auto text-sm focus:outline-none focus:ring-1 focus:ring-foreground">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 

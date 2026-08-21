@@ -1,10 +1,20 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { PhoneIcon as Phone, XIcon as X, PaperPlaneTiltIcon as Send, MinusIcon as Minus } from "@phosphor-icons/react";
+import { PhoneIcon as Phone, XIcon as X, PaperPlaneTiltIcon as Send, MinusIcon as Minus, FileArrowDownIcon as FileArrowDown } from "@phosphor-icons/react";
+import { Spinner } from "@/components/admin/spinner";
+import { linkify } from "@/lib/linkify";
 
 type Stage = "idle" | "phone" | "otp" | "chat" | "closed";
-type Message = { id: string; sender: "agent" | "user"; body: string; created_at: string };
+type Message = {
+  id: string;
+  sender: "agent" | "user";
+  body: string;
+  attachment_url: string | null;
+  attachment_name: string | null;
+  attachment_type: string | null;
+  created_at: string;
+};
 
 const STORAGE_KEY = "nanayawdev_chat_session";
 
@@ -231,9 +241,9 @@ export function ChatBubble() {
                 <button
                   onClick={requestOtp}
                   disabled={loading || !phone.trim() || !name.trim()}
-                  className="rounded-full bg-[#cdf68c] text-[#0a291a] py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="flex items-center justify-center rounded-full bg-[#cdf68c] text-[#0a291a] py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
-                  {loading ? "Sending…" : "Send Code"}
+                  {loading ? <Spinner size="sm" className="text-[#0a291a]" /> : "Send Code"}
                 </button>
               </div>
             )}
@@ -256,9 +266,9 @@ export function ChatBubble() {
                 <button
                   onClick={verifyOtp}
                   disabled={loading || otp.length < 6}
-                  className="rounded-lg bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="flex items-center justify-center rounded-lg bg-foreground text-background py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
-                  {loading ? "Verifying…" : "Verify & Start Chat"}
+                  {loading ? <Spinner size="sm" className="text-background" /> : "Verify & Start Chat"}
                 </button>
                 <button onClick={() => { setStage("phone"); setError(""); }} className="text-[0.6rem] text-muted-foreground hover:text-foreground uppercase tracking-widest">
                   ← Change number
@@ -277,13 +287,26 @@ export function ChatBubble() {
                   )}
                   {messages.map((msg) => (
                     <div key={msg.id} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-                      <p className={`max-w-[80%] px-3 py-2 text-xs leading-relaxed ${
+                      <div className={`max-w-[80%] rounded-lg px-3 py-2 text-xs leading-relaxed ${
                         msg.sender === "user"
                           ? "bg-foreground text-background"
                           : "border border-border bg-muted text-foreground"
                       }`}>
-                        {msg.body}
-                      </p>
+                        {msg.body && <p className="whitespace-pre-wrap break-words">{linkify(msg.body)}</p>}
+                        {msg.attachment_url && (
+                          <a
+                            href={msg.attachment_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`mt-1.5 flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 transition-opacity hover:opacity-80 ${
+                              msg.sender === "user" ? "border-background/30" : "border-border"
+                            }`}
+                          >
+                            <FileArrowDown className="h-3.5 w-3.5 shrink-0" />
+                            <span className="truncate">{msg.attachment_name ?? "Download file"}</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   ))}
                   <div ref={bottomRef} />

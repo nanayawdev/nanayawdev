@@ -45,12 +45,20 @@ CREATE TABLE IF NOT EXISTS chat_sessions (
 );
 
 CREATE TABLE IF NOT EXISTS chat_messages (
-  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  session_id  UUID NOT NULL REFERENCES chat_sessions(id) ON DELETE CASCADE,
-  sender      TEXT NOT NULL CHECK (sender IN ('user', 'agent')),
-  body        TEXT NOT NULL,
-  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id       UUID NOT NULL REFERENCES chat_sessions(id) ON DELETE CASCADE,
+  sender           TEXT NOT NULL CHECK (sender IN ('user', 'agent')),
+  body             TEXT NOT NULL,
+  attachment_url   TEXT,
+  attachment_name  TEXT,
+  attachment_type  TEXT,
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Added after the initial table creation, ALTER so it applies to already-provisioned databases too.
+ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS attachment_url  TEXT;
+ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS attachment_name TEXT;
+ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS attachment_type TEXT;
 
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session ON chat_messages(session_id);
 CREATE INDEX IF NOT EXISTS idx_chat_sessions_phone ON chat_sessions(phone);

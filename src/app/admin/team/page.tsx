@@ -144,8 +144,8 @@ export default function AdminTeamPage() {
             ) : (
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
                 className="flex w-32 h-32 items-center justify-center gap-2 rounded-full border border-dashed border-border text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 flex-col">
-                <ImagePlus className="h-5 w-5" />
-                {uploading ? "…" : "Photo"}
+                {uploading ? <Spinner size="default" /> : <ImagePlus className="h-5 w-5" />}
+                {uploading ? "Uploading…" : "Photo"}
               </button>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />

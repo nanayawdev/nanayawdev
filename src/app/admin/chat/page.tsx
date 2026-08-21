@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PaperPlaneTiltIcon as Send } from "@phosphor-icons/react";
+import { PaperPlaneTiltIcon as Send, PaperclipIcon as Paperclip, FileArrowDownIcon as FileArrowDown } from "@phosphor-icons/react";
 import { adminFetch } from "@/lib/admin-fetch";
+import { linkify } from "@/lib/linkify";
 
 interface Session {
   id: number;
   phone: string;
+  visitor_name: string | null;
   status: string;
   created_at: string;
 }
@@ -15,6 +17,9 @@ interface Message {
   id: number;
   sender: "user" | "agent";
   body: string;
+  attachment_url: string | null;
+  attachment_name: string | null;
+  attachment_type: string | null;
   created_at: string;
 }
 
@@ -24,8 +29,11 @@ export default function AdminChatPage() {
   const [messages, setMessages]   = useState<Message[]>([]);
   const [input, setInput]         = useState("");
   const [sending, setSending]     = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const bottomRef                 = useRef<HTMLDivElement>(null);
   const esRef                     = useRef<EventSource | null>(null);
+  const fileInputRef              = useRef<HTMLInputElement>(null);
 
   function token() { return localStorage.getItem("admin_token") ?? ""; }
 
@@ -88,6 +96,37 @@ export default function AdminChatPage() {
     setSending(false);
   }
 
+  async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file || !active) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const uploadRes = await adminFetch("/api/admin/chat/upload", { method: "POST", body: form });
+      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok) throw new Error(uploadData.error ?? "Upload failed");
+
+      await adminFetch(`/api/chat/sessions/${active.id}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          body: input.trim(),
+          attachment_url: uploadData.url,
+          attachment_name: uploadData.name,
+          attachment_type: uploadData.type,
+        }),
+      });
+      setInput("");
+    } catch (err: unknown) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
   async function closeSession() {
     if (!active) return;
     await adminFetch(`/api/chat/sessions/${active.id}/close`, { method: "POST" });
@@ -123,8 +162,9 @@ export default function AdminChatPage() {
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className={`h-2 w-2 shrink-0 rounded-full ${statusColor[s.status] ?? "bg-muted"}`} />
-                <p className="text-sm font-semibold text-foreground">{s.phone}</p>
+                <p className="text-sm font-semibold text-foreground">{s.visitor_name || s.phone}</p>
               </div>
+              {s.visitor_name && <p className="text-[0.65rem] text-muted-foreground">{s.phone}</p>}
               <p className="text-[0.6rem] text-muted-foreground uppercase tracking-widest">{s.status}</p>
               <p className="text-[0.6rem] text-muted-foreground mt-0.5">
                 {new Date(s.created_at).toLocaleString()}
@@ -143,7 +183,8 @@ export default function AdminChatPage() {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
             <div>
-              <p className="text-sm font-bold text-foreground">{active.phone}</p>
+              <p className="text-sm font-bold text-foreground">{active.visitor_name || active.phone}</p>
+              {active.visitor_name && <p className="text-[0.65rem] text-muted-foreground">{active.phone}</p>}
               <p className="text-[0.6rem] text-muted-foreground uppercase tracking-widest">{active.status}</p>
             </div>
             {active.status !== "closed" && (
@@ -170,7 +211,20 @@ export default function AdminChatPage() {
                       : "border border-border bg-muted/30 text-foreground"
                   }`}
                 >
-                  {m.body}
+                  {m.body && <p className="whitespace-pre-wrap break-words">{linkify(m.body)}</p>}
+                  {m.attachment_url && (
+                    <a
+                      href={m.attachment_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`mt-2 flex items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-opacity hover:opacity-80 ${
+                        m.sender === "agent" ? "border-background/30" : "border-border"
+                      }`}
+                    >
+                      <FileArrowDown className="h-4 w-4 shrink-0" />
+                      <span className="truncate">{m.attachment_name ?? "Download file"}</span>
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -179,22 +233,38 @@ export default function AdminChatPage() {
 
           {/* Input */}
           {active.status !== "closed" ? (
-            <div className="border-t border-border flex items-center gap-0">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-                placeholder="Type a message…"
-                className="flex-1 bg-background px-5 py-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none"
-              />
-              <button
-                onClick={sendMessage}
-                disabled={sending || !input.trim()}
-                className="h-full rounded-full px-5 py-4 bg-foreground text-background transition-opacity hover:opacity-90 disabled:opacity-40"
-              >
-                <Send className="h-4 w-4" />
-              </button>
+            <div className="border-t border-border">
+              {uploadError && (
+                <p className="px-5 pt-2 text-[0.65rem] uppercase tracking-widest text-red-500">{uploadError}</p>
+              )}
+              <div className="flex items-center gap-0">
+                <input ref={fileInputRef} type="file" onChange={handleFileSelect} className="hidden" />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  aria-label="Attach a file"
+                  title="Attach a file (PDF, Word, PowerPoint, image — max 4 MB)"
+                  className="shrink-0 px-4 py-4 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+                >
+                  <Paperclip className="h-4 w-4" />
+                </button>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+                  placeholder={uploading ? "Uploading…" : "Type a message…"}
+                  disabled={uploading}
+                  className="flex-1 bg-background px-5 py-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none disabled:opacity-60"
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={sending || uploading || !input.trim()}
+                  className="h-full rounded-full px-5 py-4 bg-foreground text-background transition-opacity hover:opacity-90 disabled:opacity-40"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           ) : (
             <div className="border-t border-border px-6 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
