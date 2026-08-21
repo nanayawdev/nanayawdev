@@ -12,7 +12,7 @@ const processes = [
   {
     id: 2,
     title: "Strategy",
-    description: "I map out the full scope — architecture, tech stack, design direction — before a single pixel or line of code is touched.",
+    description: "I map out the full scope (architecture, tech stack, design direction) before a single pixel or line of code is touched.",
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const processes = [
   {
     id: 4,
     title: "Review & Refine",
-    description: "You give feedback, I listen and iterate until every detail is right — no rushed sign-offs, no compromises on quality.",
+    description: "You give feedback, I listen and iterate until every detail is right, no rushed sign-offs, no compromises on quality.",
   },
   {
     id: 5,

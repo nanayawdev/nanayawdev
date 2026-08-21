@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getChatFromRequest, getAdminFromRequest } from "@/lib/auth";
 
-/** POST /api/chat/sessions/[id]/close — end conversation */
+/** POST /api/chat/sessions/[id]/close, end conversation */
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

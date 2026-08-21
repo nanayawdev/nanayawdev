@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getAdminFromRequest } from "@/lib/auth";
 
-/** GET /api/admin/chat/sessions — list all chat sessions */
+/** GET /api/admin/chat/sessions, list all chat sessions */
 export async function GET(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

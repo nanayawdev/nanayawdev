@@ -61,7 +61,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#cdf68c] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#cdf68c]" />
               </span>
-              <span>nanayawdev — available for new projects</span>
+              <span>nanayawdev, available for new projects</span>
             </motion.div>
           </div>
 

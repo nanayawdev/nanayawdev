@@ -97,7 +97,7 @@ Hover dark:  #0a8f5c
 ## Border Radius
 
 ```css
---radius: 0.625rem;          /* base — applied to cards, inputs, dialogs */
+--radius: 0.625rem;          /* base, applied to cards, inputs, dialogs */
 --radius-sm: calc(var(--radius) - 4px);
 --radius-md: calc(var(--radius) - 2px);
 --radius-lg: var(--radius);
@@ -105,12 +105,12 @@ Hover dark:  #0a8f5c
 ```
 
 Shorthand patterns actually used in components:
-- `rounded-lg` — inputs, standard buttons
-- `rounded-xl` — cards, dialog content
-- `rounded-2xl` — empty states, some panels
-- `rounded-3xl` — `SurfacePanel`
-- `rounded-full` — pills, avatar, icon buttons in header
-- `rounded-[var(--radius)]` — metric cards
+- `rounded-lg`, inputs, standard buttons
+- `rounded-xl`, cards, dialog content
+- `rounded-2xl`, empty states, some panels
+- `rounded-3xl`, `SurfacePanel`
+- `rounded-full`, pills, avatar, icon buttons in header
+- `rounded-[var(--radius)]`, metric cards
 
 ---
 
@@ -133,9 +133,9 @@ Shorthand patterns actually used in components:
 
 ---
 
-## Dashboard Shell, Sidebar & Header — How They Fit Together
+## Dashboard Shell, Sidebar & Header: How They Fit Together
 
-This is the core visual system of the app. Three surfaces — the **sidebar**, the **header bar**, and the **main content area** — are designed to feel like one unified frame rather than separate boxes.
+This is the core visual system of the app. Three surfaces, the **sidebar**, the **header bar**, and the **main content area**, are designed to feel like one unified frame rather than separate boxes.
 
 ---
 
@@ -190,7 +190,7 @@ bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_55%),_hsl(v
 ```
 A soft radial gradient from muted at the top-center fading to the base background color. Since the sidebar fills the left of this canvas and the inset panel sits inside it, the gradient subtly bleeds through both surfaces, tying them together with ambient light rather than a hard edge.
 
-**4. Token harmony — sidebar vs. background**
+**4. Token harmony: sidebar vs. background**
 
 | Surface | Light | Dark |
 |---|---|---|
@@ -198,11 +198,11 @@ A soft radial gradient from muted at the top-center fading to the base backgroun
 | Inset content panel | `--background: oklch(1 0 0)` (white) + `bg-background/95` | `#131313` |
 | Card inside panel | `--card: oklch(1 0 0)` | `#161616` |
 
-In light mode, sidebar is slightly off-white and the content panel is pure white — a 1.5% luminance step, subtle but enough to read the boundary. In dark mode, the sidebar is darker (`#161616`) than the panel (`#131313`) — same principle, inverted direction.
+In light mode, sidebar is slightly off-white and the content panel is pure white, a 1.5% luminance step, subtle but enough to read the boundary. In dark mode, the sidebar is darker (`#161616`) than the panel (`#131313`), same principle, inverted direction.
 
 **5. Border as the boundary marker**
 
-The `SidebarInset` gets `border border-border/60` — a very translucent border (60% opacity) around the whole content panel. Combined with `shadow-sm`, this creates a gentle separation from the sidebar without a heavy dividing line.
+The `SidebarInset` gets `border border-border/60`, a very translucent border (60% opacity) around the whole content panel. Combined with `shadow-sm`, this creates a gentle separation from the sidebar without a heavy dividing line.
 
 ---
 
@@ -233,7 +233,7 @@ The `SidebarInset` gets `border border-border/60` — a very translucent border 
 </Sidebar>
 ```
 
-**Nav groups:** Main / Sales / Management / Admin — permission-gated and module-gated, so empty groups are hidden entirely.
+**Nav groups:** Main / Sales / Management / Admin, permission-gated and module-gated, so empty groups are hidden entirely.
 
 **Active item:**
 ```
@@ -263,7 +263,7 @@ icon strokeWidth: 1.5  (lighter when inactive)
 - Width: `18rem` (`--sidebar-width-mobile`)
 - Opened via the `SidebarModeControl` toggle button in the header
 
-**Sidebar header — workspace identity:**
+**Sidebar header: workspace identity:**
 ```
 size-8 rounded-full bg-primary   ← tenant logo or first-letter monogram
 text-sm font-medium truncate      ← tenant name (hidden when collapsed)
@@ -289,27 +289,27 @@ text-xs text-muted-foreground     ← branch name (hidden when collapsed)
 </header>
 ```
 
-**Left cluster — navigation controls:**
+**Left cluster: navigation controls:**
 
 `SidebarModeControl` is a ghost `icon-sm` button that opens a dropdown on desktop with three options: Expanded / Collapsed / Expand on hover. On mobile it just opens the sheet drawer.
 
-`ScopeSwitcher` sits immediately right of it — a pill badge showing the active branch name. Clicking opens a dropdown of all branches the user belongs to. The active branch is highlighted with `bg-muted/60` and a `brand` badge. Switching on the POS page shows a confirmation modal warning about cart state.
+`ScopeSwitcher` sits immediately right of it, a pill badge showing the active branch name. Clicking opens a dropdown of all branches the user belongs to. The active branch is highlighted with `bg-muted/60` and a `brand` badge. Switching on the POS page shows a confirmation modal warning about cart state.
 
-**Right cluster — ambient actions:**
+**Right cluster: ambient actions:**
 
-Help and Tips buttons share the same shape: `size-8 rounded-full border border-border/60 bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground`. This makes them read as secondary ambient controls — present but not demanding attention — visually distinct from the primary action buttons that appear inside page content.
+Help and Tips buttons share the same shape: `size-8 rounded-full border border-border/60 bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground`. This makes them read as secondary ambient controls, present but not demanding attention, visually distinct from the primary action buttons that appear inside page content.
 
 `UserDropdown` handles profile, settings, and logout.
 
 **Alignment with sidebar header:**
 
-The sidebar header is also `h-16` with `border-b border-border/40`. Since both share the exact height and border style, they align into a single horizontal strip across the top of the viewport — the sidebar's left section and the content panel's right section feel like one topbar.
+The sidebar header is also `h-16` with `border-b border-border/40`. Since both share the exact height and border style, they align into a single horizontal strip across the top of the viewport, the sidebar's left section and the content panel's right section feel like one topbar.
 
 ---
 
 ### Collapse Transition
 
-Width transition is `duration-200 ease-linear` on the sidebar gap div. The content panel (`SidebarInset`) shifts left automatically as a flex sibling — no JS needed for the reflow. The gap div is what creates the space; the container is `position: fixed`, so the content panel always occupies the remaining width.
+Width transition is `duration-200 ease-linear` on the sidebar gap div. The content panel (`SidebarInset`) shifts left automatically as a flex sibling, no JS needed for the reflow. The gap div is what creates the space; the container is `position: fixed`, so the content panel always occupies the remaining width.
 
 ---
 
@@ -380,9 +380,9 @@ Width transition is `duration-200 ease-linear` on the sidebar gap div. The conte
 
 ### Sidebar Modes
 Three modes stored in `localStorage`:
-- `expanded` — full sidebar visible
-- `collapsed` — icon-only rail
-- `hover` — icon rail that expands on hover
+- `expanded`, full sidebar visible
+- `collapsed`, icon-only rail
+- `hover`, icon rail that expands on hover
 
 ---
 
@@ -494,7 +494,7 @@ Value: `text-[3rem] font-semibold leading-none tracking-display`
 
 ### SurfacePanel
 
-Section wrapper — a heavier card alternative.
+Section wrapper, a heavier card alternative.
 
 ```tsx
 <SurfacePanel>
@@ -555,7 +555,7 @@ Uses `<Spinner>` (HugeIcons `Loading03Icon` + `animate-spin`)
 
 ### ActionMenu
 
-Overflow `...` menu — wraps DropdownMenu.
+Overflow `...` menu, wraps DropdownMenu.
 
 ```tsx
 <ActionMenu

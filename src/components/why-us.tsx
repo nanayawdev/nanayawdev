@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 const reasons = [
   {
     title: "Locally Rooted Design",
-    description: "I understand the markets I build for deeply — I create experiences that feel local, travel globally, and speak to your audience in a way generic agencies never will.",
+    description: "I understand the markets I build for deeply, I create experiences that feel local, travel globally, and speak to your audience in a way generic agencies never will.",
   },
   {
     title: "Full-Stack, One Person",
-    description: "Brand identity, web, mobile, marketing — all under one roof. No handoff gaps, no blame games. One person owns the entire outcome.",
+    description: "Brand identity, web, mobile, marketing, all under one roof. No handoff gaps, no blame games. One person owns the entire outcome.",
   },
   {
     title: "Startup Speed",
@@ -21,7 +21,7 @@ const reasons = [
   },
   {
     title: "Results, Not Deliverables",
-    description: "I don't hand you files and disappear. I care about whether your product grows, converts, and stands out — and I measure my work against that.",
+    description: "I don't hand you files and disappear. I care about whether your product grows, converts, and stands out, and I measure my work against that.",
   },
 ];
 
@@ -31,7 +31,7 @@ export function WhyUs() {
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
 
-          {/* Left — sticky headline */}
+          {/* Left, sticky headline */}
           <div className="lg:sticky lg:top-32">
             <motion.p
               className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
@@ -64,7 +64,7 @@ export function WhyUs() {
             </motion.p>
           </div>
 
-          {/* Right — reasons list */}
+          {/* Right, reasons list */}
           <div className="divide-y divide-border">
             {reasons.map((reason, index) => (
               <motion.div

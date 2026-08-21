@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromRequest } from "@/lib/auth";
 import { sendOtp } from "@/lib/hubtel";
 
-/** POST /api/admin/sms — send an arbitrary SMS to a phone number */
+/** POST /api/admin/sms, send an arbitrary SMS to a phone number */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

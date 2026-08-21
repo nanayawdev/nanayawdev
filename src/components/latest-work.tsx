@@ -102,7 +102,7 @@ export function LatestWork() {
   return (
     <section className="border-t border-border bg-background py-16 lg:py-28" onMouseMove={handleMouseMove}>
 
-      {/* Floating image preview — follows cursor */}
+      {/* Floating image preview, follows cursor */}
       <AnimatePresence>
         {hoveredProject?.cover_image && (
           <motion.div

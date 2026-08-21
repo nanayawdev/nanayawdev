@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getAdminFromRequest } from "@/lib/auth";
 
-/** GET /api/admin/blog/[id] — fetch single post (full body) */
+/** GET /api/admin/blog/[id], fetch single post (full body) */
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -23,7 +23,7 @@ export async function GET(
   return NextResponse.json({ post: rows[0] });
 }
 
-/** PATCH /api/admin/blog/[id] — update post */
+/** PATCH /api/admin/blog/[id], update post */
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -79,7 +79,7 @@ export async function PATCH(
   }
 }
 
-/** DELETE /api/admin/blog/[id] — delete post */
+/** DELETE /api/admin/blog/[id], delete post */
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

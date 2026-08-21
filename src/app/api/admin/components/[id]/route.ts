@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getAdminFromRequest } from "@/lib/auth";
 
-/** GET /api/admin/components/[id] — fetch single component resource (full prompt) */
+/** GET /api/admin/components/[id], fetch single component resource (full prompt) */
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -22,7 +22,7 @@ export async function GET(
   return NextResponse.json({ component: rows[0] });
 }
 
-/** PATCH /api/admin/components/[id] — update component resource */
+/** PATCH /api/admin/components/[id], update component resource */
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -70,7 +70,7 @@ export async function PATCH(
   }
 }
 
-/** DELETE /api/admin/components/[id] — delete component resource */
+/** DELETE /api/admin/components/[id], delete component resource */
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

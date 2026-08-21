@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
-/** GET /api/components — public: list published component resources */
+/** GET /api/components, public: list published component resources */
 export async function GET() {
   try {
     const { rows } = await pool.query(

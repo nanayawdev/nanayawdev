@@ -382,7 +382,7 @@ export default function AdminProjectsPage() {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-foreground truncate">{p.title}</p>
               <p className="text-[0.65rem] text-muted-foreground uppercase tracking-widest mt-0.5">
-                {p.category} · {p.year ?? "—"}
+                {p.category} · {p.year ?? "-"}
                 {p.platforms?.length > 0 && <span className="ml-2 text-muted-foreground/70">{p.platforms.join(" · ")}</span>}
                 {p.featured && <span className="ml-2 text-[#0a291a]">Featured</span>}
               </p>

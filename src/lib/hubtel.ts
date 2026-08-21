@@ -1,5 +1,5 @@
 /**
- * Hubtel SMS — send OTP.
+ * Hubtel SMS, send OTP.
  */
 
 function requireEnv(name: string) {

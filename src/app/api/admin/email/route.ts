@@ -4,7 +4,7 @@ import { getAdminFromRequest } from "@/lib/auth";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-/** POST /api/admin/email — send a reply email from the dashboard */
+/** POST /api/admin/email, send a reply email from the dashboard */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

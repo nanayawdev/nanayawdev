@@ -499,7 +499,7 @@ export function RichTextEditor({ value, onChange, onImageUpload, articleTitle, a
               value={generateBrief}
               onChange={(e) => setGenerateBrief(e.target.value)}
               disabled={aiBusy}
-              placeholder='Give a topic — e.g. "PostgreSQL vs MySQL for modern SaaS applications"'
+              placeholder='Give a topic, e.g. "PostgreSQL vs MySQL for modern SaaS applications"'
               className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-foreground disabled:opacity-60"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); runGenerate(); }

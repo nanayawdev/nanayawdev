@@ -57,7 +57,7 @@ export default function CaseStudies() {
         </motion.p>
 
         {caseStudies.length === 0 && (
-          <p className="text-muted-foreground text-base mb-16">No case studies published yet — check back soon.</p>
+          <p className="text-muted-foreground text-base mb-16">No case studies published yet. Check back soon.</p>
         )}
 
         {/* Editorial list */}

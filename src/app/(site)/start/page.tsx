@@ -142,7 +142,7 @@ function StartPageInner() {
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
 
-      {/* Left — fixed brand panel */}
+      {/* Left, fixed brand panel */}
       <div className="relative hidden lg:flex flex-col justify-between p-12 bg-[#0a0a0a] overflow-hidden">
         {/* ShaderGradient */}
         <ShaderGradientCanvas
@@ -251,7 +251,7 @@ function StartPageInner() {
         </div>
       </div>
 
-      {/* Right — form */}
+      {/* Right, form */}
       <div className="flex flex-col min-h-screen">
         {/* Progress bar */}
         <div className="h-0.5 bg-border w-full shrink-0">

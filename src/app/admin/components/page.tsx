@@ -237,7 +237,7 @@ export default function AdminComponentsPage() {
             />
           </div>
 
-          {/* Row — category + author */}
+          {/* Row, category + author */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
@@ -290,7 +290,7 @@ export default function AdminComponentsPage() {
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                   {uploadingCover ? "Uploading…" : "Click to upload"}
                 </p>
-                <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF, SVG — max 4 MB</p>
+                <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF, SVG, max 4 MB</p>
               </div>
             )}
 
@@ -337,7 +337,7 @@ export default function AdminComponentsPage() {
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                 {uploadingFiles ? "Uploading…" : "Add file(s)"}
               </p>
-              <p className="text-[0.55rem] uppercase tracking-widest">Code, zip, assets — max 4 MB each</p>
+              <p className="text-[0.55rem] uppercase tracking-widest">Code, zip, assets, max 4 MB each</p>
             </div>
 
             <input

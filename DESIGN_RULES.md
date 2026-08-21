@@ -1,4 +1,4 @@
-# Arssent — Design Rules
+# Arssent: Design Rules
 
 A living reference for every design decision made across the site. Follow these rules to keep the visual language consistent.
 
@@ -37,7 +37,7 @@ Use the brand orange gradient on key words only. Never apply it to full sentence
 > Always add `overflow-visible` to the parent element and `inline-block pr-[0.06em]` to the span to prevent clipping.
 
 ### Muted text
-Use `text-muted-foreground` for secondary lines within a heading (e.g. `who give a damn.`). Never use opacity utilities for text hierarchy — use semantic color tokens instead.
+Use `text-muted-foreground` for secondary lines within a heading (e.g. `who give a damn.`). Never use opacity utilities for text hierarchy, use semantic color tokens instead.
 
 ---
 
@@ -51,7 +51,7 @@ All colors reference CSS custom properties via Tailwind tokens. Never hardcode r
 | `foreground` | Primary text and inverted button fills |
 | `muted` | Subtle surface tints (`bg-muted/30`, `bg-muted/40`) |
 | `muted-foreground` | Secondary text, labels, placeholders |
-| `border` | All borders — use `border-border` everywhere |
+| `border` | All borders, use `border-border` everywhere |
 
 ### Brand orange
 | Value | Usage |
@@ -92,9 +92,9 @@ className="flex h-10 w-10 items-center justify-center border border-border text-
 
 ## 4. Borders & Surfaces
 
-- All borders use `border border-border` — never set a custom border color.
+- All borders use `border border-border`, never set a custom border color.
 - Cards use `border border-border bg-background` as the base.
-- Hover tints use `hover:bg-muted/30` — keep opacity low.
+- Hover tints use `hover:bg-muted/30`, keep opacity low.
 - Dividers between sections use `border-t border-border` or `border-y border-border`.
 - Divide columns inside a grid with `divide-x divide-border`.
 
@@ -104,7 +104,7 @@ className="flex h-10 w-10 items-center justify-center border border-border text-
 
 - **Max content width:** `max-w-7xl mx-auto px-8`
 - **Section vertical padding:** `py-16 lg:py-28` for standard sections, `pt-40 lg:pt-52` for page heroes.
-- **Sticky sidebars:** `lg:sticky lg:top-32 h-fit` — used in case study and about page content columns.
+- **Sticky sidebars:** `lg:sticky lg:top-32 h-fit`, used in case study and about page content columns.
 - **Editorial two-column grid:** `grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-16 lg:gap-24`
 
 ---
@@ -165,7 +165,7 @@ Used in lists, cards, and project rows to add editorial structure.
 
 ## 10. Cards
 
-- Always use `border border-border bg-background` as the base — no shadows on cards.
+- Always use `border border-border bg-background` as the base, no shadows on cards.
 - Use `hover:bg-muted/30 transition-colors duration-300` for hover feedback.
 - Large ghost text behind card content uses `text-muted-foreground/[0.08]` at `clamp(7rem,18vw,12rem)`.
 - CTA / promotional cards invert the palette: `bg-foreground text-background`.
@@ -180,16 +180,16 @@ Used in lists, cards, and project rows to add editorial structure.
 
 ### Navbar
 - Nav links use the eyebrow label style: `text-[0.65rem] font-semibold uppercase tracking-[0.18em]`.
-- Active state uses a sharp (no border-radius) `bg-foreground/8` highlight — **no `rounded-full` or `rounded-*`**.
+- Active state uses a sharp (no border-radius) `bg-foreground/8` highlight, **no `rounded-full` or `rounded-*`**.
 - The "Let's Talk" CTA button is a sharp primary button: `bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-90`.
-- No rounded corners anywhere in the navbar — this applies to links, active indicators, buttons, and the hamburger button.
+- No rounded corners anywhere in the navbar, this applies to links, active indicators, buttons, and the hamburger button.
 
 ---
 
 ## 12. What to Avoid
 
-- **No `rounded-*` on buttons** — all interactive elements are sharp.
-- **No shadows on cards** — borders only.
-- **No inline color overrides** — use tokens (`foreground`, `muted-foreground`, `border`) except for brand orange.
-- **No centered hero text** — all editorial headings are left-aligned.
-- **No repetitive section patterns** — each section should have a distinct layout rhythm.
+- **No `rounded-*` on buttons**, all interactive elements are sharp.
+- **No shadows on cards**, borders only.
+- **No inline color overrides**, use tokens (`foreground`, `muted-foreground`, `border`) except for brand orange.
+- **No centered hero text**, all editorial headings are left-aligned.
+- **No repetitive section patterns**, each section should have a distinct layout rhythm.

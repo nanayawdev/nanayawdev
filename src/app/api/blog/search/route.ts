@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 
-/** GET /api/blog/search?q= — public: search published posts by title, excerpt, body, or tag */
+/** GET /api/blog/search?q=, public: search published posts by title, excerpt, body, or tag */
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get("q")?.trim() ?? "";
   if (!q) return NextResponse.json({ posts: [] });

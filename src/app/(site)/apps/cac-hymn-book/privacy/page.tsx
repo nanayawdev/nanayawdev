@@ -7,12 +7,12 @@ const sections = [
   {
     id: "introduction",
     title: "Introduction",
-    content: `This Privacy Policy describes how CAC Hymn Book ("the app"), developed by nanayawdev, handles information when you use the app on Android. It's separate from the privacy policy for nanayawdev.com — this page covers the app specifically. By using CAC Hymn Book, you agree to the practices described here.`,
+    content: `This Privacy Policy describes how CAC Hymn Book ("the app"), developed by nanayawdev, handles information when you use the app on Android. It's separate from the privacy policy for nanayawdev.com, this page covers the app specifically. By using CAC Hymn Book, you agree to the practices described here.`,
   },
   {
     id: "information-we-collect",
     title: "Information the App Collects",
-    content: `CAC Hymn Book does not require an account or sign-in, and does not collect your name, email, or any personal information. Hymns, favorites, and settings are stored locally on your device only — nothing is uploaded to a server I control. The only data collection that happens is through Google AdMob, described below, which serves the ads that support the app.`,
+    content: `CAC Hymn Book does not require an account or sign-in, and does not collect your name, email, or any personal information. Hymns, favorites, and settings are stored locally on your device only, nothing is uploaded to a server I control. The only data collection that happens is through Google AdMob, described below, which serves the ads that support the app.`,
   },
   {
     id: "admob",
@@ -37,7 +37,7 @@ const sections = [
   {
     id: "changes",
     title: "Changes to This Policy",
-    content: `If this policy changes — for example, if a future update adds new functionality that collects data — I'll update this page and change the "last updated" date above.`,
+    content: `If this policy changes (for example, if a future update adds new functionality that collects data), I'll update this page and change the "last updated" date above.`,
   },
   {
     id: "contact",

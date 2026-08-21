@@ -24,10 +24,10 @@ interface RequestBody {
   context?: string;
   /** Required when action is "tone". */
   tone?: string;
-  /** Optional context for "generate" — the post's title/category, if already set. */
+  /** Optional context for "generate", the post's title/category, if already set. */
   title?: string;
   category?: string;
-  /** Editorial angle for "generate" — defaults to "engineering-essay" if omitted. */
+  /** Editorial angle for "generate", defaults to "engineering-essay" if omitted. */
   contentType?: ContentType;
 }
 
@@ -44,17 +44,17 @@ const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
 
 const CONTENT_TYPE_GUIDANCE: Record<ContentType, string> = {
   "engineering-essay":
-    "Write this as an engineering essay — opinionated and experience-led. Take a clear stance and develop it through reasoning and hard-won lessons rather than an exhaustive survey of the topic.",
+    "Write this as an engineering essay, opinionated and experience-led. Take a clear stance and develop it through reasoning and hard-won lessons rather than an exhaustive survey of the topic.",
   "technical-deep-dive":
-    "Write this as a technical deep dive — a detailed, precise technical explanation. Prioritize correctness and depth over breadth; go further into mechanics, internals, and edge cases than a typical overview would.",
+    "Write this as a technical deep dive, a detailed, precise technical explanation. Prioritize correctness and depth over breadth; go further into mechanics, internals, and edge cases than a typical overview would.",
   "architecture-system-design":
-    "Write this as an architecture and system design piece — focus on systems-level thinking, the trade-offs between competing approaches, and how components interact at scale.",
+    "Write this as an architecture and system design piece, focus on systems-level thinking, the trade-offs between competing approaches, and how components interact at scale.",
   "product-engineering":
-    "Write this as a product engineering piece — connect engineering decisions to product and business outcomes, and discuss how technical choices shape what users experience and how a team ships.",
+    "Write this as a product engineering piece, connect engineering decisions to product and business outcomes, and discuss how technical choices shape what users experience and how a team ships.",
   tutorial:
-    "Write this as a practical, step-by-step tutorial. Prioritize a clear, followable sequence the reader can actually execute, with concrete steps rather than abstract discussion — but keep it in real prose; do not collapse into choppy fragments or listy filler.",
+    "Write this as a practical, step-by-step tutorial. Prioritize a clear, followable sequence the reader can actually execute, with concrete steps rather than abstract discussion, but keep it in real prose; do not collapse into choppy fragments or listy filler.",
   "industry-analysis":
-    "Write this as industry analysis — examine the technology or business trend itself: why it's happening, who it affects, and what it signals, rather than how to implement anything specific.",
+    "Write this as industry analysis, examine the technology or business trend itself: why it's happening, who it affects, and what it signals, rather than how to implement anything specific.",
   "case-study":
     "Write this as a case study grounded in a realistic, representative kind of project or system, described in general terms rather than inventing a specific company, client, or metrics that weren't supplied. Focus on the decisions made, the trade-offs weighed, and what it taught.",
   opinion:
@@ -64,15 +64,16 @@ const CONTENT_TYPE_GUIDANCE: Record<ContentType, string> = {
 const SYSTEM_PROMPT = `You are a ghostwriter helping edit a software engineer's personal blog. You are given a snippet of an article and an editing instruction. Rewrite or extend the snippet as instructed, matching the article's existing voice and technical register.
 
 Rules:
-- Return ONLY the resulting prose — no preamble, no explanation, no markdown headers, no quotation marks around the output.
+- Return ONLY the resulting prose, no preamble, no explanation, no markdown headers, no quotation marks around the output.
 - Separate paragraphs with a blank line.
-- Do not restate or repeat text that wasn't asked for.`;
+- Do not restate or repeat text that wasn't asked for.
+- Never use an em dash (—). Use a comma, a period, or restructure the sentence instead.`;
 
 const GENERATE_SYSTEM_PROMPT = `You are the editorial writer for a personal technology and software engineering publication owned by a working software engineer.
 
 Your job is to write thoughtful, substantial, human-sounding technology articles from the topic provided by the user.
 
-The articles are published on the author's personal portfolio and should feel like they were written by an experienced software engineer who has actually built and worked on software products—not by an SEO content generator.
+The articles are published on the author's personal portfolio and should feel like they were written by an experienced software engineer who has actually built and worked on software products, not by an SEO content generator.
 
 EDITORIAL VOICE
 
@@ -131,7 +132,7 @@ Use short sentences occasionally for rhythm, but they should be the exception ra
 
 Do not force rhetorical pauses.
 
-Do not overuse em dashes.
+Never use an em dash (—), under any circumstance. Use a comma, a period, a colon, or restructure the sentence instead.
 
 Do not begin every paragraph with "The", "But", "However", "This", or "In today's".
 
@@ -341,7 +342,7 @@ Do not imitate or reproduce the wording of existing articles.
 
 Do not use recognizable phrases or structures from other publications.
 
-The goal is to capture the qualities of strong technology journalism—clarity, depth, context, personality and good storytelling—not to imitate a particular writer or publication.
+The goal is to capture the qualities of strong technology journalism: clarity, depth, context, personality and good storytelling, not to imitate a particular writer or publication.
 
 FINAL QUALITY TEST
 
@@ -357,6 +358,7 @@ Before returning the article, silently review it and ask:
 - Are the examples concrete?
 - Have I avoided invented personal experiences?
 - Have I avoided generic AI filler?
+- Have I used a single em dash anywhere? (There must be zero.)
 - Is the technical information accurate?
 - Would a developer actually learn something from this?
 - Would a non-expert interested in technology still be able to follow it?
@@ -367,13 +369,13 @@ If the answer to any of these is no, revise the article before returning it.
 
 OUTPUT FORMAT
 
-Return the article as plain text using exactly this structure — labeled fields, in this order, each label alone on its own line:
+Return the article as plain text using exactly this structure, labeled fields, in this order, each label alone on its own line:
 
 TITLE: [The article title]
 
 EXCERPT: [A compelling 1-2 sentence excerpt for the blog listing]
 
-TAGS: [3-6 short topical tags for the post, comma-separated — e.g. nextjs, postgres, multi-tenancy]
+TAGS: [3-6 short topical tags for the post, comma-separated, e.g. nextjs, postgres, multi-tenancy]
 
 SEO_TITLE: [A search-optimized title, roughly 50-60 characters. Can match TITLE if it already works well for search.]
 
@@ -384,7 +386,7 @@ PRIMARY_KEYWORD: [The single main phrase this article should rank for.]
 SECONDARY_KEYWORDS: [3-6 related terms or phrases, comma-separated.]
 
 BODY:
-[The full article as a self-contained HTML fragment — no <html>/<head>/<body> wrapper, no markdown, no code fences. Use only these tags: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <strong>, <em>, <a href="...">, <code>. Do not include a top-level <h1> or repeat the title inside the body — it is rendered separately from the TITLE field.]
+[The full article as a self-contained HTML fragment, no <html>/<head>/<body> wrapper, no markdown, no code fences. Use only these tags: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <strong>, <em>, <a href="...">, <code>. Do not include a top-level <h1> or repeat the title inside the body; it is rendered separately from the TITLE field.]
 
 Do not include commentary about how you wrote the article. Return only the labeled fields above, nothing else.`;
 
@@ -401,12 +403,12 @@ interface GeneratedArticle {
 
 /** Parses the TITLE:/EXCERPT:/TAGS:/SEO_TITLE:/SEO_DESCRIPTION:/PRIMARY_KEYWORD:/SECONDARY_KEYWORDS:/BODY: response from GENERATE_SYSTEM_PROMPT. */
 function parseGeneratedArticle(raw: string): GeneratedArticle {
-  const text = stripCodeFence(raw.trim());
+  const text = stripEmDashes(stripCodeFence(raw.trim()));
   const match = text.match(
     /TITLE:\s*([\s\S]*?)\n+EXCERPT:\s*([\s\S]*?)\n+TAGS:\s*([\s\S]*?)\n+SEO_TITLE:\s*([\s\S]*?)\n+SEO_DESCRIPTION:\s*([\s\S]*?)\n+PRIMARY_KEYWORD:\s*([\s\S]*?)\n+SECONDARY_KEYWORDS:\s*([\s\S]*?)\n+BODY:\s*([\s\S]*)/i
   );
   if (!match) {
-    // Model didn't follow the format — fall back to treating the whole response as the body.
+    // Model didn't follow the format, fall back to treating the whole response as the body.
     return { title: "", excerpt: "", tags: [], seoTitle: "", seoDescription: "", primaryKeyword: "", secondaryKeywords: [], body: text };
   }
   const [, title, excerpt, tags, seoTitle, seoDescription, primaryKeyword, secondaryKeywords, body] = match;
@@ -429,6 +431,11 @@ function stripCodeFence(text: string): string {
   return fenced ? fenced[1].trim() : trimmed;
 }
 
+/** Safety net in case the model ignores the "never use an em dash" instruction. */
+function stripEmDashes(text: string): string {
+  return text.replace(/\s*—\s*/g, ", ");
+}
+
 function buildPrompt(body: RequestBody): string {
   const { action, text, context, tone, title, category, contentType } = body;
 
@@ -436,14 +443,14 @@ function buildPrompt(body: RequestBody): string {
     case "continue":
       return `Here is the article so far:\n\n${text}\n\nContinue writing the next 2-3 paragraphs in the same voice and direction.`;
     case "lengthen":
-      return `${context ? `Article context:\n${context}\n\n` : ""}Expand and elaborate on this passage — roughly double its length, add supporting detail or examples, without changing its meaning:\n\n${text}`;
+      return `${context ? `Article context:\n${context}\n\n` : ""}Expand and elaborate on this passage, roughly double its length, add supporting detail or examples, without changing its meaning:\n\n${text}`;
     case "refine":
       return `${context ? `Article context:\n${context}\n\n` : ""}Improve the clarity, flow, and grammar of this passage. Keep roughly the same length and meaning:\n\n${text}`;
     case "tone":
       return `${context ? `Article context:\n${context}\n\n` : ""}Rewrite this passage in a ${tone} tone. Keep roughly the same length and meaning:\n\n${text}`;
     case "generate": {
       const angle = CONTENT_TYPE_GUIDANCE[contentType ?? "engineering-essay"];
-      return `EDITORIAL ANGLE: ${CONTENT_TYPE_LABELS[contentType ?? "engineering-essay"]}\n${angle}\n\n${title ? `Working title (optional starting point — replace it if you have a better one): ${title}\n` : ""}${category ? `Category: ${category}\n` : ""}TOPIC:\n${text}`;
+      return `EDITORIAL ANGLE: ${CONTENT_TYPE_LABELS[contentType ?? "engineering-essay"]}\n${angle}\n\n${title ? `Working title (optional starting point, replace it if you have a better one): ${title}\n` : ""}${category ? `Category: ${category}\n` : ""}TOPIC:\n${text}`;
     }
   }
 }
@@ -486,7 +493,7 @@ export async function POST(req: NextRequest) {
       });
       const result = response.content.find((b) => b.type === "text")?.text ?? "";
       if (action === "generate") return NextResponse.json(parseGeneratedArticle(result));
-      return NextResponse.json({ result: result.trim() });
+      return NextResponse.json({ result: stripEmDashes(result.trim()) });
     }
 
     if (provider === "openai") {
@@ -504,7 +511,7 @@ export async function POST(req: NextRequest) {
       });
       const result = response.choices[0]?.message?.content ?? "";
       if (action === "generate") return NextResponse.json(parseGeneratedArticle(result));
-      return NextResponse.json({ result: result.trim() });
+      return NextResponse.json({ result: stripEmDashes(result.trim()) });
     }
 
     return NextResponse.json({ error: "Unknown provider" }, { status: 400 });

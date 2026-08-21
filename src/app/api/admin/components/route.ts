@@ -11,7 +11,7 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-/** GET /api/admin/components — all component resources (including drafts) */
+/** GET /api/admin/components, all component resources (including drafts) */
 export async function GET(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ components: rows });
 }
 
-/** POST /api/admin/components — create component resource */
+/** POST /api/admin/components, create component resource */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

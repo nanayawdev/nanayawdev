@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getChatFromRequest, getAdminFromRequest } from "@/lib/auth";
 
-/** POST /api/chat/sessions/[id]/messages — send a message */
+/** POST /api/chat/sessions/[id]/messages, send a message */
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -15,7 +15,7 @@ export async function POST(
       return NextResponse.json({ error: "body is required" }, { status: 400 });
     }
 
-    // Determine sender — either authenticated chat user or admin
+    // Determine sender, either authenticated chat user or admin
     const chatUser = getChatFromRequest(req);
     const admin    = getAdminFromRequest(req);
 
@@ -43,7 +43,7 @@ export async function POST(
   }
 }
 
-/** GET /api/chat/sessions/[id]/messages — fetch message history */
+/** GET /api/chat/sessions/[id]/messages, fetch message history */
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

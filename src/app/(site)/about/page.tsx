@@ -26,7 +26,7 @@ const milestones = [
   {
     year: "Now",
     title: "Working with founders and brands",
-    description: "Helping startups and brands go global through design, development, and storytelling — one project at a time.",
+    description: "Helping startups and brands go global through design, development, and storytelling, one project at a time.",
   },
 ];
 

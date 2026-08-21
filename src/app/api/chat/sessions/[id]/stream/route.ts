@@ -7,14 +7,14 @@ export const dynamic = "force-dynamic";
 
 // Hard cap on how long a single stream invocation can stay open. Without
 // this, a forgotten/backgrounded browser tab holds a serverless function
-// instance alive indefinitely, polling every 1.5s — which is what was
+// instance alive indefinitely, polling every 1.5s, which is what was
 // driving up Vercel Fluid Active CPU usage. The client (chat widget) is
 // expected to reconnect on `event: timeout` if the session is still active.
 const MAX_STREAM_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 /**
  * GET /api/chat/sessions/[id]/stream
- * Server-Sent Events stream — polls for new messages every 1.5s.
+ * Server-Sent Events stream, polls for new messages every 1.5s.
  * Both the chat user and admin connect to this endpoint.
  */
 export async function GET(
@@ -23,7 +23,7 @@ export async function GET(
 ) {
   const { id: sessionId } = await params;
 
-  // EventSource can't set headers — accept token via query param as fallback
+  // EventSource can't set headers, accept token via query param as fallback
   const { searchParams } = new URL(req.url);
   const qToken = searchParams.get("token");
   const reqWithFallback = qToken
@@ -86,7 +86,7 @@ export async function GET(
             controller.close();
           }
         } catch {
-          // swallow poll errors — don't crash the stream
+          // swallow poll errors, don't crash the stream
         }
       }, 1_500);
 

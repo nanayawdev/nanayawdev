@@ -11,7 +11,7 @@ const ALLOWED_EXTENSIONS = [
 // Vercel Serverless Functions hard-cap the request body at 4.5 MB.
 const MAX_BYTES = 4 * 1024 * 1024; // 4 MB
 
-/** POST /api/admin/components/upload — upload a component source file / cover image */
+/** POST /api/admin/components/upload, upload a component source file / cover image */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

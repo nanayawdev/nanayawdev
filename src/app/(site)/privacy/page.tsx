@@ -12,7 +12,7 @@ const sections = [
   {
     id: "information-we-collect",
     title: "Information I Collect",
-    content: `I collect information you give me directly — such as your name, email address, company name, and project details when you submit my contact or project brief form. I also collect information automatically when you visit my site, including your IP address, browser type, pages visited, and time spent. This is collected via cookies and standard server logs.`,
+    content: `I collect information you give me directly, such as your name, email address, company name, and project details when you submit my contact or project brief form. I also collect information automatically when you visit my site, including your IP address, browser type, pages visited, and time spent. This is collected via cookies and standard server logs.`,
   },
   {
     id: "how-we-use-it",
@@ -22,7 +22,7 @@ const sections = [
   {
     id: "data-sharing",
     title: "Data Sharing",
-    content: `I do not sell, rent, or trade your personal information. I may share data with trusted service providers who assist in running my business — such as cloud hosting, email delivery, and analytics — under strict confidentiality agreements. I may also disclose information when required by law or to protect my legal rights.`,
+    content: `I do not sell, rent, or trade your personal information. I may share data with trusted service providers who assist in running my business, such as cloud hosting, email delivery, and analytics, under strict confidentiality agreements. I may also disclose information when required by law or to protect my legal rights.`,
   },
   {
     id: "data-security",

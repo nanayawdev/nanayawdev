@@ -75,7 +75,7 @@ export default function Contact() {
         {/* Split layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
 
-          {/* Left — brand panel */}
+          {/* Left, brand panel */}
           <div className="flex flex-col">
             <motion.p
               className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-5"
@@ -131,7 +131,7 @@ export default function Contact() {
             </motion.div>
           </div>
 
-          {/* Right — form */}
+          {/* Right, form */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

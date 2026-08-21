@@ -228,16 +228,16 @@ export default function AdminCaseStudiesPage() {
             </div>
           </div>
 
-          {/* Stats — 3 rows */}
+          {/* Stats, 3 rows */}
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Stats (up to 3)</label>
             <div className="space-y-2">
               {stats.slice(0, 3).map((stat, i) => (
                 <div key={i} className="grid grid-cols-2 gap-3">
                   <input value={stat.value} onChange={(e) => updateStat(i, "value", e.target.value)}
-                    className="border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" placeholder={`Value ${i + 1} — e.g. 3×`} />
+                    className="border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" placeholder={`Value ${i + 1}, e.g. 3×`} />
                   <input value={stat.label} onChange={(e) => updateStat(i, "label", e.target.value)}
-                    className="border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" placeholder={`Label ${i + 1} — e.g. Increase in bookings`} />
+                    className="border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" placeholder={`Label ${i + 1}, e.g. Increase in bookings`} />
                 </div>
               ))}
             </div>
@@ -306,7 +306,7 @@ export default function AdminCaseStudiesPage() {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-foreground truncate">{cs.client}</p>
               <p className="text-[0.65rem] text-muted-foreground uppercase tracking-widest mt-0.5">
-                {cs.category} · {cs.year ?? "—"}
+                {cs.category} · {cs.year ?? "-"}
                 {cs.featured && <span className="ml-2 text-[#0a291a]">Featured</span>}
               </p>
             </div>

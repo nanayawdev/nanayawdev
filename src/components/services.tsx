@@ -65,7 +65,7 @@ export function Services({ showHeading = true }: { showHeading?: boolean }) {
               transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true }}
             >
-              {/* Background image — fades in on hover */}
+              {/* Background image, fades in on hover */}
               {service.cover_image && (
                 <motion.div
                   className="absolute inset-0 z-0"

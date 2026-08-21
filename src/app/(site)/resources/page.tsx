@@ -162,7 +162,7 @@ function ResourcesPageInner() {
 
         {/* Empty state */}
         {posts.length === 0 && (
-          <p className="text-muted-foreground text-base mb-16">No articles published yet — check back soon.</p>
+          <p className="text-muted-foreground text-base mb-16">No articles published yet. Check back soon.</p>
         )}
 
         {posts.length > 0 && (
@@ -319,7 +319,7 @@ function ResourcesPageInner() {
 
           {/* Empty state */}
           {components.length === 0 && (
-            <p className="text-muted-foreground text-base mb-16">No components shared yet — check back soon.</p>
+            <p className="text-muted-foreground text-base mb-16">No components shared yet. Check back soon.</p>
           )}
 
           {/* Category filter */}

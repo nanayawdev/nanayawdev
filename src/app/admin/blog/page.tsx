@@ -182,7 +182,7 @@ export default function AdminBlogPage() {
         )}
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
-          {/* Main — title, excerpt, body */}
+          {/* Main, title, excerpt, body */}
           <div className="min-w-0 space-y-6">
             {/* Title */}
             <div>
@@ -242,7 +242,7 @@ export default function AdminBlogPage() {
             </div>
           </div>
 
-          {/* Sidebar — category, author, tags, cover image, toggles */}
+          {/* Sidebar, category, author, tags, cover image, toggles */}
           <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
@@ -363,7 +363,7 @@ export default function AdminBlogPage() {
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
                     {uploading ? "Uploading…" : "Click to upload"}
                   </p>
-                  <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF — max 4 MB</p>
+                  <p className="text-[0.55rem] uppercase tracking-widest">JPEG, PNG, WebP, GIF, max 4 MB</p>
                 </div>
               )}
 

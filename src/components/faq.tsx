@@ -8,7 +8,7 @@ const faqData = [
   {
     id: 1,
     question: "What services do you offer?",
-    answer: "I cover the full digital stack — brand identity, web design and development, mobile apps, and digital marketing. Most clients come to me for one thing and stay for everything else.",
+    answer: "I cover the full digital stack, brand identity, web design and development, mobile apps, and digital marketing. Most clients come to me for one thing and stay for everything else.",
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const faqData = [
   {
     id: 5,
     question: "What makes you different from other agencies?",
-    answer: "I'm a builder first. I design and develop everything myself — no disconnected handoffs. And I actually care whether your product succeeds, not just whether I shipped it.",
+    answer: "I'm a builder first. I design and develop everything myself, no disconnected handoffs. And I actually care whether your product succeeds, not just whether I shipped it.",
   },
   {
     id: 6,
@@ -47,7 +47,7 @@ export function FAQ() {
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
 
-          {/* Left — sticky */}
+          {/* Left, sticky */}
           <div className="lg:sticky lg:top-32">
             <motion.p
               className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4"
@@ -80,7 +80,7 @@ export function FAQ() {
             </motion.p>
           </div>
 
-          {/* Right — accordion */}
+          {/* Right, accordion */}
           <div className="divide-y divide-border">
             {faqData.map((item, index) => (
               <motion.div

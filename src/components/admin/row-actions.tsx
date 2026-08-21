@@ -16,7 +16,7 @@ export interface RowAction {
   destructive?: boolean;
 }
 
-/** Kebab-menu of row/card actions (edit, publish, delete, ...) — used across admin list pages. */
+/** Kebab-menu of row/card actions (edit, publish, delete, ...), used across admin list pages. */
 export function RowActions({ actions }: { actions: RowAction[] }) {
   return (
     <DropdownMenu>

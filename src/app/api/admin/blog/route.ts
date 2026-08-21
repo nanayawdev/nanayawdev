@@ -11,7 +11,7 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-/** GET /api/admin/blog — all posts (including drafts) */
+/** GET /api/admin/blog, all posts (including drafts) */
 export async function GET(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ posts: rows });
 }
 
-/** POST /api/admin/blog — create post */
+/** POST /api/admin/blog, create post */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

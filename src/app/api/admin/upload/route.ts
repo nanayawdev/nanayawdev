@@ -5,12 +5,12 @@ import { uploadImage } from "@/lib/storage";
 export const runtime = "nodejs";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-// Vercel Serverless Functions hard-cap the request body at 4.5 MB — files
+// Vercel Serverless Functions hard-cap the request body at 4.5 MB, files
 // between 4.5-5 MB were rejected by the platform (413) before reaching this
 // handler in production, even though the old 5 MB check passed locally.
 const MAX_BYTES = 4 * 1024 * 1024; // 4 MB
 
-/** POST /api/admin/upload — upload a cover image to object storage */
+/** POST /api/admin/upload, upload a cover image to object storage */
 export async function POST(req: NextRequest) {
   if (!getAdminFromRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

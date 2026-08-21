@@ -24,7 +24,7 @@ export const resources: Resource[] = [
     featured: true,
     body: `The African digital economy is growing faster than any other region in the world. Mobile penetration, improved infrastructure, and a young, connected population are creating a once-in-a-generation window for brands to build global audiences from a local base.
 
-But many African brands are still operating with a traditional mindset — waiting until they have "enough" before investing in their digital presence. That thinking is costly.
+But many African brands are still operating with a traditional mindset, waiting until they have "enough" before investing in their digital presence. That thinking is costly.
 
 ## The cost of waiting
 
@@ -34,13 +34,13 @@ The brands winning today started building two, three years ago. The brands who w
 
 ## What a digital-first strategy actually means
 
-Digital-first doesn't mean abandoning offline channels. It means making digital the backbone of how you communicate, sell, and build trust — then using offline to deepen those relationships.
+Digital-first doesn't mean abandoning offline channels. It means making digital the backbone of how you communicate, sell, and build trust, and then using offline to deepen those relationships.
 
 Practically, it means:
 - A website that converts, not just one that exists
 - Content that answers the questions your customers are already asking
 - A brand identity that reads clearly on a phone screen
-- Systems that let customers find you, understand you, and pay you — without friction
+- Systems that let customers find you, understand you, and pay you without friction
 
 ## Where to start
 
@@ -51,13 +51,13 @@ That's the work I do at nanayawdev. And it's never too late to start.`,
   {
     slug: "design-systems-for-startups",
     title: "Design Systems for Startups: When to Build, When to Wait",
-    excerpt: "A design system is a powerful investment — but only at the right stage. Here's how to know when you're ready.",
+    excerpt: "A design system is a powerful investment, but only at the right stage. Here's how to know when you're ready.",
     date: "April 28, 2025",
     author: "Kofi Mensah",
     authorRole: "UI/UX Designer",
     category: "Design",
     image: "/hero2.avif",
-    body: `Design systems are having a moment. Every design conference, every product blog, every hiring post for senior designers mentions them. And for good reason — at the right scale, a design system is one of the highest-leverage investments a product team can make.
+    body: `Design systems are having a moment. Every design conference, every product blog, every hiring post for senior designers mentions them. And for good reason: at the right scale, a design system is one of the highest-leverage investments a product team can make.
 
 But startups aren't there yet. And building one too early is one of the most common ways early-stage teams waste engineering and design hours they can't afford to lose.
 
@@ -65,7 +65,7 @@ But startups aren't there yet. And building one too early is one of the most com
 
 In the first 18 months, your product is changing constantly. What works for your landing page today will be thrown out next quarter. Building a rigid component library on top of a moving target creates debt, not value.
 
-The signal to start is when you feel the pain of inconsistency — when your engineers are building the same button four different ways, when your designer spends time recreating components instead of solving new problems.
+The signal to start is when you feel the pain of inconsistency, when your engineers are building the same button four different ways, when your designer spends time recreating components instead of solving new problems.
 
 ## When you're ready
 
@@ -79,7 +79,7 @@ Until then, a shared Figma library and a basic component folder in your codebase
 
 ## What to build first
 
-Start with foundations: colour tokens, typography scale, spacing system. Then add the five or six components that appear on every screen — button, input, card, modal, navigation. That's your v1. Everything else can wait.`,
+Start with foundations: colour tokens, typography scale, spacing system. Then add the five or six components that appear on every screen: button, input, card, modal, navigation. That's your v1. Everything else can wait.`,
   },
   {
     slug: "mobile-app-launch-checklist",
@@ -90,7 +90,7 @@ Start with foundations: colour tokens, typography scale, spacing system. Then ad
     authorRole: "Mobile Developer",
     category: "Development",
     image: "/hero3.avif",
-    body: `Launching a mobile app anywhere is hard. Launching one in African markets has an extra layer of nuance that most development guides — written for Silicon Valley products — simply don't cover.
+    body: `Launching a mobile app anywhere is hard. Launching one in African markets has an extra layer of nuance that most development guides, written for Silicon Valley products, simply don't cover.
 
 After building and launching apps across Ghana, Nigeria, and Kenya, here's the checklist we run through before every release.
 
@@ -100,11 +100,11 @@ Assume slow networks. Your app should load core functionality on 3G. Implement o
 
 ## Payment integration
 
-Mobile money is not optional — it's the primary payment method in most markets. Integrate MTN Mobile Money, Vodafone Cash, AirtelTigo Money, and M-Pesa depending on your target markets. Card-only checkout will cost you conversion.
+Mobile money is not optional: it's the primary payment method in most markets. Integrate MTN Mobile Money, Vodafone Cash, AirtelTigo Money, and M-Pesa depending on your target markets. Card-only checkout will cost you conversion.
 
 ## Localisation
 
-Even within a single country, language and currency formatting matters. Don't hard-code currency symbols. Support multiple languages at the architecture level from day one — retrofitting localisation is painful.
+Even within a single country, language and currency formatting matters. Don't hard-code currency symbols. Support multiple languages at the architecture level from day one; retrofitting it later is painful.
 
 ## App store optimisation
 
@@ -127,7 +127,7 @@ Launch day is not the time to discover any of these.`,
     image: "/hero6.webp",
     body: `When founders come to us asking for a brand, they usually mean a logo. Sometimes they mean a colour palette and a font. Occasionally they mean a website.
 
-What they actually need — what will determine whether their business feels trustworthy, premium, and distinctive — is something much deeper.
+What they actually need (what will determine whether their business feels trustworthy, premium, and distinctive) is something much deeper.
 
 ## Brand is behaviour
 
@@ -137,7 +137,7 @@ Brand is how you write your emails. It's how your customer service team responds
 
 ## Why this matters for African startups
 
-African businesses are competing for trust in markets where trust has historically been hard to earn. Consumers are sophisticated, sceptical, and have been burned before. A cohesive brand — one that behaves consistently across every touchpoint — is one of the most powerful trust signals you have.
+African businesses are competing for trust in markets where trust has historically been hard to earn. Consumers are sophisticated, sceptical, and have been burned before. A cohesive brand, one that behaves consistently across every touchpoint, is one of the most powerful trust signals you have.
 
 ## What a real brand identity includes
 
@@ -172,11 +172,11 @@ Google's mobile-first index means your mobile experience is your SEO. In markets
 
 ## Local intent is underserved
 
-Most businesses targeting African markets haven't invested seriously in SEO. That means the competition for local-intent keywords is far lower than comparable searches in Western markets. This is an opportunity — if you move fast.
+Most businesses targeting African markets haven't invested seriously in SEO. That means the competition for local-intent keywords is far lower than comparable searches in Western markets. This is an opportunity if you move fast.
 
 ## Content in local context
 
-Write about problems your specific audience faces in their specific context. Don't translate American content — create African content. The search intent is different. The examples are different. The concerns are different.
+Write about problems your specific audience faces in their specific context. Don't translate American content: create African content. The search intent is different. The examples are different. The concerns are different.
 
 ## Consistency over cleverness
 
@@ -191,7 +191,7 @@ Show up consistently. Publish regularly. Build links from relevant local publica
     authorRole: "Lead Engineer",
     category: "Strategy",
     image: "/hero8.jpg",
-    body: `The quality of the brief you give an agency is the single biggest predictor of the quality of work you receive. We've seen it hundreds of times — great teams deliver mediocre work because the brief was vague, and average teams punch above their weight because the brief was clear.
+    body: `The quality of the brief you give an agency is the single biggest predictor of the quality of work you receive. We've seen it hundreds of times: great teams deliver mediocre work because the brief was vague, and average teams punch above their weight because the brief was clear.
 
 Here's what a good brief looks like.
 
@@ -211,7 +211,7 @@ If you've seen work you admire, share it. But more important than sharing the ex
 
 ## Be honest about constraints
 
-Budget, timeline, internal stakeholders, technical limitations, brand restrictions — the earlier you surface constraints, the fewer surprises there will be. Agencies are good at working within constraints. We're not good at discovering them mid-project.
+Budget, timeline, internal stakeholders, technical limitations, brand restrictions: the earlier you surface constraints, the fewer surprises there will be. Agencies are good at working within constraints. We're not good at discovering them mid-project.
 
 ## Define what done looks like
 

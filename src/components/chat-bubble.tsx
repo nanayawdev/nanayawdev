@@ -191,7 +191,7 @@ export function ChatBubble() {
           {/* Body */}
           <div className="flex-1 flex flex-col overflow-hidden">
 
-            {/* — Stage: idle — start chat prompt */}
+            {/* Stage: idle, start chat prompt */}
             {stage === "idle" && (
               <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
                 <p className="text-sm font-semibold text-foreground">Start a live chat</p>
@@ -207,7 +207,7 @@ export function ChatBubble() {
               </div>
             )}
 
-            {/* — Stage: phone — enter name + phone number */}
+            {/* Stage: phone, enter name + phone number */}
             {stage === "phone" && (
               <div className="flex flex-1 flex-col justify-center gap-4 px-6">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -238,7 +238,7 @@ export function ChatBubble() {
               </div>
             )}
 
-            {/* — Stage: otp — enter code */}
+            {/* Stage: otp, enter code */}
             {stage === "otp" && (
               <div className="flex flex-1 flex-col justify-center gap-4 px-6">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -266,7 +266,7 @@ export function ChatBubble() {
               </div>
             )}
 
-            {/* — Stage: chat — live messages */}
+            {/* Stage: chat, live messages */}
             {(stage === "chat" || stage === "closed") && (
               <>
                 <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">

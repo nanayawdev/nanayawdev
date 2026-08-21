@@ -38,7 +38,7 @@ export default function ResourceDetail() {
       .then((data) => {
         if (!data) return;
         setPost(data.post);
-        // fetch related — prioritize same category, fall back to others
+        // fetch related, prioritize same category, fall back to others
         fetch("/api/blog")
           .then((r) => r.json())
           .then((d) => {
@@ -104,7 +104,7 @@ export default function ResourceDetail() {
 
         <div className="min-w-0 flex-1">
 
-          {/* Hero — left-aligned */}
+          {/* Hero, left-aligned */}
           <div className="mx-auto max-w-4xl">
             <p className="mb-5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               <Link href={`/resources?category=${encodeURIComponent(post.category)}`} className="text-foreground transition-colors hover:text-muted-foreground">
@@ -159,7 +159,7 @@ export default function ResourceDetail() {
             </div>
           )}
 
-          {/* Display ad — below the hero, above the body */}
+          {/* Display ad, below the hero, above the body */}
           <div className="mx-auto mt-10 max-w-3xl">
             <AdSlot format="auto" className="min-h-[100px]" />
           </div>
@@ -195,7 +195,7 @@ export default function ResourceDetail() {
             <div className="order-1 min-w-0 lg:order-2">
               <div className="prose-custom prose-dropcap" dangerouslySetInnerHTML={{ __html: bodyFirstHalf }} />
 
-              {/* In-article ad — injected mid-post for longer articles */}
+              {/* In-article ad, injected mid-post for longer articles */}
               {bodySecondHalf && <AdSlot format="in-article" className="my-8" />}
 
               {bodySecondHalf && (
@@ -213,7 +213,7 @@ export default function ResourceDetail() {
                 </div>
               )}
 
-              {/* Matched content — native recirculation unit */}
+              {/* Matched content, native recirculation unit */}
               <AdSlot format="matched-content" className="mt-14 min-h-[300px]" />
             </div>
           </div>

@@ -55,12 +55,12 @@ export default function AppsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          A few apps I&apos;ve built and published — live on the Play Store and App Store.
+          A few apps I&apos;ve built and published, live on the Play Store and App Store.
         </motion.p>
 
         {/* Empty state */}
         {apps.length === 0 && (
-          <p className="text-muted-foreground text-base mb-16">No apps published yet — check back soon.</p>
+          <p className="text-muted-foreground text-base mb-16">No apps published yet. Check back soon.</p>
         )}
 
         {/* Grid */}

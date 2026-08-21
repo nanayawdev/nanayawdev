@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 
-/** GET /api/components/[slug] — public: single published component resource */
+/** GET /api/components/[slug], public: single published component resource */
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }

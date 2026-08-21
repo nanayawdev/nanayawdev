@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { signChatToken } from "@/lib/auth";
 
-/** POST /api/chat/verify-otp — verify OTP and return chat JWT */
+/** POST /api/chat/verify-otp, verify OTP and return chat JWT */
 export async function POST(req: NextRequest) {
   try {
     const { session_id, otp } = await req.json();

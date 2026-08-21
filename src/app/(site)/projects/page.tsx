@@ -60,7 +60,7 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
 
-      {/* Floating image preview — follows cursor */}
+      {/* Floating image preview, follows cursor */}
       <AnimatePresence>
         {hoveredId && hoveredProject?.cover_image && (
           <motion.div
@@ -129,7 +129,7 @@ export default function Projects() {
 
         {/* Project list */}
         {projects.length === 0 && (
-          <p className="text-muted-foreground text-base">No projects published yet — check back soon.</p>
+          <p className="text-muted-foreground text-base">No projects published yet. Check back soon.</p>
         )}
         <div className="divide-y divide-border">
           <AnimatePresence initial={false}>

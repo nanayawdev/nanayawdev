@@ -14,7 +14,7 @@ export type AdFormat =
   | "vertical"
   | "horizontal"
   | "in-article"     // fluid layout meant to sit inline between paragraphs
-  | "in-feed"        // fluid layout for list/feed rows — needs layoutKey
+  | "in-feed"        // fluid layout for list/feed rows, needs layoutKey
   | "matched-content"; // native "you might also like" recommendation unit
 
 interface AdSlotProps {
@@ -40,7 +40,7 @@ export function AdSlot({ slot, format = "auto", layoutKey, className = "", respo
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushed.current = true;
     } catch {
-      /* AdSense script not loaded yet — blocked, offline, or no consent */
+      /* AdSense script not loaded yet, blocked, offline, or no consent */
     }
   }, []);
 
@@ -48,7 +48,7 @@ export function AdSlot({ slot, format = "auto", layoutKey, className = "", respo
     if (process.env.NODE_ENV !== "production") {
       return (
         <div className={`flex min-h-[90px] items-center justify-center border border-dashed border-border text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground/50 ${className}`}>
-          Ad slot — {format}
+          Ad slot, {format}
         </div>
       );
     }
