@@ -367,33 +367,55 @@ If the answer to any of these is no, revise the article before returning it.
 
 OUTPUT FORMAT
 
-Return the article as plain text using exactly this structure — three labeled fields, in this order, each label alone on its own line:
+Return the article as plain text using exactly this structure — labeled fields, in this order, each label alone on its own line:
 
 TITLE: [The article title]
 
 EXCERPT: [A compelling 1-2 sentence excerpt for the blog listing]
 
+SEO_TITLE: [A search-optimized title, roughly 50-60 characters. Can match TITLE if it already works well for search.]
+
+SEO_DESCRIPTION: [A meta description, roughly 150-160 characters, written to earn a click from a search results page.]
+
+PRIMARY_KEYWORD: [The single main phrase this article should rank for.]
+
+SECONDARY_KEYWORDS: [3-6 related terms or phrases, comma-separated.]
+
 BODY:
 [The full article as a self-contained HTML fragment — no <html>/<head>/<body> wrapper, no markdown, no code fences. Use only these tags: <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <strong>, <em>, <a href="...">, <code>. Do not include a top-level <h1> or repeat the title inside the body — it is rendered separately from the TITLE field.]
 
-Do not include commentary about how you wrote the article, SEO notes, or a keyword list. Return only the three labeled fields above, nothing else.`;
+Do not include commentary about how you wrote the article. Return only the labeled fields above, nothing else.`;
 
 interface GeneratedArticle {
   title: string;
   excerpt: string;
+  seoTitle: string;
+  seoDescription: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
   body: string;
 }
 
-/** Parses the TITLE:/EXCERPT:/BODY: response from GENERATE_SYSTEM_PROMPT. */
+/** Parses the TITLE:/EXCERPT:/SEO_TITLE:/SEO_DESCRIPTION:/PRIMARY_KEYWORD:/SECONDARY_KEYWORDS:/BODY: response from GENERATE_SYSTEM_PROMPT. */
 function parseGeneratedArticle(raw: string): GeneratedArticle {
   const text = stripCodeFence(raw.trim());
-  const match = text.match(/TITLE:\s*([\s\S]*?)\n+EXCERPT:\s*([\s\S]*?)\n+BODY:\s*([\s\S]*)/i);
+  const match = text.match(
+    /TITLE:\s*([\s\S]*?)\n+EXCERPT:\s*([\s\S]*?)\n+SEO_TITLE:\s*([\s\S]*?)\n+SEO_DESCRIPTION:\s*([\s\S]*?)\n+PRIMARY_KEYWORD:\s*([\s\S]*?)\n+SECONDARY_KEYWORDS:\s*([\s\S]*?)\n+BODY:\s*([\s\S]*)/i
+  );
   if (!match) {
     // Model didn't follow the format — fall back to treating the whole response as the body.
-    return { title: "", excerpt: "", body: text };
+    return { title: "", excerpt: "", seoTitle: "", seoDescription: "", primaryKeyword: "", secondaryKeywords: [], body: text };
   }
-  const [, title, excerpt, body] = match;
-  return { title: title.trim(), excerpt: excerpt.trim(), body: stripCodeFence(body.trim()) };
+  const [, title, excerpt, seoTitle, seoDescription, primaryKeyword, secondaryKeywords, body] = match;
+  return {
+    title: title.trim(),
+    excerpt: excerpt.trim(),
+    seoTitle: seoTitle.trim(),
+    seoDescription: seoDescription.trim(),
+    primaryKeyword: primaryKeyword.trim(),
+    secondaryKeywords: secondaryKeywords.split(",").map((k) => k.trim()).filter(Boolean),
+    body: stripCodeFence(body.trim()),
+  };
 }
 
 /** Strips a ```html ... ``` fence if the model wrapped its output in one. */
@@ -404,7 +426,7 @@ function stripCodeFence(text: string): string {
 }
 
 function buildPrompt(body: RequestBody): string {
-  const { action, text, context, tone, title, category } = body;
+  const { action, text, context, tone, title, category, contentType } = body;
 
   switch (action) {
     case "continue":
