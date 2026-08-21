@@ -5,6 +5,7 @@ import { PlusIcon as Plus, PencilIcon as Pencil, TrashIcon as Trash2, EyeIcon as
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface ComponentFile {
@@ -356,21 +357,19 @@ export default function AdminComponentsPage() {
 
           {/* Toggles */}
           <div className="flex items-center gap-6">
-            <label className="flex items-center gap-2.5 cursor-pointer">
-              <input
-                type="checkbox"
+            <label htmlFor="featured" className="flex items-center gap-2.5 cursor-pointer">
+              <Checkbox
+                id="featured"
                 checked={editing.featured ?? false}
-                onChange={(e) => setEditing((p) => ({ ...p, featured: e.target.checked }))}
-                className="h-4 w-4 accent-foreground"
+                onCheckedChange={(checked) => setEditing((p) => ({ ...p, featured: checked === true }))}
               />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Featured</span>
             </label>
-            <label className="flex items-center gap-2.5 cursor-pointer">
-              <input
-                type="checkbox"
+            <label htmlFor="published" className="flex items-center gap-2.5 cursor-pointer">
+              <Checkbox
+                id="published"
                 checked={editing.published ?? false}
-                onChange={(e) => setEditing((p) => ({ ...p, published: e.target.checked }))}
-                className="h-4 w-4 accent-foreground"
+                onCheckedChange={(checked) => setEditing((p) => ({ ...p, published: checked === true }))}
               />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">Publish Now</span>
             </label>

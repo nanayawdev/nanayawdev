@@ -5,6 +5,7 @@ import { PlusIcon as Plus, PencilIcon as Pencil, TrashIcon as Trash2, EyeIcon as
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Project {
@@ -336,12 +337,11 @@ export default function AdminProjectsPage() {
               { key: "featured", label: "Featured" },
               { key: "published", label: "Published" },
             ].map(({ key, label }) => (
-              <label key={key} className="flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
+              <label key={key} htmlFor={key} className="flex items-center gap-2 cursor-pointer select-none">
+                <Checkbox
+                  id={key}
                   checked={!!editing[key as keyof typeof editing]}
-                  onChange={(e) => setEditing((p) => ({ ...p, [key]: e.target.checked }))}
-                  className="h-4 w-4"
+                  onCheckedChange={(checked) => setEditing((p) => ({ ...p, [key]: checked === true }))}
                 />
                 <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
               </label>

@@ -6,6 +6,7 @@ import { ConfirmModal } from "@/components/confirm-modal";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface Service {
@@ -219,9 +220,9 @@ export default function AdminServicesPage() {
           {/* Toggles */}
           <div className="flex items-center gap-6">
             {[{ key: "featured", label: "Featured" }, { key: "published", label: "Published" }].map(({ key, label }) => (
-              <label key={key} className="flex items-center gap-2 cursor-pointer select-none">
-                <input type="checkbox" checked={!!editing[key as keyof typeof editing]}
-                  onChange={(e) => setEditing((p) => ({ ...p, [key]: e.target.checked }))} className="h-4 w-4" />
+              <label key={key} htmlFor={key} className="flex items-center gap-2 cursor-pointer select-none">
+                <Checkbox id={key} checked={!!editing[key as keyof typeof editing]}
+                  onCheckedChange={(checked) => setEditing((p) => ({ ...p, [key]: checked === true }))} />
                 <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
               </label>
             ))}

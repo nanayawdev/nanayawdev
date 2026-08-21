@@ -5,6 +5,7 @@ import { PlusIcon as Plus, PencilIcon as Pencil, TrashIcon as Trash2, EyeIcon as
 import { ConfirmModal } from "@/components/confirm-modal";
 import { Spinner } from "@/components/admin/spinner";
 import { RowActions } from "@/components/admin/row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
 import { adminFetch } from "@/lib/admin-fetch";
 
 interface App {
@@ -206,12 +207,12 @@ export default function AdminAppsPage() {
               <input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing((p) => ({ ...p, sort_order: Number(e.target.value) }))}
                 className="w-24 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer select-none mt-5">
-              <input type="checkbox" checked={!!editing.featured} onChange={(e) => setEditing((p) => ({ ...p, featured: e.target.checked }))} className="h-4 w-4" />
+            <label htmlFor="featured" className="flex items-center gap-2 cursor-pointer select-none mt-5">
+              <Checkbox id="featured" checked={!!editing.featured} onCheckedChange={(checked) => setEditing((p) => ({ ...p, featured: checked === true }))} />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Featured</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer select-none mt-5">
-              <input type="checkbox" checked={!!editing.published} onChange={(e) => setEditing((p) => ({ ...p, published: e.target.checked }))} className="h-4 w-4" />
+            <label htmlFor="published" className="flex items-center gap-2 cursor-pointer select-none mt-5">
+              <Checkbox id="published" checked={!!editing.published} onCheckedChange={(checked) => setEditing((p) => ({ ...p, published: checked === true }))} />
               <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Published</span>
             </label>
           </div>

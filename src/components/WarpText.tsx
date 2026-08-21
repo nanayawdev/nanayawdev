@@ -227,8 +227,8 @@ const buildTextCanvas = ({ container, width, height, dpr, props }: BuildTextCanv
   };
   applyFont();
 
-  const maxWidth = width * 0.96;
-  const maxHeight = height * 0.92;
+  const maxWidth = width * 0.99;
+  const maxHeight = height * 0.96;
   const widest = Math.max(...lines.map((line) => measureLine(ctx, line, letterSpacing)), 1);
   const blockHeight = Math.max(lineHeight * lines.length, 1);
   const fit = Math.min(1, maxWidth / widest, maxHeight / blockHeight);
@@ -565,7 +565,7 @@ const WarpText = ({
   return (
     <div
       ref={containerRef}
-      className={`relative block min-h-[220px] w-full overflow-hidden isolate ${className}`.trim()}
+      className={`relative block w-full overflow-hidden isolate ${className}`.trim()}
       style={style}
       role="img"
       aria-label={text}
