@@ -82,7 +82,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <SidebarProvider className="h-svh overflow-hidden bg-[radial-gradient(circle_at_top,_hsl(var(--muted))_0%,_transparent_55%),_hsl(var(--background))] text-foreground">
         <AppSidebar />
 
-        <SidebarInset className="flex flex-col min-h-0 overflow-hidden border border-border/60 bg-background/95 shadow-sm">
+        <SidebarInset className="flex flex-col min-h-0 overflow-hidden rounded-lg border border-border/60 bg-background/95 shadow-sm">
           <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border/40 px-4">
             <SidebarTrigger className="-ml-1" />
             <div className="flex items-center gap-2">

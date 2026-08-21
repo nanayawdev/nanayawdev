@@ -59,7 +59,7 @@ function AdminLoginInner() {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
             />
           </div>
           <div>
@@ -71,7 +71,7 @@ function AdminLoginInner() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
             />
           </div>
           {error && (

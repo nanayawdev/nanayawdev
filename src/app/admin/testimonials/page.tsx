@@ -105,18 +105,18 @@ export default function AdminTestimonialsPage() {
   if (editing) {
     return (
       <div className="max-w-xl">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Testimonial" : "Edit Testimonial"}</h1>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setEditing(null)} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
-            <button onClick={() => save(true)} disabled={saving} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
-            <button onClick={() => save(false)} disabled={saving} className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
+          <div className="flex items-center gap-3 shrink-0">
+            <button onClick={() => setEditing(null)} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors sm:flex-none">Cancel</button>
+            <button onClick={() => save(true)} disabled={saving} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50 sm:flex-none">Save Draft</button>
+            <button onClick={() => save(false)} disabled={saving} className="flex-1 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none">
               {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Add Testimonial" : "Save Changes"}
             </button>
           </div>
         </div>
 
-        {error && <p className="mb-4 text-sm text-red-500 border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
+        {error && <p className="mb-4 text-sm text-red-500 rounded-lg border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
 
         <div className="space-y-5">
           {/* Avatar */}
@@ -143,7 +143,7 @@ export default function AdminTestimonialsPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Quote *</label>
             <textarea rows={5} value={editing.quote ?? ""} onChange={(e) => setEditing((p) => ({ ...p, quote: e.target.value }))}
-              className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="I can assure you, you will not find a better designer…" />
           </div>
 
@@ -152,13 +152,13 @@ export default function AdminTestimonialsPage() {
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Name *</label>
               <input value={editing.author_name ?? ""} onChange={(e) => setEditing((p) => ({ ...p, author_name: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="Jacob" />
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Company / Role</label>
               <input value={editing.author_role ?? ""} onChange={(e) => setEditing((p) => ({ ...p, author_role: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="DAD Studio" />
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function AdminTestimonialsPage() {
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Sort Order</label>
               <input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing((p) => ({ ...p, sort_order: Number(e.target.value) }))}
-                className="w-24 border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
+                className="w-24 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
             </div>
             <label className="flex items-center gap-2 cursor-pointer select-none mt-5">
               <input type="checkbox" checked={!!editing.published} onChange={(e) => setEditing((p) => ({ ...p, published: e.target.checked }))} className="h-4 w-4" />
@@ -182,18 +182,18 @@ export default function AdminTestimonialsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Testimonials</h1>
           <p className="text-sm text-muted-foreground mt-1">{testimonials.length} testimonials · drag to reorder</p>
         </div>
-        <button onClick={openNew} className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
+        <button onClick={openNew} className="flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
           <Plus className="h-3.5 w-3.5" /> Add Testimonial
         </button>
       </div>
 
       {testimonials.length === 0 && (
-        <div className="border border-dashed border-border py-20 text-center">
+        <div className="rounded-lg border border-dashed border-border py-20 text-center">
           <p className="text-muted-foreground text-sm">No testimonials yet.</p>
           <button onClick={openNew} className="mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground underline underline-offset-4">Add your first testimonial</button>
         </div>
@@ -201,7 +201,7 @@ export default function AdminTestimonialsPage() {
 
       <div className="space-y-2">
         {testimonials.map((t) => (
-          <div key={t.id} className="flex items-center gap-4 border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
+          <div key={t.id} className="flex items-center gap-4 rounded-lg border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
             <GripVertical className="h-4 w-4 text-muted-foreground/30 shrink-0" />
             {t.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -215,7 +215,7 @@ export default function AdminTestimonialsPage() {
               <p className="text-sm font-semibold text-foreground">{t.author_name}{t.author_role && `, ${t.author_role}`}</p>
               <p className="text-xs text-muted-foreground mt-0.5 truncate">{t.quote}</p>
             </div>
-            <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border shrink-0 ${t.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
+            <span className={`rounded-lg text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border shrink-0 ${t.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
               {t.published ? "Visible" : "Hidden"}
             </span>
             <RowActions

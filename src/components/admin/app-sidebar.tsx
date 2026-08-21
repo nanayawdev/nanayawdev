@@ -53,7 +53,7 @@ export function AppSidebar() {
       <SidebarHeader className="h-16 justify-center border-b border-sidebar-border/60 px-3">
         <div className="flex items-center gap-3">
           <div className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary">
-            <Image src="/logo.png" alt="" width={20} height={20} className="object-contain" />
+            <Image src="/nanayawdev-logo.png" alt="" width={20} height={20} className="object-contain" />
           </div>
           <div className="min-w-0 group-data-[collapsible=icon]:hidden">
             <p className="truncate text-sm font-medium">nanayawdev</p>

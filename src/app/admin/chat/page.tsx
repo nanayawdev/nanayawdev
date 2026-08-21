@@ -104,7 +104,7 @@ export default function AdminChatPage() {
   };
 
   return (
-    <div className="flex gap-0 h-[calc(100vh-4rem)] border border-border">
+    <div className="flex gap-0 h-[calc(100vh-4rem)] overflow-hidden rounded-lg border border-border">
       {/* Session list */}
       <div className="w-72 shrink-0 border-r border-border flex flex-col">
         <div className="border-b border-border px-5 py-4">
@@ -164,7 +164,7 @@ export default function AdminChatPage() {
                 className={`flex ${m.sender === "agent" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[70%] px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[70%] rounded-lg px-4 py-2.5 text-sm leading-relaxed ${
                     m.sender === "agent"
                       ? "bg-foreground text-background"
                       : "border border-border bg-muted/30 text-foreground"

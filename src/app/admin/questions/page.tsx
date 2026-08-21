@@ -44,7 +44,7 @@ export default function QuestionsPage() {
   return (
     <div className="flex gap-6 h-full">
       {/* List */}
-      <div className="w-80 shrink-0 border border-border overflow-y-auto">
+      <div className="w-80 shrink-0 rounded-lg border border-border overflow-y-auto">
         <div className="border-b border-border px-5 py-4">
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             {questions.length} questions
@@ -73,7 +73,7 @@ export default function QuestionsPage() {
 
       {/* Detail */}
       {selected ? (
-        <div className="flex-1 border border-border p-8 overflow-y-auto">
+        <div className="flex-1 rounded-lg border border-border p-8 overflow-y-auto">
           <div className="flex items-start justify-between gap-4 mb-6">
             <div>
               <h2 className="text-xl font-bold text-foreground">{selected.name}</h2>
@@ -94,14 +94,14 @@ export default function QuestionsPage() {
             </button>
           </div>
 
-          <div className="border border-border p-6">
+          <div className="rounded-lg border border-border p-6">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">Question</p>
             <p className="text-base text-foreground leading-relaxed">{selected.question}</p>
           </div>
 
           <div className="mt-6 flex flex-col gap-4">
             {/* Email composer */}
-            <div className="border border-border p-4">
+            <div className="rounded-lg border border-border p-4">
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">
                 Reply via Email → {selected.email}
               </p>
@@ -111,14 +111,14 @@ export default function QuestionsPage() {
                   value={emailSubject}
                   onChange={(e) => setEmailSubject(e.target.value)}
                   placeholder="Subject"
-                  className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                 />
                 <textarea
                   rows={4}
                   value={emailBody}
                   onChange={(e) => setEmailBody(e.target.value)}
                   placeholder={`Hi ${selected.name.split(" ")[0]},\n\n`}
-                  className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground"
                 />
               </div>
               {emailResult === "sent" && <p className="text-[0.65rem] text-green-600 uppercase tracking-widest mt-2 mb-2">Email sent!</p>}
@@ -145,7 +145,7 @@ export default function QuestionsPage() {
             </div>
 
             {selected.phone && (
-              <div className="border border-border p-4">
+              <div className="rounded-lg border border-border p-4">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">
                   Reply via SMS → {selected.phone}
                 </p>
@@ -154,7 +154,7 @@ export default function QuestionsPage() {
                   value={smsText}
                   onChange={(e) => setSmsText(e.target.value)}
                   placeholder="Type your SMS reply…"
-                  className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground mb-3"
+                  className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-foreground mb-3"
                 />
                 {smsResult === "sent" && <p className="text-[0.65rem] text-green-600 uppercase tracking-widest mb-2">SMS sent!</p>}
                 {smsResult === "error" && <p className="text-[0.65rem] text-red-500 uppercase tracking-widest mb-2">Failed to send SMS.</p>}

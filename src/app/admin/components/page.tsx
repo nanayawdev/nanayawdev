@@ -168,26 +168,26 @@ export default function AdminComponentsPage() {
   if (editing !== null) {
     return (
       <div className="max-w-3xl">
-        <div className="flex items-center justify-between mb-8">
-          <div>
+        <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">
               {isNew ? "New Component" : "Edit Component"}
             </p>
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-2xl font-bold text-foreground truncate">
               {isNew ? "Share a new component" : editing.title}
             </h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setEditing(null)}
-              className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors"
+              className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground hover:bg-muted transition-colors sm:flex-none"
             >
               Cancel
             </button>
             <button
               onClick={save}
               disabled={saving}
-              className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex-1 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none"
             >
               {saving ? <Spinner size="sm" className="text-background" /> : "Save Component"}
             </button>
@@ -206,7 +206,7 @@ export default function AdminComponentsPage() {
               type="text"
               value={editing.title ?? ""}
               onChange={(e) => setEditing((p) => ({ ...p, title: e.target.value }))}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="e.g. Animated Pricing Cards"
             />
           </div>
@@ -218,7 +218,7 @@ export default function AdminComponentsPage() {
               rows={3}
               value={editing.description ?? ""}
               onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))}
-              className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="Short summary shown in cards…"
             />
           </div>
@@ -232,7 +232,7 @@ export default function AdminComponentsPage() {
               rows={10}
               value={editing.prompt ?? ""}
               onChange={(e) => setEditing((p) => ({ ...p, prompt: e.target.value }))}
-              className="w-full resize-y border border-border bg-background px-4 py-2.5 font-mono text-xs leading-relaxed text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full resize-y rounded-lg border border-border bg-background px-4 py-2.5 font-mono text-xs leading-relaxed text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="The exact prompt you used to build this component…"
             />
           </div>
@@ -244,7 +244,7 @@ export default function AdminComponentsPage() {
               <select
                 value={editing.category ?? "General"}
                 onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none"
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none"
               >
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
@@ -255,7 +255,7 @@ export default function AdminComponentsPage() {
                 type="text"
                 value={editing.author ?? ""}
                 onChange={(e) => setEditing((p) => ({ ...p, author: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground"
               />
             </div>
           </div>
@@ -265,7 +265,7 @@ export default function AdminComponentsPage() {
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Cover Image</label>
 
             {editing.cover_image ? (
-              <div className="relative mb-3 border border-border overflow-hidden">
+              <div className="relative mb-3 rounded-lg border border-border overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={editing.cover_image}
@@ -284,7 +284,7 @@ export default function AdminComponentsPage() {
             ) : (
               <div
                 onClick={() => coverInputRef.current?.click()}
-                className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+                className="mb-3 flex h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
               >
                 <ImagePlus className="h-6 w-6" />
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
@@ -308,7 +308,7 @@ export default function AdminComponentsPage() {
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Component Files</label>
 
             {(editing.files ?? []).length > 0 && (
-              <div className="mb-3 divide-y divide-border border border-border">
+              <div className="mb-3 divide-y divide-border rounded-lg border border-border overflow-hidden">
                 {(editing.files ?? []).map((f, i) => (
                   <div key={`${f.url}-${i}`} className="flex items-center justify-between gap-3 px-4 py-2.5">
                     <div className="flex min-w-0 items-center gap-2.5">
@@ -331,7 +331,7 @@ export default function AdminComponentsPage() {
 
             <div
               onClick={() => filesInputRef.current?.click()}
-              className="flex h-24 cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+              className="flex h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted/20 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
             >
               <FilePlus className="h-5 w-5" />
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
@@ -383,14 +383,14 @@ export default function AdminComponentsPage() {
   // ── List ─────────────────────────────────────────────
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-1">Content</p>
           <h1 className="text-3xl font-bold text-foreground">Components</h1>
         </div>
         <button
           onClick={openNew}
-          className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
+          className="flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity"
         >
           <Plus className="h-3.5 w-3.5" />
           New Component
@@ -399,22 +399,22 @@ export default function AdminComponentsPage() {
 
       {/* Stats */}
       <div className="flex gap-4 mb-8">
-        <div className="border border-border px-5 py-3">
+        <div className="rounded-lg border border-border px-5 py-3">
           <p className="text-xl font-bold text-foreground">{items.length}</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mt-0.5">Total</p>
         </div>
-        <div className="border border-border px-5 py-3">
+        <div className="rounded-lg border border-border px-5 py-3">
           <p className="text-xl font-bold text-foreground">{items.filter((c) => c.published).length}</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mt-0.5">Published</p>
         </div>
-        <div className="border border-border px-5 py-3">
+        <div className="rounded-lg border border-border px-5 py-3">
           <p className="text-xl font-bold text-foreground">{items.filter((c) => !c.published).length}</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mt-0.5">Drafts</p>
         </div>
       </div>
 
       {/* Table */}
-      <div className="border border-border">
+      <div className="rounded-lg border border-border overflow-hidden">
         <div className="grid grid-cols-[1fr_120px_100px_100px] border-b border-border px-5 py-3 bg-muted/20">
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Title</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</p>
@@ -440,7 +440,7 @@ export default function AdminComponentsPage() {
             </div>
             <p className="text-xs text-muted-foreground">{item.category}</p>
             <span
-              className={`justify-self-start px-2.5 py-1 text-[0.55rem] font-bold uppercase tracking-wider ${
+              className={`justify-self-start rounded-lg px-2.5 py-1 text-[0.55rem] font-bold uppercase tracking-wider ${
                 item.published ? "bg-foreground text-background" : "border border-border text-muted-foreground"
               }`}
             >

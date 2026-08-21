@@ -47,7 +47,7 @@ export function NameHero() {
             text={"DESIGNER+\nDEVELOPER"}
             color="#fafafa"
             fontWeight={900}
-            fontSize="clamp(3.2rem, 10vw, 7.5rem)"
+            fontSize="clamp(3.6rem, 13vw, 7.5rem)"
             letterSpacing="-0.02em"
             lineHeight={0.85}
             warpStrength={0.07}
@@ -58,7 +58,7 @@ export function NameHero() {
             refraction={0.016}
             ripple
             className={`${bigShoulders.className} select-none`}
-            style={{ height: "clamp(5.5rem, 17vw, 13rem)" }}
+            style={{ height: "clamp(6.75rem, 24vw, 14rem)" }}
           />
         </motion.h1>
 

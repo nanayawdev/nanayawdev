@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { StaggeredMenu } from "@/components/StaggeredMenu";
+import { GithubLogoIcon as Github, InstagramLogoIcon as Instagram, LinkedinLogoIcon as Linkedin, TiktokLogoIcon as TikTok } from "@phosphor-icons/react";
 
 const navigationItems = [
   { label: "Home", ariaLabel: "Go to home page", link: "/" },
@@ -14,10 +15,10 @@ const navigationItems = [
 ];
 
 const socialItems = [
-  { label: "TikTok", link: "https://tiktok.com/@nanayawdev" },
-  { label: "GitHub", link: "https://github.com/nanayawdev" },
-  { label: "LinkedIn", link: "https://linkedin.com/in/nanayawdev" },
-  { label: "Instagram", link: "https://instagram.com/nanayawdev" },
+  { label: "GitHub", link: "https://github.com/nanayawdev", icon: Github },
+  { label: "LinkedIn", link: "https://linkedin.com/in/nanayawdev", icon: Linkedin },
+  { label: "Instagram", link: "https://instagram.com/nanayawdev", icon: Instagram },
+  { label: "TikTok", link: "https://tiktok.com/@nanayawdev", icon: TikTok },
 ];
 
 export function Navbar() {
@@ -34,6 +35,7 @@ export function Navbar() {
       displaySocials
       displayItemNumbering
       logoText="nanayaw.dev"
+      logoImageSrc="/nanayawdev-logo.png"
       menuButtonColor="var(--foreground)"
       openMenuButtonColor="var(--foreground)"
       changeMenuColorOnOpen={false}

@@ -81,7 +81,7 @@ export default async function ResourceDetailLayout({
     publisher: {
       "@type": "Organization",
       name: "nanayawdev",
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/nanayawdev-logo.png` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/resources/${slug}` },
     articleSection: post.category,

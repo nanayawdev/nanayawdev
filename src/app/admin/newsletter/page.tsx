@@ -39,18 +39,18 @@ export default function NewsletterPage() {
 
       {/* Stats */}
       <div className="flex gap-4 mb-8">
-        <div className="border border-border px-6 py-4">
+        <div className="rounded-lg border border-border px-6 py-4">
           <p className="text-2xl font-bold text-foreground">{active}</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mt-1">Active</p>
         </div>
-        <div className="border border-border px-6 py-4">
+        <div className="rounded-lg border border-border px-6 py-4">
           <p className="text-2xl font-bold text-foreground">{inactive}</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground mt-1">Unsubscribed</p>
         </div>
       </div>
 
       {/* Table */}
-      <div className="border border-border">
+      <div className="rounded-lg border border-border overflow-hidden">
         <div className="grid grid-cols-[1fr_160px_120px] border-b border-border px-5 py-3 bg-muted/20">
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Email</p>
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Subscribed</p>

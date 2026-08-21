@@ -117,18 +117,18 @@ export default function AdminServicesPage() {
   if (editing) {
     return (
       <div className="max-w-2xl">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New Service" : "Edit Service"}</h1>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setEditing(null)} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
-            <button onClick={() => save(true)} disabled={saving} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
-            <button onClick={() => save(false)} disabled={saving} className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
+          <div className="flex items-center gap-3 shrink-0">
+            <button onClick={() => setEditing(null)} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors sm:flex-none">Cancel</button>
+            <button onClick={() => save(true)} disabled={saving} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50 sm:flex-none">Save Draft</button>
+            <button onClick={() => save(false)} disabled={saving} className="flex-1 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none">
               {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Create Service" : "Save Changes"}
             </button>
           </div>
         </div>
 
-        {error && <p className="mb-4 text-sm text-red-500 border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
+        {error && <p className="mb-4 text-sm text-red-500 rounded-lg border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
 
         <div className="space-y-5">
           {/* Cover image */}
@@ -155,7 +155,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Title *</label>
             <input value={editing.title ?? ""} onChange={(e) => setEditing((p) => ({ ...p, title: e.target.value }))}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="Web Design & Development" />
           </div>
 
@@ -163,7 +163,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Tagline</label>
             <input value={editing.tagline ?? ""} onChange={(e) => setEditing((p) => ({ ...p, tagline: e.target.value }))}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="One-line hook shown on cards and hover states" />
           </div>
 
@@ -171,7 +171,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Short Description</label>
             <textarea rows={3} value={editing.description ?? ""} onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))}
-              className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="2-3 sentences shown on the services list page" />
           </div>
 
@@ -196,7 +196,7 @@ export default function AdminServicesPage() {
             <div className="flex gap-2 mb-2">
               <input value={tagInput} onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(); } }}
-                className="flex-1 border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+                className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="UX/UI Design… press Enter" />
               <button type="button" onClick={addTag} className="rounded-full border border-border px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Add</button>
             </div>
@@ -213,7 +213,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Sort Order</label>
             <input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing((p) => ({ ...p, sort_order: Number(e.target.value) }))}
-              className="w-32 border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
+              className="w-32 rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
           </div>
 
           {/* Toggles */}
@@ -234,18 +234,18 @@ export default function AdminServicesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-sm text-muted-foreground mt-1">{services.length} total · drag to reorder</p>
         </div>
-        <button onClick={openNew} className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
+        <button onClick={openNew} className="flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
           <Plus className="h-3.5 w-3.5" /> New Service
         </button>
       </div>
 
       {services.length === 0 && (
-        <div className="border border-dashed border-border py-20 text-center">
+        <div className="rounded-lg border border-dashed border-border py-20 text-center">
           <p className="text-muted-foreground text-sm">No services yet.</p>
           <button onClick={openNew} className="mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground underline underline-offset-4">Add your first service</button>
         </div>
@@ -253,17 +253,17 @@ export default function AdminServicesPage() {
 
       <div className="space-y-2">
         {services.map((s) => (
-          <div key={s.id} className="flex items-center gap-4 border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
+          <div key={s.id} className="flex items-center gap-4 rounded-lg border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
             <GripVertical className="h-4 w-4 text-muted-foreground/30 shrink-0" />
             {s.cover_image && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={s.cover_image} alt="" className="h-12 w-20 object-cover shrink-0 border border-border" />
+              <img src={s.cover_image} alt="" className="h-12 w-20 rounded-lg object-cover shrink-0 border border-border" />
             )}
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-foreground truncate">{s.title}</p>
               <p className="text-[0.65rem] text-muted-foreground mt-0.5 truncate">{s.tagline}</p>
             </div>
-            <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border ${s.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
+            <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] rounded-lg px-2.5 py-1 border ${s.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
               {s.published ? "Published" : "Draft"}
             </span>
             <RowActions

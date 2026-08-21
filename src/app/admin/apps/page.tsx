@@ -114,18 +114,18 @@ export default function AdminAppsPage() {
   if (editing) {
     return (
       <div className="max-w-xl">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold tracking-tight">{isNew ? "New App" : "Edit App"}</h1>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setEditing(null)} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors">Cancel</button>
-            <button onClick={() => save(true)} disabled={saving} className="rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50">Save Draft</button>
-            <button onClick={() => save(false)} disabled={saving} className="rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50">
+          <div className="flex items-center gap-3 shrink-0">
+            <button onClick={() => setEditing(null)} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors sm:flex-none">Cancel</button>
+            <button onClick={() => save(true)} disabled={saving} className="flex-1 rounded-full border border-border px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:bg-muted transition-colors disabled:opacity-50 sm:flex-none">Save Draft</button>
+            <button onClick={() => save(false)} disabled={saving} className="flex-1 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity disabled:opacity-50 sm:flex-none">
               {saving ? <Spinner size="sm" className="text-background" /> : isNew ? "Add App" : "Save Changes"}
             </button>
           </div>
         </div>
 
-        {error && <p className="mb-4 text-sm text-red-500 border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
+        {error && <p className="mb-4 text-sm text-red-500 rounded-lg border border-red-200 bg-red-50 px-4 py-3">{error}</p>}
 
         <div className="space-y-5">
           {/* Icon */}
@@ -154,13 +154,13 @@ export default function AdminAppsPage() {
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Name *</label>
               <input value={editing.name ?? ""} onChange={(e) => setEditing((p) => ({ ...p, name: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                 placeholder="CAC Hymn Book" />
             </div>
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Category</label>
               <select value={editing.category ?? "Utility"} onChange={(e) => setEditing((p) => ({ ...p, category: e.target.value }))}
-                className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground">
+                className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground">
                 {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
               </select>
             </div>
@@ -170,7 +170,7 @@ export default function AdminAppsPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Tagline</label>
             <input value={editing.tagline ?? ""} onChange={(e) => setEditing((p) => ({ ...p, tagline: e.target.value }))}
-              className="w-full border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="Hymns and lyrics, offline, in your pocket." />
           </div>
 
@@ -178,7 +178,7 @@ export default function AdminAppsPage() {
           <div>
             <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Description</label>
             <textarea rows={3} value={editing.description ?? ""} onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))}
-              className="w-full resize-none border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
               placeholder="A short description of what the app does…" />
           </div>
 
@@ -193,7 +193,7 @@ export default function AdminAppsPage() {
               <div key={key} className="flex items-center gap-3">
                 <span className="text-[0.6rem] font-semibold uppercase tracking-widest text-muted-foreground w-20 shrink-0">{label}</span>
                 <input value={(editing[key] as string) ?? ""} onChange={(e) => setEditing((p) => ({ ...p, [key]: e.target.value }))}
-                  className="flex-1 border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="flex-1 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground"
                   placeholder={placeholder} />
               </div>
             ))}
@@ -204,7 +204,7 @@ export default function AdminAppsPage() {
             <div>
               <label className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Sort Order</label>
               <input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing((p) => ({ ...p, sort_order: Number(e.target.value) }))}
-                className="w-24 border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
+                className="w-24 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-foreground" />
             </div>
             <label className="flex items-center gap-2 cursor-pointer select-none mt-5">
               <input type="checkbox" checked={!!editing.featured} onChange={(e) => setEditing((p) => ({ ...p, featured: e.target.checked }))} className="h-4 w-4" />
@@ -222,18 +222,18 @@ export default function AdminAppsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Apps</h1>
           <p className="text-sm text-muted-foreground mt-1">{apps.length} apps · drag to reorder</p>
         </div>
-        <button onClick={openNew} className="flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
+        <button onClick={openNew} className="flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] hover:opacity-90 transition-opacity">
           <Plus className="h-3.5 w-3.5" /> Add App
         </button>
       </div>
 
       {apps.length === 0 && (
-        <div className="border border-dashed border-border py-20 text-center">
+        <div className="rounded-lg border border-dashed border-border py-20 text-center">
           <p className="text-muted-foreground text-sm">No apps yet.</p>
           <button onClick={openNew} className="mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground underline underline-offset-4">Add your first app</button>
         </div>
@@ -241,7 +241,7 @@ export default function AdminAppsPage() {
 
       <div className="space-y-2">
         {apps.map((a) => (
-          <div key={a.id} className="flex items-center gap-4 border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
+          <div key={a.id} className="flex items-center gap-4 rounded-lg border border-border px-5 py-4 bg-background hover:bg-muted/30 transition-colors">
             <GripVertical className="h-4 w-4 text-muted-foreground/30 shrink-0" />
             {a.icon_image ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -258,7 +258,7 @@ export default function AdminAppsPage() {
               </p>
               <p className="text-[0.65rem] text-muted-foreground uppercase tracking-widest mt-0.5">{a.category}</p>
             </div>
-            <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] px-2.5 py-1 border ${a.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
+            <span className={`text-[0.6rem] font-semibold uppercase tracking-[0.18em] rounded-lg px-2.5 py-1 border ${a.published ? "border-green-500 text-green-600" : "border-border text-muted-foreground"}`}>
               {a.published ? "Visible" : "Hidden"}
             </span>
             <RowActions

@@ -2,6 +2,7 @@
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
 
@@ -13,6 +14,7 @@ export interface StaggeredMenuItem {
 export interface StaggeredMenuSocialItem {
   label: string;
   link: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 export interface StaggeredMenuProps {
   position?: "left" | "right";
@@ -23,6 +25,7 @@ export interface StaggeredMenuProps {
   displayItemNumbering?: boolean;
   className?: string;
   logoText?: string;
+  logoImageSrc?: string;
   headerExtra?: React.ReactNode;
   menuButtonColor?: string;
   openMenuButtonColor?: string;
@@ -43,6 +46,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displayItemNumbering = true,
   className,
   logoText = "nanayawdev",
+  logoImageSrc,
   headerExtra,
   menuButtonColor = "#fff",
   openMenuButtonColor = "#fff",
@@ -413,10 +417,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <div className="flex items-center gap-2 pointer-events-auto">
             <Link
               href="/"
-              className="sm-logo select-none rounded-full border border-border bg-background/80 backdrop-blur-md px-4 py-2 text-sm font-semibold tracking-tight text-foreground no-underline"
+              className={`sm-logo select-none text-sm font-semibold tracking-tight text-foreground no-underline ${
+                logoImageSrc ? "flex items-center justify-center" : "rounded-full border border-border bg-background/80 backdrop-blur-md px-4 py-2"
+              }`}
               aria-label="Home"
             >
-              {logoText}
+              {logoImageSrc ? (
+                <Image src={logoImageSrc} alt={logoText} width={512} height={512} className="h-9 w-9" priority />
+              ) : (
+                logoText
+              )}
             </Link>
             {headerExtra}
           </div>
@@ -484,16 +494,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {displaySocials && socialItems && socialItems.length > 0 && (
               <div className="sm-socials mt-auto pt-8 flex flex-col gap-3" aria-label="Social links">
                 <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
-                <ul className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap" role="list">
+                <ul className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-3 flex-wrap" role="list">
                   {socialItems.map((s, i) => (
                     <li key={s.label + i} className="sm-socials-item">
                       <a
                         href={s.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="sm-socials-link text-[1.1rem] font-medium no-underline relative inline-block py-[2px] transition-[color,opacity] duration-300 ease-linear"
+                        aria-label={s.label}
+                        className="sm-socials-link flex h-9 w-9 items-center justify-center rounded-full border border-border relative transition-[color,opacity,border-color] duration-300 ease-linear"
                       >
-                        {s.label}
+                        {s.icon ? <s.icon className="h-4 w-4" /> : s.label}
                       </a>
                     </li>
                   ))}
@@ -521,9 +532,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-socials { margin-top: auto; padding-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
 .sm-scope .sm-socials-title { margin: 0; font-size: 1rem; font-weight: 500; color: var(--sm-accent, #ff0000); }
 .sm-scope .sm-socials-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: row; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.sm-scope .sm-socials-list .sm-socials-link { opacity: 1; color: var(--foreground); transition: opacity 0.3s ease, color 0.3s ease; }
+.sm-scope .sm-socials-list .sm-socials-link { opacity: 1; color: var(--foreground); border-color: var(--border); transition: opacity 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 .sm-scope .sm-socials-list:hover .sm-socials-link:not(:hover) { opacity: 0.4; }
-.sm-scope .sm-socials-list .sm-socials-link:hover { color: var(--sm-accent, #ff0000); opacity: 1; }
+.sm-scope .sm-socials-list .sm-socials-link:hover { color: var(--sm-accent, #ff0000); border-color: var(--sm-accent, #ff0000); opacity: 1; }
 .sm-scope .sm-socials-link:focus-visible { outline: 2px solid var(--sm-accent, #ff0000); outline-offset: 3px; }
 .sm-scope .sm-panel-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .sm-scope .sm-panel-item { color: var(--foreground); }
