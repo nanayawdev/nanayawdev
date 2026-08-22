@@ -4,13 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRightIcon as ArrowRight, CheckIcon as Check, TiktokLogoIcon as TiktokLogo, LinkedinLogoIcon as Linkedin, GithubLogoIcon as Github, InstagramLogoIcon as Instagram } from "@phosphor-icons/react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Spinner } from "@/components/admin/spinner";
 
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
 const details = [
-  { label: "Email", value: "hello@nanayawdev.com", href: "mailto:hello@nanayawdev.com" },
-  { label: "Location", value: "Accra, Ghana", href: null },
-  { label: "Response time", value: "Within 24 hours", href: null },
+  { label: "Email", value: "hello@nanayawdev.com", href: "mailto:hello@nanayawdev.com", note: "Preferred point of contact" },
+  { label: "Location", value: "Accra, Ghana", href: null, note: "GMT · available for remote engagements worldwide" },
+  { label: "Response time", value: "Within 10 minutes", href: null, note: "Every enquiry receives a personal reply" },
 ];
 
 const socials = [
@@ -107,7 +108,7 @@ export default function Contact() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               Whether you have a fully formed brief or just the seed of an idea, I&apos;d love
-              to hear from you. Drop me a message and I&apos;ll get back to you within a day.
+              to hear from you. Drop me a message and I&apos;ll get back to you within 10 minutes.
             </motion.p>
 
             {/* Socials */}
@@ -156,7 +157,7 @@ export default function Contact() {
                   <p className="text-muted-foreground text-base max-w-xs leading-relaxed">
                     I&apos;ll get back to you at{" "}
                     <span className="text-foreground font-medium">{form.email}</span> within
-                    24 hours.
+                    10 minutes.
                   </p>
                 </motion.div>
               ) : (
@@ -220,7 +221,7 @@ export default function Contact() {
                     whileHover={{ scale: loading ? 1 : 1.03 }}
                     whileTap={{ scale: loading ? 1 : 0.97 }}
                   >
-                    {loading ? "Sending…" : "Send message"}
+                    {loading ? <Spinner size="sm" className="text-background" /> : "Send message"}
                     {!loading && <ArrowRight className="w-4 h-4" />}
                   </motion.button>
                 </motion.form>
@@ -231,7 +232,7 @@ export default function Contact() {
 
         {/* Bottom detail strip */}
         <div className="border-t border-border pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {details.map(({ label, value, href }) => (
+          {details.map(({ label, value, href, note }) => (
             <div key={label}>
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
                 {label}
@@ -246,6 +247,7 @@ export default function Contact() {
               ) : (
                 <p className="text-base font-medium text-foreground">{value}</p>
               )}
+              <p className="mt-1 text-sm text-muted-foreground/70">{note}</p>
             </div>
           ))}
         </div>
