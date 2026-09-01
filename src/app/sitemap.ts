@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import pool from '@/lib/db'
 
-const baseUrl = 'https://nanayawdev.com'
+const baseUrl = 'https://nanayaw.dev'
 
 async function getSlugs(table: string, dateCol = 'updated_at') {
   const { rows } = await pool.query(

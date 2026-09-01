@@ -169,11 +169,11 @@ export function Footer() {
         </p>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.65rem] text-muted-foreground">
           <a
-            href="mailto:hello@nanayawdev.com"
+            href="mailto:hello@nanayaw.dev"
             className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
           >
             <Mail className="h-3 w-3" />
-            hello@nanayawdev.com
+            hello@nanayaw.dev
           </a>
           <Link href="/start" className="transition-colors hover:text-foreground">
             Start a project

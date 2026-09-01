@@ -47,7 +47,7 @@ const sections = [
   {
     id: "contact",
     title: "Contact",
-    content: `For any questions about these Terms or to discuss a specific engagement, please reach out at hello@nanayawdev.com. I am based in Accra, Ghana, and aim to respond to all enquiries within 1–2 business days.`,
+    content: `For any questions about these Terms or to discuss a specific engagement, please reach out at hello@nanayaw.dev. I am based in Accra, Ghana, and aim to respond to all enquiries within 1–2 business days.`,
   },
 ];
 

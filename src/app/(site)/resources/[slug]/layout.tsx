@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import pool from "@/lib/db";
 
-const SITE_URL = "https://nanayawdev.com";
+const SITE_URL = "https://nanayaw.dev";
 
 interface PostMeta {
   title: string;

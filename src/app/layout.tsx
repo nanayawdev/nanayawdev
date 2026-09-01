@@ -67,14 +67,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://nanayawdev.com"),
+  metadataBase: new URL("https://nanayaw.dev"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nanayawdev.com",
+    url: "https://nanayaw.dev",
     title: "nanayawdev - Software Engineer",
     description: "I'm a software engineer helping startups and brands go global through design, development, and storytelling. I empower brands with world-class digital experiences.",
     siteName: "nanayawdev",

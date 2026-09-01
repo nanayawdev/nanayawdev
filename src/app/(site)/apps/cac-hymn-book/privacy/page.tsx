@@ -7,7 +7,7 @@ const sections = [
   {
     id: "introduction",
     title: "Introduction",
-    content: `This Privacy Policy describes how CAC Hymn Book ("the app"), developed by nanayawdev, handles information when you use the app on Android. It's separate from the privacy policy for nanayawdev.com, this page covers the app specifically. By using CAC Hymn Book, you agree to the practices described here.`,
+    content: `This Privacy Policy describes how CAC Hymn Book ("the app"), developed by nanayawdev, handles information when you use the app on Android. It's separate from the privacy policy for nanayaw.dev, this page covers the app specifically. By using CAC Hymn Book, you agree to the practices described here.`,
   },
   {
     id: "information-we-collect",
@@ -42,7 +42,7 @@ const sections = [
   {
     id: "contact",
     title: "Contact",
-    content: `Questions about this policy or the app can be sent to hello@nanayawdev.com. I'm based in Accra, Ghana.`,
+    content: `Questions about this policy or the app can be sent to hello@nanayaw.dev. I'm based in Accra, Ghana.`,
   },
 ];
 

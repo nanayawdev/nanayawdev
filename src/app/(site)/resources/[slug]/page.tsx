@@ -16,7 +16,7 @@ interface Post {
   published_at: string | null; created_at: string;
 }
 
-const SITE_URL = "https://nanayawdev.com";
+const SITE_URL = "https://nanayaw.dev";
 
 export default function ResourceDetail() {
   const { slug } = useParams<{ slug: string }>();

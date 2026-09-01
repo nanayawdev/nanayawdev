@@ -4,8 +4,8 @@ export function StructuredData() {
     "@type": "Person",
     "name": "nanayawdev",
     "description": "Software engineer building design-driven web and mobile products.",
-    "url": "https://nanayawdev.com",
-    "image": "https://nanayawdev.com/nanayawdev-logo.png",
+    "url": "https://nanayaw.dev",
+    "image": "https://nanayaw.dev/nanayawdev-logo.png",
     "sameAs": [
       "https://twitter.com/nanayawdev",
       "https://linkedin.com/in/nanayawdev",

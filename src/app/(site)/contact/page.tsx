@@ -9,7 +9,7 @@ import { Spinner } from "@/components/admin/spinner";
 const subjects = ["General Enquiry", "Project Brief", "Partnership", "Careers", "Other"];
 
 const details = [
-  { label: "Email", value: "hello@nanayawdev.com", href: "mailto:hello@nanayawdev.com", note: "Preferred point of contact" },
+  { label: "Email", value: "hello@nanayaw.dev", href: "mailto:hello@nanayaw.dev", note: "Preferred point of contact" },
   { label: "Location", value: "Accra, Ghana", href: null, note: "GMT · available for remote engagements worldwide" },
   { label: "Response time", value: "Within 10 minutes", href: null, note: "Every enquiry receives a personal reply" },
 ];

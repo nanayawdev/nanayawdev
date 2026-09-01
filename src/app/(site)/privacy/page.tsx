@@ -32,7 +32,7 @@ const sections = [
   {
     id: "your-rights",
     title: "Your Rights",
-    content: `You have the right to access, correct, or delete the personal information I hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact me at hello@nanayawdev.com. I will respond within 30 days.`,
+    content: `You have the right to access, correct, or delete the personal information I hold about you. You may also object to or restrict certain types of processing. To exercise any of these rights, contact me at hello@nanayaw.dev. I will respond within 30 days.`,
   },
   {
     id: "cookies",
@@ -42,7 +42,7 @@ const sections = [
   {
     id: "contact",
     title: "Contact",
-    content: `If you have any questions about this Privacy Policy or how I handle your data, please contact me at hello@nanayawdev.com. I am based in Accra, Ghana, and am happy to address any concerns you may have.`,
+    content: `If you have any questions about this Privacy Policy or how I handle your data, please contact me at hello@nanayaw.dev. I am based in Accra, Ghana, and am happy to address any concerns you may have.`,
   },
 ];
 
