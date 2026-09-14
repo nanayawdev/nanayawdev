@@ -291,3 +291,9 @@
   content: attr(data-placeholder);
 }
 
+/* AdSense: collapse ad slots that come back unfilled (e.g. while the site is
+   still pending approval) instead of leaving a blank white box in their place. */
+.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}
+
