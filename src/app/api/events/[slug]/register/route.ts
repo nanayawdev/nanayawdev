@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
-import { sendSms } from "@/lib/hubtel";
+import { sendSms } from "@/lib/arkesel";
 import { insertRegistration, ticketSmsText, AlreadyRegisteredError } from "@/lib/ussd/registration";
 
 type Params = { params: Promise<{ slug: string }> };

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
-import { generateOtp, otpExpiresAt, sendOtp } from "@/lib/hubtel";
+import { generateOtp, otpExpiresAt, sendOtp } from "@/lib/arkesel";
 
 /** POST /api/chat/sessions, create session and send OTP */
 export async function POST(req: NextRequest) {

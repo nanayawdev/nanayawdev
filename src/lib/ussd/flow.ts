@@ -1,5 +1,5 @@
 import pool from "@/lib/db";
-import { sendSms } from "@/lib/hubtel";
+import { sendSms } from "@/lib/arkesel";
 import { sendEmail } from "@/lib/email";
 import { continueSession, endSession } from "./response";
 import { genPin, genReportNumber, priceLabel, shortDateTime } from "./ticket";

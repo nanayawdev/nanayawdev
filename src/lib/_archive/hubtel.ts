@@ -1,5 +1,10 @@
 /**
- * Hubtel SMS, send OTP.
+ * ARCHIVED — Hubtel SMS integration, not currently wired up anywhere.
+ * Replaced by src/lib/arkesel.ts (2026-09-15). Kept here, unimported, in
+ * case we switch back — nothing in the app currently imports this file.
+ * If reviving it: restore HUBTEL_SMS_* in .env.example/.env.local and
+ * point the callers that now import "@/lib/arkesel" back at
+ * "@/lib/_archive/hubtel" (or move this file back to src/lib/hubtel.ts).
  */
 
 function requireEnv(name: string) {

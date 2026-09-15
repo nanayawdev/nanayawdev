@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromRequest } from "@/lib/auth";
-import { sendOtp } from "@/lib/hubtel";
+import { sendSms } from "@/lib/arkesel";
 
 /** POST /api/admin/sms, send an arbitrary SMS to a phone number */
 export async function POST(req: NextRequest) {
@@ -20,29 +20,4 @@ export async function POST(req: NextRequest) {
     console.error("[admin sms POST]", err);
     return NextResponse.json({ error: err instanceof Error ? err.message : "SMS failed" }, { status: 500 });
   }
-}
-
-async function sendSms(phone: string, message: string) {
-  function requireEnv(name: string) {
-    const v = process.env[name];
-    if (!v) throw new Error(`Missing env var: ${name}`);
-    return v;
-  }
-  const baseUrl      = requireEnv("HUBTEL_SMS_BASE_URL");
-  const clientId     = requireEnv("HUBTEL_SMS_CLIENT_ID");
-  const clientSecret = requireEnv("HUBTEL_SMS_CLIENT_SECRET");
-  const senderId     = requireEnv("HUBTEL_SMS_SENDER_ID");
-
-  const res = await fetch(baseUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString("base64")}`,
-    },
-    body: JSON.stringify({ From: senderId, To: phone, Content: message }),
-    cache: "no-store",
-  });
-
-  const text = await res.text();
-  if (!res.ok) throw new Error(`Hubtel SMS failed: ${text}`);
 }
