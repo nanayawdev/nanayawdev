@@ -240,3 +240,156 @@ CREATE TABLE IF NOT EXISTS admin_users (
   password_hash  TEXT NOT NULL,
   created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- ============================================================
+-- Events + USSD (Hubtel Programmable Services)
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS events (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug           TEXT NOT NULL UNIQUE,
+  title          TEXT NOT NULL,
+  description    TEXT NOT NULL DEFAULT '',
+  cover_image    TEXT,
+  starts_at      TIMESTAMPTZ NOT NULL,
+  ends_at        TIMESTAMPTZ,
+  venue          TEXT,
+  city           TEXT NOT NULL DEFAULT 'Accra',
+  is_virtual     BOOLEAN NOT NULL DEFAULT FALSE,
+  virtual_link   TEXT,
+  price_amount   NUMERIC(10,2) NOT NULL DEFAULT 0,   -- 0 = free
+  price_currency TEXT NOT NULL DEFAULT 'GHS',
+  capacity       INTEGER,                             -- NULL = unlimited
+  featured       BOOLEAN NOT NULL DEFAULT FALSE,
+  published      BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_events_slug      ON events(slug);
+CREATE INDEX IF NOT EXISTS idx_events_published ON events(published);
+CREATE INDEX IF NOT EXISTS idx_events_starts_at  ON events(starts_at);
+
+CREATE TABLE IF NOT EXISTS event_registrations (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id          UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  name              TEXT,
+  phone             TEXT NOT NULL,
+  email             TEXT,
+  quantity          INTEGER NOT NULL DEFAULT 1,
+  amount_paid       NUMERIC(10,2) NOT NULL DEFAULT 0,
+  source            TEXT NOT NULL DEFAULT 'web',       -- web | ussd
+  status            TEXT NOT NULL DEFAULT 'pending',   -- pending | confirmed | cancelled | failed
+  payment_status    TEXT NOT NULL DEFAULT 'unpaid',     -- unpaid | paid | failed
+  hubtel_order_id   TEXT,
+  hubtel_session_id TEXT,
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_registrations_event  ON event_registrations(event_id);
+CREATE INDEX IF NOT EXISTS idx_event_registrations_phone  ON event_registrations(phone);
+
+-- One active registration per phone per event (re-registering after a
+-- cancellation is allowed, so the uniqueness excludes cancelled rows).
+CREATE UNIQUE INDEX IF NOT EXISTS uq_event_registrations_event_phone_active
+  ON event_registrations(event_id, phone) WHERE status <> 'cancelled';
+
+-- Server-side state for an in-progress USSD session. Hubtel's callback is a
+-- stateless request per keypress, keyed by its own SessionId — this table
+-- is what lets us resume "where the caller left off" between callbacks.
+CREATE TABLE IF NOT EXISTS ussd_sessions (
+  session_id  TEXT PRIMARY KEY,           -- Hubtel's SessionId
+  mobile      TEXT NOT NULL,
+  step        TEXT NOT NULL DEFAULT 'main',
+  data        JSONB NOT NULL DEFAULT '{}',
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_ussd_sessions_updated_at ON ussd_sessions(updated_at);
+
+-- ============================================================
+-- Event USSD flow v2 — full ticketing + on-site ops menu tree
+-- (Main Menu: Check Ticket / Register / Event Info / Grounds Mgmt)
+-- ============================================================
+
+-- Only one event is "live" on the USSD short code at a time — the main
+-- menu greets callers with that event by name.
+ALTER TABLE events ADD COLUMN IF NOT EXISTS is_ussd_active       BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS map_link             TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS organizer_phone      TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS organizer_whatsapp   TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS organizer_email      TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS toilet_info          TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS first_aid_info       TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS emergency_exit_info  TEXT;
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_events_ussd_active ON events(is_ussd_active) WHERE is_ussd_active;
+
+-- Ticket tiers (Regular / VIP / Group...) an admin defines per event.
+CREATE TABLE IF NOT EXISTS event_ticket_types (
+  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id     UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  name         TEXT NOT NULL,
+  price        NUMERIC(10,2) NOT NULL DEFAULT 0,
+  min_quantity INTEGER NOT NULL DEFAULT 1,   -- e.g. a "Group" tier requiring 5+
+  sort_order   INTEGER NOT NULL DEFAULT 0,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_ticket_types_event ON event_ticket_types(event_id);
+
+-- Lineup / schedule, grouped by day, shown via "3.2 Schedule/Lineup".
+CREATE TABLE IF NOT EXISTS event_schedule_items (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id    UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  day_label   TEXT NOT NULL DEFAULT 'Day 1',
+  time_label  TEXT NOT NULL DEFAULT '',
+  title       TEXT NOT NULL,
+  sort_order  INTEGER NOT NULL DEFAULT 0,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_schedule_items_event ON event_schedule_items(event_id);
+
+-- Extend registrations into full tickets: a code shown at the gate, a PIN
+-- that authorizes sensitive self-service actions (transfer), a tier, the
+-- chosen payment method, and gate check-in state.
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS ticket_code    TEXT;
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS pin            TEXT;
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS ticket_type    TEXT NOT NULL DEFAULT 'Regular';
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS payment_method TEXT;   -- mobile_money | cash | card
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS checked_in     BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS checked_in_at  TIMESTAMPTZ;
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_event_registrations_ticket_code ON event_registrations(ticket_code);
+
+-- "4. Grounds Management" — Report an Issue + Request Assistance, both
+-- logged the same way so on-site staff can triage from one admin inbox.
+CREATE TABLE IF NOT EXISTS event_ground_reports (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id      UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  kind          TEXT NOT NULL,               -- issue | assistance
+  category      TEXT NOT NULL,               -- Security | Sanitation | Sound/Technical | Medical | Crowd Control | Other
+  description   TEXT NOT NULL DEFAULT '',
+  phone         TEXT NOT NULL,
+  ticket_number TEXT NOT NULL UNIQUE,
+  status        TEXT NOT NULL DEFAULT 'open',  -- open | in_progress | resolved
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_ground_reports_event ON event_ground_reports(event_id);
+
+CREATE TABLE IF NOT EXISTS event_lost_found (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id    UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  kind        TEXT NOT NULL,   -- lost | found
+  description TEXT NOT NULL,
+  phone       TEXT NOT NULL,
+  status      TEXT NOT NULL DEFAULT 'open',   -- open | resolved
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_lost_found_event ON event_lost_found(event_id);

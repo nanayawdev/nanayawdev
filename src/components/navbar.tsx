@@ -10,6 +10,7 @@ const navigationItems = [
   { label: "Services", ariaLabel: "View my services", link: "/services" },
   { label: "Projects", ariaLabel: "View my projects", link: "/projects" },
   { label: "Apps", ariaLabel: "View my apps", link: "/apps" },
+  { label: "Events", ariaLabel: "View upcoming events", link: "/events" },
   { label: "Resources", ariaLabel: "View resources", link: "/resources" },
   { label: "Start a Project", ariaLabel: "Start a project", link: "/start" },
 ];
