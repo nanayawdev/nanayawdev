@@ -393,3 +393,25 @@ CREATE TABLE IF NOT EXISTS event_lost_found (
 );
 
 CREATE INDEX IF NOT EXISTS idx_event_lost_found_event ON event_lost_found(event_id);
+
+-- Append-only USSD activity log. ussd_sessions (above) holds only the
+-- *current* state of an in-progress session and is deleted the moment a
+-- session ends — this table is what makes a session's history visible in
+-- the admin afterwards. One row per turn (per Interaction URL call).
+CREATE TABLE IF NOT EXISTS ussd_activity_log (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id        TEXT NOT NULL,
+  mobile            TEXT NOT NULL,
+  application_id    TEXT,
+  application_name  TEXT,
+  extension         TEXT,
+  step_before       TEXT NOT NULL DEFAULT 'start',  -- which screen this input was answering
+  input             TEXT NOT NULL DEFAULT '',
+  message           TEXT NOT NULL,                  -- what we replied
+  continue_session  BOOLEAN NOT NULL,
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_ussd_activity_log_session    ON ussd_activity_log(session_id);
+CREATE INDEX IF NOT EXISTS idx_ussd_activity_log_mobile     ON ussd_activity_log(mobile);
+CREATE INDEX IF NOT EXISTS idx_ussd_activity_log_created_at ON ussd_activity_log(created_at);
