@@ -617,6 +617,20 @@ async function handleLostFoundDescription(req: InteractionRequest, session: Sess
 // Entry point
 // ---------------------------------------------------------------------------
 
+async function logActivity(req: InteractionRequest, stepBefore: string, response: InteractionResponse) {
+  try {
+    await pool.query(
+      `INSERT INTO ussd_activity_log (session_id, mobile, application_id, application_name, extension, step_before, input, message, continue_session)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      [req.session_id, req.phone_number, req.application?.id ?? null, req.application?.name ?? null, req.application?.extension ?? null,
+       stepBefore, req.input, response.message, response.continue_session]
+    );
+  } catch (err) {
+    // Logging is best-effort — never let it break the actual USSD response.
+    console.error("[ussd activity log]", err);
+  }
+}
+
 /**
  * Entry point for the Interaction URL — one SendrPlus turn in, one JSON
  * response out. SendrPlus is the sole source of truth for "is this a new
@@ -626,10 +640,18 @@ async function handleLostFoundDescription(req: InteractionRequest, session: Sess
  * that turns out to matter in practice.
  */
 export async function handleInteraction(req: InteractionRequest): Promise<InteractionResponse> {
-  if (req.new_session) return renderMain(req.session_id, req.phone_number);
+  const priorSession = req.new_session ? null : await loadSession(req.session_id);
+  const stepBefore = req.new_session ? "start" : priorSession?.step ?? "unknown";
 
-  const session = await loadSession(req.session_id);
-  if (!session) return renderMain(req.session_id, req.phone_number); // lost/expired session — restart cleanly
+  const response = await routeInteraction(req, priorSession);
+  await logActivity(req, stepBefore, response);
+  return response;
+}
+
+async function routeInteraction(req: InteractionRequest, priorSession: SessionRow | null): Promise<InteractionResponse> {
+  if (req.new_session) return renderMain(req.session_id, req.phone_number);
+  if (!priorSession) return renderMain(req.session_id, req.phone_number); // lost/expired session — restart cleanly
+  const session = priorSession;
 
   switch (session.step) {
     case "check_ticket_menu": return handleCheckTicketMenu(req, session);
