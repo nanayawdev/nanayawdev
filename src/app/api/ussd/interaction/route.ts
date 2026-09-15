@@ -1,32 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleInteraction } from "@/lib/ussd/flow";
-import { release } from "@/lib/ussd/response";
-import type { ProgrammableServiceRequest } from "@/lib/ussd/hubtel-types";
+import { endSession } from "@/lib/ussd/response";
+import { verifySendrPlusSignature } from "@/lib/ussd/webhook-verify";
+import type { InteractionRequest } from "@/lib/ussd/sendrplus-types";
 
 /**
- * Service Interaction URL — register this with Hubtel against your USSD
- * short code as: https://<your-domain>/api/ussd/interaction?key=<HUBTEL_USSD_WEBHOOK_SECRET>
+ * Interaction URL — this is what gets registered against a SendrPlus USSD
+ * application (Configure dialog, or POST /v1/ussd/applications/:id/configure's
+ * `interaction_url`). SendrPlus's backend calls this on every keypress of a
+ * live session; there's no separate "release"/"timeout" notification from
+ * SendrPlus — this endpoint is the sole authority on when a session ends
+ * (via `continue_session: false`).
  *
- * Hubtel does not sign or authenticate these callbacks itself, so the `key`
- * query param (checked below against HUBTEL_USSD_WEBHOOK_SECRET) is our own
- * lightweight guard against anyone else finding and hitting this URL. It's
- * optional — if the env var isn't set, the check is skipped.
- *
- * Hubtel expects a response within ~5s, always as 200 JSON matching
- * ProgrammableServiceResponse — never a 4xx/5xx for a normal interaction,
- * or the caller sees a raw gateway error instead of a friendly message.
+ * SendrPlus enforces a ~4s timeout per call and treats an empty `message`
+ * as an error — always resolve fast and never return an empty message.
  */
 export async function POST(req: NextRequest) {
-  const secret = process.env.HUBTEL_USSD_WEBHOOK_SECRET;
-  if (secret && req.nextUrl.searchParams.get("key") !== secret) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const rawBody = await req.text();
+
+  const secret = process.env.SENDRPLUS_USSD_SIGNING_SECRET;
+  if (secret) {
+    const signature = req.headers.get("x-sendrplus-signature");
+    if (!verifySendrPlusSignature(secret, signature, rawBody)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
 
-  let body: ProgrammableServiceRequest;
+  let body: InteractionRequest;
   try {
-    body = await req.json();
+    body = JSON.parse(rawBody);
+    if (!body.session_id) throw new Error("missing session_id");
   } catch {
-    return NextResponse.json(release("Sorry, something went wrong. Please try again."));
+    return NextResponse.json(endSession("Sorry, something went wrong. Please try again."));
   }
 
   try {
@@ -34,6 +39,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(response);
   } catch (err) {
     console.error("[ussd interaction]", err);
-    return NextResponse.json(release("Sorry, something went wrong. Please try again."));
+    return NextResponse.json(endSession("Sorry, something went wrong. Please try again."));
   }
 }
