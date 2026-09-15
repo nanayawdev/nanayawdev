@@ -407,6 +407,11 @@ async function handleRegisterConfirm(req: InteractionRequest, session: SessionRo
       paymentStatus: "unpaid", // cash at gate — not yet collected
       amountPaid: 0,
       source: "ussd", paymentMethod: "cash",
+      // Tags this ticket with the USSD session that created it, so the
+      // Fulfillment webhook (which carries session_id but no order/ticket
+      // reference of its own) can correlate a real completed session back
+      // to a real row — see src/app/api/ussd/fulfilment/route.ts.
+      hubtelSessionId: req.session_id,
     });
     await clearSession(req.session_id);
     try {
