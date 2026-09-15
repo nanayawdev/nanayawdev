@@ -18,14 +18,12 @@ export function otpExpiresAt(): Date {
   return new Date(Date.now() + 10 * 60 * 1_000);
 }
 
-/** Send OTP via Hubtel SMS API */
-export async function sendOtp(phone: string, otp: string): Promise<void> {
+/** Send an arbitrary SMS via Hubtel's SMS API. */
+export async function sendSms(phone: string, message: string): Promise<void> {
   const baseUrl      = requireEnv("HUBTEL_SMS_BASE_URL");
   const clientId     = requireEnv("HUBTEL_SMS_CLIENT_ID");
   const clientSecret = requireEnv("HUBTEL_SMS_CLIENT_SECRET");
   const senderId     = requireEnv("HUBTEL_SMS_SENDER_ID");
-
-  const message = `Your nanayawdev chat code is ${otp}. Valid for 10 minutes.`;
 
   const res = await fetch(baseUrl, {
     method: "POST",
@@ -41,4 +39,9 @@ export async function sendOtp(phone: string, otp: string): Promise<void> {
   if (!res.ok) {
     throw new Error(`Hubtel SMS failed: ${text}`);
   }
+}
+
+/** Send OTP via Hubtel SMS API */
+export async function sendOtp(phone: string, otp: string): Promise<void> {
+  await sendSms(phone, `Your nanayawdev chat code is ${otp}. Valid for 10 minutes.`);
 }

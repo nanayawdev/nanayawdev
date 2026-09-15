@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutIcon as LayoutDashboard, FileTextIcon as FileText, SealQuestionIcon as HelpCircle, EnvelopeSimpleIcon as Mail, ChatTextIcon as MessageSquare, PencilLineIcon as PenLine, KanbanIcon as FolderKanban, BookOpenIcon as BookOpen, StackIcon as Layers, UsersIcon as Users, QuotesIcon as Quote, CubeIcon as Blocks, DeviceMobileIcon as Smartphone } from "@phosphor-icons/react";
+import { LayoutIcon as LayoutDashboard, FileTextIcon as FileText, SealQuestionIcon as HelpCircle, EnvelopeSimpleIcon as Mail, ChatTextIcon as MessageSquare, PencilLineIcon as PenLine, KanbanIcon as FolderKanban, BookOpenIcon as BookOpen, StackIcon as Layers, UsersIcon as Users, QuotesIcon as Quote, CubeIcon as Blocks, DeviceMobileIcon as Smartphone, CalendarBlankIcon as CalendarBlank } from "@phosphor-icons/react";
 import {
   Sidebar,
   SidebarContent,
@@ -35,6 +35,7 @@ const NAV_GROUPS = [
     items: [
       { href: "/admin/blog", label: "Blog", icon: PenLine },
       { href: "/admin/components", label: "Components", icon: Blocks },
+      { href: "/admin/events", label: "Events", icon: CalendarBlank },
       { href: "/admin/projects", label: "Projects", icon: FolderKanban },
       { href: "/admin/apps", label: "Apps", icon: Smartphone },
       { href: "/admin/case-studies", label: "Case Studies", icon: BookOpen },
