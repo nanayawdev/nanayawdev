@@ -1,11 +1,10 @@
 import pool from "@/lib/db";
 import { sendSms } from "@/lib/hubtel";
 import { sendEmail } from "@/lib/email";
-import { menu, input, release, releaseWithCheckout } from "./response";
+import { continueSession, endSession } from "./response";
 import { genPin, genReportNumber, priceLabel, shortDateTime } from "./ticket";
-import { insertRegistration, ticketSmsText, AlreadyRegisteredError, type RegistrationRow } from "./registration";
-import type { ProgrammableServiceRequest, ProgrammableServiceResponse } from "./hubtel-types";
-import { normalizeType } from "./hubtel-types";
+import { insertRegistration, ticketSmsText, AlreadyRegisteredError } from "./registration";
+import type { InteractionRequest, InteractionResponse } from "./sendrplus-types";
 
 interface EventRow {
   id: string;
@@ -94,7 +93,7 @@ async function getTicketTypes(eventId: string): Promise<TicketTypeRow[]> {
   return rows;
 }
 
-async function findRegistrationByPhoneOrCode(eventId: string, query: string): Promise<RegistrationRow | undefined> {
+async function findRegistrationByPhoneOrCode(eventId: string, query: string) {
   const { rows } = await pool.query(
     `SELECT id::text, event_id::text, name, phone, email, ticket_code, pin, ticket_type, quantity, amount_paid,
             status, payment_status, payment_method, checked_in, checked_in_at
@@ -106,7 +105,7 @@ async function findRegistrationByPhoneOrCode(eventId: string, query: string): Pr
   return rows[0];
 }
 
-async function findActiveRegistrationByPhone(eventId: string, phone: string): Promise<RegistrationRow | undefined> {
+async function findActiveRegistrationByPhone(eventId: string, phone: string) {
   const { rows } = await pool.query(
     `SELECT id::text, event_id::text, name, phone, email, ticket_code, pin, ticket_type, quantity, amount_paid,
             status, payment_status, payment_method, checked_in, checked_in_at
@@ -125,34 +124,34 @@ function location(event: EventRow): string {
 // Main menu
 // ---------------------------------------------------------------------------
 
-async function renderMain(sessionId: string, mobile: string): Promise<ProgrammableServiceResponse> {
+async function renderMain(sessionId: string, mobile: string): Promise<InteractionResponse> {
   const event = await getActiveEvent();
   if (!event) {
     await clearSession(sessionId);
-    return release("No event is currently active on this line. Please check back later.");
+    return endSession("No event is currently active on this line. Please check back later.");
   }
   await upsertSession(sessionId, mobile, "main", { eventId: event.id });
-  return menu(`Welcome to ${event.title}\n1. Check Ticket\n2. Register for Ticket\n3. Event Information\n4. Grounds Management`, "main");
+  return continueSession(`Welcome to ${event.title}\n1. Check Ticket\n2. Register for Ticket\n3. Event Information\n4. Grounds Management`);
 }
 
-async function handleMain(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleMain(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
   switch (choice) {
     case "1":
-      await upsertSession(req.SessionId, req.Mobile, "check_ticket_menu", { eventId });
+      await upsertSession(req.session_id, req.phone_number, "check_ticket_menu", { eventId });
       return renderCheckTicketMenu();
     case "2":
-      return renderTicketTypeList(req.SessionId, req.Mobile, eventId);
+      return renderTicketTypeList(req.session_id, req.phone_number, eventId);
     case "3":
-      await upsertSession(req.SessionId, req.Mobile, "info_menu", { eventId });
+      await upsertSession(req.session_id, req.phone_number, "info_menu", { eventId });
       return renderInfoMenu();
     case "4":
-      await upsertSession(req.SessionId, req.Mobile, "grounds_menu", { eventId });
+      await upsertSession(req.session_id, req.phone_number, "grounds_menu", { eventId });
       return renderGroundsMenu();
     default:
-      await clearSession(req.SessionId);
-      return release("Invalid option. Please dial in again.");
+      await clearSession(req.session_id);
+      return endSession("Invalid option. Please dial in again.");
   }
 }
 
@@ -160,202 +159,210 @@ async function handleMain(req: ProgrammableServiceRequest, session: SessionRow):
 // 1. Check Ticket
 // ---------------------------------------------------------------------------
 
-function renderCheckTicketMenu(): ProgrammableServiceResponse {
-  return menu("Check Ticket\n1. Check Ticket Status\n2. Verify Ticket\n3. Resend Ticket\n4. Transfer Ticket\n0. Main Menu", "check_ticket_menu");
+function renderCheckTicketMenu(): InteractionResponse {
+  return continueSession("Check Ticket\n1. Check Ticket Status\n2. Verify Ticket\n3. Resend Ticket\n4. Transfer Ticket\n0. Main Menu");
 }
 
-async function handleCheckTicketMenu(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleCheckTicketMenu(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
   switch (choice) {
     case "0":
-      return renderMain(req.SessionId, req.Mobile);
+      return renderMain(req.session_id, req.phone_number);
     case "1":
-      await upsertSession(req.SessionId, req.Mobile, "check_status_input", { eventId });
-      return input("Enter your phone number or ticket code:", "check_status_input", "query", "text");
+      await upsertSession(req.session_id, req.phone_number, "check_status_input", { eventId });
+      return continueSession("Enter your phone number or ticket code:");
     case "2":
-      await upsertSession(req.SessionId, req.Mobile, "verify_ticket_input", { eventId });
-      return input("Enter ticket code:", "verify_ticket_input", "code", "text");
+      await upsertSession(req.session_id, req.phone_number, "verify_ticket_input", { eventId });
+      return continueSession("Enter ticket code:");
     case "3":
-      await upsertSession(req.SessionId, req.Mobile, "resend_choice", { eventId });
-      return menu("Resend Ticket\n1. Send via SMS\n2. Send via Email\n0. Back", "resend_choice");
+      await upsertSession(req.session_id, req.phone_number, "resend_choice", { eventId });
+      return continueSession("Resend Ticket\n1. Send via SMS\n2. Send via Email\n0. Back");
     case "4":
-      await upsertSession(req.SessionId, req.Mobile, "transfer_phone_input", { eventId });
-      return input("Enter recipient's phone number:", "transfer_phone_input", "phone", "text");
+      await upsertSession(req.session_id, req.phone_number, "transfer_phone_input", { eventId });
+      return continueSession("Enter recipient's phone number:");
     default:
-      return menu(`Invalid choice.\n${renderCheckTicketMenu().Message}`, "check_ticket_menu");
+      return continueSession(`Invalid choice.\n${renderCheckTicketMenu().message}`);
   }
 }
 
-async function handleCheckStatusInput(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleCheckStatusInput(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const query = req.Message.trim();
-  await clearSession(req.SessionId);
-  if (!query) return release("Please enter a phone number or ticket code.");
+  const query = req.input.trim();
+  await clearSession(req.session_id);
+  if (!query) return endSession("Please enter a phone number or ticket code.");
 
   const reg = await findRegistrationByPhoneOrCode(eventId, query);
-  if (!reg) return release("Not Found. No ticket matches that phone number or code.");
+  if (!reg) return endSession("Not Found. No ticket matches that phone number or code.");
 
   const label = reg.checked_in ? "Used" : reg.status === "confirmed" ? "Valid" : reg.status === "pending" ? "Pending Payment" : "Cancelled";
-  return release(`Ticket Status: ${label}\nType: ${reg.ticket_type}\nCode: ${reg.ticket_code ?? "N/A"}`);
+  return endSession(`Ticket Status: ${label}\nType: ${reg.ticket_type}\nCode: ${reg.ticket_code ?? "N/A"}`);
 }
 
-async function handleVerifyTicketInput(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleVerifyTicketInput(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const code = req.Message.trim().toUpperCase();
-  await clearSession(req.SessionId);
+  const code = req.input.trim().toUpperCase();
+  await clearSession(req.session_id);
 
   const { rows } = await pool.query(
     `SELECT id::text, name, ticket_type, status, checked_in, checked_in_at FROM event_registrations WHERE event_id = $1 AND ticket_code = $2`,
     [eventId, code]
   );
   const reg = rows[0];
-  if (!reg) return release("Invalid. Ticket code not found.");
-  if (reg.status !== "confirmed") return release(`Invalid. This ticket is ${reg.status}.`);
-  if (reg.checked_in) return release(`Already Used. Checked in at ${shortDateTime(reg.checked_in_at)}.\nType: ${reg.ticket_type}`);
+  if (!reg) return endSession("Invalid. Ticket code not found.");
+  if (reg.status !== "confirmed") return endSession(`Invalid. This ticket is ${reg.status}.`);
+  if (reg.checked_in) return endSession(`Already Used. Checked in at ${shortDateTime(reg.checked_in_at)}.\nType: ${reg.ticket_type}`);
 
   await pool.query(`UPDATE event_registrations SET checked_in = TRUE, checked_in_at = NOW() WHERE id = $1`, [reg.id]);
-  return release(`Valid ✓ Admitted.\nType: ${reg.ticket_type}\nName: ${reg.name ?? "-"}`);
+  return endSession(`Valid ✓ Admitted.\nType: ${reg.ticket_type}\nName: ${reg.name ?? "-"}`);
 }
 
-async function handleResendChoice(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleResendChoice(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
   if (choice === "0") {
-    await upsertSession(req.SessionId, req.Mobile, "check_ticket_menu", { eventId });
+    await upsertSession(req.session_id, req.phone_number, "check_ticket_menu", { eventId });
     return renderCheckTicketMenu();
   }
   if (choice !== "1" && choice !== "2") {
-    return menu("Invalid choice.\nResend Ticket\n1. Send via SMS\n2. Send via Email\n0. Back", "resend_choice");
+    return continueSession("Invalid choice.\nResend Ticket\n1. Send via SMS\n2. Send via Email\n0. Back");
   }
 
   const event = await getEvent(eventId);
-  const reg = await findActiveRegistrationByPhone(eventId, req.Mobile);
-  await clearSession(req.SessionId);
-  if (!reg || !event) return release("No ticket found for this number.");
-  if (!reg.ticket_code || !reg.pin) return release("Your ticket isn't ready yet — it may still be awaiting payment.");
+  const reg = await findActiveRegistrationByPhone(eventId, req.phone_number);
+  await clearSession(req.session_id);
+  if (!reg || !event) return endSession("No ticket found for this number.");
+  if (!reg.ticket_code || !reg.pin) return endSession("Your ticket isn't ready yet — it may still be awaiting payment.");
 
   const text = ticketSmsText(event, reg);
   if (choice === "1") {
-    try { await sendSms(req.Mobile, text); } catch (err) { console.error("[ussd resend sms]", err); return release("Sorry, we couldn't send the SMS. Please try again later."); }
-    return release("Your ticket has been sent via SMS.");
+    try { await sendSms(req.phone_number, text); } catch (err) { console.error("[ussd resend sms]", err); return endSession("Sorry, we couldn't send the SMS. Please try again later."); }
+    return endSession("Your ticket has been sent via SMS.");
   }
-  if (!reg.email) return release("No email on file for this ticket. Try SMS instead.");
-  try { await sendEmail(reg.email, `Your ticket for ${event.title}`, text); } catch (err) { console.error("[ussd resend email]", err); return release("Sorry, we couldn't send the email. Please try again later."); }
-  return release("Your ticket has been sent via email.");
+  if (!reg.email) return endSession("No email on file for this ticket. Try SMS instead.");
+  try { await sendEmail(reg.email, `Your ticket for ${event.title}`, text); } catch (err) { console.error("[ussd resend email]", err); return endSession("Sorry, we couldn't send the email. Please try again later."); }
+  return endSession("Your ticket has been sent via email.");
 }
 
-async function handleTransferPhoneInput(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleTransferPhoneInput(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const recipientPhone = req.Message.trim();
-  if (recipientPhone.length < 9) return input("Please enter a valid phone number:", "transfer_phone_input", "phone", "text");
+  const recipientPhone = req.input.trim();
+  if (recipientPhone.length < 9) return continueSession("Please enter a valid phone number:");
 
-  await upsertSession(req.SessionId, req.Mobile, "transfer_pin_input", { eventId, recipientPhone });
-  return input("Enter your 4-digit PIN to confirm transfer:", "transfer_pin_input", "pin", "number");
+  await upsertSession(req.session_id, req.phone_number, "transfer_pin_input", { eventId, recipientPhone });
+  return continueSession("Enter your 4-digit PIN to confirm transfer:");
 }
 
-async function handleTransferPinInput(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleTransferPinInput(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, recipientPhone } = session.data as { eventId: string; recipientPhone: string };
-  const pin = req.Message.trim();
-  await clearSession(req.SessionId);
+  const pin = req.input.trim();
+  await clearSession(req.session_id);
 
-  const reg = await findActiveRegistrationByPhone(eventId, req.Mobile);
-  if (!reg) return release("No ticket found for this number.");
-  if (!reg.pin || reg.pin !== pin) return release("Incorrect PIN. Transfer cancelled.");
+  const reg = await findActiveRegistrationByPhone(eventId, req.phone_number);
+  if (!reg) return endSession("No ticket found for this number.");
+  if (!reg.pin || reg.pin !== pin) return endSession("Incorrect PIN. Transfer cancelled.");
 
   const recipientExisting = await findActiveRegistrationByPhone(eventId, recipientPhone);
-  if (recipientExisting) return release("Transfer failed. Recipient already has a ticket for this event.");
+  if (recipientExisting) return endSession("Transfer failed. Recipient already has a ticket for this event.");
 
   const event = await getEvent(eventId);
   const newPin = genPin();
   await pool.query(`UPDATE event_registrations SET phone = $1, pin = $2, updated_at = NOW() WHERE id = $3`, [recipientPhone, newPin, reg.id]);
 
   try {
-    await sendSms(recipientPhone, `You've received a ticket for ${event?.title ?? "the event"} from ${req.Mobile}.\nCode: ${reg.ticket_code}\nYour new PIN: ${newPin}`);
+    await sendSms(recipientPhone, `You've received a ticket for ${event?.title ?? "the event"} from ${req.phone_number}.\nCode: ${reg.ticket_code}\nYour new PIN: ${newPin}`);
   } catch (err) { console.error("[ussd transfer sms to recipient]", err); }
   try {
-    await sendSms(req.Mobile, `Your ticket for ${event?.title ?? "the event"} has been transferred to ${recipientPhone}.`);
+    await sendSms(req.phone_number, `Your ticket for ${event?.title ?? "the event"} has been transferred to ${recipientPhone}.`);
   } catch (err) { console.error("[ussd transfer sms to sender]", err); }
 
-  return release("Ticket transferred successfully.");
+  return endSession("Ticket transferred successfully.");
 }
 
 // ---------------------------------------------------------------------------
 // 2. Register for Ticket
+//
+// SendrPlus does no payment collection on the USSD leg at all (no cart,
+// no OrderInfo, no fulfilment-based payment confirmation like Hubtel) —
+// a vendor is expected to handle payment entirely on its own. Cash at
+// Gate is fully real (no payment gateway needed). Mobile Money and Card
+// are listed to match the requested flow but decline honestly instead
+// of faking a charge — wire up a real payment provider before enabling
+// either for real.
 // ---------------------------------------------------------------------------
 
-async function renderTicketTypeList(sessionId: string, mobile: string, eventId: string): Promise<ProgrammableServiceResponse> {
+async function renderTicketTypeList(sessionId: string, mobile: string, eventId: string): Promise<InteractionResponse> {
   const types = await getTicketTypes(eventId);
   if (types.length === 0) {
     await clearSession(sessionId);
-    return release("Ticket registration isn't set up for this event yet. Please check back later.");
+    return endSession("Ticket registration isn't set up for this event yet. Please check back later.");
   }
   const event = await getEvent(eventId);
   const lines = types.map((t, i) => `${i + 1}. ${t.name} - ${priceLabel(t.price, event?.price_currency ?? "GHS")}`);
   lines.push("0. Main Menu");
   await upsertSession(sessionId, mobile, "register_ticket_type", { eventId, ticketTypeIds: types.map((t) => t.id) });
-  return menu(`Select Ticket Type\n${lines.join("\n")}`, "register_ticket_type");
+  return continueSession(`Select Ticket Type\n${lines.join("\n")}`);
 }
 
-async function handleRegisterTicketType(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleRegisterTicketType(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, ticketTypeIds } = session.data as { eventId: string; ticketTypeIds: string[] };
-  const choice = req.Message.trim();
-  if (choice === "0") return renderMain(req.SessionId, req.Mobile);
+  const choice = req.input.trim();
+  if (choice === "0") return renderMain(req.session_id, req.phone_number);
 
   const idx = Number(choice) - 1;
   const ticketTypeId = Number.isInteger(idx) ? ticketTypeIds[idx] : undefined;
-  if (!ticketTypeId) return renderTicketTypeList(req.SessionId, req.Mobile, eventId);
+  if (!ticketTypeId) return renderTicketTypeList(req.session_id, req.phone_number, eventId);
 
   const { rows } = await pool.query(`SELECT min_quantity FROM event_ticket_types WHERE id = $1`, [ticketTypeId]);
   const minQuantity: number = rows[0]?.min_quantity ?? 1;
 
   if (minQuantity > 1) {
-    await upsertSession(req.SessionId, req.Mobile, "register_quantity", { eventId, ticketTypeId, minQuantity });
-    return input(`Enter number of tickets (min ${minQuantity}):`, "register_quantity", "quantity", "number");
+    await upsertSession(req.session_id, req.phone_number, "register_quantity", { eventId, ticketTypeId, minQuantity });
+    return continueSession(`Enter number of tickets (min ${minQuantity}):`);
   }
-  await upsertSession(req.SessionId, req.Mobile, "register_name", { eventId, ticketTypeId, quantity: 1 });
-  return input("Enter your full name:", "register_name", "name", "text");
+  await upsertSession(req.session_id, req.phone_number, "register_name", { eventId, ticketTypeId, quantity: 1 });
+  return continueSession("Enter your full name:");
 }
 
-async function handleRegisterQuantity(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleRegisterQuantity(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, ticketTypeId, minQuantity } = session.data as { eventId: string; ticketTypeId: string; minQuantity: number };
-  const qty = Number(req.Message.trim());
+  const qty = Number(req.input.trim());
   if (!Number.isInteger(qty) || qty < minQuantity) {
-    return input(`Please enter a valid number (min ${minQuantity}):`, "register_quantity", "quantity", "number");
+    return continueSession(`Please enter a valid number (min ${minQuantity}):`);
   }
-  await upsertSession(req.SessionId, req.Mobile, "register_name", { eventId, ticketTypeId, quantity: qty });
-  return input("Enter your full name:", "register_name", "name", "text");
+  await upsertSession(req.session_id, req.phone_number, "register_name", { eventId, ticketTypeId, quantity: qty });
+  return continueSession("Enter your full name:");
 }
 
-async function handleRegisterName(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
-  const name = req.Message.trim();
-  if (!name) return input("Please enter your full name:", "register_name", "name", "text");
-  await upsertSession(req.SessionId, req.Mobile, "register_phone", { ...session.data, name });
-  return input("Enter contact phone number (0 to use this number):", "register_phone", "phone", "text");
+async function handleRegisterName(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
+  const name = req.input.trim();
+  if (!name) return continueSession("Please enter your full name:");
+  await upsertSession(req.session_id, req.phone_number, "register_phone", { ...session.data, name });
+  return continueSession("Enter contact phone number (0 to use this number):");
 }
 
-async function handleRegisterPhone(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
-  const val = req.Message.trim();
-  const phone = val === "0" ? req.Mobile : val;
-  await upsertSession(req.SessionId, req.Mobile, "register_email", { ...session.data, phone });
-  return input("Enter email (0 to skip):", "register_email", "email", "text");
+async function handleRegisterPhone(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
+  const val = req.input.trim();
+  const phone = val === "0" ? req.phone_number : val;
+  await upsertSession(req.session_id, req.phone_number, "register_email", { ...session.data, phone });
+  return continueSession("Enter email (0 to skip):");
 }
 
-async function handleRegisterEmail(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
-  const val = req.Message.trim();
+async function handleRegisterEmail(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
+  const val = req.input.trim();
   const email = val === "0" || !val ? null : val;
-  await upsertSession(req.SessionId, req.Mobile, "register_payment_method", { ...session.data, email });
-  return menu("Payment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate", "register_payment_method");
+  await upsertSession(req.session_id, req.phone_number, "register_payment_method", { ...session.data, email });
+  return continueSession("Payment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate");
 }
 
-async function handleRegisterPaymentMethod(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
-  const choice = req.Message.trim();
+async function handleRegisterPaymentMethod(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
+  const choice = req.input.trim();
   const methods: Record<string, string> = { "1": "mobile_money", "2": "card", "3": "cash" };
   const paymentMethod = methods[choice];
-  if (!paymentMethod) return menu("Invalid choice.\nPayment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate", "register_payment_method");
+  if (!paymentMethod) return continueSession("Invalid choice.\nPayment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate");
 
   const data = { ...session.data, paymentMethod } as { eventId: string; ticketTypeId: string; quantity: number; paymentMethod: string };
-  await upsertSession(req.SessionId, req.Mobile, "register_confirm", data);
+  await upsertSession(req.session_id, req.phone_number, "register_confirm", data);
 
   const [event, ticketTypeRows] = await Promise.all([
     getEvent(data.eventId),
@@ -365,24 +372,24 @@ async function handleRegisterPaymentMethod(req: ProgrammableServiceRequest, sess
   const total = Number(ticketType.price) * data.quantity;
   const paymentLabel = paymentMethod === "mobile_money" ? "Mobile Money" : paymentMethod === "card" ? "Card" : "Cash at Gate";
 
-  return menu(
-    `Confirm Registration\n${ticketType.name} x${data.quantity}\nTotal: ${priceLabel(total, event?.price_currency ?? "GHS")}\nPayment: ${paymentLabel}\n1. Confirm\n2. Cancel`,
-    "register_confirm"
+  return continueSession(
+    `Confirm Registration\n${ticketType.name} x${data.quantity}\nTotal: ${priceLabel(total, event?.price_currency ?? "GHS")}\nPayment: ${paymentLabel}\n1. Confirm\n2. Cancel`
   );
 }
 
-async function handleRegisterConfirm(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
-  const choice = req.Message.trim();
+async function handleRegisterConfirm(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
+  const choice = req.input.trim();
   const data = session.data as { eventId: string; ticketTypeId: string; quantity: number; name: string; phone: string; email: string | null; paymentMethod: string };
 
-  if (choice === "2") { await clearSession(req.SessionId); return release("Registration cancelled."); }
+  if (choice === "2") { await clearSession(req.session_id); return endSession("Registration cancelled."); }
   if (choice !== "1") {
-    return menu("Invalid choice.\n1. Confirm\n2. Cancel", "register_confirm");
+    return continueSession("Invalid choice.\n1. Confirm\n2. Cancel");
   }
 
-  if (data.paymentMethod === "card") {
-    await clearSession(req.SessionId);
-    return release("Card payments aren't available via USSD yet. Please choose Mobile Money or Cash at Gate.");
+  if (data.paymentMethod === "mobile_money" || data.paymentMethod === "card") {
+    await clearSession(req.session_id);
+    const label = data.paymentMethod === "mobile_money" ? "Mobile Money" : "Card";
+    return endSession(`${label} payments aren't available yet on this line. Please dial in again and choose Cash at Gate.`);
   }
 
   const [event, ticketTypeRows] = await Promise.all([
@@ -390,43 +397,33 @@ async function handleRegisterConfirm(req: ProgrammableServiceRequest, session: S
     pool.query(`SELECT name, price FROM event_ticket_types WHERE id = $1`, [data.ticketTypeId]),
   ]);
   const ticketType = ticketTypeRows.rows[0];
-  if (!event || !ticketType) { await clearSession(req.SessionId); return release("Sorry, that event is no longer available."); }
+  if (!event || !ticketType) { await clearSession(req.session_id); return endSession("Sorry, that event is no longer available."); }
   const total = Number(ticketType.price) * data.quantity;
 
   try {
-    if (data.paymentMethod === "mobile_money" && total > 0) {
-      const reg = await insertRegistration({
-        eventId: data.eventId, name: data.name, phone: data.phone, email: data.email, quantity: data.quantity,
-        ticketType: ticketType.name, status: "pending", paymentStatus: "unpaid", amountPaid: 0,
-        source: "ussd", paymentMethod: "mobile_money", hubtelSessionId: req.SessionId,
-      });
-      await clearSession(req.SessionId);
-      return releaseWithCheckout(`Pay ${priceLabel(total, event.price_currency)} to complete your ${ticketType.name} ticket for ${event.title}.`, {
-        ItemName: `${event.title} - ${ticketType.name}`,
-        Qty: data.quantity,
-        Price: total,
-        ItemId: data.eventId,
-        ServiceData: { event_id: data.eventId, registration_id: reg.id },
-      });
-    }
-
     const reg = await insertRegistration({
       eventId: data.eventId, name: data.name, phone: data.phone, email: data.email, quantity: data.quantity,
       ticketType: ticketType.name, status: "confirmed",
-      paymentStatus: data.paymentMethod === "cash" ? "unpaid" : "paid",
-      amountPaid: data.paymentMethod === "cash" ? 0 : total,
-      source: "ussd", paymentMethod: data.paymentMethod,
+      paymentStatus: "unpaid", // cash at gate — not yet collected
+      amountPaid: 0,
+      source: "ussd", paymentMethod: "cash",
+      // Tags this ticket with the USSD session that created it, so the
+      // Fulfillment webhook (which carries session_id but no order/ticket
+      // reference of its own) can correlate a real completed session back
+      // to a real row — see src/app/api/ussd/fulfilment/route.ts.
+      hubtelSessionId: req.session_id,
     });
-    await clearSession(req.SessionId);
+    await clearSession(req.session_id);
     try {
       await sendSms(data.phone, ticketSmsText(event, reg));
     } catch (err) { console.error("[ussd register confirm] SMS send failed", err); }
-    return release(`Registered! Ticket code: ${reg.ticket_code}. We've texted the details to ${data.phone}.`);
+    const dueNote = total > 0 ? ` Pay ${priceLabel(total, event.price_currency)} at the gate.` : "";
+    return endSession(`Registered! Ticket code: ${reg.ticket_code}.${dueNote} We've texted the details to ${data.phone}.`);
   } catch (err) {
-    await clearSession(req.SessionId);
-    if (err instanceof AlreadyRegisteredError) return release("You already have a ticket for this event.");
+    await clearSession(req.session_id);
+    if (err instanceof AlreadyRegisteredError) return endSession("You already have a ticket for this event.");
     console.error("[ussd register confirm]", err);
-    return release("Sorry, something went wrong registering you. Please try again.");
+    return endSession("Sorry, something went wrong registering you. Please try again.");
   }
 }
 
@@ -434,202 +431,205 @@ async function handleRegisterConfirm(req: ProgrammableServiceRequest, session: S
 // 3. Event Information
 // ---------------------------------------------------------------------------
 
-function renderInfoMenu(): ProgrammableServiceResponse {
-  return menu("Event Information\n1. Date & Venue\n2. Schedule/Lineup\n3. Directions/Map Link\n4. Contact Organizers\n0. Main Menu", "info_menu");
+function renderInfoMenu(): InteractionResponse {
+  return continueSession("Event Information\n1. Date & Venue\n2. Schedule/Lineup\n3. Directions/Map Link\n4. Contact Organizers\n0. Main Menu");
 }
 
-async function handleInfoMenu(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleInfoMenu(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
 
-  if (choice === "0") return renderMain(req.SessionId, req.Mobile);
+  if (choice === "0") return renderMain(req.session_id, req.phone_number);
 
   if (choice === "2") {
     const { rows } = await pool.query(
       `SELECT DISTINCT day_label, MIN(sort_order) AS min_sort FROM event_schedule_items WHERE event_id = $1 GROUP BY day_label ORDER BY min_sort ASC`,
       [eventId]
     );
-    if (rows.length === 0) { await clearSession(req.SessionId); return release("Schedule not available yet."); }
+    if (rows.length === 0) { await clearSession(req.session_id); return endSession("Schedule not available yet."); }
     const days: string[] = rows.map((r: { day_label: string }) => r.day_label);
     const lines = days.map((d, i) => `${i + 1}. ${d}`);
     lines.push("0. Back");
-    await upsertSession(req.SessionId, req.Mobile, "schedule_day_select", { eventId, days });
-    return menu(`Schedule\n${lines.join("\n")}`, "schedule_day_select");
+    await upsertSession(req.session_id, req.phone_number, "schedule_day_select", { eventId, days });
+    return continueSession(`Schedule\n${lines.join("\n")}`);
   }
 
   const event = await getEvent(eventId);
-  if (!event) { await clearSession(req.SessionId); return release("Sorry, that event is no longer available."); }
+  if (!event) { await clearSession(req.session_id); return endSession("Sorry, that event is no longer available."); }
 
   if (choice === "1") {
-    await clearSession(req.SessionId);
-    return release(`${event.title}\n${shortDateTime(event.starts_at)}\n${location(event)}`);
+    await clearSession(req.session_id);
+    return endSession(`${event.title}\n${shortDateTime(event.starts_at)}\n${location(event)}`);
   }
   if (choice === "3") {
-    await clearSession(req.SessionId);
-    if (!event.map_link) return release("Map link not available yet.");
-    try { await sendSms(req.Mobile, `Directions to ${event.title}: ${event.map_link}`); } catch (err) { console.error("[ussd map sms]", err); return release("Sorry, we couldn't send the SMS. Please try again later."); }
-    return release("We've sent the map link via SMS.");
+    await clearSession(req.session_id);
+    if (!event.map_link) return endSession("Map link not available yet.");
+    try { await sendSms(req.phone_number, `Directions to ${event.title}: ${event.map_link}`); } catch (err) { console.error("[ussd map sms]", err); return endSession("Sorry, we couldn't send the SMS. Please try again later."); }
+    return endSession("We've sent the map link via SMS.");
   }
   if (choice === "4") {
-    await clearSession(req.SessionId);
-    return release(`Contact Organizers\nPhone: ${event.organizer_phone ?? "N/A"}\nWhatsApp: ${event.organizer_whatsapp ?? "N/A"}\nEmail: ${event.organizer_email ?? "N/A"}`);
+    await clearSession(req.session_id);
+    return endSession(`Contact Organizers\nPhone: ${event.organizer_phone ?? "N/A"}\nWhatsApp: ${event.organizer_whatsapp ?? "N/A"}\nEmail: ${event.organizer_email ?? "N/A"}`);
   }
-  return menu(`Invalid choice.\n${renderInfoMenu().Message}`, "info_menu");
+  return continueSession(`Invalid choice.\n${renderInfoMenu().message}`);
 }
 
-async function handleScheduleDaySelect(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleScheduleDaySelect(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, days } = session.data as { eventId: string; days: string[] };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
   if (choice === "0") {
-    await upsertSession(req.SessionId, req.Mobile, "info_menu", { eventId });
+    await upsertSession(req.session_id, req.phone_number, "info_menu", { eventId });
     return renderInfoMenu();
   }
   const idx = Number(choice) - 1;
   const day = days[idx];
-  if (!day) return menu("Invalid choice. Please try again.", "schedule_day_select");
+  if (!day) return continueSession("Invalid choice. Please try again.");
 
-  await clearSession(req.SessionId);
+  await clearSession(req.session_id);
   const { rows } = await pool.query(
     `SELECT time_label, title FROM event_schedule_items WHERE event_id = $1 AND day_label = $2 ORDER BY sort_order ASC`,
     [eventId, day]
   );
   const lines = rows.map((r: { time_label: string; title: string }) => `${r.time_label} - ${r.title}`);
-  return release(`${day}\n${lines.join("\n") || "No items scheduled."}`);
+  return endSession(`${day}\n${lines.join("\n") || "No items scheduled."}`);
 }
 
 // ---------------------------------------------------------------------------
 // 4. Grounds Management
 // ---------------------------------------------------------------------------
 
-function renderGroundsMenu(): ProgrammableServiceResponse {
-  return menu("Grounds Management\n1. Report an Issue\n2. Request Assistance\n3. Facility Info\n4. Lost & Found\n0. Main Menu", "grounds_menu");
+function renderGroundsMenu(): InteractionResponse {
+  return continueSession("Grounds Management\n1. Report an Issue\n2. Request Assistance\n3. Facility Info\n4. Lost & Found\n0. Main Menu");
 }
 
-async function handleGroundsMenu(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleGroundsMenu(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
+  const choice = req.input.trim();
   switch (choice) {
     case "0":
-      return renderMain(req.SessionId, req.Mobile);
+      return renderMain(req.session_id, req.phone_number);
     case "1":
-      await upsertSession(req.SessionId, req.Mobile, "report_issue_category", { eventId });
-      return menu("Report an Issue\n1. Security\n2. Sanitation\n3. Sound/Technical\n4. Other\n0. Back", "report_issue_category");
+      await upsertSession(req.session_id, req.phone_number, "report_issue_category", { eventId });
+      return continueSession("Report an Issue\n1. Security\n2. Sanitation\n3. Sound/Technical\n4. Other\n0. Back");
     case "2":
-      await upsertSession(req.SessionId, req.Mobile, "assistance_category", { eventId });
-      return menu("Request Assistance\n1. Medical\n2. Security\n3. Crowd Control\n0. Back", "assistance_category");
+      await upsertSession(req.session_id, req.phone_number, "assistance_category", { eventId });
+      return continueSession("Request Assistance\n1. Medical\n2. Security\n3. Crowd Control\n0. Back");
     case "3":
-      await upsertSession(req.SessionId, req.Mobile, "facility_info_select", { eventId });
-      return menu("Facility Info\n1. Nearest Toilet\n2. Nearest First Aid\n3. Emergency Exits\n0. Back", "facility_info_select");
+      await upsertSession(req.session_id, req.phone_number, "facility_info_select", { eventId });
+      return continueSession("Facility Info\n1. Nearest Toilet\n2. Nearest First Aid\n3. Emergency Exits\n0. Back");
     case "4":
-      await upsertSession(req.SessionId, req.Mobile, "lost_found_choice", { eventId });
-      return menu("Lost & Found\n1. Report Lost Item\n2. Report Found Item\n0. Back", "lost_found_choice");
+      await upsertSession(req.session_id, req.phone_number, "lost_found_choice", { eventId });
+      return continueSession("Lost & Found\n1. Report Lost Item\n2. Report Found Item\n0. Back");
     default:
-      return menu(`Invalid choice.\n${renderGroundsMenu().Message}`, "grounds_menu");
+      return continueSession(`Invalid choice.\n${renderGroundsMenu().message}`);
   }
 }
 
-async function backToGrounds(sessionId: string, mobile: string, eventId: string): Promise<ProgrammableServiceResponse> {
+async function backToGrounds(sessionId: string, mobile: string, eventId: string): Promise<InteractionResponse> {
   await upsertSession(sessionId, mobile, "grounds_menu", { eventId });
   return renderGroundsMenu();
 }
 
-async function handleReportIssueCategory(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleReportIssueCategory(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
-  if (choice === "0") return backToGrounds(req.SessionId, req.Mobile, eventId);
+  const choice = req.input.trim();
+  if (choice === "0") return backToGrounds(req.session_id, req.phone_number, eventId);
   const categories: Record<string, string> = { "1": "Security", "2": "Sanitation", "3": "Sound/Technical", "4": "Other" };
   const category = categories[choice];
-  if (!category) return menu("Invalid choice.\nReport an Issue\n1. Security\n2. Sanitation\n3. Sound/Technical\n4. Other\n0. Back", "report_issue_category");
+  if (!category) return continueSession("Invalid choice.\nReport an Issue\n1. Security\n2. Sanitation\n3. Sound/Technical\n4. Other\n0. Back");
 
-  await upsertSession(req.SessionId, req.Mobile, "report_issue_description", { eventId, category });
-  return input("Briefly describe the issue:", "report_issue_description", "description", "text");
+  await upsertSession(req.session_id, req.phone_number, "report_issue_description", { eventId, category });
+  return continueSession("Briefly describe the issue:");
 }
 
-async function handleReportIssueDescription(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleReportIssueDescription(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, category } = session.data as { eventId: string; category: string };
-  const description = req.Message.trim() || "(no description)";
+  const description = req.input.trim() || "(no description)";
   const ticketNumber = genReportNumber("R");
   await pool.query(
     `INSERT INTO event_ground_reports (event_id, kind, category, description, phone, ticket_number) VALUES ($1,'issue',$2,$3,$4,$5)`,
-    [eventId, category, description, req.Mobile, ticketNumber]
+    [eventId, category, description, req.phone_number, ticketNumber]
   );
-  await clearSession(req.SessionId);
-  return release(`Thank you. Your report has been logged.\nReference: ${ticketNumber}\nOur grounds team will follow up.`);
+  await clearSession(req.session_id);
+  return endSession(`Thank you. Your report has been logged.\nReference: ${ticketNumber}\nOur grounds team will follow up.`);
 }
 
-async function handleAssistanceCategory(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleAssistanceCategory(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
-  if (choice === "0") return backToGrounds(req.SessionId, req.Mobile, eventId);
+  const choice = req.input.trim();
+  if (choice === "0") return backToGrounds(req.session_id, req.phone_number, eventId);
   const categories: Record<string, string> = { "1": "Medical", "2": "Security", "3": "Crowd Control" };
   const category = categories[choice];
-  if (!category) return menu("Invalid choice.\nRequest Assistance\n1. Medical\n2. Security\n3. Crowd Control\n0. Back", "assistance_category");
+  if (!category) return continueSession("Invalid choice.\nRequest Assistance\n1. Medical\n2. Security\n3. Crowd Control\n0. Back");
 
   const ticketNumber = genReportNumber("R");
   await pool.query(
     `INSERT INTO event_ground_reports (event_id, kind, category, description, phone, ticket_number) VALUES ($1,'assistance',$2,'',$3,$4)`,
-    [eventId, category, req.Mobile, ticketNumber]
+    [eventId, category, req.phone_number, ticketNumber]
   );
-  await clearSession(req.SessionId);
-  return release(`Help is on the way.\nCategory: ${category}\nEstimated response: 10-15 minutes.\nReference: ${ticketNumber}`);
+  await clearSession(req.session_id);
+  return endSession(`Help is on the way.\nCategory: ${category}\nEstimated response: 10-15 minutes.\nReference: ${ticketNumber}`);
 }
 
-async function handleFacilityInfoSelect(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleFacilityInfoSelect(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
-  if (choice === "0") return backToGrounds(req.SessionId, req.Mobile, eventId);
+  const choice = req.input.trim();
+  if (choice === "0") return backToGrounds(req.session_id, req.phone_number, eventId);
 
   const event = await getEvent(eventId);
-  await clearSession(req.SessionId);
-  if (!event) return release("Sorry, that event is no longer available.");
+  await clearSession(req.session_id);
+  if (!event) return endSession("Sorry, that event is no longer available.");
 
   const fallback = "Information not available yet — please ask a member of staff.";
-  if (choice === "1") return release(`Nearest Toilet\n${event.toilet_info ?? fallback}`);
-  if (choice === "2") return release(`Nearest First Aid\n${event.first_aid_info ?? fallback}`);
-  if (choice === "3") return release(`Emergency Exits\n${event.emergency_exit_info ?? fallback}`);
-  return menu("Invalid choice.\nFacility Info\n1. Nearest Toilet\n2. Nearest First Aid\n3. Emergency Exits\n0. Back", "facility_info_select");
+  if (choice === "1") return endSession(`Nearest Toilet\n${event.toilet_info ?? fallback}`);
+  if (choice === "2") return endSession(`Nearest First Aid\n${event.first_aid_info ?? fallback}`);
+  if (choice === "3") return endSession(`Emergency Exits\n${event.emergency_exit_info ?? fallback}`);
+  return continueSession("Invalid choice.\nFacility Info\n1. Nearest Toilet\n2. Nearest First Aid\n3. Emergency Exits\n0. Back");
 }
 
-async function handleLostFoundChoice(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleLostFoundChoice(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId } = session.data as { eventId: string };
-  const choice = req.Message.trim();
-  if (choice === "0") return backToGrounds(req.SessionId, req.Mobile, eventId);
+  const choice = req.input.trim();
+  if (choice === "0") return backToGrounds(req.session_id, req.phone_number, eventId);
   if (choice === "1") {
-    await upsertSession(req.SessionId, req.Mobile, "lost_found_description", { eventId, kind: "lost" });
-    return input("Describe the lost item:", "lost_found_description", "description", "text");
+    await upsertSession(req.session_id, req.phone_number, "lost_found_description", { eventId, kind: "lost" });
+    return continueSession("Describe the lost item:");
   }
   if (choice === "2") {
-    await upsertSession(req.SessionId, req.Mobile, "lost_found_description", { eventId, kind: "found" });
-    return input("Describe the found item:", "lost_found_description", "description", "text");
+    await upsertSession(req.session_id, req.phone_number, "lost_found_description", { eventId, kind: "found" });
+    return continueSession("Describe the found item:");
   }
-  return menu("Invalid choice.\nLost & Found\n1. Report Lost Item\n2. Report Found Item\n0. Back", "lost_found_choice");
+  return continueSession("Invalid choice.\nLost & Found\n1. Report Lost Item\n2. Report Found Item\n0. Back");
 }
 
-async function handleLostFoundDescription(req: ProgrammableServiceRequest, session: SessionRow): Promise<ProgrammableServiceResponse> {
+async function handleLostFoundDescription(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const { eventId, kind } = session.data as { eventId: string; kind: "lost" | "found" };
-  const description = req.Message.trim() || "(no description)";
+  const description = req.input.trim() || "(no description)";
   await pool.query(
     `INSERT INTO event_lost_found (event_id, kind, description, phone) VALUES ($1,$2,$3,$4)`,
-    [eventId, kind, description, req.Mobile]
+    [eventId, kind, description, req.phone_number]
   );
-  await clearSession(req.SessionId);
-  return release(`Thank you. Your ${kind} item report has been logged. Our team will contact you if there's a match.`);
+  await clearSession(req.session_id);
+  return endSession(`Thank you. Your ${kind} item report has been logged. Our team will contact you if there's a match.`);
 }
 
 // ---------------------------------------------------------------------------
 // Entry point
 // ---------------------------------------------------------------------------
 
-/** Entry point for the Service Interaction URL — one Hubtel USSD callback in, one JSON response out. */
-export async function handleInteraction(req: ProgrammableServiceRequest): Promise<ProgrammableServiceResponse> {
-  const type = normalizeType(req.Type);
+/**
+ * Entry point for the Interaction URL — one SendrPlus turn in, one JSON
+ * response out. SendrPlus is the sole source of truth for "is this a new
+ * session" (new_session) — unlike Hubtel, it never separately notifies us
+ * of a release/timeout, so there's no signal to clean up an abandoned
+ * session early; ussd_sessions.updated_at exists for a periodic sweep if
+ * that turns out to matter in practice.
+ */
+export async function handleInteraction(req: InteractionRequest): Promise<InteractionResponse> {
+  if (req.new_session) return renderMain(req.session_id, req.phone_number);
 
-  if (type === "timeout") return release(""); // per Hubtel docs: response is discarded, ignore safely
-  if (type === "release") { await clearSession(req.SessionId); return release(""); }
-  if (type === "initiation" || type === "favorite") return renderMain(req.SessionId, req.Mobile);
-
-  const session = await loadSession(req.SessionId);
-  if (!session) return renderMain(req.SessionId, req.Mobile); // expired/lost session — restart cleanly
+  const session = await loadSession(req.session_id);
+  if (!session) return renderMain(req.session_id, req.phone_number); // lost/expired session — restart cleanly
 
   switch (session.step) {
     case "check_ticket_menu": return handleCheckTicketMenu(req, session);
