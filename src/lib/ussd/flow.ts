@@ -285,10 +285,7 @@ async function handleTransferPinInput(req: InteractionRequest, session: SessionR
 // SendrPlus does no payment collection on the USSD leg at all (no cart,
 // no OrderInfo, no fulfilment-based payment confirmation like Hubtel) —
 // a vendor is expected to handle payment entirely on its own. Cash at
-// Gate is fully real (no payment gateway needed). Mobile Money and Card
-// are listed to match the requested flow but decline honestly instead
-// of faking a charge — wire up a real payment provider before enabling
-// either for real.
+// Gate is the only payment method offered (no payment gateway needed).
 // ---------------------------------------------------------------------------
 
 async function renderTicketTypeList(sessionId: string, mobile: string, eventId: string): Promise<InteractionResponse> {
@@ -352,14 +349,14 @@ async function handleRegisterEmail(req: InteractionRequest, session: SessionRow)
   const val = req.input.trim();
   const email = val === "0" || !val ? null : val;
   await upsertSession(req.session_id, req.phone_number, "register_payment_method", { ...session.data, email });
-  return continueSession("Payment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate");
+  return continueSession("Payment Method\n1. Cash at Gate");
 }
 
 async function handleRegisterPaymentMethod(req: InteractionRequest, session: SessionRow): Promise<InteractionResponse> {
   const choice = req.input.trim();
-  const methods: Record<string, string> = { "1": "mobile_money", "2": "card", "3": "cash" };
+  const methods: Record<string, string> = { "1": "cash" };
   const paymentMethod = methods[choice];
-  if (!paymentMethod) return continueSession("Invalid choice.\nPayment Method\n1. Mobile Money\n2. Card\n3. Cash at Gate");
+  if (!paymentMethod) return continueSession("Invalid choice.\nPayment Method\n1. Cash at Gate");
 
   const data = { ...session.data, paymentMethod } as { eventId: string; ticketTypeId: string; quantity: number; paymentMethod: string };
   await upsertSession(req.session_id, req.phone_number, "register_confirm", data);
@@ -370,7 +367,7 @@ async function handleRegisterPaymentMethod(req: InteractionRequest, session: Ses
   ]);
   const ticketType = ticketTypeRows.rows[0];
   const total = Number(ticketType.price) * data.quantity;
-  const paymentLabel = paymentMethod === "mobile_money" ? "Mobile Money" : paymentMethod === "card" ? "Card" : "Cash at Gate";
+  const paymentLabel = "Cash at Gate";
 
   return continueSession(
     `Confirm Registration\n${ticketType.name} x${data.quantity}\nTotal: ${priceLabel(total, event?.price_currency ?? "GHS")}\nPayment: ${paymentLabel}\n1. Confirm\n2. Cancel`
@@ -384,12 +381,6 @@ async function handleRegisterConfirm(req: InteractionRequest, session: SessionRo
   if (choice === "2") { await clearSession(req.session_id); return endSession("Registration cancelled."); }
   if (choice !== "1") {
     return continueSession("Invalid choice.\n1. Confirm\n2. Cancel");
-  }
-
-  if (data.paymentMethod === "mobile_money" || data.paymentMethod === "card") {
-    await clearSession(req.session_id);
-    const label = data.paymentMethod === "mobile_money" ? "Mobile Money" : "Card";
-    return endSession(`${label} payments aren't available yet on this line. Please dial in again and choose Cash at Gate.`);
   }
 
   const [event, ticketTypeRows] = await Promise.all([
